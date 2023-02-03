@@ -1,24 +1,5 @@
-# spa
+# CRM System
 
-## Project setup
-```
-npm install
-```
+Font Awesome has a ton of great styling tools that work hand-in-hand with our icons to make your project look its best.
+https://fontawesome.com/search?o=r&m=free
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
