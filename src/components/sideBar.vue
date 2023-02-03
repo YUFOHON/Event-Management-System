@@ -64,6 +64,7 @@ export default {
 .nav-link {
   color: white;
   font-size: large;
+  border-radius: 30px;
 }
 
 .nav-link:active,
@@ -72,7 +73,7 @@ export default {
  {
   background-color: #99e7f7d3;
   align-content: center;
-  border-radius: 10px;
+  border-radius: 30px;
   
 }
 

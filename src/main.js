@@ -5,5 +5,16 @@ import "bootstrap";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
 
-createApp(App).use(router).mount('#app')
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+/* add icons to the library */
+library.add(fas,faTwitter)
+
+createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app')
