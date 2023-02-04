@@ -7,8 +7,9 @@
 
       </div>
 
-      <div class="d-flex-button">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <div  class="d-flex-button">
+
+        <button v-if="props.sortButton" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           Sort
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Date Ascending</a></li>
@@ -19,15 +20,16 @@
             <li><a class="dropdown-item" href="#">Head</a></li>
           </ul>
         </button>
-        <button type="button" class="btn btn-secondary">Event History</button>
-        <button type="button" class="btn btn-success">Add</button>
+
+        <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
+        <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
 
 
 
       </div>
 
 
-      <form class="d-flex" role="search">
+      <form v-if="props.search" class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
@@ -42,11 +44,13 @@
 export default {
   name: 'navSecondBar',
   props: {
-    arr: Array
+    arr: Array,
+    sortButton: {Boolean, default: false},
+    eventHistoryButton:{Boolean, default: false},
+    addButton: {Boolean, default: false},
+    search:{Boolean, default: false},
   },
   setup(props) {
-    //     const path = ref(props.path)
-    // console.log(path)
 
     return {
       props

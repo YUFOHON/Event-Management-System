@@ -6,20 +6,20 @@
     </div>
     <div class="row py-4">
       <navSecondBar :arr="[
-        {
-    name: '主頁',
-    URL: '/'
-  }
-        , 
-        {
-    name: '活動',
-    URL: 'Event'
-  }
-        , 
-        {
-    name: 'Veronica',
-    URL: 'Veridian Dynamics'
-  }]"/>
+      {
+        name: '主頁',
+        URL: '/'
+      }
+      ,
+      {
+        name: '活動',
+        URL: 'events'
+      }
+      ,
+      {
+        name: 'Veronica',
+        URL: 'Veridian Dynamics'
+      }]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :search="true" />
     </div>
 
 
@@ -29,7 +29,7 @@
 <script>
 // @ is an alias to /src
 
-import navBar from '@/components/Bruce/navBar.vue'
+import navBar from '@/components/public/navBar.vue'
 // import SideBar from '@/components/sideBar.vue';
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 export default {
