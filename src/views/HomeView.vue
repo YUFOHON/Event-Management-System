@@ -11,7 +11,7 @@
 <script>
 // @ is an alias to /src
 
-import navBar from '@/components/navBar.vue'
+import navBar from '@/components/Bruce/navBar.vue'
 // import SideBar from '@/components/sideBar.vue';
 
 export default {
