@@ -5,7 +5,21 @@
       <navBar />
     </div>
     <div class="row py-4">
-      <navSecondBar :path="'主頁'"/>
+      <navSecondBar :arr="[
+        {
+    name: '主頁',
+    URL: '/'
+  }
+        , 
+        {
+    name: '活動',
+    URL: 'Event'
+  }
+        , 
+        {
+    name: 'Veronica',
+    URL: 'Veridian Dynamics'
+  }]"/>
     </div>
 
 
