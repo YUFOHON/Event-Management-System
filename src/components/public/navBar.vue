@@ -10,8 +10,11 @@
       </a>
       <ul class="nav gap-5  ">
         <li class="nav-item">
-          <a class="nav-link  text-dark" aria-current="page" href="#">
-            <font-awesome-icon icon="fa-solid fa-house" spin />
+          <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
+            href="#">
+
+            <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
+            <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
             主頁
           </a>
         </li>
@@ -28,7 +31,11 @@
     </div>
 
     <div class="p-4">
-      <router-link to="/" class="userIcon"><font-awesome-icon icon="fa-solid fa-user" size="2xl" /></router-link>
+      <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" to="/" class="userIcon">
+        <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" bounce size="2xl" />
+        <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
+      </router-link>
+
     </div>
 
     <!-- </div> -->
@@ -42,10 +49,19 @@
 
 
 <script>
+import { ref } from 'vue'
 export default {
   name: 'navBar',
   props: {
     msg: String
+  },
+  setup() {
+    let hover = ref(false)
+    let hoverUser = ref(false)
+    return {
+      hover,
+      hoverUser
+    }
   }
 }
 </script>
