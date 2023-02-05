@@ -3,13 +3,14 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
       <div class="container-flex ">
 
-        <a v-for="a in props.arr" :key="a.name" class="navbar-brand text-danger" :href=a.URL>{{ a.name }}/</a>
-
+        <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>
+        <!-- class="navbar-brand text-danger" -->
       </div>
 
-      <div  class="d-flex-button">
+      <div class="d-flex-button">
 
-        <button v-if="props.sortButton" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <button v-if="props.sortButton" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+          aria-expanded="false">
           Sort
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Date Ascending</a></li>
@@ -45,10 +46,10 @@ export default {
   name: 'navSecondBar',
   props: {
     arr: Array,
-    sortButton: {Boolean, default: false},
-    eventHistoryButton:{Boolean, default: false},
-    addButton: {Boolean, default: false},
-    search:{Boolean, default: false},
+    sortButton: { Boolean, default: false },
+    eventHistoryButton: { Boolean, default: false },
+    addButton: { Boolean, default: false },
+    search: { Boolean, default: false },
   },
   setup(props) {
 
@@ -84,13 +85,24 @@ export default {
 
 .dropdown-menu {
 
-  background-color: #c1c1c153;
+  /* background-color: #c1c1c153; */
 
 }
 
 .dropdown-item:hover {
-
   background-color: #99e7f7d3;
+}
 
+a {
+  color: #000000ef;
+  text-decoration: none;
+  /* size of text increse */
+  font-size: 1.2rem;
+
+}
+
+a:hover {
+  background-color: #99e7f7d3;
+  border-radius: 10px;
 }
 </style>
