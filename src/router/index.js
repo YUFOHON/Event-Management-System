@@ -12,6 +12,7 @@ const routes = [
     path: '/events',
     name: 'events',
     component: EventView
+  },
   {
     path: '/login',
     name: 'login',
