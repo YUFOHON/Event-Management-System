@@ -35,6 +35,7 @@ import navBar from '@/components/public/navBar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 
 import eventForm from '@/components/Bruce/eventForm.vue'
+import { onMounted } from 'vue'
 
 export default {
     name: 'EventView',
@@ -43,6 +44,16 @@ export default {
         navSecondBar,
         eventForm
         // SideBar
+    },
+    setup() {
+
+onMounted(() => {
+console.log('mounted')
+
+
+})
+        return {
+        }
     }
 }
 </script>
