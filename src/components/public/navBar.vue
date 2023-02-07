@@ -26,13 +26,21 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">Feedback</a>
         </li>
         <li class="nav-item">
           <a class="nav-link ">Disabled</a>
         </li>
       </ul>
     </div>
+
+    <form class="d-flex ms-auto order-5">
+        <button v-if="token !== null" class="btn btn-outline-primary mx-2" type="submit"
+          @click="logout()">SignOut</button>
+        <router-link to="/login"><button v-if="token == null" class="btn btn-primary mx-2" type="submit">Login</button>
+        </router-link>
+      </form>
+
 
     <div class="p-4">
       <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" to="/" class="userIcon">
@@ -42,14 +50,8 @@
 
     </div>
 
-    <!-- </div> -->
   </nav>
-
-
-
-
 </template>
-
 
 
 <script>
