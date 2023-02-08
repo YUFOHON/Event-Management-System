@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import EventView from '../views/EventView.vue'
 import LoginView from '../views/LoginView.vue'
-
+import EventView from '../views/Bruce/EventView.vue'
 const routes = [
   {
     path: '/',

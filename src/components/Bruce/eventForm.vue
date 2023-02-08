@@ -41,7 +41,7 @@
             </div>
             <div class="col">
                 <div class="mb-3">
-                    <label for="object" class="form-label">對象</label>
+                    <label for="target" class="form-label">對象</label>
                     <input type="text" class="form-control" id="object" aria-describedby="emailHelp">
                 </div>
             </div>

@@ -22,18 +22,24 @@
 </template>
   
 <script>
+<<<<<<< HEAD
 import { ref } from "vue";
 
+=======
+// import { ref } from "vue";
+// import jwt_decode from "jwt-decode";
+>>>>>>> 8c95d71dbc289487853962dd7295604b19c8277c
 
 export default {
     name: 'LoginView',
     components: {
     },
-    setup() {
-        const credential = ref({});
+    // setup() {
+    //     const credential = ref({});
 
-        const login = async function () {
+    //     const login = async function () {
 
+<<<<<<< HEAD
             var response = await fetch("/api/login", {
                 method: "post",
                 headers: {
@@ -51,11 +57,33 @@ export default {
                 alert(response.statusText)
             }
         }
+=======
+    //         var response = await fetch("/api/user/login", {
+    //             method: "post",
+    //             headers: {
+    //                 "content-type": "application/json"
+    //             },
+    //             body: JSON.stringify(credential.value)
+    //         });
 
-        return {
-            credential, login
-        }
-    }
+    //         if (response.ok) {
+    //             var data = await response.json()
+    //             localStorage.setItem("user", data.token);
+
+    //             var decoded = jwt_decode(data.token);
+    //             console.log(decoded);
+    //             alert(JSON.stringify(data))
+    //             alert("login Successfully.")
+    //         } else {
+    //             alert(response.statusText)
+    //         }
+    //     }
+>>>>>>> 8c95d71dbc289487853962dd7295604b19c8277c
+
+    //     return {
+    //         credential, login
+    //     }
+    // }
 }
 </script>
 
