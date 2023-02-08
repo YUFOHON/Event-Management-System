@@ -45,9 +45,11 @@ export default {
                 var data = await response.json()
                 alert(JSON.stringify(data))
                 alert("login Successfully.")
+                location.assign("/")
             } else {
                 alert(response.statusText)
             }
+            
         }
 
         return {
