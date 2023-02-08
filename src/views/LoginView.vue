@@ -23,7 +23,7 @@
   
 <script>
 import { ref } from "vue";
-import jwt_decode from "jwt-decode";
+
 
 export default {
     name: 'LoginView',
@@ -34,7 +34,7 @@ export default {
 
         const login = async function () {
 
-            var response = await fetch("/api/user/login", {
+            var response = await fetch("/api/login", {
                 method: "post",
                 headers: {
                     "content-type": "application/json"
@@ -44,10 +44,7 @@ export default {
 
             if (response.ok) {
                 var data = await response.json()
-                localStorage.setItem("user", data.token);
 
-                var decoded = jwt_decode(data.token);
-                
                 alert(JSON.stringify(data))
                 alert("login Successfully.")
             } else {
