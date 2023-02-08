@@ -22,25 +22,18 @@
 </template>
   
 <script>
-<<<<<<< HEAD
 import { ref } from "vue";
-
-=======
-// import { ref } from "vue";
-// import jwt_decode from "jwt-decode";
->>>>>>> 8c95d71dbc289487853962dd7295604b19c8277c
 
 export default {
     name: 'LoginView',
     components: {
     },
-    // setup() {
-    //     const credential = ref({});
+    setup() {
+        const credential = ref({});
 
-    //     const login = async function () {
+        const login = async function () {
 
-<<<<<<< HEAD
-            var response = await fetch("/api/login", {
+            var response = await fetch("/api/user/login", {
                 method: "post",
                 headers: {
                     "content-type": "application/json"
@@ -50,40 +43,17 @@ export default {
 
             if (response.ok) {
                 var data = await response.json()
-
                 alert(JSON.stringify(data))
                 alert("login Successfully.")
             } else {
                 alert(response.statusText)
             }
         }
-=======
-    //         var response = await fetch("/api/user/login", {
-    //             method: "post",
-    //             headers: {
-    //                 "content-type": "application/json"
-    //             },
-    //             body: JSON.stringify(credential.value)
-    //         });
 
-    //         if (response.ok) {
-    //             var data = await response.json()
-    //             localStorage.setItem("user", data.token);
-
-    //             var decoded = jwt_decode(data.token);
-    //             console.log(decoded);
-    //             alert(JSON.stringify(data))
-    //             alert("login Successfully.")
-    //         } else {
-    //             alert(response.statusText)
-    //         }
-    //     }
->>>>>>> 8c95d71dbc289487853962dd7295604b19c8277c
-
-    //     return {
-    //         credential, login
-    //     }
-    // }
+        return {
+            credential, login
+        }
+    }
 }
 </script>
 
