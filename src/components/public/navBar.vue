@@ -34,12 +34,12 @@
       </ul>
     </div>
 
-    <!-- <form class="d-flex ms-auto order-5">
+    <form class="d-flex ms-auto order-5">
         <button v-if="token !== null" class="btn btn-outline-primary mx-2" type="submit"
           @click="logout()">SignOut</button>
         <router-link to="/login"><button v-if="token == null" class="btn btn-primary mx-2" type="submit">Login</button>
         </router-link>
-      </form> -->
+      </form>
 
 
     <div class="p-4">
@@ -66,11 +66,22 @@ export default {
     let hoverUser = ref(false)
     let hoverEvent = ref(false)
     let show = ref(true)
+    let token = localStorage.getItem("user");
+
+    const logout = function(){
+      alert("Successful logout");
+      localStorage.removeItem('user');
+      token = null;
+      location.reload()
+    }
+
     return {
       hover,
       hoverUser,
       hoverEvent,
-      show
+      show,
+      logout,
+      token
     }
   }
 }

@@ -5,7 +5,7 @@
         <form @submit.prevent="login()">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email/ username</label>
-                <input type="email" class="form-control" v-model="credential.email" aria-describedby="emailHelp">
+                <input type="text" class="form-control" v-model="credential.username" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
@@ -22,43 +22,45 @@
 </template>
   
 <script>
-// import { ref } from "vue";
-// import jwt_decode from "jwt-decode";
+import { ref } from "vue";
+import jwt_decode from "jwt-decode";
 
 export default {
     name: 'LoginView',
     components: {
     },
-    // setup() {
-    //     const credential = ref({});
+    setup() {
+        const credential = ref({});
 
-    //     const login = async function () {
+        const login = async function () {
 
-    //         var response = await fetch("/api/user/login", {
-    //             method: "post",
-    //             headers: {
-    //                 "content-type": "application/json"
-    //             },
-    //             body: JSON.stringify(credential.value)
-    //         });
+            var response = await fetch("/api/user/login", {
+                method: "post",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(credential.value)
+            });
 
-    //         if (response.ok) {
-    //             var data = await response.json()
-    //             localStorage.setItem("user", data.token);
+            if (response.ok) {
+                var data = await response.json()
+                localStorage.setItem("user", data.token);
 
-    //             var decoded = jwt_decode(data.token);
-    //             console.log(decoded);
-    //             alert(JSON.stringify(data))
-    //             alert("login Successfully.")
-    //         } else {
-    //             alert(response.statusText)
-    //         }
-    //     }
+                var decoded = jwt_decode(data.token);
+                alert(JSON.stringify(decoded))
+                // alert(JSON.stringify(data))
+                alert("login Successfully.")
+                location.assign("/")
+            } else {
+                alert(response.statusText)
+            }
+            
+        }
 
-    //     return {
-    //         credential, login
-    //     }
-    // }
+        return {
+            credential, login
+        }
+    }
 }
 </script>
 
