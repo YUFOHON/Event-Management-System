@@ -69,6 +69,7 @@ export default {
     let token = localStorage.getItem("user");
 
     const logout = function(){
+      alert("Successful logout");
       localStorage.removeItem('user');
       token = null;
       location.reload()
