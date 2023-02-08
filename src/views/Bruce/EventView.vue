@@ -22,9 +22,9 @@
         }]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :search="true" />
     </div>
 
-    <div class="row">
-        <div v-for="index in 4" :key="index" class="col p">
-            <eventCard />
+    <div class="row d-flex">
+        <div v-for="a in arr" :key="a" class="col">
+            <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" />
         </div>
     </div>
 </template>
@@ -38,6 +38,7 @@ import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 
 // import eventForm from '@/components/Bruce/eventForm.vue'
 import { onMounted } from 'vue'
+import { ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 
 export default {
@@ -50,7 +51,7 @@ export default {
         // SideBar
     },
     setup() {
-        let arr = [];
+        let arr = ref([]);
         // let curPage = 1;
         // let lastPage = 1;
 
@@ -62,23 +63,22 @@ export default {
                 }
             })
             if (response.ok) {
-        var data = await response.json();
-         arr = data.results;
-        // lastPage = data.pages;
-        // curPage = page;
-        console.log(arr);
-      } else {
-        alert(response.statusText);
-      }
+                var data = await response.json();
+                arr.value = data.results;
+                // lastPage = data.pages;
+                // curPage = page;
+                // console.log(arr)
+            } else {
+                alert(response.statusText);
+            }
 
         }
         onMounted(() => {
             greeting()
         }
         )
-
-
         return {
+            arr
         }
     }
 }

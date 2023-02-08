@@ -1,10 +1,9 @@
 <template>
     <div class="card" style="width: 18rem;">
-        <img src="" class="card-img-top" alt="...">
+        <img :src=props.image class="" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+            <h5 class="card-title">{{ props.eventName }}</h5>
+            <p class="card-text">{{ props.content }}</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
@@ -14,9 +13,25 @@
 <script>
 // import { ref } from 'vue'
 
+
 export default {
-    name: 'eventCard'
-
-
+    name: 'eventCard',
+    props: {
+        eventName: String,
+        image: String,
+        content: String
+    },
+    setup(props) {
+        return {
+            props
+        }
+    }
 }
 </script>
+
+<style scoped>
+.image {
+    width: 100px;
+    height: 100px;
+}
+</style>
