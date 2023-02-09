@@ -13,8 +13,8 @@
           aria-expanded="false">
           Sort
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Date Ascending</a></li>
-            <li><a class="dropdown-item" href="#">Date Dscending</a></li>
+            <li><a class="dropdown-item" v-on:click="this.$emit('sorting','Ascending')" >Date Ascending</a></li>
+            <li><a class="dropdown-item" v-on:click="this.$emit('sorting','Descending')">Date Descending</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>

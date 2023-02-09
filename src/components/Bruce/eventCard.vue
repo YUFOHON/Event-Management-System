@@ -1,10 +1,13 @@
 <template>
     <div class="card" style="width: 18rem;">
-        <img :src=props.image class="" alt="...">
+        <img :src=props.image class="" alt="..." style="width: 18rem; height: 15rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ props.eventName }}</h5>
-            <p class="card-text">{{ props.content }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">名稱： {{ props.eventName }}</h5>
+            <p class="card-text">內容： {{ props.content }}</p>
+            <p class="card-text">日期：{{ props.Date }}</p>
+            <router-link :to="'/events/eventForm/' + props.id" class="btn btn-primary">查看</router-link>
+
+
         </div>
     </div>
 </template>
@@ -19,7 +22,9 @@ export default {
     props: {
         eventName: String,
         image: String,
-        content: String
+        content: String,
+        id: String,
+        Date: String
     },
     setup(props) {
         return {
