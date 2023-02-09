@@ -6,15 +6,15 @@
     </div>
     <div class="row py-4">
         <navSecondBar :arr="[
-        {
-            name: '主頁',
-            URL: '/'
-        }
-        ,
-        {
-            name: '活動',
-            URL: '/events'
-        }
+            {
+                name: '主頁',
+                URL: '/'
+            }
+            ,
+            {
+                name: '活動',
+                URL: '/events'
+            }
         ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :search="true" @sorting="sortEvent" />
     </div>
 
@@ -33,13 +33,12 @@
             </div>
         </div>
 
-        <div class="pagination">
-            <pagination @fetchPage="fetchEvent" :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" />
 
-
-        </div>
     </div>
+    <div class="d-flex justify-content-center p-4">
+        <pagination @fetchPage="fetchEvent" :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"/>
 
+    </div>
 </template>
 
 <script>
@@ -69,14 +68,19 @@ export default {
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
-
+        //default sort is ascending
+        let sortDefault = ref('Ascending')
+        let pageDefault = ref(1)
         async function sortEvent(sort) {
             fetchEvent(1, sort)
         }
 
         async function fetchEvent(page, sort) {
+            console.log(page)
             console.log(sort)
-            let response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort, {
+            sortDefault.value = sort
+            pageDefault.value = page
+            let response = await fetch('/api/events?perPage=' + 6 + "&page=" + pageDefault.value + "&sort=" + sortDefault.value, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -85,7 +89,7 @@ export default {
             if (response.ok) {
                 var data = await response.json();
                 arr.value = data.results;
-                console.log(arr.value)
+                // console.log(arr.value)
                 lastPage.value = data.pages;
                 curPage.value = page;
             } else {
@@ -100,11 +104,11 @@ export default {
         // })
 
         onMounted(() => {
-            fetchEvent(1, 'Ascending')
+            fetchEvent(pageDefault.value, sortDefault.value)
         })
         return {
 
-            arr, curPage, lastPage, fetchEvent, sortEvent
+            arr, curPage, lastPage, fetchEvent, sortEvent, sortDefault
         }
     }
 }

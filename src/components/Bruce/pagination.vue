@@ -1,66 +1,63 @@
 <template>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
+    <div class="d-flex">
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-circle">
 
-            <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
-                <a class="page-link" @click="prePage">
-                    Previous
-                </a>
-            </li>
+                <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" @click="prePage">
+                        Previous
+                    </a>
+                </li>
 
-            <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
-                <a class="page-link " v-on:click="this.$emit('fetchPage', page)" v-if="page != '...'">
-                    {{ page }}
-                </a>
-                <a class="page-link " v-else>
-                    {{ page }}
-                </a>
-            </li>
+                <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
+                    <a class="page-link " v-on:click="this.$emit('fetchPage', page, props.sort)" v-if="page != '...'">
+                        {{ page }}
+                    </a>
+                    <a class="page-link " v-else>
+                        {{ page }}
+                    </a>
+                </li>
 
-            <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
-                <a class="page-link" @click="nextPage">
-                    Next
-                </a>
-            </li>
+                <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" @click="nextPage">
+                        Next
+                    </a>
+                </li>
 
-        </ul>
-    </nav>
+            </ul>
+
+        </nav>
+        <div class="input-group">
+            <form class="d-flex">
+                <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
+                <span class="input-group-btn">
+                    <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
+                </span>
+            </form>
+        </div>
+    </div>
+
+
+
+
 </template>
 
 <script>
 // import jwt_decode from "jwt-decode";
-// import { ref, } from "vue";
+import { ref, } from "vue";
 import { computed } from "vue";
-// import { defineEmits } from 'vue';
-
+import { watch } from "vue";
 export default {
     name: 'paginationView',
-    // emits: ['prePageEvent', 'nextPageEvent'],
     props: {
         curPage: Number,
         lastPage: Number,
-        pagesProps: Array
+        pagesProps: Array,
+        sort: String,
     },
-    // prePage: async function (page) {
-    //     if (this.curPage > 1)
-    //         this.$emit('fetchPage', page - 1)
-    //     // this.fetchPage(page - 1)
-    // },
-    // nextPage: async function (page) {
-    //     if (this.curPage < this.lastPage)
-    //         this.$emit('fetchPage', page + 1)
-    //     // this.fetchPage(page + 1)
-
-    // },
-    // fetchPage: async function (page) {
-    //     this.$emit('fetchPage', page)
-    // }
 
     setup(props, context) {
-        //get the current page and last page
-        // const curPage = ref(props.curPageProps)
-        // const lastPage = ref(props.lastPageProps)
-        // const _this = this
+        const pageInput = ref(props.curPage)
         const pages = computed(() => {
             let n = props.curPage, t = props.lastPage
             if (t < 10) return t;
@@ -72,19 +69,27 @@ export default {
                 return [1, '...', n - 2, n - 1, n, n + 1, n + 2, '...', t];
             }
         })
-
-
-
         function prePage() {
             // console.log(page)
             if (props.curPage > 1)
-                context.emit('fetchPage', props.curPage - 1)
+                context.emit('fetchPage', props.curPage - 1, props.sort)
         }
         function nextPage() {
-            context.emit('fetchPage', props.curPage + 1)
+            context.emit('fetchPage', props.curPage + 1, props.sort)
         }
+
+        function goToPage() {
+            context.emit('fetchPage', pageInput.value, props.sort)
+        }
+
+
+        // when curPage change, pageInput will change
+        watch(props, () => {
+            pageInput.value = props.curPage;
+        });
+
         return {
-            props, pages, nextPage, prePage
+            props, pages, pageInput, nextPage, prePage, goToPage
         }
 
     }
@@ -99,5 +104,45 @@ export default {
 
 .page-item.disabled {
     cursor: not-allowed;
+}
+
+.page-link.active,
+.page-link {
+    border-radius: 50%;
+
+}
+
+.form-control {
+    font-size: 15px;
+    font-family: Arial;
+    width: 140px;
+    height: 40px;
+    border-width: 2px;
+    color: #fff;
+    border-color: #a8aca9;
+    font-weight: bold;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    background: #ffffff;
+}
+
+.btn-secondary {
+    position: absolute;
+    right: 41px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #0d6efd;
+}
+
+.btn-secondary:hover {
+    background: #0d6efd;
+}
+
+.input-group {
+    margin-left: 30px;
+    position: relative;
 }
 </style>

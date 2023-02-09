@@ -34,21 +34,19 @@
       </ul>
     </div>
 
-    <form class="d-flex ms-auto order-5">
-        <button v-if="token !== null" class="btn btn-outline-primary mx-2" type="submit"
-          @click="logout()">SignOut</button>
-        <router-link to="/login"><button v-if="token == null" class="btn btn-primary mx-2" type="submit">Login</button>
-        </router-link>
-      </form>
-
 
     <div class="p-4">
       <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" to="/" class="userIcon">
         <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" bounce size="2xl" />
         <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
       </router-link>
-
     </div>
+    <button v-if="token !== null" class="btn btn-outline-primary mx-2" type="submit" @click="logout()">SignOut</button>
+    <router-link to="/login"><button v-if="token == null" class="btn btn-primary mx-2" type="submit">Login</button>
+    </router-link>
+
+
+
 
   </nav>
 </template>
@@ -68,7 +66,7 @@ export default {
     let show = ref(true)
     let token = localStorage.getItem("user");
 
-    const logout = function(){
+    const logout = function () {
       alert("Successful logout");
       localStorage.removeItem('user');
       token = null;
