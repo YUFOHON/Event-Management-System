@@ -76,8 +76,8 @@ export default {
         }
 
         async function fetchEvent(page, sort) {
-            console.log(page)
-            console.log(sort)
+            // console.log(page)
+            // console.log(sort)
             sortDefault.value = sort
             pageDefault.value = page
             let response = await fetch('/api/events?perPage=' + 6 + "&page=" + pageDefault.value + "&sort=" + sortDefault.value, {
@@ -115,6 +115,17 @@ export default {
 </script>
 
 <style scoped>
+
+body {
+  font-family: 'Montserrat';
+  font-style: Italic;
+  background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding:20px;
+}
 .cards {
     margin-left: 250px;
 }

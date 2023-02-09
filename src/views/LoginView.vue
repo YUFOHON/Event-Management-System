@@ -1,12 +1,14 @@
 <template>
-    <img src="@/assets/CCF.jpg" class="rounded mx-auto d-block" alt="Bootstrap" width="300" height="300">
+
+   
 
     <div class="container">
+        <div class="loginForm">
+            <img src="@/assets/CCF.jpg" class="rounded mx-auto d-block" alt="Bootstrap" width="300" height="300">
         <form @submit.prevent="login()">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email/ username</label>
+                <label for="exampleInputEmail1" class="form-label">Username</label>
                 <input type="text" class="form-control" v-model="credential.username" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -14,11 +16,13 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <button type="submit" class="pink baseButton">Login</button>
+                <button type="submit" class="pink baseButton">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " bounce/></button>
             </div>
 
         </form>
     </div>
+    </div>
+
 </template>
   
 <script>
@@ -64,7 +68,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
     font-family: Arial, Helvetica, sans-serif;
     color: #2c3e50;
@@ -82,4 +86,41 @@ color: white;
 /* border: 1px solid gray; */
 }
 
+.container{
+    border-radius: 100%;
+    display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/BG2.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+ 
+  width: 100%;
+  height: 100%;
+  min-width: 900px;
+  min-height: 1000px;
+ 
+  justify-content: center;
+  align-items: center;
+
+}
+
+.loginForm {
+    border-radius: 80%;
+  background-color: #fff;
+  min-width: 800px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
+  padding: 30px 20px;
+}
+
+input{
+    margin-left: 270px;
+    width: fit-content;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+label{
+    margin-left: 330px;
+    width: fit-content;
+
+}
 </style>
