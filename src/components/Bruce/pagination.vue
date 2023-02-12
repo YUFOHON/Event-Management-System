@@ -1,81 +1,84 @@
 <template>
-    <div v-if="isSearchEvents" class="d-flex">
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-circle">
 
-                <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" @click="prePage">
-                        Previous
-                    </a>
-                </li>
+    <div>
+        <div v-if="isSearchEvents" class="d-flex">
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-circle">
 
-                <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
-                    <a class="page-link " v-on:click="this.$emit('fetchSearchPage', page, props.sort, input)"
-                        v-if="page != '...'">
-                        {{ page }}
-                    </a>
-                    <a class="page-link " v-else>
-                        {{ page }}
-                    </a>
-                </li>
+                    <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" @click="prePage">
+                            Previous
+                        </a>
+                    </li>
 
-                <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" @click="nextPage">
-                        Next
-                    </a>
-                </li>
+                    <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
+                        <a class="page-link " v-on:click="this.$emit('fetchSearchPage', page, props.sort, input)"
+                            v-if="page != '...'">
+                            {{ page }}
+                        </a>
+                        <a class="page-link " v-else>
+                            {{ page }}
+                        </a>
+                    </li>
 
-            </ul>
+                    <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" @click="nextPage">
+                            Next
+                        </a>
+                    </li>
 
-        </nav>
-        <div class="input-group">
-            <form class="d-flex">
-                <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
-                <span class="input-group-btn">
-                    <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
-                </span>
-            </form>
+                </ul>
+
+            </nav>
+            <div class="input-group">
+                <form class="d-flex">
+                    <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
+                    <span class="input-group-btn">
+                        <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
+                    </span>
+                </form>
+            </div>
+        </div>
+
+        <div v-if="!isSearchEvents" class="d-flex">
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-circle">
+
+                    <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" @click="prePage">
+                            Previous
+                        </a>
+                    </li>
+
+                    <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
+                        <a class="page-link " v-on:click="this.$emit('fetchPage', page, props.sort)"
+                            v-if="page != '...'">
+                            {{ page }}
+                        </a>
+                        <a class="page-link " v-else>
+                            {{ page }}
+                        </a>
+                    </li>
+
+                    <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" @click="nextPage">
+                            Next
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <div class="input-group">
+                <form class="d-flex">
+                    <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
+                    <span class="input-group-btn">
+                        <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
+                    </span>
+                </form>
+            </div>
         </div>
     </div>
-
-    <div v-if="!isSearchEvents" class="d-flex">
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-circle">
-
-                <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" @click="prePage">
-                        Previous
-                    </a>
-                </li>
-
-                <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
-                    <a class="page-link " v-on:click="this.$emit('fetchPage', page, props.sort)" v-if="page != '...'">
-                        {{ page }}
-                    </a>
-                    <a class="page-link " v-else>
-                        {{ page }}
-                    </a>
-                </li>
-
-                <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" @click="nextPage">
-                        Next
-                    </a>
-                </li>
-
-            </ul>
-
-        </nav>
-        <div class="input-group">
-            <form class="d-flex">
-                <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
-                <span class="input-group-btn">
-                    <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
-                </span>
-            </form>
-        </div>
-    </div>
-
 
 </template>
 
@@ -86,6 +89,7 @@ import { computed } from "vue";
 import { watch } from "vue";
 export default {
     name: 'paginationView',
+
     props: {
         curPage: Number,
         lastPage: Number,

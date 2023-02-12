@@ -18,7 +18,7 @@
             {
                 name: '活動表格',
                 URL: '#'
-            }]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="true" />
+            }]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
         </div>
         <eventForm :isEventFormDetail="isEventFormDetail" :eventID="eventID" />
 

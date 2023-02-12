@@ -5,7 +5,7 @@
       <div class="col">
         <div class="mb-3">
           <label for="eventName" class="form-label">活動名稱</label>
-          <input v-model="result.eventName" type="email" class="form-control" id="eventName"
+          <input v-model="result.eventName" type="text" class="form-control" id="eventName"
             aria-describedby="emailHelp">
         </div>
 
@@ -231,7 +231,7 @@ export default {
       });
       //reload the page
       alert(response.statusText)
-      location.reload();
+      location.assign("/events");
     }
 
     async function addEvent() {

@@ -1,6 +1,9 @@
 <template>
-    <div class="card" style="width: 22rem;">
-        <div class="card-body overflow-auto py-4">
+    <div class="card" :style="{ width: props.cardWidth + 'rem', height: props.cardWidth*1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
+
+
+
+        <div class=" card-body overflow-auto py-4">
             <img :src=props.image class=" rounded-circle  mb-3" alt="..." style="width: 20rem; height: 15rem;">
 
             <ul class="list-group list-group-flush">
@@ -9,7 +12,7 @@
                         <!-- <p ref="root" class="eventName text-center">
                             名稱： {{ props.eventName }}
                         </p> -->
-                        <div class="col col-5 text-primary pt-3">活動名稱 </div>
+                        <div class="col col-5 text-primary pt-3">名稱 </div>
                         <div class="col  gy-3">{{ props.eventName }}</div>
                     </div>
                 </li>
@@ -46,7 +49,7 @@
 import { ref } from 'vue'
 
 import { onMounted } from 'vue';
-
+// import { watch } from 'vue';
 
 export default {
     name: 'eventCard',
@@ -55,30 +58,44 @@ export default {
         image: String,
         content: String,
         id: String,
-        Date: String
+        Date: String,
+        fontSize: Number,
+        cardWidth: Number
     },
     setup(props) {
         const root = ref(null)
+        // const cardWidth = ref(22)
+        // const fontSize = ref(1)
+        // watch(fontSize, (currentValue, oldValue) => {
+        //     console.log(currentValue);
+        //     console.log(oldValue);
+        // });
+
 
         onMounted(() => {
             // const dom = root.value
             // const paddingLeft = getComputedStyle(dom);
             // const padding = parseFloat(paddingLeft) || 0
             // if (dom.scrollWidth > dom.offsetWidth) {
-
             //     dom.style.fontSize = `${(dom.offsetWidth - padding * 2) / dom.scrollWidth * 25}px`;
-
             // }
 
         })
         return {
-            props, root
+            props, root,
         }
     }
 }
 </script>
 
 <style scoped>
+/* .text {
+    font-size: 10rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    
+} */
+
 .card {
     width: 18rem;
     height: 592px;

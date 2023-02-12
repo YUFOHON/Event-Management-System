@@ -1,10 +1,10 @@
 <template>
 
-
-    <div class="row">
+    <div class="row" id="navBar">
         <navBar />
     </div>
-    <div class="row py-4">
+
+    <div class="row py-4" id="navSecondBar">
         <navSecondBar :arr="[
             {
                 name: '主頁',
@@ -16,36 +16,42 @@
                 URL: '/events'
             }
         ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-        :isSearchEvents="isSearchEvents" 
-        @sorting="fetchEvent"
-        @searchEvent="fetchSearchEvent" ref="navSecondBar" />
+            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
     </div>
 
-    <div class="cards">
-        <div class="row d-flex py-4">
-            <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
-                <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                    :Date="a.eventDate" />
-            </div>
+    <div class="row">
+
+        <div class="col col-1 py-4 px-4" id="sideBarContainer">
+            <SideBar @setFontSize="setFontSize" />
         </div>
 
-        <div class="row d-flex">
-            <div v-for="a in arr.slice(3)" :key="a" class="col">
-                <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                    :Date="a.eventDate" />
+        <div class="col col-10  ">
+
+         
+                <div class="row d-flex">
+                    <div v-for="a in arr" :key="a" class="col">
+                        <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
+                            :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" ref="card" />
+                    </div>
+                </div>
+                <!-- <div class="row d-flex py-4">
+                    <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
+                        <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
+                            :Date="a.eventDate" ref="cards" />
+                    </div>
+                </div> -->
+
+            
+            <div class="d-flex justify-content-center p-4" id="pagination">
+                <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
+                    :isSearchEvents="isSearchEvents.value" @fetchPage="fetchEvent" @fetchSearchPage="fetchSearchEvent"
+                    ref="pagination" />
+
             </div>
         </div>
-
-
     </div>
-    <div class="d-flex justify-content-center p-4">
-        <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage"
-            :sort="sortDefault" :isSearchEvents="isSearchEvents.value"
-            @fetchPage="fetchEvent"
-            @fetchSearchPage="fetchSearchEvent"
-             ref="pagination" />
 
-    </div>
+
 </template>
 
 <script>
@@ -55,21 +61,21 @@ import navBar from '@/components/public/navBar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 // import eventForm from '@/components/Bruce/eventForm.vue'
 
-// import SideBar from '@/components/sideBar.vue';
+import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
 // import { onBeforeMount } from 'vue'
 import { ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
-
+import { watch } from 'vue'
 export default {
     name: 'EventView',
     components: {
         navBar,
         navSecondBar,
         pagination,
-        eventCard
-        // SideBar
+        eventCard,
+        SideBar
     },
     setup() {
         let arr = ref([]);
@@ -80,8 +86,10 @@ export default {
         let pageDefault = ref(1)
         let isSearchEvents = ref(false)
         const navSecondBar = ref(null)
-        const pagination=ref(null)
-
+        const pagination = ref(null)
+        const card = ref(null)
+        const fontSize = ref(1)
+        const cardWidth = ref(22+2*1)
         async function fetchEvent(page, sort) {
             // console.log(page)
             // console.log(sort)
@@ -106,21 +114,31 @@ export default {
                 alert(response.statusText);
             }
         }
-
-
+        watch(fontSize, (currentValue, oldValue) => {
+            console.log(currentValue);
+            console.log(oldValue);
+        });
+        function setFontSize(s) {
+            // console.log(fontSize)
+            fontSize.value = s
+            // console.log(fontSize)
+            // card.value.fontSize = s
+            // console.log(card.value.fontSize)
+            cardWidth.value = 22 + 2 * s
+        }
         async function fetchSearchEvent(page, sort, input) {
             // sent request to server
-            console.log(page+" "+sort+" "+input)
+            console.log(page + " " + sort + " " + input)
             //pagination will send the input as string, so we need to check if it is string or not
             //if it is string, then we don't need to get the value of input
             //navSecondBar will send the input as object, so we need to get the value of input
             // console.log(input)
-//             var inputTran 
-// if(input.value==undefined)
-// inputTran=input
-// else
-// inputTran=input.value
-            
+            //             var inputTran 
+            // if(input.value==undefined)
+            // inputTran=input
+            // else
+            // inputTran=input.value
+
 
 
             let response = await fetch('/api/events/searchAll?input=' + input + '&sort=' + sort + "&page=" + page, {
@@ -150,14 +168,15 @@ export default {
             fetchEvent(pageDefault.value, sortDefault.value)
         })
         return {
-            arr, curPage, lastPage, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar,pagination
-            
+            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination
+
         }
     }
 }
 </script>
 
 <style scoped>
+
 .cards {
     margin-left: 250px;
 }
