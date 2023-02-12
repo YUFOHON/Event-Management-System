@@ -1,10 +1,12 @@
 <template>
+
+
+
   <div class="container-md">
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
       <div class="container-flex ">
 
         <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>
-        <!-- class="navbar-brand text-danger" -->
       </div>
 
       <div class="d-flex-button">
@@ -12,27 +14,45 @@
         <button v-if="props.sortButton" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
           aria-expanded="false">
           Sort
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" v-on:click="this.$emit('sorting','Ascending')" >Date Ascending</a></li>
-            <li><a class="dropdown-item" v-on:click="this.$emit('sorting','Descending')">Date Descending</a></li>
+
+          <ul v-if="isSearchEvents" class="dropdown-menu">
+            <li><a class="dropdown-item" v-on:click="searchEvent(sorting = 'Ascending')">Date
+                Ascending</a>
+            </li>
+            <li><a class="dropdown-item" v-on:click="searchEvent(sorting = 'Descending')">Date
+                Descending</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <li><a class="dropdown-item" href="#">Head</a></li>
           </ul>
+
+          <ul v-if="!isSearchEvents" class="dropdown-menu">
+            <li><a class="dropdown-item" v-on:click="this.$emit('sorting', 1, 'Ascending')">Date Ascending</a></li>
+            <li><a class="dropdown-item" v-on:click="this.$emit('sorting', 1, 'Descending')">Date Descending</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Head</a></li>
+          </ul>
+
+
+
         </button>
 
         <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
-        <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
-
+        <router-link to="/events/eventForm">
+          <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
+        </router-link>
 
 
       </div>
 
 
-      <form v-if="props.search" class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form v-if="props.searchButton" class="d-flex" role="search">
+        <input v-model="input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="button"
+          @click="searchEvent(sorting = 'Ascending')">Search</button>
       </form>
     </nav>
 
@@ -40,24 +60,35 @@
 </template>
 
 <script>
-// import { ref } from 'vue'
+import { ref } from 'vue'
+// import { inject } from 'vue'
+// import router from '@/router';
+// import { getCurrentInstance } from "vue";
 
 export default {
-  name: 'navSecondBar',
+  name: "navSecondBar",
   props: {
     arr: Array,
     sortButton: { Boolean, default: false },
     eventHistoryButton: { Boolean, default: false },
     addButton: { Boolean, default: false },
-    search: { Boolean, default: false },
+    searchButton: { Boolean, default: false },
+    isSearchEvents: { Boolean },
   },
-  setup(props) {
-
-    return {
-      props
+  setup(props, context) {
+    const input = ref('');
+    const isSearchEvent = ref(false);
+    const searchEvent = async (sorting) => {
+      context.emit('searchEvent', 1, sorting, input.value);
     }
 
-  }
+
+
+    return {
+      props, searchEvent, input, isSearchEvent, parent
+    };
+  },
+  // components: { router }
 }
 </script>
 

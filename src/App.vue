@@ -21,6 +21,6 @@
  @import '@/assets/font/index.css';
  #app {
     font-family: 'msyhbd';
-    font-weight: 800;
+    font-weight: 530;
   }
 </style>

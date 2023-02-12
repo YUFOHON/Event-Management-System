@@ -1,5 +1,44 @@
 <template>
-    <div class="d-flex">
+    <div v-if="isSearchEvents" class="d-flex">
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-circle">
+
+                <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" @click="prePage">
+                        Previous
+                    </a>
+                </li>
+
+                <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
+                    <a class="page-link " v-on:click="this.$emit('fetchSearchPage', page, props.sort, input)"
+                        v-if="page != '...'">
+                        {{ page }}
+                    </a>
+                    <a class="page-link " v-else>
+                        {{ page }}
+                    </a>
+                </li>
+
+                <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" @click="nextPage">
+                        Next
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+        <div class="input-group">
+            <form class="d-flex">
+                <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
+                <span class="input-group-btn">
+                    <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
+                </span>
+            </form>
+        </div>
+    </div>
+
+    <div v-if="!isSearchEvents" class="d-flex">
         <nav aria-label="Page navigation">
             <ul class="pagination pagination-circle">
 
@@ -38,8 +77,6 @@
     </div>
 
 
-
-
 </template>
 
 <script>
@@ -57,6 +94,7 @@ export default {
     },
 
     setup(props, context) {
+        const isSearchEvents = ref(false);
         const pageInput = ref(props.curPage)
         const pages = computed(() => {
             let n = props.curPage, t = props.lastPage
@@ -69,17 +107,36 @@ export default {
                 return [1, '...', n - 2, n - 1, n, n + 1, n + 2, '...', t];
             }
         })
+        const input = ref('');
         function prePage() {
-            // console.log(page)
-            if (props.curPage > 1)
-                context.emit('fetchPage', props.curPage - 1, props.sort)
+            if (!isSearchEvents.value) {
+                if (props.curPage > 1)
+                    context.emit('fetchPage', props.curPage - 1, props.sort)
+            } else {
+                if (props.curPage > 1)
+                    context.emit('fetchSearchPage', props.curPage - 1, props.sort, input.value)
+            }
         }
         function nextPage() {
-            context.emit('fetchPage', props.curPage + 1, props.sort)
+
+            if (!isSearchEvents.value) {
+                if (props.curPage < props.lastPage)
+                    context.emit('fetchPage', props.curPage + 1, props.sort)
+            } else {
+                if (props.curPage < props.lastPage)
+                    context.emit('fetchSearchPage', props.curPage + 1, props.sort, input.value)
+            }
+
         }
 
         function goToPage() {
-            context.emit('fetchPage', pageInput.value, props.sort)
+            if (!isSearchEvents.value)
+                context.emit('fetchPage', pageInput.value, props.sort)
+            else
+                context.emit('fetchSearchPage', pageInput.value, props.sort, input.value)
+
+
+
         }
 
 
@@ -89,7 +146,7 @@ export default {
         });
 
         return {
-            props, pages, pageInput, nextPage, prePage, goToPage
+            props, pages, pageInput, isSearchEvents, input, nextPage, prePage, goToPage
         }
 
     }

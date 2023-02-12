@@ -16,10 +16,14 @@ const routes = [
   },
   {
     path: '/events/eventForm/:id',
+    name: 'eventFormDetail',
+    component: EventFormView
+  },
+  {
+    path: '/events/eventForm',
     name: 'eventForm',
     component: EventFormView
   },
-
   //==================================================================================================
   //==================================================================================================
   {
