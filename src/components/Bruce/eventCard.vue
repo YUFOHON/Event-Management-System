@@ -119,7 +119,10 @@ export default {
 
 .card:hover {
     background-color: #c1c1c153;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.08);
+    transition: 0.7s;
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
 }
 
 .eventName {
@@ -133,15 +136,21 @@ export default {
     height: 10px;
     background: #f1f1f1;
     border-radius: 10px;
+    
 }
 
 ::-webkit-scrollbar-thumb {
     background: #0d6efd;
     border-radius: 10px;
 }
+img:hover{
+    transform: scale(1.05);
+    transition: 1s;
+}
+
 
 img {
-
+    /* opacity: 0.7; */
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -moz-user-select: none;
