@@ -8,6 +8,7 @@ import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/cEnrollment.vue'
+import eventDetails from '../views/ali/eventDeatils.vue'
 
 
 const routes = [
