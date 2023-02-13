@@ -1,4 +1,6 @@
 <template>
+
+
 <router-view/>
 
 
@@ -24,3 +26,4 @@
     font-weight: 530;
   }
 </style>
+

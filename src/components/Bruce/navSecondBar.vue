@@ -1,7 +1,5 @@
 <template>
 
-
-
   <div class="container-md">
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
       <div class="container-flex ">
@@ -36,15 +34,12 @@
             <li><a class="dropdown-item" href="#">Head</a></li>
           </ul>
 
-
-
         </button>
-
+        
         <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
         <router-link to="/events/eventForm">
           <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
         </router-link>
-
 
       </div>
 

@@ -2,11 +2,11 @@
     <div class="card" :style="{ width: props.cardWidth + 'rem', height: props.cardWidth*1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
 
 
-
         <div class=" card-body overflow-auto py-4">
             <img :src=props.image class=" rounded-circle  mb-3" alt="..." style="width: 20rem; height: 15rem;">
 
             <ul class="list-group list-group-flush">
+
                 <li class="list-group-item">
                     <div class="card-title row">
                         <!-- <p ref="root" class="eventName text-center">
@@ -40,6 +40,7 @@
             <div class="d-grid gap-2 col-3 mx-auto my-3">
                 <router-link :to="'/events/eventForm/' + props.id" class="btn btn-primary  ">查看</router-link>
             </div>
+
         </div>
     </div>
 </template>
@@ -87,6 +88,7 @@ export default {
     }
 }
 </script>
+
 
 <style scoped>
 /* .text {

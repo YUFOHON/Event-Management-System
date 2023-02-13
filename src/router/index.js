@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
 import EventFormView from '../views/Bruce/EventFormView.vue'
+import eventDetails from '../views/ali/eventDetails.vue'
 const routes = [
   {//=================================Bruce==========================================================
     path: '/',
@@ -31,6 +32,16 @@ const routes = [
     name: 'login',
     component: LoginView 
   },
+
+
+  //----------------------------------------------ALI route handlers--------------
+  //--------------------------------------------------------
+  {
+    path: '/eventDetails',
+    name: 'eventDeatils',
+    component: eventDetails 
+  },
+
 ]
 
 const router = createRouter({
