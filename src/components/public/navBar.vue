@@ -36,7 +36,7 @@
 
 
     <div class="p-4">
-      <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" to="/" class="userIcon">
+      <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute" class="userIcon">
         <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" bounce size="2xl" />
         <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
       </router-link>
@@ -59,6 +59,17 @@ export default {
   props: {
     msg: String
   },
+  computed: {
+    profileRoute() {
+      const userIdentity = localStorage.getItem('identity');
+      // console.log(userIdentity);
+      if (userIdentity == 'normal') {
+        return { path: '/cProfile' };
+      } else {
+        return { path: '/aProfile' };
+      }
+    },
+  },
   setup() {
     let hover = ref(false)
     let hoverUser = ref(false)
@@ -72,6 +83,7 @@ export default {
       token = null;
       location.reload()
     }
+
 
     return {
       hover,
