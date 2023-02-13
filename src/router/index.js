@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
+import EventFormView from '../views/Bruce/EventFormView.vue'
 const routes = [
-  {
+  {//=================================Bruce==========================================================
     path: '/',
     name: 'home',
     component: HomeView
@@ -13,6 +14,18 @@ const routes = [
     name: 'events',
     component: EventView
   },
+  {
+    path: '/events/eventForm/:id',
+    name: 'eventFormDetail',
+    component: EventFormView
+  },
+  {
+    path: '/events/eventForm',
+    name: 'eventForm',
+    component: EventFormView
+  },
+  //==================================================================================================
+  //==================================================================================================
   {
     path: '/login',
     name: 'login',
