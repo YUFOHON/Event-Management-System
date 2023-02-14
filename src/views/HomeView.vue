@@ -39,11 +39,8 @@
 
 import navBar from '@/components/public/navBar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
-// import eventForm from '@/components/Bruce/eventForm.vue'
-
 import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
-// import { onBeforeMount } from 'vue'
 import { ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';

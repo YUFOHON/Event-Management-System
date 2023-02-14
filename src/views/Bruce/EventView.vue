@@ -27,25 +27,23 @@
 
         <div class="col col-10  ">
 
-         
-                <div class="row d-flex">
-                    <div v-for="a in arr" :key="a" class="col">
-                        <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                            :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" ref="card" />
-                    </div>
+
+            <div class="row d-flex">
+                <div v-for="a in arr" :key="a" class="col">
+                    <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
+                        :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" ref="card" />
                 </div>
-                <!-- <div class="row d-flex py-4">
+            </div>
+            <!-- <div class="row d-flex py-4">
                     <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
                         <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
                             :Date="a.eventDate" ref="cards" />
                     </div>
                 </div> -->
 
-            
             <div class="d-flex justify-content-center p-4" id="pagination">
                 <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
-                    :isSearchEvents="isSearchEvents.value" @fetchPage="fetchEvent" @fetchSearchPage="fetchSearchEvent"
-                    ref="pagination" />
+                    :isSearchEvents="isSearchEvents.value" ref="pagination" />
 
             </div>
         </div>
@@ -60,7 +58,6 @@
 import navBar from '@/components/public/navBar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 // import eventForm from '@/components/Bruce/eventForm.vue'
-
 import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
 // import { onBeforeMount } from 'vue'
@@ -68,6 +65,8 @@ import { ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+// import { useRouter } from 'vue-router'
 export default {
     name: 'EventView',
     components: {
@@ -75,33 +74,36 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
-        SideBar
+        SideBar,
+
     },
     setup() {
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
         //default sort is ascending
-        let sortDefault = ref('Ascending')
-        let pageDefault = ref(1)
+        let sortDefault = ref('Descending')
         let isSearchEvents = ref(false)
         const navSecondBar = ref(null)
         const pagination = ref(null)
         const card = ref(null)
         const fontSize = ref(1)
-        const cardWidth = ref(22+2*1)
+        const cardWidth = ref(22 + 2 * 1)
+        // const router = useRouter()
+        const route = useRoute()
         async function fetchEvent(page, sort) {
             // console.log(page)
-            // console.log(sort)
-            sortDefault.value = sort
-            pageDefault.value = page
-
-            let response = await fetch('/api/events?perPage=' + 6 + "&page=" + pageDefault.value + "&sort=" + sortDefault.value, {
+            // console.log(router)
+            // page to number
+            page = Number(page)
+            console.log(page, sort)
+            let response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+
             if (response.ok) {
                 var data = await response.json();
                 arr.value = data.results;
@@ -114,32 +116,10 @@ export default {
                 alert(response.statusText);
             }
         }
-        watch(fontSize, (currentValue, oldValue) => {
-            console.log(currentValue);
-            console.log(oldValue);
-        });
-        function setFontSize(s) {
-            // console.log(fontSize)
-            fontSize.value = s
-            // console.log(fontSize)
-            // card.value.fontSize = s
-            // console.log(card.value.fontSize)
-            cardWidth.value = 22 + 2 * s
-        }
         async function fetchSearchEvent(page, sort, input) {
             // sent request to server
+            page = Number(page)
             console.log(page + " " + sort + " " + input)
-            //pagination will send the input as string, so we need to check if it is string or not
-            //if it is string, then we don't need to get the value of input
-            //navSecondBar will send the input as object, so we need to get the value of input
-            // console.log(input)
-            //             var inputTran 
-            // if(input.value==undefined)
-            // inputTran=input
-            // else
-            // inputTran=input.value
-
-
 
             let response = await fetch('/api/events/searchAll?input=' + input + '&sort=' + sort + "&page=" + page, {
                 method: 'POST'
@@ -156,16 +136,46 @@ export default {
                 navSecondBar.value.isSearchEvent = true
                 pagination.value.isSearchEvents = true
                 pagination.value.input = input
+
             } else {
                 alert(response.statusText);
             }
+            // location.reload()
+        }
+        watch(fontSize, (currentValue, oldValue) => {
+            console.log(currentValue);
+            console.log(oldValue);
+        });
+        //watch the route, if the route change, then we need to fetch the event again
+        watch(route, (currentValue, oldValue) => {
+            console.log(currentValue.query.input);
+            console.log(oldValue);
+            sortDefault.value = currentValue.query.sort
+            if (currentValue.query.input == undefined) {
+                if (currentValue.query.page == undefined)
+                    fetchEvent(1, sortDefault.value)
+                else
+                    fetchEvent(currentValue.query.page, currentValue.query.sort)
+            } else {
+                fetchSearchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input)
+            }
+
+        });
+        function setFontSize(s) {
+            fontSize.value = s
+            cardWidth.value = 22 + 2 * s
         }
 
-        // onBeforeMount(() => {
-        //     fetchEvent(1)
-        // })
         onMounted(() => {
-            fetchEvent(pageDefault.value, sortDefault.value)
+            //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
+            if (route.query.input == undefined) {
+                if (route.query.page == undefined)
+                    fetchEvent(1, sortDefault.value)
+                else
+                    fetchEvent(route.query.page, route.query.sort)
+            } else {
+                fetchSearchEvent(route.query.page, route.query.sort, route.query.input)
+            }
         })
         return {
             arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination
@@ -176,7 +186,6 @@ export default {
 </script>
 
 <style scoped>
-
 .cards {
     margin-left: 250px;
 }

@@ -14,10 +14,10 @@
           Sort
 
           <ul v-if="isSearchEvents" class="dropdown-menu">
-            <li><a class="dropdown-item" v-on:click="searchEvent(sorting = 'Ascending')">Date
+            <li><a class="dropdown-item" v-on:click="Ascending">Date
                 Ascending</a>
             </li>
-            <li><a class="dropdown-item" v-on:click="searchEvent(sorting = 'Descending')">Date
+            <li><a class="dropdown-item" v-on:click="Descending">Date
                 Descending</a></li>
             <li>
               <hr class="dropdown-divider">
@@ -26,8 +26,8 @@
           </ul>
 
           <ul v-if="!isSearchEvents" class="dropdown-menu">
-            <li><a class="dropdown-item" v-on:click="this.$emit('sorting', 1, 'Ascending')">Date Ascending</a></li>
-            <li><a class="dropdown-item" v-on:click="this.$emit('sorting', 1, 'Descending')">Date Descending</a></li>
+            <li><a class="dropdown-item" v-on:click="Ascending">Date Ascending</a></li>
+            <li><a class="dropdown-item" v-on:click="Descending">Date Descending</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -35,7 +35,7 @@
           </ul>
 
         </button>
-        
+
         <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
         <router-link to="/events/eventForm">
           <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
@@ -46,8 +46,10 @@
 
       <form v-if="props.searchButton" class="d-flex" role="search">
         <input v-model="input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <!-- <button class="btn btn-outline-success" type="button"
+          @click="searchEvent(sorting = 'Ascending')">Search</button> -->
         <button class="btn btn-outline-success" type="button"
-          @click="searchEvent(sorting = 'Ascending')">Search</button>
+          @click="searchEvent(sorting = 'Descending')">Search</button>
       </form>
     </nav>
 
@@ -55,7 +57,9 @@
 </template>
 
 <script>
+import router from '@/router';
 import { ref } from 'vue'
+
 // import { inject } from 'vue'
 // import router from '@/router';
 // import { getCurrentInstance } from "vue";
@@ -70,17 +74,35 @@ export default {
     searchButton: { Boolean, default: false },
     isSearchEvents: { Boolean },
   },
-  setup(props, context) {
+  setup(props) {
     const input = ref('');
     const isSearchEvent = ref(false);
     const searchEvent = async (sorting) => {
-      context.emit('searchEvent', 1, sorting, input.value);
+      router.push({ name: 'events', query: { page: 1, sort: sorting, input: input.value } });
+      // context.emit('searchEvent', 1, sorting, input.value);
+
+    }
+    const Descending = async () => {
+      if (isSearchEvent.value == true) {
+        router.push({ name: 'events', query: { page: 1, sort: 'Descending', input: input.value } });
+      } else
+        router.push({ name: 'events', query: { page: 1, sort: 'Descending' } });
+
+
     }
 
+    const Ascending = async () => {
+      if (isSearchEvent.value == true) {
+        router.push({ name: 'events', query: { page: 1, sort: 'Ascending', input: input.value } });
+      } else if (isSearchEvent.value == false) {
+        router.push({ name: 'events', query: { page: 1, sort: 'Ascending' } });
 
+      }
+
+    }
 
     return {
-      props, searchEvent, input, isSearchEvent, parent
+      props, searchEvent, input, isSearchEvent, parent, Descending, Ascending
     };
   },
   // components: { router }
