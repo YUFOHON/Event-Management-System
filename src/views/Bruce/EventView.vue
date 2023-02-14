@@ -43,7 +43,7 @@
 
             <div class="d-flex justify-content-center p-4" id="pagination">
                 <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
-                    :isSearchEvents="isSearchEvents.value" ref="pagination" />
+                    :isSearchEvents="isSearchEvents" ref="pagination" />
 
             </div>
         </div>
@@ -81,7 +81,6 @@ export default {
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
-        //default sort is ascending
         let sortDefault = ref('Descending')
         let isSearchEvents = ref(false)
         const navSecondBar = ref(null)
@@ -89,37 +88,69 @@ export default {
         const card = ref(null)
         const fontSize = ref(1)
         const cardWidth = ref(22 + 2 * 1)
-        // const router = useRouter()
-        const route = useRoute()
-        async function fetchEvent(page, sort) {
-            // console.log(page)
-            // console.log(router)
-            // page to number
-            page = Number(page)
-            console.log(page, sort)
-            let response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
 
+        const route = useRoute()
+        const checkRouterValue = (page, sort, category) => {
+            if (category == undefined || category == '') {
+                category = ['兒童活動|青年活動|活動義工招募|同路人支援平台']
+            }
+            if (page == undefined) {
+                page = 1
+            }
+            if (sort == undefined || sort == '') {
+                sort = 'Descending'
+            }
+            return [page, sort, category]
+        }
+
+
+        async function fetchEvent(page, sort, input, category) {
+            [page, sort, category] = checkRouterValue(page, sort, category)
+            console.log(category)
+            page = Number(page)
+            let response
+            if (input == undefined || input == '') {
+                //set the new category value  to all child component category value
+                isSearchEvents.value = false
+                navSecondBar.value.isSearchEvent = false
+                pagination.value.isSearchEvents = false
+                pagination.value.category = category
+                response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort + "&category=" + category, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            } else {
+                //set the new category value  to all child component category value
+                isSearchEvents.value = true
+                navSecondBar.value.isSearchEvent = true
+                pagination.value.isSearchEvents = true
+                pagination.value.input = input
+                pagination.value.category = category
+
+                response = await fetch('/api/events/searchAll?input=' + input + '&sort=' + sort + "&page=" + page + "&category=" + category, {
+                    method: 'POST'
+
+                })
+            }
             if (response.ok) {
                 var data = await response.json();
                 arr.value = data.results;
-                // console.log(data)
                 lastPage.value = data.pages;
                 curPage.value = page;
-                navSecondBar.value.isSearchEvent = false
-                pagination.value.isSearchEvents = false
+                // navSecondBar.value.isSearchEvent = false
+                // pagination.value.isSearchEvents = false
             } else {
                 alert(response.statusText);
             }
         }
+
+
         async function fetchSearchEvent(page, sort, input) {
             // sent request to server
             page = Number(page)
-            console.log(page + " " + sort + " " + input)
+            // console.log(page + " " + sort + " " + input)
 
             let response = await fetch('/api/events/searchAll?input=' + input + '&sort=' + sort + "&page=" + page, {
                 method: 'POST'
@@ -151,14 +182,7 @@ export default {
             console.log(currentValue.query.input);
             console.log(oldValue);
             sortDefault.value = currentValue.query.sort
-            if (currentValue.query.input == undefined) {
-                if (currentValue.query.page == undefined)
-                    fetchEvent(1, sortDefault.value)
-                else
-                    fetchEvent(currentValue.query.page, currentValue.query.sort)
-            } else {
-                fetchSearchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input)
-            }
+            fetchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input, currentValue.query.category)
 
         });
         function setFontSize(s) {
@@ -168,17 +192,11 @@ export default {
 
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
-            if (route.query.input == undefined) {
-                if (route.query.page == undefined)
-                    fetchEvent(1, sortDefault.value)
-                else
-                    fetchEvent(route.query.page, route.query.sort)
-            } else {
-                fetchSearchEvent(route.query.page, route.query.sort, route.query.input)
-            }
+            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {
-            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination
+            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
+            checkRouterValue
 
         }
     }

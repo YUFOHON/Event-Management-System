@@ -13,15 +13,16 @@
 
                     <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
                         <router-link v-if="page != '...'" class="page-link"
-                            :to="`/events/?page=${page}&sort=${props.sort}&input=${input}`">
+                            :to="`/events/?page=${page}&sort=${props.sort}&input=${input}&category=${category}`">
                             {{ page }}
                         </router-link>
 
 
-                        <router-link v-else class="page-link" :to="`/events/?page=${page}&sort=${props.sort}&input=${input}`">
-                           
+                        <router-link v-else class="page-link"
+                            :to="`/events/?page=${page}&sort=${props.sort}&input=${input}&category=${category}`">
+
                             {{ page }}
-                           
+
                         </router-link>
                     </li>
 
@@ -55,11 +56,11 @@
                     <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
                         <!-- <a class="page-link " v-on:click="this.$emit('fetchPage', page, props.sort)" v-if="page != '...'"> -->
                         <router-link v-if="page != '...'" class="page-link"
-                            :to="`/events/?page=${page}&sort=${props.sort}`">
+                            :to="`/events/?page=${page}&sort=${props.sort}&category=${category}`">
                             {{ page }}
                         </router-link>
                         <!-- </a> -->
-                        <router-link v-else class="page-link" :to="`/events/?page=${page}?sort=${props.sort}`">
+                        <router-link v-else class="page-link" :to="`/events/?page=${page}&sort=${props.sort}`">
                             <!-- <a class="page-link " v-else> -->
                             {{ page }}
                             <!-- </a> -->
@@ -126,34 +127,35 @@ export default {
             }
         });
         const input = ref("");
+        const category = ref("");
         function prePage() {
             if (!isSearchEvents.value) {
                 if (props.curPage > 1)
-                    router.push(`/events/?page=${props.curPage - 1}&sort=${props.sort}`);
+                    router.push(`/events/?page=${props.curPage - 1}&sort=${props.sort}&category=${category.value}`);
             }
             else {
                 if (props.curPage > 1)
-                    router.push(`/events/?page=${props.curPage - 1}&sort=${props.sort}&input=${input.value}`);
+                    router.push(`/events/?page=${props.curPage - 1}&sort=${props.sort}&input=${input.value}&category=${category.value}`);
             }
         }
         function nextPage() {
             if (!isSearchEvents.value) {
                 if (props.curPage < props.lastPage)
-                    router.push(`/events/?page=${props.curPage + 1}&sort=${props.sort}`);
+                    router.push(`/events/?page=${props.curPage + 1}&sort=${props.sort}&category=${category.value}`);
             }
             else {
                 if (props.curPage < props.lastPage)
-                    router.push(`/events/?page=${props.curPage + 1}&sort=${props.sort}&input=${input.value}`);
+                    router.push(`/events/?page=${props.curPage + 1}&sort=${props.sort}&input=${input.value}&category=${category.value}`);
             }
         }
         function goToPage() {
             if (!isSearchEvents.value) {
-                router.push(`/events/?page=${pageInput.value}&sort=${props.sort}`);
+                router.push(`/events/?page=${pageInput.value}&sort=${props.sort}&category=${category.value}`);
                 // location.reload();
             }
             // context.emit("fetchPage", pageInput.value, props.sort);
             else
-                router.push(`/events/?page=${pageInput.value}&sort=${props.sort}&input=${input.value}`);
+                router.push(`/events/?page=${pageInput.value}&sort=${props.sort}&input=${input.value}&category=${category.value}`);
             // context.emit("fetchSearchPage", pageInput.value, props.sort, input.value);
         }
         // when curPage change, pageInput will change
@@ -168,7 +170,8 @@ export default {
             input,
             nextPage,
             prePage,
-            goToPage
+            goToPage,
+            category
         };
     },
     // components: { router }

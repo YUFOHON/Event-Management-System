@@ -9,45 +9,68 @@
 
       <div class="d-flex-button">
 
-        <button v-if="props.sortButton" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Sort
+        <div class="dropdown" id="sortButton">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+            data-bs-auto-close="outside">
+            Sort
+          </button>
+          <div class="dropdown-menu">
+            <div class="row  p-4">
+              <div class="col ">
+                <p class="position-relative  px-5">類別</p>
+                <div class=" p-4 ">
+                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input v-model="sortCheckbox" value="同路人支援平台" type="checkbox" class="btn-check" id="btncheck1"
+                      autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck1">同路人支援平台</label>
 
-          <ul v-if="isSearchEvents" class="dropdown-menu">
-            <li><a class="dropdown-item" v-on:click="Ascending">Date
-                Ascending</a>
-            </li>
-            <li><a class="dropdown-item" v-on:click="Descending">Date
-                Descending</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Head</a></li>
-          </ul>
+                    <input v-model="sortCheckbox" value="活動義工招募" type="checkbox" class="btn-check" id="btncheck2"
+                      autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck2">活動義工招募</label>
 
-          <ul v-if="!isSearchEvents" class="dropdown-menu">
-            <li><a class="dropdown-item" v-on:click="Ascending">Date Ascending</a></li>
-            <li><a class="dropdown-item" v-on:click="Descending">Date Descending</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Head</a></li>
-          </ul>
+                    <input v-model="sortCheckbox" value="青年活動" type="checkbox" class="btn-check" id="btncheck3"
+                      autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck3">青年活動</label>
 
-        </button>
+                    <input v-model="sortCheckbox" value="兒童活動" type="checkbox" class="btn-check" id="btncheck4"
+                      autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck4">兒童活動</label>
+
+                  </div>
+
+
+                </div>
+              </div>
+              <div class="col">
+                <p class="position-relative  px-5">日期</p>
+                <div class="p-4 ">
+                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input v-model="sortCheckbox" value="日期升序" type="checkbox" class="btn-check" id="btncheck5"
+                      autocomplete="off">
+                    <label v-if="!is_D_checked" class="btn btn-outline-primary" for="btncheck5">升序</label>
+
+                    <input v-model="sortCheckbox" value="日期降序" type="checkbox" class="btn-check" id="btncheck6"
+                      autocomplete="off">
+                    <label v-if="!is_A_checked" class="btn btn-outline-primary" for="btncheck6">降序</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col" style="padding-top:30%;">
+                <button @click="sortEvent" type="btn" class="btn btn-primary "
+                  style="width: fit-content;height: 1cm;">確定</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
         <router-link to="/events/eventForm">
           <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
         </router-link>
-
       </div>
-
-
       <form v-if="props.searchButton" class="d-flex" role="search">
         <input v-model="input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <!-- <button class="btn btn-outline-success" type="button"
-          @click="searchEvent(sorting = 'Ascending')">Search</button> -->
+
         <button class="btn btn-outline-success" type="button"
           @click="searchEvent(sorting = 'Descending')">Search</button>
       </form>
@@ -59,11 +82,11 @@
 <script>
 import router from '@/router';
 import { ref } from 'vue'
-
+import { computed } from 'vue'
 // import { inject } from 'vue'
 // import router from '@/router';
 // import { getCurrentInstance } from "vue";
-
+import { useRoute } from 'vue-router'
 export default {
   name: "navSecondBar",
   props: {
@@ -77,9 +100,61 @@ export default {
   setup(props) {
     const input = ref('');
     const isSearchEvent = ref(false);
-    const searchEvent = async (sorting) => {
-      router.push({ name: 'events', query: { page: 1, sort: sorting, input: input.value } });
-      // context.emit('searchEvent', 1, sorting, input.value);
+    const sortCheckbox = ref([]);
+    const sorting = ref('');
+    const is_A_checked = computed(
+      () => {
+        if (sortCheckbox.value.includes('日期升序')) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    );
+    const is_D_checked = computed(
+      () => {
+        if (sortCheckbox.value.includes('日期降序')) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    );
+
+    const route = useRoute()
+    var category = '';
+    // pus the query from sortCheckbox to the router
+    const sortEvent = async () => {
+      // use a variable to store the query from sortCheckbox
+      var sorting = sortCheckbox.value.includes('日期升序') ? 'Ascending' : 'Descending';
+      //use for loop to add all the query from sortCheckbox to the store in the variable
+      // var category = '';
+      for (var i = 0; i < sortCheckbox.value.length; i++) {
+        // var category = '';
+        if (sortCheckbox.value[i] == '日期升序' || sortCheckbox.value[i] == '日期降序') {
+          continue;
+        } else {
+          if (i < sortCheckbox.value.length - 1)
+            category += sortCheckbox.value[i] + '|';
+          else
+            category += sortCheckbox.value[i];
+
+        }
+      }
+      console.log(category)
+      if (isSearchEvent.value) {
+        //get the  query from the router
+        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category, input: route.query.input } });
+
+      } else
+        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category } });
+      //reset the category
+      category = '';
+    }
+
+    const searchEvent = async () => {
+
+      router.push({ name: 'events', query: { page: 1, sort: sorting.value, input: input.value, category: category } });
 
     }
     const Descending = async () => {
@@ -90,7 +165,6 @@ export default {
 
 
     }
-
     const Ascending = async () => {
       if (isSearchEvent.value == true) {
         router.push({ name: 'events', query: { page: 1, sort: 'Ascending', input: input.value } });
@@ -101,8 +175,12 @@ export default {
 
     }
 
+
+
+
     return {
-      props, searchEvent, input, isSearchEvent, parent, Descending, Ascending
+      props, searchEvent, input, isSearchEvent, parent,
+      Descending, Ascending, sortCheckbox, is_D_checked, is_A_checked, sortEvent, sorting
     };
   },
   // components: { router }
@@ -131,11 +209,7 @@ export default {
   margin-left: 28%;
 }
 
-.dropdown-menu {
 
-  /* background-color: #c1c1c153; */
-
-}
 
 .dropdown-item:hover {
   background-color: #99e7f7d3;
@@ -152,5 +226,14 @@ a {
 a:hover {
   background-color: #99e7f7d3;
   border-radius: 10px;
+}
+
+.btn-group {
+  flex-direction: column-reverse
+}
+
+.dropdown-menu {
+
+  width: 750px;
 }
 </style>
