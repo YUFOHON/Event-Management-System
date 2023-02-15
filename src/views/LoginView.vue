@@ -5,7 +5,7 @@
         <form @submit.prevent="login()">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email/ username</label>
-                <input type="email" class="form-control" v-model="credential.email" aria-describedby="emailHelp">
+                <input type="text" class="form-control" v-model="credential.username" >
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
@@ -49,7 +49,7 @@ export default {
             } else {
                 alert(response.statusText)
             }
-            
+
         }
 
         return {
