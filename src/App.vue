@@ -1,4 +1,6 @@
 <template>
+
+
 <router-view/>
 
 
@@ -17,6 +19,11 @@
 
 </script>
 
-<style scoped>
-
+<style >
+ @import '@/assets/font/index.css';
+ #app {
+    font-family: 'msyhbd';
+    font-weight: 530;
+  }
 </style>
+
