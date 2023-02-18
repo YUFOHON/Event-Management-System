@@ -4,6 +4,7 @@
 
     <div class="container">
         <div class="loginForm">
+            <h5>Login</h5>
             <img src="@/assets/CCF.jpg" class="rounded mx-auto d-block" alt="Bootstrap" width="300" height="300">
         <form @submit.prevent="login()">
             <div class="mb-3">
@@ -16,7 +17,10 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <button type="submit" class="pink baseButton">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " bounce/></button>
+                <button type="submit" class="pink baseButton mx-4">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " bounce/></button>
+           
+                <button type="submit" class="pink baseButton mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button>
+           
             </div>
 
         </form>
@@ -88,7 +92,7 @@ color: white;
 }
 
 .container{
-    border-radius: 100%;
+    /* border-radius: 100%; */
     display: flex;
   flex-direction: column;
   background-image: url("@/assets/BG2.jpg");
@@ -106,21 +110,25 @@ color: white;
 }
 
 .loginForm {
-    border-radius: 80%;
+    /* border-radius: 80%; */
+    border-top-right-radius: 5%;
+    border-top-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
   background-color: #fff;
-  min-width: 800px;
+  min-width: 500px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
 }
 
 input{
-    margin-left: 270px;
+    margin-left: 120px;
     width: fit-content;
     border: 1px solid gray;
     border-radius: 4px;
 }
 label{
-    margin-left: 330px;
+    margin-left: 200px;
     width: fit-content;
 
 }
@@ -130,5 +138,13 @@ img{
 -ms-user-select: none; 
 -khtml-user-select: none; 
 user-select: none;
+}
+
+h5, .h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+    text-align: center;
 }
 </style>
