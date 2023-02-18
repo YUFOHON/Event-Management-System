@@ -63,7 +63,7 @@ export default {
             } else {
                 alert(response.statusText)
             }
-            
+
         }
 
         return {
