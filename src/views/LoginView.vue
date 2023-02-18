@@ -146,5 +146,6 @@ h5, .h5 {
     line-height: 1.2;
     color: inherit;
     text-align: center;
+    font-size: 5rem;
 }
 </style>
