@@ -12,17 +12,24 @@
         <li class="nav-item">
           <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
             href="/">
+            <span style="font-size: 1em; color: red;">
             <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
             <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
+            </span>
             主頁
+          
           </a>
+          
         </li>
         <li class="nav-item">
-
+        
           <a @mouseover="hoverEvent = true" @mouseleave="hoverEvent = false" class="nav-link" href="/events">
+            <span style="font-size: 1em; color: red;">
             <font-awesome-icon v-if="hoverEvent" icon="fa-solid fa-calendar-check" bounce />
             <font-awesome-icon v-if="!hoverEvent" icon="fa-solid fa-calendar-check" />
+          </span>
             活動
+         
           </a>
         </li>
         <li class="nav-item">
@@ -37,12 +44,14 @@
 
     <div class="p-4">
       <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute" class="userIcon">
+        <span style="font-size: 1rem; color: red;">
         <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" bounce size="2xl" />
         <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
+        </span>
       </router-link>
     </div>
-    <button v-if="token !== null" class="btn btn-outline-primary mx-2" type="submit" @click="logout()">SignOut</button>
-    <router-link to="/login"><button v-if="token == null" class="btn btn-primary mx-2" type="submit">Login</button>
+    <button v-if="token !== null" class="btn btn-outline-danger mx-2" type="submit" @click="logout()">SignOut</button>
+    <router-link to="/login"><button v-if="token == null" class="btn btn-danger mx-2" type="submit">Login</button>
     </router-link>
 
 
@@ -111,7 +120,7 @@ export default {
 .nav-link:hover,
 .nav-link:focus,
 .nav-link:active {
-  background-color: #99e7f7d3;
+  background-color: #f8b5;
   border-radius: 20px;
 }
 

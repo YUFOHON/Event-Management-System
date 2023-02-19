@@ -215,15 +215,20 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #0d6efd;
+    background: #9b0000;
 }
 
 .btn-secondary:hover {
-    background: #0d6efd;
+    background: #9b0000;
 }
 
 .input-group {
     margin-left: 30px;
     position: relative;
+}
+
+.page-link.active, .active > .page-link {
+    background-color: #9b0000;
+    border-color: #9b0000;
 }
 </style>

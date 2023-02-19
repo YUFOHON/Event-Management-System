@@ -16,7 +16,7 @@
           </button>
           <div class="dropdown-menu">
             <div class="row  p-4">
-              <div class="col ">
+              <div class="col col-6">
                 <p class="position-relative  px-5">類別</p>
                 <div class=" p-4 ">
                   <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -41,10 +41,10 @@
 
                 </div>
               </div>
-              <div class="col">
-                <p class="position-relative  px-5">日期</p>
-                <div class="p-4 ">
-                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+              <div class="col col-6 ">
+                <p class="position-relative  px-5 ">日期</p>
+                <div class="p-4 px-5">
+                  <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
                     <input v-model="sortCheckbox" value="日期升序" type="checkbox" class="btn-check" id="btncheck5"
                       autocomplete="off">
                     <label v-if="!is_D_checked" class="btn btn-outline-primary" for="btncheck5">升序</label>
@@ -55,7 +55,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col" style="padding-top:30%;">
+              <div class="row" style="padding-left:48%;">
                 <button @click="sortEvent" type="btn" class="btn btn-primary "
                   style="width: fit-content;height: 1cm;">確定</button>
               </div>
@@ -212,7 +212,7 @@ export default {
 
 
 .dropdown-item:hover {
-  background-color: #99e7f7d3;
+  background-color: #f8b5;
 }
 
 a {
@@ -224,7 +224,7 @@ a {
 }
 
 a:hover {
-  background-color: #99e7f7d3;
+  background-color: #f8b5;
   border-radius: 10px;
 }
 
@@ -234,6 +234,6 @@ a:hover {
 
 .dropdown-menu {
 
-  width: 750px;
+  width: 400px;
 }
 </style>

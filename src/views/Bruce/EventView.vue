@@ -173,6 +173,10 @@ export default {
             }
             // location.reload()
         }
+
+
+
+
         watch(fontSize, (currentValue, oldValue) => {
             console.log(currentValue);
             console.log(oldValue);

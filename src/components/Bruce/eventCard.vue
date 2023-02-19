@@ -1,18 +1,21 @@
 <template>
-    <div class="card" :style="{ width: props.cardWidth*0.9 + 'rem', height: props.cardWidth*1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
+    <div class="card"
+        :style="{ width: props.cardWidth * 0.9 + 'rem', height: props.cardWidth * 1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
+        
 
 
         <div class=" card-body overflow-auto py-4">
             <img :src=props.image class=" rounded-circle  mb-3" alt="..." style="width: 20rem; height: 15rem;">
-
             <ul class="list-group list-group-flush">
 
                 <li class="list-group-item">
                     <div class="card-title row">
                         <!-- <p ref="root" class="eventName text-center">
-                            名稱： {{ props.eventName }}
-                        </p> -->
-                        <div class="col col-5 text-primary pt-3">名稱 </div>
+                                    名稱： {{ props.eventName }}
+                                </p> -->
+
+                        <div class="col col-5 text-danger pt-3" style="font-weight:bolder;">名稱 </div>
+
                         <div class="col  gy-3">{{ props.eventName }}</div>
                     </div>
                 </li>
@@ -21,7 +24,9 @@
                     <div class="content overflow-auto row" style="height:5rem ;">
 
                         <!-- <p class="card-text ">內容： {{ props.content }}</p> -->
-                        <div class="col col-5 text-primary pt-3">內容 </div>
+
+                        <div class="col col-5 text-danger pt-3" style="font-weight:bolder;">內容 </div>
+
                         <div class="col gy-3">{{ props.content }}</div>
 
 
@@ -31,14 +36,18 @@
                 <li class="list-group-item">
                     <!-- <p class="card-text text-center">日期：{{ props.Date }}</p> -->
                     <div class="row">
-                        <div class="col col-5 text-primary pt-3">日期 </div>
+                        <div class="col col-5 text-danger pt-3" style="font-weight:bolder;">
+
+                            日期
+
+                        </div>
                         <div class="col gy-3">{{ props.Date }}</div>
                     </div>
                 </li>
             </ul>
 
             <div class="d-grid gap-2 col-3 mx-auto my-3">
-                <router-link :to="'/events/eventForm/' + props.id" class="btn btn-primary  ">查看</router-link>
+                <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
             </div>
 
         </div>
@@ -123,7 +132,7 @@ export default {
     background-color: #c1c1c153;
     transform: scale(1.08);
     transition: 0.7s;
-  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
 }
 
@@ -138,14 +147,15 @@ export default {
     height: 10px;
     background: #f1f1f1;
     border-radius: 10px;
-    
+
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #0d6efd;
+    background: #e70303;
     border-radius: 10px;
 }
-img:hover{
+
+img:hover {
     transform: scale(1.05);
     transition: 1s;
 }
@@ -167,6 +177,15 @@ img {
 
 
 }
+
+span {
+
+    font-weight: 1000;
+
+}
+
+
+
 
 /* .card-title {
 
