@@ -1,7 +1,7 @@
 <template>
     <div class="card"
         :style="{ width: props.cardWidth * 0.9 + 'rem', height: props.cardWidth * 1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
-        
+
 
 
         <div class=" card-body overflow-auto py-4">
@@ -60,7 +60,7 @@ import { ref } from 'vue'
 
 import { onMounted } from 'vue';
 // import { watch } from 'vue';
-
+import { computed } from 'vue';
 export default {
     name: 'eventCard',
     props: {
@@ -69,6 +69,7 @@ export default {
         content: String,
         id: String,
         Date: String,
+        Category: String,
         fontSize: Number,
         cardWidth: Number
     },
@@ -80,7 +81,21 @@ export default {
         //     console.log(currentValue);
         //     console.log(oldValue);
         // });
+        const shadow = computed(() => {
+            if (props.Category == '兒童活動') {
+                return '5px 5px 15px #af8221'
+            } else if (props.Category == '青年活動') {
+                return '5px 5px 15px #40d859'
+            } else if (props.Category == '同路人支援平台') {
+                return '5px 5px 15px #8a56dd'
+            } else {
+                return '5px 5px 15px #ff0000'
+            }
 
+
+        }
+
+        )
 
         onMounted(() => {
             // const dom = root.value
@@ -89,10 +104,14 @@ export default {
             // if (dom.scrollWidth > dom.offsetWidth) {
             //     dom.style.fontSize = `${(dom.offsetWidth - padding * 2) / dom.scrollWidth * 25}px`;
             // }
-
+            // compute if the props.category is == something then change the shadow 
+            // child -> 5px 5px 15px #e74c3c
+            // adult -> 5px 5px 15px #e67e22
+            // family -> 5px 5px 15px #2ecc71
+            // console.log(shadow.value)
         })
         return {
-            props, root,
+            props, root, shadow
         }
     }
 }
@@ -100,19 +119,13 @@ export default {
 
 
 <style scoped>
-/* .text {
-    font-size: 10rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    
-} */
-
 .card {
     width: 18rem;
     height: 592px;
     margin: 1rem;
     border-radius: 1rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 5px 5px 15px #af8221; */
+    box-shadow: v-bind('shadow');
     transition: 0.3s;
     overflow: hidden;
     background-color: #f8f9fa;
@@ -125,6 +138,7 @@ export default {
 
 .list-group-item:hover {
     background-color: #c1c1c153;
+
     transition: 0.3s;
 }
 

@@ -7,7 +7,7 @@
         <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>
       </div>
 
-      <div class="d-flex-button">
+      <div v-if="props.sortButton" class="d-flex-button">
 
         <div class="dropdown" id="sortButton">
           <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
@@ -68,6 +68,7 @@
           <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
         </router-link>
       </div>
+
       <form v-if="props.searchButton" class="d-flex" role="search">
         <input v-model="input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 
