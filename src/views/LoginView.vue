@@ -54,8 +54,12 @@ export default {
                 var data = await response.json()
                 localStorage.setItem("user", data.token);
                 localStorage.setItem("identity", "normal"); //Temp
+                
 
                 var decoded = jwt_decode(data.token);
+                localStorage.setItem("tt", decoded["user_id"]);
+                console.log(decoded["user_id"]);
+
                 alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
                 alert("login Successfully.")
