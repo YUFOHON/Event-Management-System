@@ -91,6 +91,7 @@ export default {
       localStorage.removeItem('user');
       token = null;
       location.reload()
+      location.assign("/login")
     }
 
 
