@@ -73,7 +73,7 @@ const routes = [
   //--------------------------------------------------------
   {
     path: '/eventDetails',
-    name: 'eventDeatils',
+    name: 'eventDetails',
     component: eventDetails 
   },
 
