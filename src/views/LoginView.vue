@@ -19,8 +19,7 @@
             <div class="d-flex justify-content-center">
                 <button type="submit" class="pink baseButton mx-4">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " bounce/></button>
            
-                <button type="submit" class="pink baseButton mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button>
-           
+                <!-- <button type="submit" class="pink baseButton mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button> -->
             </div>
 
         </form>
@@ -52,9 +51,9 @@ export default {
 
             if (response.ok) {
                 var data = await response.json()
-                localStorage.setItem("user", data.token);
-                localStorage.setItem("identity", "normal"); //Temp
-                
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("role", data.role);
+                localStorage.setItem("userId", data.userId);
 
                 var decoded = jwt_decode(data.token);
                 localStorage.setItem("tt", decoded["user_id"]);
@@ -63,7 +62,7 @@ export default {
                 alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
                 alert("login Successfully.")
-                location.assign("/events")
+                location.assign("/")
             } else {
                 alert(response.statusText)
             }
