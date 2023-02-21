@@ -10,7 +10,7 @@ import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/cEnrollment.vue'
 import eventDetails from '../views/ali/eventDetails.vue'
 import UserView from '../views/UserView.vue'
-
+import CreateUserView from '../views/CreateUserView.vue'
 
 const routes = [
   {//=================================Bruce==========================================================
@@ -61,12 +61,16 @@ const routes = [
     component: cEnrollment
   },
   
-  //==================================================================================================
-  //==================================================================================================
+  //=====================Nicoles======================//
   {
     path: '/login',
     name: 'login',
     component: LoginView 
+  },
+  {
+    path: '/createUser',
+    name: 'createUser',
+    component: CreateUserView
   },
   {
     path: '/users',
