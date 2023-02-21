@@ -3,7 +3,7 @@
         <navBar />
     </div>
 
-    <div class="container rounded bg-white mt-5 mb-5" v-for="users in users.slice(0,1)" :key="users._id" >
+    <div class="container rounded bg-white mt-5 mb-5"  >
       <div class="row">
           <form class="row g-3" >
             <div class="col-md-3 border-right">
@@ -18,7 +18,7 @@
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Name :  </label>{{ users.username }}</div>
+                        <div class="col-md-6"><label class="labels">Name : </label>{{ users.username }}</div>
                         <div class="col-md-6"><label class="labels">Child_ID :  </label>{{ users.Child_ID }}</div>
                     </div>
                     <div class="row mt-3">
@@ -83,38 +83,24 @@ export default {
     // navSecondBar
     // SideBar
   },
-//   setup() {
-//   const users = ref([]);
-
-//   const fetchData = async function () {
-//     var response = await fetch("/api/users");
-
-//     if (response.ok) {
-//       var data = await response.json();
-
-//       users.value = data.users;
-//     } else {
-//       alert(response.statusText);
-//     }
-//   };
-
-//   onMounted(function () {
-//     fetchData();
-//   });
-
-//   return {
-//     users,
-//   };
-// },
-// };
-setup() {
+  // data() {
+  //   return {
+  //     token: null,
+  //   };
+  // },
+  // mounted(){
+  //   this.token = localStorage.getItem('tt');
+  // },
+  setup() {
     const users = ref([]);
+    const token = localStorage.getItem("tt");
 
     const fetchData = async function () {
-      var response = await fetch("/api/users");
+      var response = await fetch("/api/users/"+token);
 
       if (response.ok) {
         var data = await response.json();
+        // console.log(token);
 
         users.value = data.users;
       } else {

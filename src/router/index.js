@@ -9,6 +9,7 @@ import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/cEnrollment.vue'
 import eventDetails from '../views/ali/eventDetails.vue'
+import UserView from '../views/UserView.vue'
 
 
 const routes = [
@@ -66,6 +67,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView 
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: UserView 
   },
 
 
