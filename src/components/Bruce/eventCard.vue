@@ -129,11 +129,13 @@ export default {
     transition: 0.3s;
     overflow: hidden;
     background-color: #f8f9fa;
+    
 }
 
 .list-group-item {
     border: none;
     background-color: #f8f9fa;
+    
 }
 
 .list-group-item:hover {

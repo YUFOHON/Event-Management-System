@@ -74,6 +74,7 @@ export default {
 </script>
 
 <style scoped>
+
 #app {
     font-family: Arial, Helvetica, sans-serif;
     color: #2c3e50;
@@ -111,6 +112,7 @@ color: white;
 
 .loginForm {
     /* border-radius: 80%; */
+    
     border-top-right-radius: 5%;
     border-top-left-radius: 5%;
     border-bottom-right-radius: 5%;
