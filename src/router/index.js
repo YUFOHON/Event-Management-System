@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
 import EventFormView from '../views/Bruce/EventFormView.vue'
+import eventHistoryView from '../views/Bruce/EventHistoryView.vue'
 import AdminProfile from '../views/AdminProfile.vue'
 import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminProfile from '../views/EditAdminProfile.vue'
@@ -33,7 +34,11 @@ const routes = [
     name: 'eventForm',
     component: EventFormView
   },
-
+  {
+    path: '/events/eventHistory',
+    name: 'eventHistory',
+    component: eventHistoryView
+  },
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',

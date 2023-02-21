@@ -1,5 +1,4 @@
 <template>
-
   <div class="container-md">
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
       <div class="container-flex ">
@@ -62,8 +61,10 @@
             </div>
           </div>
         </div>
+        <router-link to="/events/eventHistory">
+          <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
+        </router-link>
 
-        <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
         <router-link to="/events/eventForm">
           <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
         </router-link>
@@ -72,8 +73,7 @@
       <form v-if="props.searchButton" class="d-flex" role="search">
         <input v-model="input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 
-        <button class="btn btn-outline-success" type="button"
-          @click="searchEvent(sorting = 'Descending')">Search</button>
+        <button class="btn btn-outline-success" type="button" @click="searchEvent(sorting = 'Descending')">Search</button>
       </form>
     </nav>
 
