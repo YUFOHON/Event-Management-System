@@ -83,10 +83,10 @@
     </div>
     <div class=" py-4 d-flex justify-content-evenly">
       <div class="b">
-        <button type="submit" class="btn btn-primary" @click="updateEvent()">Submit</button>
+        <button type="button"  class="btn btn-primary" @click="updateEvent()">Submit</button>
       </div>
       <div class="b">
-        <button type="submit" class="btn btn-danger" @click="deleteEvent()">Delete</button>
+        <button type="button"  class="btn btn-danger" @click="deleteEvent()">Delete</button>
       </div>
     </div>
   </form>
@@ -174,7 +174,7 @@
     </div>
     <div class=" py-4 d-flex justify-content-evenly">
       <div class="b">
-        <button type="submit" class="btn btn-primary" @click="addEvent()">Submit</button>
+        <button type="button" class="btn btn-primary" @click="addEvent()">Submit</button>
       </div>
     </div>
   </form>
@@ -249,15 +249,15 @@ export default {
     }
 
     async function deleteEvent() {
+
       var response = await fetch("/api/events/delete?id=" + props.eventID, {
-        method: 'DELETE'
-
-
+        method: 'PUT'
       });
-      //reload the page
-      alert(response.statusText)
+ 
+
       //relocate to event page
-      location.href = "/events"
+      console.log(response)
+      location.assign("/events");
     }
 
 
