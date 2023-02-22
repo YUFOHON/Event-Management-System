@@ -16,7 +16,7 @@
                 URL: '/events'
             }
         ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
+            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="navSecondBar" />
     </div>
 
     <div class="row">
@@ -31,7 +31,7 @@
             <div class="row d-flex">
                 <div v-for="a in arr" :key="a" class="col">
                     <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                        :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" ref="card" />
+                        :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category" ref="card" />
                 </div>
             </div>
             <!-- <div class="row d-flex py-4">
@@ -208,6 +208,15 @@ export default {
 </script>
 
 <style scoped>
+
+body {
+    background: rgba(0, 250, 54, 0.5);
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 20px );
+-webkit-backdrop-filter: blur( 20px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
 .cards {
     margin-left: 250px;
 }

@@ -22,7 +22,7 @@
 <style >
  @import '@/assets/font/index.css';
  #app {
-    font-family: 'msyhbd';
+    font-family: 'jf-openhuninn-1.1';
     font-weight: 530;
   }
 </style>

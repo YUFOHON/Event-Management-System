@@ -38,6 +38,9 @@
         <li class="nav-item">
           <a class="nav-link ">Disabled</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">User</a>
+        </li>
       </ul>
     </div>
 
@@ -91,6 +94,7 @@ export default {
       localStorage.removeItem('user');
       token = null;
       location.reload()
+      location.assign("/login")
     }
 
 
