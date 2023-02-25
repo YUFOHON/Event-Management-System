@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <div v-if="isSearchEvents" class="d-flex">
             <nav aria-label="Page navigation">
@@ -77,18 +76,18 @@
 
             </nav>
             <div class="input-group">
-                <form class="d-flex">
+                <form class="d-flex"  @submit.prevent="goToPage">
                     <input v-model="pageInput" class="form-control" type="number" placeholder="頁" aria-label="Search">
+
                     <span class="input-group-btn">
 
-                        <button v-on:click="goToPage" class="btn btn-secondary" type="button">Go</button>
+                        <button class="btn btn-secondary" type="submit">Go</button>
 
                     </span>
                 </form>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -227,7 +226,8 @@ export default {
     position: relative;
 }
 
-.page-link.active, .active > .page-link {
+.page-link.active,
+.active>.page-link {
     background-color: #9b0000;
     border-color: #9b0000;
 }

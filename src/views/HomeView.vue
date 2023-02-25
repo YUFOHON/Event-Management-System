@@ -49,8 +49,10 @@
         </div>
     </div>
 
+<navBar />
 
 </template>
+
 
 <script>
 
@@ -66,8 +68,8 @@ import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 // import { useRouter } from 'vue-router'
+// import navBar from '@/components/public/navBar.vue'
 export default {
-    name: 'EventView',
     components: {
         homeNavBar,
         homeNavSecondBar,
@@ -212,3 +214,11 @@ export default {
 </style>
 
 
+        navBar
+
+
+    },
+
+
+}
+</script>

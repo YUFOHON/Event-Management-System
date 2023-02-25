@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
 import EventFormView from '../views/Bruce/EventFormView.vue'
+import eventHistoryView from '../views/Bruce/EventHistoryView.vue'
 import AdminProfile from '../views/AdminProfile.vue'
 import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminProfile from '../views/EditAdminProfile.vue'
@@ -11,7 +12,7 @@ import cEnrollment from '../views/cEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
 import eventDetails from '../views/ali/eventDetails.vue'
 import UserView from '../views/UserView.vue'
-
+import CreateUserView from '../views/CreateUserView.vue'
 
 const routes = [
   {//=================================Bruce==========================================================
@@ -34,7 +35,11 @@ const routes = [
     name: 'eventForm',
     component: EventFormView
   },
-
+  {
+    path: '/events/eventHistory',
+    name: 'eventHistory',
+    component: eventHistoryView
+  },
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',
@@ -62,12 +67,16 @@ const routes = [
     component: cEnrollment
   },
   
-  //==================================================================================================
-  //==================================================================================================
+  //=====================Nicoles======================//
   {
     path: '/login',
     name: 'login',
     component: LoginView 
+  },
+  {
+    path: '/createUser',
+    name: 'createUser',
+    component: CreateUserView
   },
   {
     path: '/users',
