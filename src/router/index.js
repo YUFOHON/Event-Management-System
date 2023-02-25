@@ -8,6 +8,7 @@ import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/cEnrollment.vue'
+import clientEventView from '../views/ali/clientEventView.vue'
 import eventDetails from '../views/ali/eventDetails.vue'
 import UserView from '../views/UserView.vue'
 
@@ -81,6 +82,12 @@ const routes = [
     path: '/eventDetails',
     name: 'eventDetails',
     component: eventDetails 
+  },
+
+  {
+    path: '/cEvents',
+    name: 'clientEventView',
+    component: clientEventView
   },
 
 ]

@@ -11,13 +11,12 @@
       <ul class="nav gap-5  ">
         <li class="nav-item">
           <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
-            href="/">
+            href="https://www.ccf.org.hk/en/">
             <span style="font-size: 1em; color: red;">
             <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
             <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
             </span>
             主頁
-          
           </a>
           
         </li>

@@ -1,11 +1,11 @@
 <template>
 
-    <div class="row" id="homeNavBar">
-        <homeNavBar />
+    <div class="row" id="navBar">
+        <navBar />
     </div>
 
-    <div class="row py-4" id="homeNavSecondBar">
-        <homeNavSecondBar :arr="[
+    <div class="row py-4" id="navSecondBar">
+        <navSecondBar :arr="[
             {
                 name: '主頁',
                 URL: '/'
@@ -16,7 +16,7 @@
                 URL: '/events'
             }
         ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="homeNavSecondBar" />
+            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="navSecondBar" />
     </div>
 
     <div class="row">
@@ -53,10 +53,11 @@
 </template>
 
 <script>
+// @ is an alias to /src
 
-
-import homeNavBar from '@/components/ali/homeNavBar.vue'
-import homeNavSecondBar from '@/components/ali/homeNavSecondBar.vue'
+import navBar from '@/components/public/navBar.vue'
+import navSecondBar from '@/components/Bruce/navSecondBar.vue'
+// import eventForm from '@/components/Bruce/eventForm.vue'
 import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
 // import { onBeforeMount } from 'vue'
@@ -69,8 +70,8 @@ import { useRoute } from 'vue-router'
 export default {
     name: 'EventView',
     components: {
-        homeNavBar,
-        homeNavSecondBar,
+        navBar,
+        navSecondBar,
         pagination,
         eventCard,
         SideBar,
@@ -82,7 +83,7 @@ export default {
         let lastPage = ref(1);
         let sortDefault = ref('Descending')
         let isSearchEvents = ref(false)
-        const homeNavSecondBar = ref(null)
+        const navSecondBar = ref(null)
         const pagination = ref(null)
         const card = ref(null)
         const fontSize = ref(1)
@@ -111,7 +112,7 @@ export default {
             if (input == undefined || input == '') {
                 //set the new category value  to all child component category value
                 isSearchEvents.value = false
-                homeNavSecondBar.value.isSearchEvent = false
+                navSecondBar.value.isSearchEvent = false
                 pagination.value.isSearchEvents = false
                 pagination.value.category = category
                 response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort + "&category=" + category, {
@@ -123,7 +124,7 @@ export default {
             } else {
                 //set the new category value  to all child component category value
                 isSearchEvents.value = true
-                homeNavSecondBar.value.isSearchEvent = true
+                navSecondBar.value.isSearchEvent = true
                 pagination.value.isSearchEvents = true
                 pagination.value.input = input
                 pagination.value.category = category
@@ -138,7 +139,8 @@ export default {
                 arr.value = data.results;
                 lastPage.value = data.pages;
                 curPage.value = page;
-                
+                // navSecondBar.value.isSearchEvent = false
+                // pagination.value.isSearchEvents = false
             } else {
                 alert(response.statusText);
             }
@@ -161,8 +163,8 @@ export default {
                 lastPage.value = data.pages;
                 curPage.value = page;
                 isSearchEvents.value = true
-                //set the homeNavSecondBar's isSearchEvents to true
-                homeNavSecondBar.value.isSearchEvent = true
+                //set the navSecondBar's isSearchEvents to true
+                navSecondBar.value.isSearchEvent = true
                 pagination.value.isSearchEvents = true
                 pagination.value.input = input
 
@@ -197,7 +199,7 @@ export default {
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {
-            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, homeNavSecondBar, pagination,
+            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
             checkRouterValue
 
         }
@@ -210,5 +212,4 @@ export default {
     margin-left: 250px;
 }
 </style>
-
 
