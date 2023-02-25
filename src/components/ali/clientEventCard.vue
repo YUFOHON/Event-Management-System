@@ -46,7 +46,7 @@
             </ul>
 
             <div class="d-grid gap-2 col-3 mx-auto my-3">
-                <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
+                <router-link :to="'/eventDetails/' + props.id" class="btn btn-danger  ">Details</router-link>
             </div>
 
         </div>
@@ -61,7 +61,7 @@ import { onMounted } from 'vue';
 // import { watch } from 'vue';
 import { computed } from 'vue';
 export default {
-    name: 'eventCard',
+    name: 'clientEventCard',
     props: {
         eventName: String,
         image: String,

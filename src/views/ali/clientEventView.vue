@@ -29,14 +29,14 @@
             
             <div class="row d-flex">
                 <div v-for="a in arr" :key="a" class="col">
-                    <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
+                    <clientEventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
                     :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category" ref="card" />
                 </div>
             </div>
             
             <!-- <div class="row d-flex py-4">
                 <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
-                    <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
+                    <clientEventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
                     :Date="a.eventDate" ref="cards" />
                 </div>
             </div> -->
@@ -62,7 +62,7 @@ import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
 // import { onBeforeMount } from 'vue'
 import { ref } from 'vue'
-import eventCard from '@/components/Bruce/eventCard.vue';
+import clientEventCard from '@/components/ali/clientEventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -73,7 +73,7 @@ export default {
         navBar,
         navSecondBar,
         pagination,
-        eventCard,
+        clientEventCard,
         SideBar,
         
     },
