@@ -4,28 +4,15 @@
         <homeNavBar />
     </div>
 
-    <div class="row py-4" id="homeNavSecondBar">
-        <homeNavSecondBar :arr="[
-            {
-                name: '主頁',
-                URL: '/'
-            }
-            ,
-            {
-                name: '活動',
-                URL: '/events'
-            }
-        ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="homeNavSecondBar" />
+    <div class="row py-4" id="navSecondBar">
+        <navSecondBar :arr="[
+           ]" :sortButton="true" :eventHistoryButton="false" :addButton="false" :searchButton="true"
+            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="navSecondBar" />
     </div>
 
     <div class="row">
 
-        <div class="col col-1 py-4 px-4" id="sideBarContainer">
-            <SideBar @setFontSize="setFontSize" />
-        </div>
-
-        <div class="col col-10  ">
+        <div class="col col-12">
 
 
             <div class="row d-flex">
@@ -34,6 +21,7 @@
                         :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category" ref="card" />
                 </div>
             </div>
+
             <!-- <div class="row d-flex py-4">
                     <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
                         <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
@@ -49,7 +37,7 @@
         </div>
     </div>
 
-<navBar />
+<navBar/>
 
 </template>
 
@@ -58,7 +46,7 @@
 
 
 import homeNavBar from '@/components/ali/homeNavBar.vue'
-import homeNavSecondBar from '@/components/ali/homeNavSecondBar.vue'
+import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
 // import { onBeforeMount } from 'vue'
@@ -72,10 +60,10 @@ import { useRoute } from 'vue-router'
 export default {
     components: {
         homeNavBar,
-        homeNavSecondBar,
+        navSecondBar,
         pagination,
         eventCard,
-        SideBar,
+        //SideBar,
 
     },
     setup() {
@@ -84,7 +72,7 @@ export default {
         let lastPage = ref(1);
         let sortDefault = ref('Descending')
         let isSearchEvents = ref(false)
-        const homeNavSecondBar = ref(null)
+        const navSecondBar = ref(null)
         const pagination = ref(null)
         const card = ref(null)
         const fontSize = ref(1)
@@ -113,7 +101,7 @@ export default {
             if (input == undefined || input == '') {
                 //set the new category value  to all child component category value
                 isSearchEvents.value = false
-                homeNavSecondBar.value.isSearchEvent = false
+                navSecondBar.value.isSearchEvent = false
                 pagination.value.isSearchEvents = false
                 pagination.value.category = category
                 response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort + "&category=" + category, {
@@ -125,7 +113,7 @@ export default {
             } else {
                 //set the new category value  to all child component category value
                 isSearchEvents.value = true
-                homeNavSecondBar.value.isSearchEvent = true
+                navSecondBar.value.isSearchEvent = true
                 pagination.value.isSearchEvents = true
                 pagination.value.input = input
                 pagination.value.category = category
@@ -163,8 +151,8 @@ export default {
                 lastPage.value = data.pages;
                 curPage.value = page;
                 isSearchEvents.value = true
-                //set the homeNavSecondBar's isSearchEvents to true
-                homeNavSecondBar.value.isSearchEvent = true
+                //set the navSecondBar's isSearchEvents to true
+                navSecondBar.value.isSearchEvent = true
                 pagination.value.isSearchEvents = true
                 pagination.value.input = input
 
@@ -199,26 +187,13 @@ export default {
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {
-            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, homeNavSecondBar, pagination,
+            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
             checkRouterValue
 
         }
     }
 }
+
 </script>
 
-<style scoped>
-.cards {
-    margin-left: 250px;
-}
-</style>
 
-
-        navBar
-
-
-    },
-
-
-}
-</script>

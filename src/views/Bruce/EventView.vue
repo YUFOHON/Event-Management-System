@@ -34,6 +34,7 @@
                         :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category" ref="card" />
                 </div>
             </div>
+            
             <!-- <div class="row d-flex py-4">
                     <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
                         <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"

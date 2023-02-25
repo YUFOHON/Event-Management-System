@@ -88,7 +88,7 @@ const routes = [
   //----------------------------------------------ALI route handlers--------------
   //--------------------------------------------------------
   {
-    path: '/eventDetails',
+    path: '/eventDetails/:id',
     name: 'eventDetails',
     component: eventDetails 
   },
@@ -98,6 +98,7 @@ const routes = [
     name: 'clientEventView',
     component: clientEventView
   },
+
 
 ]
 

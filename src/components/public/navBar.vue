@@ -1,8 +1,7 @@
 <template>
 
   <nav class="navbar  bg-body-tertiary shadow" style="background-color: white;">
-    <!-- <div class="d-flex  align-items-center"> -->
-
+    
     <div class="d-flex align-items-center  me-auto p-2">
       <a class="navbar-brand px-4 " href="/">
         <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
@@ -52,10 +51,10 @@
         </span>
       </router-link>
     </div>
+
     <button v-if="token !== null" class="btn btn-outline-danger mx-2" type="submit" @click="logout()">SignOut</button>
     <router-link to="/login"><button v-if="token == null" class="btn btn-danger mx-2" type="submit">Login</button>
     </router-link>
-
 
 
 
@@ -154,3 +153,4 @@ img {
   opacity: 0;
 } */
 </style>
+

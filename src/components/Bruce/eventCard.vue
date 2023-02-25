@@ -2,8 +2,6 @@
     <div class="card"
         :style="{ width: props.cardWidth * 0.9 + 'rem', height: props.cardWidth * 1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
 
-
-
         <div class=" card-body overflow-auto py-4">
             <img :src=props.image class=" rounded-circle  mb-3" alt="..." style="width: 20rem; height: 15rem;">
             <ul class="list-group list-group-flush">
@@ -195,7 +193,6 @@ img {
 }
 
 span {
-
     font-weight: 1000;
 
 }
