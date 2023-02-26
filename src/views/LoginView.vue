@@ -59,7 +59,12 @@ export default {
                 // alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
                 alert("Login Successfully.")
-                location.assign("/events")
+                if(data.role == "admin"){
+                    location.assign("/events")
+                } else if(data.role == "user"){
+                    location.assign("/cEvents")
+                }
+                
             } else {
                 alert(response.statusText)
             }
