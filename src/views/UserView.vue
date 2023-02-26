@@ -37,7 +37,7 @@
                                 adipisci</p>
 <!-- 
                                 <button type="submit">Details</button> -->
-                                <router-link :to="'/cProfile/' + user._id">Update</router-link>
+                                <router-link :to="'/editCProfile/' + user._id">Update</router-link>
                               <!-- <a href="/cProfile" class="card-link">Details</a>   -->
                         </div>  
                     </div>
