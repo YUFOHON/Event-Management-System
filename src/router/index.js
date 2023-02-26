@@ -104,8 +104,24 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  
+  if (to.path === '/login' || to.path === '/createUser' || to.path === '/') {
+    next();
+  } else {
+    let token = localStorage.getItem('token');
+ 
+    if (!token) {
+      alert("Please login first.")
+      next('/login');
+    } else {
+      next();
+    }
+  }
+})
+
 
 export default router

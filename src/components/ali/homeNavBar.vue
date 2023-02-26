@@ -45,8 +45,8 @@
         </div>
       </template>
       
-      <button v-if="token !== null" class="btn btn-outline-danger mx-2" type="submit" @click="logout()">SignOut</button>
-      <router-link to="/login"><button v-if="token == null" class="btn btn-danger mx-2" type="submit">Login</button>
+      <button v-if="token" class="btn btn-outline-danger mx-2" type="submit" @click="logout()">SignOut</button>
+      <router-link to="/login"><button v-if="!token" class="btn btn-danger mx-2" type="submit">Login</button>
       </router-link>
   
   
@@ -83,9 +83,8 @@
   
       const logout = function () {
         alert("Successful logout");
+        localStorage.removeItem('token');
         localStorage.removeItem('user');
-        token = null;
-        location.reload()
         location.assign("/login")
       }
   
