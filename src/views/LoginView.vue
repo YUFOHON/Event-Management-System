@@ -56,10 +56,9 @@ export default {
                 var decoded = jwt_decode(data.token);
                 localStorage.setItem("tt", decoded["user_id"]);
                 // console.log(decoded["user_id"]);
-
-                alert(JSON.stringify(decoded))
+                // alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
-                alert("login Successfully.")
+                alert("Login Successfully.")
                 location.assign("/")
             } else {
                 alert(response.statusText)

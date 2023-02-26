@@ -65,9 +65,9 @@
     },
     computed: {
       profileRoute() {
-        const userIdentity = localStorage.getItem('identity');
+        const role = localStorage.getItem('role');
         // console.log(userIdentity);
-        if (userIdentity == 'normal') {
+        if (role == 'user') {
           return { path: '/cProfile' };
         } else {
           return { path: '/aProfile' };
