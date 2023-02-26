@@ -59,7 +59,7 @@ export default {
                 // alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
                 alert("Login Successfully.")
-                location.assign("/")
+                location.assign("/events")
             } else {
                 alert(response.statusText)
             }
