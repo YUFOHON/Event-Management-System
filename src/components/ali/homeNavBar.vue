@@ -45,9 +45,9 @@
         </div>
       </template>
       
-      <button v-if="token" class="btn btn-outline-danger mx-2" type="submit" @click="logout()">SignOut</button>
-      <router-link to="/login"><button v-if="!token" class="btn btn-danger mx-2" type="submit">Login</button>
-      </router-link>
+      <button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+      <button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+      
   
   
   
@@ -79,7 +79,11 @@
       let hoverUser = ref(false)
       let hoverEvent = ref(false)
       let show = ref(true)
-      let token = localStorage.getItem("user");
+      let token = localStorage.getItem('token');
+
+      const login = async function () {
+      location.assign("/login")
+    }
   
       const logout = function () {
         alert("Successful logout");
@@ -94,6 +98,7 @@
         hoverUser,
         hoverEvent,
         show,
+        login,
         logout,
         token
       }
