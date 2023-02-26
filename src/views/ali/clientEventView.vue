@@ -15,7 +15,7 @@
             name: '活動',
             URL: '/events'
         }
-        ]" :sortButton="true" :eventHistoryButton="true" :addButton="false" :searchButton="true"
+        ]" :sortButton="true" :eventHistoryButton="false" :addButton="false" :searchButton="true"
         :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="navSecondBar" />
     </div>
     
