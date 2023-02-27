@@ -35,8 +35,10 @@
                             <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                 Eos,
                                 adipisci</p>
-
-                              <a href="/cProfile" class="card-link">Details</a>  
+<!-- 
+                                <button type="submit">Details</button> -->
+                                <router-link :to="'/editCProfile/' + user._id">Update</router-link>
+                              <!-- <a href="/cProfile" class="card-link">Details</a>   -->
                         </div>  
                     </div>
 
@@ -136,4 +138,5 @@ body {
     border: 5px solid #fff;
     border-radius: 50%;
 }
+
 </style>

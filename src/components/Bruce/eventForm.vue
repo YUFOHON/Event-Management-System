@@ -83,25 +83,25 @@
     </div>
     <div class=" py-4 d-flex justify-content-evenly">
       <div class="b">
-        <button type="submit" class="btn btn-primary" @click="updateEvent()">Submit</button>
+        <button type="button"  class="btn btn-primary" @click="updateEvent()">Update</button>
       </div>
       <div class="b">
-        <button type="submit" class="btn btn-danger" @click="deleteEvent()">Delete</button>
+        <button type="button"  class="btn btn-danger" @click="deleteEvent()">Delete</button>
       </div>
     </div>
   </form>
 
   <form v-if="!isEventFormDetail">
     <div class="row">
+
       <div class="col">
         <div class="mb-3">
           <label for="eventName" class="form-label">活動名稱</label>
           <input v-model="result.eventName" type="text" class="form-control" id="eventName"
             aria-describedby="emailHelp">
         </div>
-
-
       </div>
+
       <div class="col">
         <div class="mb-3">
           <label for="eventDate" class="form-label">活動日期</label>
@@ -109,15 +109,15 @@
             aria-describedby="emailHelp">
         </div>
       </div>
+
     </div>
     <div class="row">
       <div class="mb-3">
         <label for="eventLocation" class="form-label">活動地點</label>
         <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
       </div>
-
-
     </div>
+
     <div class="row">
       <div class="mb-3">
         <label for="content" class="form-label">內容</label>
@@ -126,18 +126,21 @@
     </div>
 
     <div class="row">
+
       <div class="col">
         <div class="mb-3">
           <label for="coach" class="form-label">導師</label>
           <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
         </div>
       </div>
+
       <div class="col">
         <div class="mb-3">
           <label for="target" class="form-label">對象</label>
           <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
         </div>
       </div>
+
     </div>
 
     <div class="row">
@@ -154,15 +157,14 @@
         </div>
       </div>
     </div>
-    <div class="row">
 
+    <div class="row">
       <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
       <div class="col">
         <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
       </div>
       <div class="col">
         <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
-
       </div>
     </div>
 
@@ -174,7 +176,7 @@
     </div>
     <div class=" py-4 d-flex justify-content-evenly">
       <div class="b">
-        <button type="submit" class="btn btn-primary" @click="addEvent()">Submit</button>
+        <button type="button" class="btn btn-primary" @click="addEvent()">Submit</button>
       </div>
     </div>
   </form>
@@ -249,15 +251,15 @@ export default {
     }
 
     async function deleteEvent() {
+
       var response = await fetch("/api/events/delete?id=" + props.eventID, {
-        method: 'DELETE'
-
-
+        method: 'PUT'
       });
-      //reload the page
-      alert(response.statusText)
+ 
+
       //relocate to event page
-      location.href = "/events"
+      console.log(response)
+      location.assign("/events");
     }
 
 

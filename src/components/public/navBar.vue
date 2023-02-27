@@ -1,8 +1,7 @@
 <template>
 
   <nav class="navbar  bg-body-tertiary shadow" style="background-color: white;">
-    <!-- <div class="d-flex  align-items-center"> -->
-
+    
     <div class="d-flex align-items-center  me-auto p-2">
       <a class="navbar-brand px-4 " href="/">
         <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
@@ -11,13 +10,12 @@
       <ul class="nav gap-5  ">
         <li class="nav-item">
           <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
-            href="/">
+            href="https://www.ccf.org.hk/en/">
             <span style="font-size: 1em; color: red;">
             <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
             <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
             </span>
             主頁
-          
           </a>
           
         </li>
@@ -39,7 +37,7 @@
           <a class="nav-link ">Disabled</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">User</a>
+          <a class="nav-link" href="/users">User</a>
         </li>
       </ul>
     </div>
@@ -53,11 +51,10 @@
         </span>
       </router-link>
     </div>
-    <button v-if="token !== null" class="btn btn-outline-danger mx-2" type="submit" @click="logout()">SignOut</button>
-    <router-link to="/login"><button v-if="token == null" class="btn btn-danger mx-2" type="submit">Login</button>
-    </router-link>
 
-
+    <button v-if="!token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+    <button v-if="token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+    
 
 
   </nav>
@@ -73,9 +70,9 @@ export default {
   },
   computed: {
     profileRoute() {
-      const userIdentity = localStorage.getItem('identity');
+      const role = localStorage.getItem('role');
       // console.log(userIdentity);
-      if (userIdentity == 'normal') {
+      if (role == 'user') {
         return { path: '/cProfile' };
       } else {
         return { path: '/aProfile' };
@@ -88,6 +85,10 @@ export default {
     let hoverEvent = ref(false)
     let show = ref(true)
     let token = localStorage.getItem("user");
+
+    const login = async function () {
+      location.assign("/login")
+    }
 
     const logout = function () {
       alert("Successful logout");
@@ -103,6 +104,7 @@ export default {
       hoverUser,
       hoverEvent,
       show,
+      login,
       logout,
       token
     }
@@ -155,3 +157,4 @@ img {
   opacity: 0;
 } */
 </style>
+

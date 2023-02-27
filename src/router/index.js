@@ -9,6 +9,7 @@ import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/cEnrollment.vue'
+import clientEventView from '../views/ali/clientEventView.vue'
 import eventDetails from '../views/ali/eventDetails.vue'
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
@@ -87,17 +88,40 @@ const routes = [
   //----------------------------------------------ALI route handlers--------------
   //--------------------------------------------------------
   {
-    path: '/eventDetails',
+    path: '/eventDetails/:id',
     name: 'eventDetails',
     component: eventDetails 
   },
+
+  {
+    path: '/cEvents',
+    name: 'clientEventView',
+    component: clientEventView
+  },
+
 
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  
+  if (to.path === '/login' || to.path === '/createUser' || to.path === '/') {
+    next();
+  } else {
+    let token = localStorage.getItem('token');
+ 
+    if (!token) {
+      alert("Please login first.")
+      next('/login');
+    } else {
+      next();
+    }
+  }
+})
+
 
 export default router

@@ -134,11 +134,13 @@ export default {
 
                 })
             }
+
             if (response.ok) {
                 var data = await response.json();
                 arr.value = data.results;
                 lastPage.value = data.pages;
                 curPage.value = page;
+
                 // navSecondBar.value.isSearchEvent = false
                 // pagination.value.isSearchEvents = false
             } else {
