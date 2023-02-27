@@ -77,11 +77,11 @@
             <div class="row mt-4">
                 <div class="form-group col-md-4">
                     <label for="inputZip">Date of Open</label>
-                    <input type="text" class="form-control" v-model="user.Date_of_open">
+                    <input type="date" data-format="dd/mm/yyyy" class="form-control" v-model="user.Date_of_open">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputZip">Onset Date</label>
-                    <input type="text" class="form-control" v-model="user.Onset_date">
+                    <input type="date" data-format="dd/mm/yyyy" class="form-control" v-model="user.Onset_date">
                 </div>
                 <!-- <div class="form-group col-md-4">
                     <label for="inputZip">Relapsed Date</label>
@@ -129,7 +129,7 @@ export default {
 
         const user = ref({});
         const route = useRoute();
-        alert(user);
+        // alert(user);
 
         onMounted(async () => {
             // alert("here")
