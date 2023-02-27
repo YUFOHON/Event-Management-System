@@ -13,6 +13,8 @@ import clientEventView from '../views/ali/clientEventView.vue'
 import eventDetails from '../views/ali/eventDetails.vue'
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
+import UserDetail from '../views/UserDetail.vue'
+
 
 const routes = [
   {//=================================Bruce==========================================================
@@ -82,6 +84,11 @@ const routes = [
     path: '/users',
     name: 'users',
     component: UserView 
+  },
+  {
+    path: '/user/:id',
+    name: 'userDetail',
+    component: UserDetail 
   },
 
 
