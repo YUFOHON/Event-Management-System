@@ -3,7 +3,7 @@
         <navBar />
     </div>
 
-    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="container">
         <form @submit.prevent="updateUser()">
             <div class="row mt-4">
                 <div class="form-group col-md-6">
@@ -199,7 +199,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 .baseButton{
     padding: 6px;
     border: none;
@@ -217,4 +217,39 @@ background-color: #fc8181;
 color: white;
 /* border: 1px solid gray; */
 }
+
+form{
+  border-top-right-radius: 5%;
+    border-top-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+  background-color: #fff;
+  min-width: 500px;
+  
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
+  padding: 30px 20px;
+  margin-top: 1px;
+}
+
+.container {
+  /* border-radius: 100%; */
+  display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/city.jpg");
+  /* background-size: 100% 100%;
+  background-attachment: fixed; */
+
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+
+
 </style>

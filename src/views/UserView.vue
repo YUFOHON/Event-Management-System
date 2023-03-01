@@ -14,15 +14,16 @@
                 name: '用戶',
                 URL: '/user'
             }
-        ]" ref="navSecondBar" />
+        ]" :searchButton="true" ref="navSecondBar" />
     </div>
     <div class="row">
         <div class="row d-flex">
-            <div class="container" v-for="user in users" :key="user._id" style="width: 18rem;">
+            <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
                 <section class="mx-auto my-5" >
 
                     <div class="card testimonial-card mt-2 mb-3">
-                        <div class="card-up aqua-gradient"></div>
+                        <div v-if="user.is_admin==false" class="card-up aqua-gradient"></div>
+                        <div v-if="user.is_admin==true" class="card-up aqua-gradient2"></div>
                         <div class="avatar mx-auto white">
                             <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="woman avatar">
                         </div>
@@ -73,6 +74,7 @@ export default {
             return pages;
 
         })
+
         const fetchPage = async function (page) {
             currentPageNum.value = page;
             let token = localStorage.getItem("user");
@@ -102,7 +104,7 @@ export default {
             fetchPage,
             currentPageNum,
             lastPage,
-            users
+            users,
         }
     }
 
@@ -129,6 +131,9 @@ body {
 
 .aqua-gradient {
     background: linear-gradient(40deg, #ff5050, #f5c8c8) !important;
+}
+.aqua-gradient2 {
+    background: linear-gradient(40deg, #7090fc, #c8e0f5) !important;
 }
 
 .testimonial-card .avatar {
