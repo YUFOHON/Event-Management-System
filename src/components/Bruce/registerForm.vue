@@ -1,0 +1,299 @@
+<template>
+  <div class="container">
+    <form v-if="isEventFormDetail">
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="eventName" class="form-label">活動名稱</label>
+            <input v-model="result.eventName" type="text" class="form-control" id="eventName"
+              aria-describedby="emailHelp">
+          </div>
+
+
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="eventDate" class="form-label">活動日期</label>
+            <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
+              aria-describedby="emailHelp">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3">
+          <label for="eventLocation" class="form-label">活動地點</label>
+          <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="mb-3">
+          <label for="content" class="form-label">內容</label>
+          <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="coach" class="form-label">導師</label>
+            <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="target" class="form-label">對象</label>
+            <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="quota" class="form-label">名額</label>
+            <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="staff" class="form-label">負責職員</label>
+            <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
+        <div class="col">
+          <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
+        </div>
+        <div class="col">
+          <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3">
+          <label for="Remark" class="form-label">備註</label>
+          <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
+        </div>
+      </div>
+      <div class=" py-4 d-flex justify-content-evenly">
+        <div class="b">
+          <button type="button" class="btn btn-primary" @click="updateEvent()">Update</button>
+        </div>
+        <div class="b">
+          <button type="button" class="btn btn-danger" @click="deleteEvent()">Delete</button>
+        </div>
+      </div>
+    </form>
+
+    <form v-if="!isEventFormDetail">
+      <div class="row">
+
+        <div class="col">
+          <div class="mb-3">
+            <label for="eventName" class="form-label">活動名稱</label>
+            <input v-model="result.eventName" type="text" class="form-control" id="eventName"
+              aria-describedby="emailHelp">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="mb-3">
+            <label for="eventDate" class="form-label">活動日期</label>
+            <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
+              aria-describedby="emailHelp">
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="mb-3">
+          <label for="eventLocation" class="form-label">活動地點</label>
+          <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3">
+          <label for="content" class="form-label">內容</label>
+          <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col">
+          <div class="mb-3">
+            <label for="coach" class="form-label">導師</label>
+            <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="mb-3">
+            <label for="target" class="form-label">對象</label>
+            <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="quota" class="form-label">名額</label>
+            <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="staff" class="form-label">負責職員</label>
+            <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
+        <div class="col">
+          <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
+        </div>
+        <div class="col">
+          <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3">
+          <label for="Remark" class="form-label">備註</label>
+          <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
+        </div>
+      </div>
+      <div class=" py-4 d-flex justify-content-evenly">
+        <div class="b">
+          <button type="button" class="btn btn-primary" @click="addEvent()">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from 'vue'
+
+export default {
+
+  name: 'registerForm',
+  props: {
+    isEventFormDetail: {
+      type: Boolean,
+
+    },
+    eventID: {
+      type: String,
+    }
+  },
+  setup(props) {
+    const result = ref({})
+
+    async function getEventDetail() {
+      //get data from server
+      var response = await fetch("/api/events/search?id=" + props.eventID);
+      var data = await response.json();
+      result.value = data.results[0]
+      //remove the _id field in result
+      delete result.value._id;
+      // console.log(data.results[0]);
+      //set data to form
+      document.getElementById("eventName").value = result.value.eventName;
+      document.getElementById("eventDate").value = result.value.eventDate;
+      document.getElementById("eventLocation").value = result.value.eventLocation;
+      document.getElementById("content").value = result.value.content;
+      document.getElementById("coach").value = result.value.coach;
+      document.getElementById("target").value = result.value.target;
+      document.getElementById("quota").value = result.value.quota;
+      document.getElementById("staff").value = result.value.staff;
+      document.getElementById("ageLimit").value = result.value.ageLimit;
+      document.getElementById("Remark").value = result.value.Remark;
+    }
+
+
+
+
+
+    onMounted(() => {
+      if (props.isEventFormDetail) {
+        getEventDetail()
+      } else {
+        result.value = {
+          eventName: "",
+          eventDate: "",
+          eventLocation: "",
+          content: "",
+          coach: "",
+          target: "",
+          quota: "",
+          staff: "",
+          ageLimit: 0,
+          Remark: ""
+        }
+      }
+    })
+    return {
+      //return all the variable
+      result, getEventDetail, updateEvent, addEvent, deleteEvent
+    }
+  }
+}
+</script>
+
+<style scoped>
+.container {
+  /* border-radius: 100%; */
+  display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/city.jpg");
+  /* background-size: 100% 100%;
+  background-attachment: fixed; */
+
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+form{
+  border-top-right-radius: 5%;
+    border-top-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+  background-color: #fff;
+  min-width: 500px;
+  
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
+  padding: 30px 20px;
+  margin-top: 1px;
+}
+
+
+
+textarea {
+  height: 83%;
+}
+</style>

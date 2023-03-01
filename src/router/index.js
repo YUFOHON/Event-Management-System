@@ -14,7 +14,7 @@ import eventDetails from '../views/ali/eventDetails.vue'
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
 import UserDetail from '../views/UserDetail.vue'
-
+import RegisterView from '../views/Bruce/RegisterView.vue'
 
 const routes = [
   {//=================================Bruce==========================================================
@@ -41,6 +41,11 @@ const routes = [
     path: '/events/eventHistory',
     name: 'eventHistory',
     component: eventHistoryView
+  },
+  {
+    path: '/events/register/:id',
+    name: 'eventRegister',
+    component: RegisterView
   },
   //=====================================JOHN=============================================================
   {

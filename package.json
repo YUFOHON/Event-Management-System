@@ -19,7 +19,9 @@
     "bootstrap-icons": "^1.10.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
+    "html5-qrcode": "^2.3.7",
     "jwt-decode": "^3.1.2",
+    "qrcode": "^1.5.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue-sidebar-menu": "^5.2.5"
