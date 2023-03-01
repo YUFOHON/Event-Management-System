@@ -14,7 +14,7 @@
                 name: '用戶',
                 URL: '/user'
             }
-        ]" ref="navSecondBar" />
+        ]" :searchButton="true" ref="navSecondBar" />
     </div>
     <div class="row">
         <div class="row d-flex">
