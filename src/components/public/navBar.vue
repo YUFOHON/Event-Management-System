@@ -1,6 +1,6 @@
 <template>
 
-  <nav class="navbar  bg-body-tertiary shadow" style="background-color: white;">
+  <nav  class="navbar  bg-body-tertiary shadow" style="background-color: whitesmoke; ">
     
     <div class="d-flex align-items-center  me-auto p-2">
       <a class="navbar-brand px-4 " href="/">
@@ -46,7 +46,7 @@
     <div class="p-4">
       <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute" class="userIcon">
         <span style="font-size: 1rem; color: red;">
-        <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" bounce size="2xl" />
+        <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user"  size="2xl" />
         <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
         </span>
       </router-link>

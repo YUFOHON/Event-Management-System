@@ -1,6 +1,6 @@
 <template>
-  <div class="container-md">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
+  <div  class="container-md">
+    <nav  class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
       <div class="container-flex ">
 
         <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>

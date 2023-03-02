@@ -1,5 +1,5 @@
 <template>
-    <div class="card"
+    <div  class="card"
         :style="{ width: props.cardWidth * 0.9 + 'rem', height: props.cardWidth * 1.60 + 'rem', fontSize: props.fontSize + 'rem' }">
 
 
