@@ -1,252 +1,125 @@
 <template>
-  <div class="container">
-    <form v-if="isEventFormDetail">
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventName" class="form-label">活動名稱</label>
-            <input v-model="result.eventName" type="text" class="form-control" id="eventName"
-              aria-describedby="emailHelp">
-          </div>
+  <div class="container ">
+    <form @submit.prevent="register">
 
-
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventDate" class="form-label">活動日期</label>
-            <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
-              aria-describedby="emailHelp">
-          </div>
-        </div>
+      <div class="row ">
+        <label for="eventName" class="form-label text-center text-danger" style="font-size: 40px; padding-bottom: 20px;">
+          {{ props.eventName }} 活動登記表</label>
+        <hr class="bg-danger border-2 border-top border-danger">
       </div>
-      <div class="row">
-        <div class="mb-3">
-          <label for="eventLocation" class="form-label">活動地點</label>
-          <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
-        </div>
 
-
-      </div>
-      <div class="row">
-        <div class="mb-3">
-          <label for="content" class="form-label">內容</label>
-          <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
-        </div>
-      </div>
 
       <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="coach" class="form-label">導師</label>
-            <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
-          </div>
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="target" class="form-label">對象</label>
-            <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
-          </div>
-        </div>
+        <label for="name" class="form-label text"> 家長姓名:<label class="text-danger"> *</label></label>
+        <input placeholder="陳大文" v-model="result.name" type="text" class="form-control" id="eventName"
+          aria-describedby="emailHelp" required>
       </div>
+
+
 
       <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="quota" class="form-label">名額</label>
-            <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
-          </div>
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="staff" class="form-label">負責職員</label>
-            <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
-          </div>
-        </div>
+        <label for="eventName" class="form-label text"> 聯絡電話號碼:<label class="text-danger"> *</label></label>
+        <input v-model="result.phone" placeholder="12345678
+                      " type="text" class="form-control" id="eventName" aria-describedby="emailHelp" required>
       </div>
       <div class="row">
-
-        <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
-        <div class="col">
-          <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
-        </div>
-        <div class="col">
-          <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
-
-        </div>
+        <label for="email" class="form-label text"> Email:<label class="text-danger"> *</label></label>
+        <input placeholder="example@gmail.com" v-model="result.email" type="email" class="form-control" id="eventName"
+          aria-describedby="emailHelp" required>
       </div>
 
-      <div class="row">
-        <div class="mb-3">
-          <label for="Remark" class="form-label">備註</label>
-          <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
-        </div>
+      <div v-if="empty" class="form-error-message" role="alert">
+        <label for="name" class="form-sub-label text-danger"
+          style="padding-left: 170px; padding-top: 20px; font-weight: bold;"> 請填寫所有必填項.<label class="text-danger">
+            *</label></label>
       </div>
-      <div class=" py-4 d-flex justify-content-evenly">
-        <div class="b">
-          <button type="button" class="btn btn-primary" @click="updateEvent()">Update</button>
-        </div>
-        <div class="b">
-          <button type="button" class="btn btn-danger" @click="deleteEvent()">Delete</button>
-        </div>
+
+      <div class="b">
+        <button type="summit" class="btn btn-danger" style="margin-left: 200px; margin-top: 20px;">提交</button>
       </div>
+
     </form>
 
-    <form v-if="!isEventFormDetail">
-      <div class="row">
 
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventName" class="form-label">活動名稱</label>
-            <input v-model="result.eventName" type="text" class="form-control" id="eventName"
-              aria-describedby="emailHelp">
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventDate" class="form-label">活動日期</label>
-            <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
-              aria-describedby="emailHelp">
-          </div>
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="mb-3">
-          <label for="eventLocation" class="form-label">活動地點</label>
-          <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="mb-3">
-          <label for="content" class="form-label">內容</label>
-          <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div class="col">
-          <div class="mb-3">
-            <label for="coach" class="form-label">導師</label>
-            <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="mb-3">
-            <label for="target" class="form-label">對象</label>
-            <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
-          </div>
-        </div>
-
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="quota" class="form-label">名額</label>
-            <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
-          </div>
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="staff" class="form-label">負責職員</label>
-            <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
-        <div class="col">
-          <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
-        </div>
-        <div class="col">
-          <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="mb-3">
-          <label for="Remark" class="form-label">備註</label>
-          <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
-        </div>
-      </div>
-      <div class=" py-4 d-flex justify-content-evenly">
-        <div class="b">
-          <button type="button" class="btn btn-primary" @click="addEvent()">Submit</button>
-        </div>
-      </div>
-    </form>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue'
+//
+import { computed } from 'vue'
 
 export default {
 
   name: 'registerForm',
   props: {
-    isEventFormDetail: {
-      type: Boolean,
 
-    },
     eventID: {
       type: String,
-    }
+    },
+    eventName: {
+      type: String,
+    },
+    userId: {
+      type: String,
+    },
   },
   setup(props) {
-    const result = ref({})
 
-    async function getEventDetail() {
-      //get data from server
-      var response = await fetch("/api/events/search?id=" + props.eventID);
-      var data = await response.json();
-      result.value = data.results[0]
-      //remove the _id field in result
-      delete result.value._id;
-      // console.log(data.results[0]);
-      //set data to form
-      document.getElementById("eventName").value = result.value.eventName;
-      document.getElementById("eventDate").value = result.value.eventDate;
-      document.getElementById("eventLocation").value = result.value.eventLocation;
-      document.getElementById("content").value = result.value.content;
-      document.getElementById("coach").value = result.value.coach;
-      document.getElementById("target").value = result.value.target;
-      document.getElementById("quota").value = result.value.quota;
-      document.getElementById("staff").value = result.value.staff;
-      document.getElementById("ageLimit").value = result.value.ageLimit;
-      document.getElementById("Remark").value = result.value.Remark;
+
+    //  if the input is empty for required field , the error message will show up
+    const empty = computed(() => {
+      if (result.value.name == '' || result.value.phone == '' || result.value.email == '') {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    // register function that will send the data to the backend
+    async function register() {
+      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+      });
+
+      var sendEmail = await fetch('/api/sendmail?email=' + result.value.email, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify(result.value)
+      })
+      // const data = await response.json()
+
+      console.log(response)
+      console.log(sendEmail)
+//if the register is success, the page will redirect to the event page
+      if (response.status == 201) {
+        location.href = "/"
+      }
+
     }
 
+
+
+    const result = ref({
+      name: '',
+      phone: '',
+      email: '',
+    })
 
 
 
 
     onMounted(() => {
-      if (props.isEventFormDetail) {
-        getEventDetail()
-      } else {
-        result.value = {
-          eventName: "",
-          eventDate: "",
-          eventLocation: "",
-          content: "",
-          coach: "",
-          target: "",
-          quota: "",
-          staff: "",
-          ageLimit: 0,
-          Remark: ""
-        }
-      }
+
     })
     return {
-      //return all the variable
-      result, getEventDetail, updateEvent, addEvent, deleteEvent
+      props, result, empty, register
     }
   }
 }
@@ -264,10 +137,11 @@ export default {
   width: 100%;
   height: 100%;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 1000px;
 
   justify-content: center;
   align-items: center;
+  padding-bottom: 400px;
 
 }
 
@@ -278,20 +152,22 @@ export default {
   margin-left: 10px;
 }
 
-form{
+form {
   border-top-right-radius: 5%;
-    border-top-left-radius: 5%;
-    border-bottom-right-radius: 5%;
-    border-bottom-left-radius: 5%;
+  border-top-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  border-bottom-left-radius: 5%;
   background-color: #fff;
   min-width: 500px;
-  
+
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
   margin-top: 1px;
 }
 
-
+input {
+  margin-bottom: 20px;
+}
 
 textarea {
   height: 83%;

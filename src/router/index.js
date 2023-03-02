@@ -43,7 +43,7 @@ const routes = [
     component: eventHistoryView
   },
   {
-    path: '/events/register/:id',
+    path: '/events/register',
     name: 'eventRegister',
     component: RegisterView
   },

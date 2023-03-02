@@ -37,7 +37,14 @@
         <li class="list-group-item">Remark: {{ event.Remark }} </li>
       </ul>
     </div>
-      <div class="text-end"><a href="" class="btn btn-primary float-right">Register</a></div>
+<!-- <div class="col" style="padding-left: 590px;">
+  <RouterLink :to="'/events/register/' + event._id" class="btn btn-primary float-right">Register</RouterLink>
+</div> -->
+<!-- <div class="col" style="padding-left: 590px;">
+  <RouterLink :to=" { name: 'eventRegister', params:{eventId:event._id,eventName:event.eventName} } " class="btn btn-primary float-right">註冊</RouterLink>
+</div>  -->
+   <div class="text-middle" style="padding-left: 590px;"><button @click="routerTo" class="btn btn-primary float-right">Register</button></div>
+
     </div>
   </div>
 </div>
@@ -49,9 +56,8 @@
 <script>
 import navBar from '@/components/public/navBar.vue'
 import { ref, onMounted } from 'vue'
-//import jwt_decode from "jwt-decode";
-import { useRoute } from 'vue-router';
-
+import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 export default {
   name: 'eventDetails',
 
@@ -64,17 +70,30 @@ export default {
     //const root = ref(null)
     //const token = ref("");
     //const user = ref({});
+    const router = useRouter();
     const event = ref([]);
     const path = useRoute();
 
+    function routerTo() {
+      router.push({
+        name: `eventRegister`,
+        query: {
+          eventId: event.value._id,
+          eventName: event.value.eventName
+        }
+      })
+    }
     
     onMounted(async function () {
-   
+
+
+       //get the user id from the token
+      // alert(userId);
       var response = await fetch("/api/events/" + path.params.id);
 
       if (response.ok) {
         event.value = await response.json();
-        delete event.value._id;
+        // delete event.value._id;
         
       } else {
         alert(response.statusText);
@@ -83,7 +102,7 @@ export default {
     });
 
   return{
-    event
+    event,routerTo
   };
   
   },
