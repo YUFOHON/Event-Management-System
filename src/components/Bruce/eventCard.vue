@@ -13,7 +13,7 @@
                                     名稱： {{ props.eventName }}
                                 </p> -->
 
-                        <div class="col col-5 text-danger pt-3" style="font-weight:bolder;">名稱 </div>
+                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">名稱 </div>
 
                         <div class="col  gy-3">{{ props.eventName }}</div>
                     </div>
@@ -24,7 +24,7 @@
 
                         <!-- <p class="card-text ">內容： {{ props.content }}</p> -->
 
-                        <div class="col col-5 text-danger pt-3" style="font-weight:bolder;">內容 </div>
+                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
 
                         <div class="col gy-3">{{ props.content }}</div>
 
@@ -35,7 +35,7 @@
                 <li class="list-group-item">
                     <!-- <p class="card-text text-center">日期：{{ props.Date }}</p> -->
                     <div class="row">
-                        <div class="col col-5 text-danger pt-3" style="font-weight:bolder;">
+                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
 
                             日期
 
@@ -95,6 +95,32 @@ export default {
         }
 
         )
+        const btnColor = computed(() => {
+            if (props.Category == '兒童活動') {
+                return '#af8221'
+            } else if (props.Category == '青年活動') {
+                return '#40d859'
+            } else if (props.Category == '同路人支援平台') {
+                return '#8a56dd'
+            } else {
+                return '#ff0000'
+            }
+        }
+
+        )
+
+        const textColor = computed(() => {
+            if (props.Category == '兒童活動') {
+                return '#af8221'
+            } else if (props.Category == '青年活動') {
+                return '#40d859'
+            } else if (props.Category == '同路人支援平台') {
+                return '#8a56dd'
+            } else {
+                return '#ff0000'
+            }
+        })
+
 
         onMounted(() => {
             // const dom = root.value
@@ -110,98 +136,104 @@ export default {
             // console.log(shadow.value)
         })
         return {
-            props, root, shadow
+            props, root, shadow, btnColor, textColor
         }
     }
 }
 </script>
 
 
-<style scoped>  
-.card {
-    width: 18rem;
-    height: 592px;
-    margin: 1rem;
-    border-radius: 1rem;
-    /* box-shadow: 5px 5px 15px #af8221; */
-    box-shadow: v-bind('shadow');
-    transition: 0.3s;
-    overflow: hidden;
-    background-color: #f8f9fa;
-    
-}
+<style scoped>  .card {
+      width: 18rem;
+      height: 592px;
+      margin: 1rem;
+      border-radius: 1rem;
+      /* box-shadow: 5px 5px 15px #af8221; */
+      box-shadow: v-bind('shadow');
+      transition: 0.3s;
+      overflow: hidden;
+      background-color: #f8f9fa;
 
-.list-group-item {
-    border: none;
-    background-color: #f8f9fa;
-    
-}
+  }
 
-.list-group-item:hover {
-    background-color: #c1c1c153;
+  .list-group-item {
+      border: none;
+      background-color: #f8f9fa;
 
-    transition: 0.3s;
-}
+  }
 
-.card:hover {
-    background-color: #c1c1c153;
-    transform: scale(1.08);
-    transition: 0.7s;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
-    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
-}
+  .list-group-item:hover {
+      background-color: #c1c1c153;
 
-.eventName {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
+      transition: 0.3s;
+  }
 
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-    background: #f1f1f1;
-    border-radius: 10px;
+  .card:hover {
+      background-color: #c1c1c153;
+      transform: scale(1.08);
+      transition: 0.7s;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+      /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
+  }
 
-}
+  .eventName {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+  }
 
-::-webkit-scrollbar-thumb {
-    background: #e70303;
-    border-radius: 10px;
-}
+  ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+      background: #f1f1f1;
+      border-radius: 10px;
 
-img:hover {
-    transform: scale(1.05);
-    transition: 1s;
-}
+  }
 
+  ::-webkit-scrollbar-thumb {
+      background: v-bind('textColor');
+      border-radius: 10px;
+  }
 
-img {
-    /* opacity: 0.7; */
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
-}
-
-.btn {
-    border-radius: 50%;
+  img:hover {
+      transform: scale(1.05);
+      transition: 1s;
+  }
 
 
-}
+  img {
+      /* opacity: 0.7; */
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      -khtml-user-select: none;
+      user-select: none;
+  }
 
-span {
-    font-weight: 1000;
+  .btn {
+      /* border-radius: 50%; */
+      /* assign button color to the card */
+      background-color: v-bind('btnColor');
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: none;
+      transition: 0.3s;
 
-}
+
+  }
+
+  span {
+      font-weight: 1000;
+
+  }
 
 
 
 
-/* .card-title {
+  /* .card-title {
 
     white-space: nowrap;
     max-width: 11em;

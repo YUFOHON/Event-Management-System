@@ -15,25 +15,26 @@
           </button>
           <div class="dropdown-menu">
             <div class="row  p-4">
-              <div class="col col-6">
+              <div class="col col-6" id="category">
                 <p class="position-relative  px-5">類別</p>
                 <div class=" p-4 ">
                   <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     <input v-model="sortCheckbox" value="同路人支援平台" type="checkbox" class="btn-check" id="btncheck1"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck1">同路人支援平台</label>
+                    <label class="btn btn-outline-primary" for="btncheck1" style="  --bs-btn-active-bg:#8a56dd
+">同路人支援平台</label>
 
                     <input v-model="sortCheckbox" value="活動義工招募" type="checkbox" class="btn-check" id="btncheck2"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck2">活動義工招募</label>
+                    <label class="btn btn-outline-primary" for="btncheck2" style="--bs-btn-active-bg:#ff0000">活動義工招募</label>
 
                     <input v-model="sortCheckbox" value="青年活動" type="checkbox" class="btn-check" id="btncheck3"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck3">青年活動</label>
+                    <label class="btn btn-outline-primary" for="btncheck3" style="--bs-btn-active-bg:#40d859">青年活動</label>
 
                     <input v-model="sortCheckbox" value="兒童活動" type="checkbox" class="btn-check" id="btncheck4"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck4">兒童活動</label>
+                    <label class="btn btn-outline-primary" for="btncheck4" style="--bs-btn-active-bg:#af8221">兒童活動</label>
 
                   </div>
 
@@ -124,7 +125,7 @@ export default {
 
     const route = useRoute()
     var category = '';
-    // pus the query from sortCheckbox to the router
+    // push the query from sortCheckbox to the router
     const sortEvent = async () => {
       // use a variable to store the query from sortCheckbox
       var sorting = sortCheckbox.value.includes('日期升序') ? 'Ascending' : 'Descending';
@@ -189,6 +190,14 @@ export default {
 </script>
 
 <style scoped>
+.btn-outline-primary{
+
+  --bs-btn-border-color:#fff;
+  /* --bs-btn-active-bg:#8a56dd */
+
+
+}
+
 .container-md {
   max-width: 90%;
   border-radius: 20px;
