@@ -147,7 +147,7 @@ export default {
 
   justify-content: center;
   align-items: center;
-  padding-bottom: 400px;
+  /* padding-bottom: 400px; */
 
 }
 

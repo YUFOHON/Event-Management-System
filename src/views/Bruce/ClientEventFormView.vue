@@ -71,7 +71,7 @@
   
   
         </div>
-        <div class="col">
+        <div class="col float-sm-start">
           <registerForm :eventID="event._id" :eventName="event.eventName" :userId="userID" />
         </div>
       </div>
@@ -173,7 +173,7 @@
   
     justify-content: center;
     align-items: center;
-    padding-bottom: 400px;
+    /* padding-bottom: 10px; */
   
   }
   
