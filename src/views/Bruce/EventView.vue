@@ -10,7 +10,7 @@
         <navSecondBar :arr="[
             {
                 name: '主頁',
-                URL: '/'
+                URL: '/events'
             }
             ,
             {

@@ -20,7 +20,7 @@
       <div class="row">
         <label for="eventName" class="form-label text"> 聯絡電話號碼:<label class="text-danger"> *</label></label>
         <input v-model="result.phone" placeholder="12345678
-                      " type="text" class="form-control" id="eventName" aria-describedby="emailHelp" required>
+                          " type="text" class="form-control" id="eventName" aria-describedby="emailHelp" required>
       </div>
       <div class="row">
         <label for="email" class="form-label text"> Email:<label class="text-danger"> *</label></label>
@@ -35,7 +35,12 @@
       </div>
 
       <div class="b">
-        <button type="summit" class="btn btn-danger" style="margin-left: 200px; margin-top: 20px;">提交</button>
+
+        <div v-if="loading" class="spinner-border text-danger" role="status" style="margin-left: 200px; margin-top: 20px;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+
+        <button v-if="!loading" type="summit" class="btn btn-danger" style="margin-left: 200px; margin-top: 20px;">提交</button>
       </div>
 
     </form>
@@ -65,7 +70,7 @@ export default {
     },
   },
   setup(props) {
-
+    const loading = ref(false)
 
     //  if the input is empty for required field , the error message will show up
     const empty = computed(() => {
@@ -78,30 +83,31 @@ export default {
 
     // register function that will send the data to the backend
     async function register() {
-      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+      // var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
 
-      });
+      // });
 
-      var sendEmail = await fetch('/api/sendmail?email=' + result.value.email, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // body: JSON.stringify(result.value)
-      })
-      // const data = await response.json()
+      // var sendEmail = await fetch('/api/sendmail?email=' + result.value.email, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   // body: JSON.stringify(result.value)
+      // })
+      // // const data = await response.json()
 
-      console.log(response)
-      console.log(sendEmail)
-//if the register is success, the page will redirect to the event page
-      if (response.status == 201) {
-        location.href = "/"
-      }
-
+      // console.log(response)
+      // console.log(sendEmail)
+      // //if the register is success, the page will redirect to the event page
+      // if (response.status == 201) {
+      //   location.href = "/"
+      // }
+      loading.value = true
+      console.log("triger")
     }
 
 
@@ -119,7 +125,7 @@ export default {
 
     })
     return {
-      props, result, empty, register
+      props, result, empty, register,loading
     }
   }
 }
@@ -159,7 +165,7 @@ form {
   border-bottom-left-radius: 5%;
   background-color: #fff;
   min-width: 500px;
-
+  min-height: 880px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
   margin-top: 1px;

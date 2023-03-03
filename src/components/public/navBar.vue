@@ -1,6 +1,6 @@
 <template>
 
-  <nav  class="navbar  bg-body-tertiary shadow" style="background-color: whitesmoke; ">
+  <nav  class="navbar  bg-body-tertiary shadow" style="background-color: white; ">
     
     <div class="d-flex align-items-center  me-auto p-2">
       <a class="navbar-brand px-4 " href="/">
