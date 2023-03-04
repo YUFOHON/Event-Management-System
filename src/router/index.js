@@ -10,8 +10,15 @@ import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/cEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
+
+
+//if you want to use the eventDetails page, uncomment the line below 
+//and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
+
+
+
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
 import UserDetail from '../views/UserDetail.vue'
