@@ -192,14 +192,15 @@ animation:rainbow-animation 200ms linear infinite;
  }
 
  .list-group-item {
+
      border: none;
-     background-color: #f8f9fa;
+     background-color: #c1c1c100;
 
  }
 
  .list-group-item:hover {
-     background-color: #c1c1c153;
-
+     background-color: whitesmoke;
+     
      transition: 0.3s;
  }
 

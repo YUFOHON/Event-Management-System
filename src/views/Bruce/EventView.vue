@@ -1,6 +1,6 @@
 <template>
-    <QrCode data="test" />
-    <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" />
+    <!-- <QrCode data="test" />
+    <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
 
     <div class="row" id="navBar">
         <navBar />
@@ -69,8 +69,8 @@ import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
-import QrCode from '@/components/Bruce/QrCode.vue'
-import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
+// import QrCode from '@/components/Bruce/QrCode.vue'
+// import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
 
 // import { useRouter } from 'vue-router'
 export default {
@@ -81,8 +81,8 @@ export default {
         pagination,
         eventCard,
         // SideBar,
-        QrCode,
-        QrCodeScanner
+        // QrCode,
+        // QrCodeScanner
 
     },
     setup() {
@@ -98,10 +98,10 @@ export default {
         const cardWidth = ref(22 + 2 * 5)
 
         const route = useRoute()
-        const onScan = (decodedText, decodedResult) => {
-            alert(decodedText);
-            console.log(decodedText, decodedResult)
-        }
+        // const onScan = (decodedText, decodedResult) => {
+        //     alert(decodedText);
+        //     console.log(decodedText, decodedResult)
+        // }
         const checkRouterValue = (page, sort, category) => {
             if (category == undefined || category == '') {
                 category = ['兒童活動|青年活動|活動義工招募|同路人支援平台']
@@ -214,7 +214,8 @@ export default {
         })
         return {
             arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            checkRouterValue, QrCode, onScan
+            checkRouterValue,
+            //  QrCode, onScan
 
         }
     }
