@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <navBar />
+        <clientNavbar />
     </div>
 
     <div class="container rounded bg-white mt-5 mb-5"  >
@@ -70,7 +70,7 @@
   <script>
 // @ is an alias to /src
 
-import navBar from "@/components/public/navBar.vue";
+import clientNavbar from "@/components/ali/clientNavbar.vue";
 import { ref, onMounted } from "vue";
 // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 
@@ -79,7 +79,7 @@ import { ref, onMounted } from "vue";
 export default {
   name: "ClientProfile",
   components: {
-    navBar,
+    clientNavbar,
     // navSecondBar
     // SideBar
   },

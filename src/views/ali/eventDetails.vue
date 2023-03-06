@@ -1,7 +1,7 @@
 <template>
 
-  <div class="row" id="navBar">
-    <navBar />
+  <div class="row" id="clientNavbar">
+    <clientNavbar/>
   </div>
 
   <div class="container">
@@ -54,14 +54,14 @@
 </template>
 
 <script>
-import navBar from '@/components/public/navBar.vue'
+import clientNavbar from '@/components/ali/clientNavbar.vue'
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
 export default {
   name: 'eventDetails',
   components: {
-    navBar,
+    clientNavbar,
   },
   setup() {
     //const root = ref(null)

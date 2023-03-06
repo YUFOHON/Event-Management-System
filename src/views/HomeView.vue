@@ -22,13 +22,7 @@
                 </div>
             </div>
 
-            <!-- <div class="row d-flex py-4">
-                    <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
-                        <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                            :Date="a.eventDate" ref="cards" />
-                    </div>
-                </div> -->
-
+          
             <div class="d-flex justify-content-center p-4" id="pagination">
                 <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
                     :isSearchEvents="isSearchEvents" ref="pagination" />

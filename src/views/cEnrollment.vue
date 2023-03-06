@@ -2,7 +2,7 @@
     <div class="home">
   
       <div class="row">
-        <navBar />
+        <clientNavbar />
       </div>
   
   
@@ -13,7 +13,7 @@
   <script>
   // @ is an alias to /src
   
-  import navBar from '@/components/public/navBar.vue'
+  import clientNavbar from '@/components/ali/clientNavbar.vue'
   // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
   
   // import SideBar from '@/components/sideBar.vue';
@@ -21,7 +21,7 @@
   export default {
     name: 'HomeView',
     components: {
-      navBar,
+      clientNavbar,
       // navSecondBar
       // SideBar
     }

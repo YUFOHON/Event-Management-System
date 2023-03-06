@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-      <navBar />
+      <clientNavbar />
   </div>
 
   <div class="container rounded bg-white mt-5 mb-5"  >
@@ -61,7 +61,7 @@
 <script>
 // @ is an alias to /src
 
-import navBar from "@/components/public/navBar.vue";
+import clientNavbar from "@/components/ali/clientNavbar.vue";
 import { ref, onMounted } from "vue";
 // import { useRoute } from "vue-router";
 // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
@@ -71,7 +71,7 @@ import { ref, onMounted } from "vue";
 export default {
 name: "ClientProfile",
 components: {
-  navBar,
+  clientNavbar,
   // navSecondBar
   // SideBar
 },
@@ -108,16 +108,7 @@ methods: {
     const token = localStorage.getItem("tt");
     
 
-    // onMounted(async () => {
-    //   var response = await fetch("/api/users/" + tt);
-
-    //   if (response.ok) {
-    //     var data = await response.json();
-    //     users.value = await response.json();
-    //   } else {
-    //     alert(response.statusText);
-    //   }
-    // });
+  
     const fetchData = async function () {
       var response = await fetch("/api/users/"+token);
 
