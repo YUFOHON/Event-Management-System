@@ -1,40 +1,50 @@
 <template>
-  <div  class="container-md">
-    <nav  class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
-      <div class="container-flex ">
+  <div class="container-md">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
+      <div class="navPage" style="width: 250px;">
 
         <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>
       </div>
 
+      <form v-if="props.searchButton" class="d-flex" role="search" style="padding-left: 30%;">
+        <input v-model="input" class="form-control me-2" type="search" placeholder="名稱或日期" aria-label="Search">
+
+        <button class="btn btn-outline-danger" type="button" @click="searchEvent(sorting = 'Descending')"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
+      </form>
       <div v-if="props.sortButton" class="d-flex-button">
 
         <div class="dropdown" id="sortButton">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+          <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
             data-bs-auto-close="outside">
-            Sort
+           <!-- icon above the text -->
+            <font-awesome-icon icon="fa-solid fa-arrow-up-z-a" />
+            排序
           </button>
           <div class="dropdown-menu">
             <div class="row  p-4">
               <div class="col col-6" id="category">
-                <p class="position-relative  px-5">類別</p>
+                <p class="position-relative  px-5" style="color: red;">類別</p>
                 <div class=" p-4 ">
                   <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     <input v-model="sortCheckbox" value="同路人支援平台" type="checkbox" class="btn-check" id="btncheck1"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck1" style="  --bs-btn-active-bg:#8a56dd
-">同路人支援平台</label>
+                    <label class="btn btn-outline-primary" for="btncheck1" style="color: black;  --bs-btn-active-bg:#8a56dd
+  ">同路人支援平台</label>
 
                     <input v-model="sortCheckbox" value="活動義工招募" type="checkbox" class="btn-check" id="btncheck2"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck2" style="--bs-btn-active-bg:#ff0000">活動義工招募</label>
+                    <label class="btn btn-outline-primary" for="btncheck2"
+                      style="color: black;--bs-btn-active-bg:#ff0000">活動義工招募</label>
 
                     <input v-model="sortCheckbox" value="青年活動" type="checkbox" class="btn-check" id="btncheck3"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck3" style="--bs-btn-active-bg:#40d859">青年活動</label>
+                    <label class="btn btn-outline-primary" for="btncheck3"
+                      style="color: black;--bs-btn-active-bg:#40d859">青年活動</label>
 
                     <input v-model="sortCheckbox" value="兒童活動" type="checkbox" class="btn-check" id="btncheck4"
                       autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btncheck4" style="--bs-btn-active-bg:#af8221">兒童活動</label>
+                    <label class="btn btn-outline-primary" for="btncheck4"
+                      style="color: black;--bs-btn-active-bg:#af8221">兒童活動</label>
 
                   </div>
 
@@ -42,40 +52,44 @@
                 </div>
               </div>
               <div class="col col-6 ">
-                <p class="position-relative  px-5 ">日期</p>
+                <p class="position-relative  px-5 " style="color:red">日期</p>
                 <div class="p-4 px-5">
                   <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
                     <input v-model="sortCheckbox" value="日期升序" type="checkbox" class="btn-check" id="btncheck5"
                       autocomplete="off">
-                    <label v-if="!is_D_checked" class="btn btn-outline-primary" for="btncheck5">升序</label>
+                    <label v-if="!is_D_checked" class="btn btn-outline-primary" style="color: black;"
+                      for="btncheck5">升序</label>
 
-                    <input v-model="sortCheckbox" value="日期降序" type="checkbox" class="btn-check" id="btncheck6"
-                      autocomplete="off">
-                    <label v-if="!is_A_checked" class="btn btn-outline-primary" for="btncheck6">降序</label>
+                    <input v-model="sortCheckbox" value="日期降序" type="checkbox" class="btn-check" style="color: black;"
+                      id="btncheck6" autocomplete="off">
+                    <label v-if="!is_A_checked" class="btn btn-outline-primary" style="color:black"
+                      for="btncheck6">降序</label>
                   </div>
                 </div>
               </div>
               <div class="row" style="padding-left:48%;">
-                <button @click="sortEvent" type="btn" class="btn btn-primary "
+                <button @click="sortEvent" type="btn" class="btn btn-danger "
                   style="width: fit-content;height: 1cm;">確定</button>
               </div>
             </div>
           </div>
         </div>
         <router-link to="/events/eventHistory">
-          <button v-if="props.eventHistoryButton" type="button" class="btn btn-secondary">Event History</button>
+          <button v-if="props.eventHistoryButton" type="button" class="btn btn-danger">
+            <font-awesome-icon icon="fa-solid fa-clock-rotate-left" />
+            歷史記錄</button>
         </router-link>
 
         <router-link to="/events/eventForm">
-          <button v-if="props.addButton" type="button" class="btn btn-success">Add</button>
+          <button v-if="props.addButton" type="button" class="btn btn-danger">
+            <font-awesome-icon icon="fa-solid fa-file-import" />
+            添加活動
+          </button>
         </router-link>
       </div>
 
-      <form v-if="props.searchButton" class="d-flex" role="search">
-        <input v-model="input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 
-        <button class="btn btn-outline-success" type="button" @click="searchEvent(sorting = 'Descending')">Search</button>
-      </form>
+
     </nav>
 
   </div>
@@ -190,9 +204,9 @@ export default {
 </script>
 
 <style scoped>
-.btn-outline-primary{
+.btn-outline-primary {
 
-  --bs-btn-border-color:#fff;
+  --bs-btn-border-color: #fff;
   /* --bs-btn-active-bg:#8a56dd */
 
 
@@ -219,7 +233,10 @@ export default {
   margin-left: 28%;
 }
 
+.form-control {
 
+  width: auto;
+}
 
 .dropdown-item:hover {
   background-color: #f8b5;
@@ -245,5 +262,16 @@ a:hover {
 .dropdown-menu {
 
   width: 400px;
+
 }
-</style>
+.d-flex-button[data-v-981ebdd8] {
+margin-left: 20%;
+}
+.dropdown-menu.show {
+  display: block;
+  position: absolute;
+  will-change: transform;
+  top: 0px;
+  left: -180px;
+  transform: translate3d(0px, 38px, 0px);
+}</style>

@@ -21,32 +21,35 @@
             :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
     </div>
 
-    <div class="row">
+    <div class="bg">
+        <div class="row" id="cards">
 
-        <div class="col col-1 py-4 px-4" id="sideBarContainer">
+            <!-- <div class="col col-1 py-4 px-4" id="sideBarContainer">
             <SideBar @setFontSize="setFontSize" />
-        </div>
+        </div> -->
 
-        <div class="col col-10  ">
+            <div class="col col-10 " style="margin-left: 140px;">
 
 
-            <div class="row d-flex">
-                <div v-for="a in arr" :key="a" class="col">
-                    <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                        :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category" ref="card" />
+                <div class="row d-flex">
+                    <div v-for="a in arr" :key="a" class="col">
+                        <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
+                            :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category"
+                            ref="card" />
+                    </div>
                 </div>
-            </div>
-            <!-- <div class="row d-flex py-4">
+                <!-- <div class="row d-flex py-4">
                     <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
                         <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
                             :Date="a.eventDate" ref="cards" />
                     </div>
                 </div> -->
 
-            <div class="d-flex justify-content-center p-4" id="pagination">
-                <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
-                    :isSearchEvents="isSearchEvents" ref="pagination" />
+                <div class="d-flex justify-content-center p-4" id="pagination">
+                    <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
+                        :isSearchEvents="isSearchEvents" ref="pagination" />
 
+                </div>
             </div>
         </div>
     </div>
@@ -58,7 +61,7 @@
 import navBar from '@/components/public/navBar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 // import eventForm from '@/components/Bruce/eventForm.vue'
-import SideBar from '@/components/Bruce/sideBar.vue';
+// import SideBar from '@/components/Bruce/sideBar.vue';
 import { onMounted } from 'vue'
 // import { onBeforeMount } from 'vue'
 import { ref } from 'vue'
@@ -77,7 +80,7 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
-        SideBar,
+        // SideBar,
         QrCode,
         QrCodeScanner
 
@@ -92,7 +95,7 @@ export default {
         const pagination = ref(null)
         const card = ref(null)
         const fontSize = ref(1)
-        const cardWidth = ref(22 + 2 * 1)
+        const cardWidth = ref(22 + 2 * 5)
 
         const route = useRoute()
         const onScan = (decodedText, decodedResult) => {
@@ -210,8 +213,8 @@ export default {
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {
-            arr, card, fontSize, cardWidth, curPage, SideBar, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            checkRouterValue, QrCode,onScan
+            arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
+            checkRouterValue, QrCode, onScan
 
         }
     }
@@ -219,13 +222,20 @@ export default {
 </script>
 
 <style scoped>
-body {
-    background: rgba(0, 250, 54, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+.bg {
+    display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/city.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+ 
+  width: 100%;
+  height: 100%;
+  min-width: 900px;
+  min-height: 1000px;
+ 
+  justify-content: center;
+  align-items: center;
 }
 
 .cards {

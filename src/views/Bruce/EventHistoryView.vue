@@ -41,7 +41,7 @@
           <td>{{a.eventName}} </td>
           <td>{{a.eventDate}}</td>
           <td>{{a.Category}}</td>
-          <!-- <td> <button class="btn btn-danger" type="button">Button</button></td> -->
+          <td> <button class="btn btn-danger" type="button">Button</button></td>
         </tr>
 
       </tbody>
