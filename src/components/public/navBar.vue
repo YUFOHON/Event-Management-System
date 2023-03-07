@@ -84,15 +84,8 @@ export default {
     let hoverUser = ref(false)
     let hoverEvent = ref(false)
     let show = ref(true)
-<<<<<<< HEAD
-    //????
-    let token = localStorage.getItem("token");
-    //?????bug
-    console.log(token)
-=======
     let token = localStorage.getItem("token");
 
->>>>>>> e7162f94368ace6b86cea9789fcc06cae26709c3
     const login = async function () {
       location.assign("/login")
     }
