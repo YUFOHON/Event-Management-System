@@ -20,7 +20,7 @@
       <div class="row">
         <label for="eventName" class="form-label text"> 聯絡電話號碼:<label class="text-danger"> *</label></label>
         <input v-model="result.phone" placeholder="12345678
-                                                  " type="text" class="form-control" id="eventName"
+                                                          " type="text" class="form-control" id="eventName"
           aria-describedby="emailHelp" required>
       </div>
 
@@ -82,23 +82,25 @@
     </form>
 
     <form v-if="props.isRegistered" @submit.prevent="register">
-
-
-
       <div class="b" style="margin-top: 190px;">
         <span style="font-size: 250px; color: greenyellow; margin-left: 100px;">
 
           <font-awesome-icon icon="fa-solid fa-circle-check" flip style="--fa-animation-duration: 4s;" />
         </span>
         <span style="font-size: 250px; color: black;">
-          <div class="h1" style="padding-left: 140px;">成功參加</div>
+          <div class="h1" style="padding-left: 140px;">成功提交申請</div>
         </span>
       </div>
-
-
-
-
     </form>
+
+    <form @submit.prevent="GoogleReCaptcha.validate($event)">
+      <div class="g-recaptcha" data-sitekey="6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH"></div>
+
+      <input type="hidden" name="g-recaptcha-response" v-model="formData.captcha" />
+      <input type="submit" value="Submit" />
+    </form>
+
+
   </div>
 </template>
 
@@ -106,6 +108,8 @@
 import { ref, onMounted } from 'vue'
 //
 import { computed } from 'vue'
+import GoogleReCaptcha from 'google-recaptcha-v2';
+
 
 export default {
 
@@ -126,6 +130,7 @@ export default {
   },
   setup(props) {
     const loading = ref(false)
+    const formData = ref({})
 
     //  if the input is empty for required field , the error message will show up
     const empty = computed(() => {
@@ -177,11 +182,37 @@ export default {
 
 
 
-    onMounted(() => {
+    onMounted(
+      () => {
+        GoogleReCaptcha.init({
+          siteKey: '6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH',
+          callback: async (token) => {
+            console.log(token)
+            formData.value['g-recaptcha-response'] = token
 
-    })
+            // AJAX form submit goes here
+            let response = await fetch('/api/upload', {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formData.value)
+            })
+
+            if (response.ok) {
+              let data = await response.json()
+              console.log(data)
+            } else {
+              alert(await response.text())
+            }
+
+            // AJAX form submit goes here
+          }
+        })
+      }
+    )
     return {
-      props, result, empty, register, loading
+      props, result, empty, register, loading, formData, GoogleReCaptcha
     }
   }
 }
@@ -224,7 +255,6 @@ form {
   min-height: 880px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
-  /* margin-top: 1px; */
   margin-bottom: 120px;
 }
 

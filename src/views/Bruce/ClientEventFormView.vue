@@ -1,6 +1,6 @@
 <template>
-    <div class="row" id="navBar">
-        <navBar />
+    <div class="row" id="clientNavbar">
+        <clientNavbar />
     </div>
 
     <div class="row py-4">
@@ -83,7 +83,7 @@
 </template>
   
 <script>
-import navBar from '@/components/public/navBar.vue'
+import clientNavbar from '@/components/ali/clientNavbar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 import registerForm from '@/components/Bruce/registerForm.vue';
 import { ref, onMounted } from 'vue'
@@ -93,31 +93,19 @@ export default {
     name: 'eventDetails',
 
     components: {
-        navBar,
+        clientNavbar,
         navSecondBar,
         registerForm
     },
 
 
     setup() {
-        //const root = ref(null)
-        //const token = ref("");
-        //const user = ref({});
-
-        // const router = useRouter();
+        
         const event = ref([]);
         const path = useRoute();
         const userID = localStorage.getItem('userId');
         const isRegistered = ref(false);
-        //   function routerTo() {
-        //     router.push({
-        //       name: `eventRegister`,
-        //       query: {
-        //         eventId: event.value._id,
-        //         eventName: event.value.eventName
-        //       }
-        //     })
-        //   }
+       
 
         async function check_reg_record() {
 

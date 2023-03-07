@@ -20,10 +20,11 @@
 </script>
 
 <style >
- @import '@/assets/font/index.css';
+ /* @import '@/assets/font/index.css'; */
  #app {
-    font-family: 'jf-openhuninn-1.1';
+    font-family: 't';
     font-weight: 530;
   }
+
 </style>
 

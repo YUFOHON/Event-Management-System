@@ -1,6 +1,5 @@
 <template>
 
-   
 
     <div class="container">
         <div class="loginForm">
@@ -17,10 +16,11 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <button type="submit" class="pink baseButton mx-4">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " bounce/></button>
+                <button type="submit" class="pink baseButton mx-4">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button>
+                <a href="/createUser"> <button class="pink baseButton mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button> </a>
             </div>
+      
         </form>
-        <a href="/createUser"> <button class="pink baseButton mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " bounce/></button> </a>
     </div>
     </div>
 
@@ -84,7 +84,33 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     color: #2c3e50;
 }
+@keyframes dance {
+	0%,
+	100% {
+		transform: translateX(0%);
+		transform-origin: 50% 50%;
+	}
 
+	15% {
+		transform: translateX(-30px) rotate(-6deg);
+	}
+
+	30% {
+		transform: translateX(15px) rotate(6deg);
+	}
+
+	45% {
+		transform: translateX(-15px) rotate(-3.6deg);
+	}
+
+	60% {
+		transform: translateX(9px) rotate(2.4deg);
+	}
+
+	75% {
+		transform: translateX(-6px) rotate(-1.2deg);
+	}
+}
 .baseButton{
     padding: 6px;
     border: none;
@@ -117,7 +143,6 @@ color: white;
 
 .loginForm {
     /* border-radius: 80%; */
-    
     border-top-right-radius: 5%;
     border-top-left-radius: 5%;
     border-bottom-right-radius: 5%;
@@ -140,11 +165,13 @@ label{
 
 }
 img{
+  
     -moz-user-select: none; 
 -webkit-user-select: none; 
 -ms-user-select: none; 
 -khtml-user-select: none; 
 user-select: none;
+animation: dance 4s ease 0s infinite normal forwards;
 }
 
 h5, .h5 {

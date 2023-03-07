@@ -1,7 +1,7 @@
 <template>
     
-    <div class="row" id="navBar">
-        <navBar/>
+    <div class="row" id="clientNavbar">
+        <clientNavbar/>
     </div>
     
     <div class="row py-4" id="navSecondBar">
@@ -55,7 +55,7 @@
 <script>
 // @ is an alias to /src
 
-import navBar from '@/components/public/navBar.vue'
+import clientNavbar from '@/components/ali/clientNavbar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 // import eventForm from '@/components/Bruce/eventForm.vue'
 import SideBar from '@/components/Bruce/sideBar.vue';
@@ -70,7 +70,7 @@ import { useRoute } from 'vue-router'
 export default {
     name: 'EventView',
     components: {
-        navBar,
+        clientNavbar,
         navSecondBar,
         pagination,
         clientEventCard,
