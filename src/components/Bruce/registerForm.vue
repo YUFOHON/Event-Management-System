@@ -95,7 +95,6 @@
 
     <form @submit.prevent="GoogleReCaptcha.validate($event)">
       <div class="g-recaptcha" data-sitekey="6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH"></div>
-      <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
 
       <input type="hidden" name="g-recaptcha-response" v-model="formData.captcha" />
       <input type="submit" value="Submit" />
@@ -110,7 +109,6 @@ import { ref, onMounted } from 'vue'
 //
 import { computed } from 'vue'
 import GoogleReCaptcha from 'google-recaptcha-v2';
-import FileInput from '@/components/Bruce/FileInput.vue';
 
 
 export default {
@@ -133,9 +131,7 @@ export default {
   setup(props) {
     const loading = ref(false)
     const formData = ref({})
-    const fileChanges = (files) => {
-      formData.value.files = files
-    }
+
     //  if the input is empty for required field , the error message will show up
     const empty = computed(() => {
       if (result.value.name == '' || result.value.phone == '' || result.value.email == '') {
@@ -216,7 +212,7 @@ export default {
       }
     )
     return {
-      props, result, empty, register, loading, formData, GoogleReCaptcha,FileInput, fileChanges
+      props, result, empty, register, loading, formData, GoogleReCaptcha
     }
   }
 }
