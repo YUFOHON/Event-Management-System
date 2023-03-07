@@ -81,6 +81,11 @@
           <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
         </div>
       </div>
+
+      <div class="row">
+        <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
+      </div>
+
       <div class=" py-4 d-flex justify-content-evenly">
         <div class="b">
           <button type="button" class="btn btn-primary" @click="updateEvent()">Update</button>
@@ -185,10 +190,13 @@
 
 <script>
 import { ref, onMounted } from 'vue'
-
+import FileInput from '@/components/Bruce/FileInput.vue';
 export default {
 
   name: 'eventForm',
+  components: {
+    FileInput
+  },
   props: {
     isEventFormDetail: {
       type: Boolean,
@@ -200,7 +208,7 @@ export default {
   },
   setup(props) {
     const result = ref({})
-
+    const formData = ref({})
     async function getEventDetail() {
       //get data from server
       var response = await fetch("/api/events/search?id=" + props.eventID);
@@ -262,7 +270,9 @@ export default {
       location.assign("/events");
     }
 
-
+    const fileChanges = (files) => {
+      formData.value.files = files
+    }
 
 
     onMounted(() => {
@@ -285,7 +295,7 @@ export default {
     })
     return {
       //return all the variable
-      result, getEventDetail, updateEvent, addEvent, deleteEvent
+      result, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges
     }
   }
 }
@@ -317,14 +327,14 @@ export default {
   margin-left: 10px;
 }
 
-form{
+form {
   border-top-right-radius: 5%;
-    border-top-left-radius: 5%;
-    border-bottom-right-radius: 5%;
-    border-bottom-left-radius: 5%;
+  border-top-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  border-bottom-left-radius: 5%;
   background-color: #fff;
   min-width: 500px;
-  
+
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
   margin-top: 1px;
