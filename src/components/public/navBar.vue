@@ -52,8 +52,8 @@
       </router-link>
     </div>
 
-    <button v-if="!token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
-    <button v-if="token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+    <button v-if="token!=null" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+    <button v-if="token==null" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
     
 
 
@@ -84,8 +84,10 @@ export default {
     let hoverUser = ref(false)
     let hoverEvent = ref(false)
     let show = ref(true)
-    let token = localStorage.getItem("user");
-
+    //????
+    let token = localStorage.getItem("token");
+    //?????bug
+    console.log(token)
     const login = async function () {
       location.assign("/login")
     }
