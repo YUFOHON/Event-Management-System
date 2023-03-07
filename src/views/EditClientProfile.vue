@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-      <clientNavbar />
+      <navBar />
   </div>
 
   <div class="container rounded bg-white mt-5 mb-5"  >
@@ -40,12 +40,13 @@
           </div>
           <div class="col-md-4">
               <div class="p-3 py-5">
-                  <div class="col-md-12"><label class="labels">Responsible_Worker</label><input type="text" class="form-control" placeholder="" v-model="users.Responsible_Worker"></div>
-                    <div class="col-md-12"><label class="labels">Date_of_open</label><input type="date" data-format="dd/mm/yyyy"  class="form-control" placeholder="" v-model="users.Date_of_open"></div>
+                  <div class="col-md-12"><label class="labels">Responsible_Worker</label><input type="text" class="form-control"  v-model="users.Responsible_Worker" max="2023-07-22"></div>
+                    <div class="col-md-12"><label class="labels">Date_of_open</label><input type="date"   class="form-control"  v-model="users.Date_of_open"></div>
                     
                      <!-- <input v-model="users.Date_of_open" data-format="dd/mm/yyyy" type="date" class="form-control" > -->
-                    <div class="col-md-12"><label class="labels">Onset_date</label><input type="date" data-format="dd/mm/yyyy" class="form-control" placeholder="" v-model="users.Onset_date"></div>
-                    <div class="col-md-12"><label class="labels">Relapsed_date</label><input type="date" data-format="dd/mm/yyyy" class="form-control" placeholder="" v-model="users.Relapsed_date"></div>
+                    <div class="col-md-12"><label class="labels">Onset_date</label><input type="date"  class="form-control"  v-model="users.Onset_date" data-date-format="DD MMMM YYYY"></div>
+                    <!-- {{users.Onset_date}} -->
+                    <div class="col-md-12"><label class="labels">Relapsed_date</label><input type="date"  class="form-control" v-model="users.Relapsed_date"></div>
                     <div class="col-md-12"><label class="labels">Contact_person</label><input type="text" class="form-control" placeholder="" v-model="users.Contact_person"></div>
                     <div class="col-md-12"><label class="labels">Relationship</label><input type="text" class="form-control" placeholder="" v-model="users.Relationship"></div>
                     <!-- <div class="col-md-12"><label class="labels">Sibling(1)</label><input type="text" class="form-control" placeholder="education" v-model='users.Sibling(1)''></div>
@@ -60,9 +61,10 @@
 
 <script>
 // @ is an alias to /src
-
-import clientNavbar from "@/components/ali/clientNavbar.vue";
+// import moment from 'moment'
+import navBar from "@/components/public/navBar.vue";
 import { ref, onMounted } from "vue";
+
 // import { useRoute } from "vue-router";
 // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 
@@ -71,14 +73,20 @@ import { ref, onMounted } from "vue";
 export default {
 name: "ClientProfile",
 components: {
-  clientNavbar,
+  navBar,
   // navSecondBar
   // SideBar
 },
+
 methods: {
+  
+
+  
     async updateCProfile(id) {
       // event.preventDefault();
       delete this.users._id;
+      
+      
 
       
 
@@ -101,14 +109,26 @@ methods: {
         alert(response.statusText);
       }
     }
+    
   },
   setup() {
+
+
     const users = ref({});
     // const route = useRoute();
     const token = localStorage.getItem("tt");
     
 
-  
+    // onMounted(async () => {
+    //   var response = await fetch("/api/users/" + tt);
+
+    //   if (response.ok) {
+    //     var data = await response.json();
+    //     users.value = await response.json();
+    //   } else {
+    //     alert(response.statusText);
+    //   }
+    // });
     const fetchData = async function () {
       var response = await fetch("/api/users/"+token);
 
@@ -124,10 +144,11 @@ methods: {
 
     onMounted(function () {
       fetchData();
+      
     });
 
     return {
-      users,
+      users
     };
   },
 };
