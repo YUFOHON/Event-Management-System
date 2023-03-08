@@ -76,7 +76,7 @@
 
             <div class="col-sm">
                 <registerForm :isRegistered="isRegistered" :eventID="event._id" :eventName="event.eventName"
-                    :userId="userID" />
+                    :userId="userID" :isApproved="isApproved"/>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@ import { ref, onMounted } from 'vue'
 // import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
 export default {
-    name: 'eventDetails',
+    name: 'ClientEventFormView',
 
     components: {
         clientNavbar,
@@ -100,12 +100,12 @@ export default {
 
 
     setup() {
-        
+
         const event = ref([]);
         const path = useRoute();
         const userID = localStorage.getItem('userId');
         const isRegistered = ref(false);
-       
+        const isApproved = ref(false);
 
         async function check_reg_record() {
 
@@ -140,8 +140,9 @@ export default {
                 var regsitrationRecord = event.value.registrationRecord
                 for (var i = 0; i < regsitrationRecord.length; i++) {
                     if (regsitrationRecord[i].userID == userID) {
-                        console.log(regsitrationRecord)
+                        // console.log(regsitrationRecord)
                         isRegistered.value = true;
+                        isApproved.value = regsitrationRecord[i].isApproved;
                         break;
                     }
                 }
@@ -154,7 +155,7 @@ export default {
         });
 
         return {
-            event, check_reg_record, registerForm, navSecondBar, userID, isRegistered
+            event,isApproved, check_reg_record, registerForm, navSecondBar, userID, isRegistered
         };
 
     },

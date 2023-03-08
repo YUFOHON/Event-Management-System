@@ -99,30 +99,41 @@
           </div>
         </form>
       </div>
-      <div class="col">
-<form action="" class="">
-  <div class="list">
-    <table class="table table-Secondary table-striped">
-      <thead class="table-light">
-        <tr>
-          <th scope="col">申請者</th>
 
+      <div class="col" id="applyerList">
+        <form action="">
+          <h3 style="padding-left: 31%; color: red;">申請人名單</h3>
 
+          <div class="list">
+            <table class="table table-Secondary table-striped">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">用戶名</th>
+                  <th scope="col">狀態</th>
+                  <th scope="col">批准</th>
+                  <th scope="col">拒絕</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for=" (applyerList, index) in applyerList" :key="applyerList">
+                  <th scope="row">{{ index + 1 }}</th>
+                  <td>{{ applyerList.username }} </td>
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for=" (a,index) in arr" :key="a">
-          <th scope="row">{{index+1}}</th>
-          <td>{{a.username}} </td>
-          <td> <button class="btn btn-danger" type="button">Button</button></td>
-        </tr>
+                  <td v-if="applyerList.isApproved">通過 </td>
+                  <td v-if="!applyerList.isApproved">不通過</td>
 
-      </tbody>
+                  <td> <button @click="approve(applyerList.isApproved)" class="btn btn-danger"
+                      type="button"><font-awesome-icon icon="fa-solid fa-thumbs-up" /></button></td>
+                  <td> <button @click="reject(applyerList.isApproved)" class="btn btn-danger"
+                      type="button"><font-awesome-icon icon="fa-solid fa-xmark" /></button></td>
+                </tr>
 
-    </table>
-  </div>
-</form>
+              </tbody>
+
+            </table>
+          </div>
+        </form>
       </div>
 
     </div>
@@ -214,7 +225,9 @@
           <button type="button" class="btn btn-primary" @click="addEvent()">Submit</button>
         </div>
       </div>
+
     </form>
+
   </div>
 </template>
 
@@ -228,6 +241,7 @@ export default {
     FileInput
   },
   props: {
+
     isEventFormDetail: {
       type: Boolean,
 
@@ -239,11 +253,14 @@ export default {
   setup(props) {
     const result = ref({})
     const formData = ref({})
+    const applyerList = ref([])
+
     async function getEventDetail() {
       //get data from server
       var response = await fetch("/api/events/search?id=" + props.eventID);
       var data = await response.json();
       result.value = data.results[0]
+      applyerList.value = result.value.registrationRecord
       //remove the _id field in result
       delete result.value._id;
       // console.log(data.results[0]);
@@ -304,6 +321,30 @@ export default {
       formData.value.files = files
     }
 
+    async function approve(isApproved) {
+      if (isApproved) return;
+
+
+        console.log("approve")
+        //send request to sever to approve the event
+        var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
+          method: 'POST'
+        });
+        console.log(response)
+        //refresh the current page
+        location.reload();
+      
+    }
+    async function reject(isApproved) {
+      if(!isApproved) return
+      //send request to sever to approve the event
+      var response = await fetch("/api/events/reject?id=" + applyerList.value[0]._id, {
+        method: 'POST'
+      });
+      console.log(response)
+      location.reload();
+
+    }
 
     onMounted(() => {
       if (props.isEventFormDetail) {
@@ -325,7 +366,7 @@ export default {
     })
     return {
       //return all the variable
-      result, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges
+      approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges
     }
   }
 }

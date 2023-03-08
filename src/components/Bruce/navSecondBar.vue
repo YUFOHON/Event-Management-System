@@ -161,7 +161,7 @@ export default {
 
         }
       }
-      console.log(category)
+      // console.log(category)
       if (isSearchEvent.value) {
         //get the  query from the router
         router.push({ name: 'events', query: { page: 1, sort: sorting, category: category, input: route.query.input } });
