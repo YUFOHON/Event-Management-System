@@ -16,35 +16,55 @@
             }
         ]" :searchButton="true" ref="navSecondBar" />
     </div>
-    <div class="row">
-        <div class="row d-flex">
-            <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
-                <section class="mx-auto my-5" >
+    <div class="container">
+        <div class="row">
+            <div class="row d-flex">
+                <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
+                    <section class="mx-auto my-5">
 
-                    <div class="card testimonial-card mt-2 mb-3">
-                        <div v-if="user.is_admin==false" class="card-up aqua-gradient"></div>
-                        <div v-if="user.is_admin==true" class="card-up aqua-gradient2"></div>
-                        <div class="avatar mx-auto white">
-                            <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="woman avatar">
-                        </div>
-                        <div class="card-body text-center">
-                            <h4 v-if="user.is_admin==false" class="card-title font-weight-bold">{{ user.Patient_Name }}</h4>
-                            <h4 v-if="user.is_admin==true" class="card-title font-weight-bold">{{ user.Staff_Name }}</h4>
-                            <hr>
-                            <p v-if="user.is_admin==false">Type: Client</p>
-                            <p v-if="user.is_admin==true">Type: Admin</p>
-                            <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Eos,
-                                adipisci</p>
-<!-- 
+                        <div class="card testimonial-card mt-2 mb-3">
+                            <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
+                            <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
+                            <div class="avatar mx-auto white">
+                                <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="woman avatar">
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{ user.Patient_Name}}
+                                </h4>
+                                <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name }}
+                                </h4>
+                                <hr>
+                                <p v-if="user.is_admin == false">Type: Client</p>
+                                <p v-if="user.is_admin == true">Type: Admin</p>
+                                <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing
+                                    elit.
+                                    Eos,
+                                    adipisci</p>
+                                <!-- 
                                 <button type="submit">Details</button> -->
                                 <router-link :to="'/user/' + user._id">Update</router-link>
-                              <!-- <a href="/cProfile" class="card-link">Details</a>   -->
-                        </div>  
-                    </div>
+                                <!-- <a href="/cProfile" class="card-link">Details</a>   -->
+                            </div>
+                        </div>
 
-                </section>
+                    </section>
+                </div>
             </div>
+        </div>
+        <div class="row">
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a v-if="currentPageNum > 1" @click="fetchPage(currentPageNum - 2)" class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item" v-for="i in pages" :key="i" @click="fetchPage(i)"><a v-if="i > 0"
+                            class="page-link" v-bind:class="{ active: currentPageNum == i }">{{ i }}</a></li>
+                    <li class="page-item">
+                        <a v-if="currentPageNum < lastPage" @click="fetchPage(currentPageNum + 2)"
+                            class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </template>
@@ -75,10 +95,29 @@ export default {
 
         })
 
+        // const userView = async function(){
+        //     let token = localStorage.getItem("user");
+        //     var response = await fetch("api/hello/users", {
+        //         method: "get",
+        //         headers: {
+        //             "x-access-token": token
+        //         }
+        //     });
+        //     if (response.ok) {
+        //         var data = await response.json();
+        //         users.value = data.users;
+        //         lastPage.value = data.pages
+        //         alert("Welcome Admin!");
+        //     } else {
+        //         alert(response.statusText);
+        //     }
+        // }
+
         const fetchPage = async function (page) {
             currentPageNum.value = page;
             let token = localStorage.getItem("user");
-            var response = await fetch("/api/users?perPage=" + perPage.value + "&page=" + page, {
+            var response = await fetch("/api/hello/users?perPage=" + perPage.value + "&page=" + page, {
+                method: 'GET',
                 headers: {
                     "x-access-token": token
                 }
@@ -86,13 +125,14 @@ export default {
             if (response.ok) {
                 var data = await response.json();
                 users.value = data.users;
-                lastPage.value = data.pages
+                lastPage.value = data.lastPage
                 alert("Welcome Admin!");
             } else {
                 alert(response.statusText);
             }
         };
         onMounted(function () {
+            // userView()
             fetchPage(1);
             // alert(props.msg);
         });
@@ -105,6 +145,7 @@ export default {
             currentPageNum,
             lastPage,
             users,
+            // userView
         }
     }
 
@@ -132,6 +173,7 @@ body {
 .aqua-gradient {
     background: linear-gradient(40deg, #ff5050, #f5c8c8) !important;
 }
+
 .aqua-gradient2 {
     background: linear-gradient(40deg, #7090fc, #c8e0f5) !important;
 }
@@ -143,5 +185,4 @@ body {
     border: 5px solid #fff;
     border-radius: 50%;
 }
-
 </style>

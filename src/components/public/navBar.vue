@@ -92,7 +92,7 @@ export default {
 
     const logout = function () {
       alert("Successful logout");
-      localStorage.removeItem('user');
+      localStorage.removeItem('token');
       token = null;
       location.reload()
       location.assign("/login")

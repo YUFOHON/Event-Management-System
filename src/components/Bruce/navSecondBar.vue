@@ -9,14 +9,16 @@
       <form v-if="props.searchButton" class="d-flex" role="search" style="padding-left: 30%;">
         <input v-model="input" class="form-control me-2" type="search" placeholder="名稱或日期" aria-label="Search">
 
-        <button class="btn btn-outline-danger" type="button" @click="searchEvent(sorting = 'Descending')"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
+        <button class="btn btn-outline-danger" type="button"
+          @click="searchEvent(sorting = 'Descending')"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
       </form>
+      
       <div v-if="props.sortButton" class="d-flex-button">
-
+        <ul class="nav gap-3">
         <div class="dropdown" id="sortButton">
           <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
             data-bs-auto-close="outside">
-           <!-- icon above the text -->
+            <!-- icon above the text -->
             <font-awesome-icon icon="fa-solid fa-arrow-up-z-a" />
             排序
           </button>
@@ -29,7 +31,7 @@
                     <input v-model="sortCheckbox" value="同路人支援平台" type="checkbox" class="btn-check" id="btncheck1"
                       autocomplete="off">
                     <label class="btn btn-outline-primary" for="btncheck1" style="color: black;  --bs-btn-active-bg:#8a56dd
-  ">同路人支援平台</label>
+    ">同路人支援平台</label>
 
                     <input v-model="sortCheckbox" value="活動義工招募" type="checkbox" class="btn-check" id="btncheck2"
                       autocomplete="off">
@@ -74,18 +76,20 @@
             </div>
           </div>
         </div>
-        <router-link to="/events/eventHistory">
-          <button v-if="props.eventHistoryButton" type="button" class="btn btn-danger">
-            <font-awesome-icon icon="fa-solid fa-clock-rotate-left" />
-            歷史記錄</button>
-        </router-link>
+       
+          <router-link to="/events/eventHistory">
+            <button v-if="props.eventHistoryButton" type="button" class="btn btn-danger ">
+              <font-awesome-icon icon="fa-solid fa-clock-rotate-left" />
+              歷史記錄</button>
+          </router-link>
 
-        <router-link to="/events/eventForm">
-          <button v-if="props.addButton" type="button" class="btn btn-danger">
-            <font-awesome-icon icon="fa-solid fa-file-import" />
-            添加活動
-          </button>
-        </router-link>
+          <router-link to="/events/eventForm">
+            <button v-if="props.addButton" type="button" class="btn btn-danger">
+              <font-awesome-icon icon="fa-solid fa-file-import" />
+              添加活動
+            </button>
+          </router-link>
+        </ul>
       </div>
 
 
@@ -264,9 +268,11 @@ a:hover {
   width: 400px;
 
 }
+
 .d-flex-button[data-v-981ebdd8] {
-margin-left: 20%;
+  margin-left: 20%;
 }
+
 .dropdown-menu.show {
   display: block;
   position: absolute;
