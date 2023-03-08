@@ -1,101 +1,131 @@
 <template>
   <div class="container">
-    <form v-if="isEventFormDetail">
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventName" class="form-label">活動名稱</label>
-            <input v-model="result.eventName" type="text" class="form-control" id="eventName"
-              aria-describedby="emailHelp">
+
+    <div class="row">
+      <div class="col">
+        <form v-if="isEventFormDetail">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="eventName" class="form-label">活動名稱</label>
+                <input v-model="result.eventName" type="text" class="form-control" id="eventName"
+                  aria-describedby="emailHelp">
+              </div>
+
+
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="eventDate" class="form-label">活動日期</label>
+                <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
+                  aria-describedby="emailHelp">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-3">
+              <label for="eventLocation" class="form-label">活動地點</label>
+              <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="mb-3">
+              <label for="content" class="form-label">內容</label>
+              <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
+            </div>
           </div>
 
-
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventDate" class="form-label">活動日期</label>
-            <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
-              aria-describedby="emailHelp">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="coach" class="form-label">導師</label>
+                <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="target" class="form-label">對象</label>
+                <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="mb-3">
-          <label for="eventLocation" class="form-label">活動地點</label>
-          <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
-        </div>
 
-
-      </div>
-      <div class="row">
-        <div class="mb-3">
-          <label for="content" class="form-label">內容</label>
-          <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="coach" class="form-label">導師</label>
-            <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="quota" class="form-label">名額</label>
+                <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="staff" class="form-label">負責職員</label>
+                <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="target" class="form-label">對象</label>
-            <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
+          <div class="row">
+
+            <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
+            <div class="col">
+              <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
+            </div>
+            <div class="col">
+              <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
+
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="quota" class="form-label">名額</label>
-            <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
+          <div class="row">
+            <div class="mb-3">
+              <label for="Remark" class="form-label">備註</label>
+              <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="staff" class="form-label">負責職員</label>
-            <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
+
+          <div class="row">
+            <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
           </div>
-        </div>
+
+          <div class=" py-4 d-flex justify-content-evenly">
+            <div class="b">
+              <button type="button" class="btn btn-primary" @click="updateEvent()">Update</button>
+            </div>
+            <div class="b">
+              <button type="button" class="btn btn-danger" @click="deleteEvent()">Delete</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="row">
+      <div class="col">
+<form action="" class="">
+  <div class="list">
+    <table class="table table-Secondary table-striped">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">申請者</th>
 
-        <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
-        <div class="col">
-          <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
-        </div>
-        <div class="col">
-          <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
 
-        </div>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for=" (a,index) in arr" :key="a">
+          <th scope="row">{{index+1}}</th>
+          <td>{{a.username}} </td>
+          <td> <button class="btn btn-danger" type="button">Button</button></td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+</form>
       </div>
 
-      <div class="row">
-        <div class="mb-3">
-          <label for="Remark" class="form-label">備註</label>
-          <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
-        </div>
-      </div>
-
-      <div class="row">
-        <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
-      </div>
-
-      <div class=" py-4 d-flex justify-content-evenly">
-        <div class="b">
-          <button type="button" class="btn btn-primary" @click="updateEvent()">Update</button>
-        </div>
-        <div class="b">
-          <button type="button" class="btn btn-danger" @click="deleteEvent()">Delete</button>
-        </div>
-      </div>
-    </form>
-
+    </div>
     <form v-if="!isEventFormDetail">
       <div class="row">
 
