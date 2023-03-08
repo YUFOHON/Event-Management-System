@@ -59,7 +59,8 @@ const routes = [
   {
     path: '/aProfile',
     name: 'AdminProfile',
-    component: AdminProfile
+    component: AdminProfile,
+    meta: {adminAuth: true }
   },
   {
     path: '/cProfile',
@@ -69,7 +70,8 @@ const routes = [
   {
     path: '/editAProfile/:id/',
     name: 'editAdminProfile',
-    component: EditAdminProfile
+    component: EditAdminProfile,
+    meta: {adminAuth: true }
   },
   {
     path: '/editCProfile/:id/',
@@ -129,10 +131,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   
+  
   if (to.path === '/login' || to.path === '/createUser' || to.path === '/') {
     next();
   } else {
     let token = localStorage.getItem('token');
+    console.log(token)
  
     if (!token) {
       alert("Please login first.")
@@ -141,6 +145,17 @@ router.beforeEach((to, from, next) => {
       next();
     }
   }
+
+  if (to.meta.adminAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin") {
+      return next();
+    } else {
+      alert("You don't have the access right.");
+      router.push({path: '/'});
+    }
+  }
+
 })
 
 

@@ -80,7 +80,7 @@ export default {
     let hoverUser = ref(false)
     let hoverEvent = ref(false)
     let show = ref(true)
-    let token = localStorage.getItem("user");
+    let token = localStorage.getItem("token");
 
     const login = async function () {
       location.assign("/login")
@@ -88,7 +88,7 @@ export default {
 
     const logout = function () {
       alert("Successful logout");
-      localStorage.removeItem('user');
+      localStorage.removeItem('token');
       token = null;
       location.reload()
       location.assign("/login")
