@@ -23,5 +23,10 @@ const fileChange = (e) => {
 </script>
 
 <template>
-    <input type="file" @change="fileChange" v-bind="$attrs" />
+    <!-- <input type="file" @change="fileChange" v-bind="$attrs" /> -->
+     <!-- <label for="formFileMultiple" class="form-label">Multiple files input example</label> -->
+    <div class="mb-3">
+ 
+  <input class="form-control" @change="fileChange" v-bind="$attrs"  type="file" id="formFileMultiple" multiple >
+</div>
 </template>

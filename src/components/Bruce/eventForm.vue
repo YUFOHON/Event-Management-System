@@ -1,6 +1,8 @@
 <template>
   <div class="container">
 
+    <img :src=imgData class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;">
+
     <div class="row">
       <div class="col">
         <form v-if="isEventFormDetail">
@@ -252,14 +254,35 @@ export default {
   },
   setup(props) {
     const result = ref({})
-    const formData = ref({})
     const applyerList = ref([])
-
+    const imgData = ref({});
+    // const img = new Image();
     async function getEventDetail() {
       //get data from server
       var response = await fetch("/api/events/search?id=" + props.eventID);
       var data = await response.json();
+
+      //get image from server using params
       result.value = data.results[0]
+      var fileFormat = result.value.files[0].split("/")[1].split(";")[0]
+
+      var imgResponse = await fetch("/api/files/", {
+
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: {
+          filename: props.eventID + "." + fileFormat
+        }
+      });
+      imgData.value = await imgResponse.blob();
+
+      // console.log(imgResponse)
+      // imgData.value = await imgResponse.json();
+      // img.src = URL.createObjectURL(await imgResponse.blob());
+      // document.body.appendChild(img);
+
       applyerList.value = result.value.registrationRecord
       //remove the _id field in result
       delete result.value._id;
@@ -288,7 +311,8 @@ export default {
       });
       //reload the page
       alert(response.statusText)
-      location.assign("/events");
+      location.reload();
+      // location.assign("/events");
     }
 
     async function addEvent() {
@@ -318,25 +342,26 @@ export default {
     }
 
     const fileChanges = (files) => {
-      formData.value.files = files
+
+      result.value.files = files
     }
 
     async function approve(isApproved) {
       if (isApproved) return;
 
 
-        console.log("approve")
-        //send request to sever to approve the event
-        var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
-          method: 'POST'
-        });
-        console.log(response)
-        //refresh the current page
-        location.reload();
-      
+      console.log("approve")
+      //send request to sever to approve the event
+      var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
+        method: 'POST'
+      });
+      console.log(response)
+      //refresh the current page
+      location.reload();
+
     }
     async function reject(isApproved) {
-      if(!isApproved) return
+      if (!isApproved) return
       //send request to sever to approve the event
       var response = await fetch("/api/events/reject?id=" + applyerList.value[0]._id, {
         method: 'POST'
@@ -366,7 +391,7 @@ export default {
     })
     return {
       //return all the variable
-      approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges
+      imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges
     }
   }
 }
