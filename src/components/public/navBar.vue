@@ -36,7 +36,7 @@
         <li class="nav-item">
           <a class="nav-link ">Disabled</a>
         </li>
-        <li v-if="role == 'admin'" class="nav-item">
+        <li v-if = "role == 'admin'" class="nav-item">
           <a class="nav-link" href="/users">User</a>
         </li>
       </ul>
@@ -84,7 +84,8 @@ export default {
     let hoverUser = ref(false)
     let hoverEvent = ref(false)
     let show = ref(true)
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem("token")
+    let role = localStorage.getItem("role")
 
     const login = async function () {
       location.assign("/login")
@@ -106,7 +107,8 @@ export default {
       show,
       login,
       logout,
-      token
+      token,
+      role
     }
   }
 }
