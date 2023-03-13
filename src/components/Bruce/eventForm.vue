@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <img :src=imgData class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;">
+    <!-- <img :src="'/api/file/'+props.eventID." class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;"> -->
 
     <div class="row">
       <div class="col">
