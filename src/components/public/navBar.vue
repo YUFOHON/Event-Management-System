@@ -36,7 +36,7 @@
         <li class="nav-item">
           <a class="nav-link ">Disabled</a>
         </li>
-        <li class="nav-item">
+        <li v-if="role == 'admin'" class="nav-item">
           <a class="nav-link" href="/users">User</a>
         </li>
       </ul>
