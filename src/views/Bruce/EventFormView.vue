@@ -32,7 +32,7 @@ import eventForm from '@/components/Bruce/eventForm.vue'
 import { useRoute } from 'vue-router';
 
 export default {
-    name: 'EventView',
+    name: 'EventFormView',
     components: {
         navBar,
         navSecondBar,

@@ -1,7 +1,12 @@
 <template>
   <div class="container">
 
-    <!-- <img :src="'/api/file/'+props.eventID." class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;"> -->
+    <!-- <img :src="'/api/files/' + props.eventID + '.' + fileFormat" class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;"> -->
+        <img :src="url" class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;">
+
+    <div class="row">
+      <h1 class="">{{ fileFormat }}</h1>
+    </div>
 
     <div class="row">
       <div class="col">
@@ -256,6 +261,8 @@ export default {
     const result = ref({})
     const applyerList = ref([])
     const imgData = ref({});
+    const fileFormat = ref('');
+    const url = ref('');
     // const img = new Image();
     async function getEventDetail() {
       //get data from server
@@ -264,19 +271,21 @@ export default {
 
       //get image from server using params
       result.value = data.results[0]
-      var fileFormat = result.value.files[0].split("/")[1].split(";")[0]
+      fileFormat.value = result.value.files[0].split("/")[1].split(";")[0]
+      url.value = '/api/files/' + props.eventID + '.' + fileFormat.value
+      // console.log(fileFormat.value)
 
-      var imgResponse = await fetch("/api/files/", {
+      // var imgResponse = await fetch("/api/files/", {
 
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        params: {
-          filename: props.eventID + "." + fileFormat
-        }
-      });
-      imgData.value = await imgResponse.blob();
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   params: {
+      //     filename: props.eventID + "." + fileFormat.value
+      //   }
+      // });
+      // imgData.value = await imgResponse.blob();
 
       // console.log(imgResponse)
       // imgData.value = await imgResponse.json();
@@ -391,7 +400,7 @@ export default {
     })
     return {
       //return all the variable
-      imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges
+      url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
     }
   }
 }
