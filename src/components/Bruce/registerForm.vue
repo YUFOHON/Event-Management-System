@@ -20,7 +20,7 @@
       <div class="row">
         <label for="eventName" class="form-label text"> 聯絡電話號碼:<label class="text-danger"> *</label></label>
         <input v-model="result.phone" placeholder="12345678
-                                                          " type="text" class="form-control" id="eventName"
+                                                              " type="text" class="form-control" id="eventName"
           aria-describedby="emailHelp" required>
       </div>
 
@@ -82,15 +82,22 @@
     </form>
 
     <form v-if="props.isRegistered" @submit.prevent="register">
-      <div class="b" style="margin-top: 190px;">
+      <div class="b" >
         <span style="font-size: 250px; color: greenyellow; margin-left: 100px;">
 
-          <font-awesome-icon icon="fa-solid fa-circle-check" flip style="--fa-animation-duration: 4s;" />
+          <font-awesome-icon icon="fa-solid fa-circle-check"  style="--fa-animation-duration: 4s;" />
         </span>
         <span style="font-size: 250px; color: black;">
-          <div class="h1" style="padding-left: 140px;">成功提交申請</div>
+          <div class="h1" style="padding-left: 140px; padding-bottom: 50px;">成功提交申請</div>
+          <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: 50%"></div>
+</div>
         </span>
       </div>
+      <div v-if="!props.isApproved" class="row">
+     <div class="h2" style="margin-left: 18%;"><font-awesome-icon icon="fa-solid fa-paste" />目前狀態：處理中</div>
+      </div>
+      <div v-if="props.isApproved" class="row"><div class="h1" style="margin-left: 10%;">目前狀態：您已成功參加！</div></div>
     </form>
 
     <form @submit.prevent="GoogleReCaptcha.validate($event)">
@@ -115,6 +122,9 @@ export default {
 
   name: 'registerForm',
   props: {
+    isApproved: {
+      type: Boolean,
+    },
     isRegistered: {
       type: Boolean,
     },
@@ -144,7 +154,7 @@ export default {
     // register function that will send the data to the backend
     async function register() {
       loading.value = true
-      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId, {
+      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -168,19 +178,13 @@ export default {
         location.reload()
       }
 
-      console.log("triger")
     }
-
-
 
     const result = ref({
       name: '',
       phone: '',
       email: '',
     })
-
-
-
 
     onMounted(
       () => {
@@ -264,5 +268,20 @@ input {
 
 textarea {
   height: 83%;
+}
+
+.h1{
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: yellowgreen;
+}
+.h2{
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: black;
 }
 </style>

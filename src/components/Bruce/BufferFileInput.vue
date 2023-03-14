@@ -17,7 +17,7 @@ const fileChange = (e) => {
             files.value.push(event.target.result)
             emit('change', files.value);
         }, false );
-        reader.readAsDataURL(f);
+        reader.readAsArrayBuffer(f);
     })
 }
 </script>

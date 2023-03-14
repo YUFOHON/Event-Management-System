@@ -1,6 +1,35 @@
 <template>
     <!-- <QrCode data="test" />
     <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
+    <BufferFileInput @change="importExcel" accept=".xlsx" />
+
+    <form @submit.prevent="uploadTable">
+        <table class="table table-striped">
+        <tr>
+            <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
+        </tr>
+        <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
+            <td v-for="(val, colIndex) in item" :key="val">
+                <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
+            </td>
+            <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
+        </tr>
+    </table>
+
+	<input type="submit" value="Save" />
+    </form>
+    <table class="table table-striped">
+        <tr>
+            <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
+        </tr>
+        <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
+            <td v-for="(val, colIndex) in item" :key="val">
+                <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
+            </td>
+            <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
+        </tr>
+    </table>
+
 
     <div class="row" id="navBar">
         <navBar />
@@ -69,6 +98,8 @@ import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
+import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
+import { utils, read } from 'xlsx';
 // import QrCode from '@/components/Bruce/QrCode.vue'
 // import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
 
@@ -80,6 +111,7 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
+        BufferFileInput
         // SideBar,
         // QrCode,
         // QrCodeScanner
@@ -115,7 +147,34 @@ export default {
             return [page, sort, category]
         }
 
+        const excelData = ref([]);
+        const importExcel = (files) => {
+            if (files.length > 0) {
+                const workbook = read(files[0]);
+                console.log(workbook.SheetNames[0])
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                excelData.value = Array.from(utils.sheet_to_json(worksheet, { raw: false, header: 1 }));
+                console.log(excelData.value);
+            }
+        }
 
+        const uploadTable = async () => {
+            let response = await fetch('/api/import', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(excelData.value)
+            })
+
+            if (response.ok) {
+                excelData.value = []
+                alert('data import success.')
+            }
+        }
+        const deleteRow = (rowIndex) => {
+            excelData.value.splice(rowIndex, 1);
+        }
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
             console.log(category)
@@ -214,7 +273,7 @@ export default {
         })
         return {
             arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            checkRouterValue,
+            checkRouterValue, importExcel, excelData, deleteRow,uploadTable
             //  QrCode, onScan
 
         }
@@ -225,18 +284,18 @@ export default {
 <style scoped>
 .bg {
     display: flex;
-  flex-direction: column;
-  background-image: url("@/assets/city.jpg");
-  background-size: 100% 100%;
-  background-attachment: fixed;
- 
-  width: 100%;
-  height: 100%;
-  min-width: 900px;
-  min-height: 1000px;
- 
-  justify-content: center;
-  align-items: center;
+    flex-direction: column;
+    background-image: url("@/assets/city.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+
+    width: 100%;
+    height: 100%;
+    min-width: 900px;
+    min-height: 1000px;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .cards {
