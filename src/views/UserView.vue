@@ -2,20 +2,28 @@
     <div class="row" id="navBar">
         <navBar />
     </div>
+    <div class="container-md mt-4">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
 
-    <div class="row py-4" id="navSecondBar">
-        <navSecondBar :arr="[
-            {
-                name: '主頁',
-                URL: '/'
-            }
-            ,
-            {
-                name: '用戶',
-                URL: '/user'
-            }
-        ]" :searchButton="true" ref="navSecondBar" />
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">主頁 / <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">用戶</a>
+                    </li>
+                </ul>
+                <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-5">
+                    <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><font-awesome-icon
+                            icon="fa-solid fa-magnifying-glass" /></button>
+                </form>
+            </div>
+        </nav>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="row d-flex">
@@ -26,25 +34,32 @@
                             <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
                             <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
                             <div class="avatar mx-auto white">
-                                <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="woman avatar">
+                                <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
                             </div>
                             <div class="card-body text-center">
-                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{ user.Patient_Name}}
+                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{ user.Patient_Name
+                                }}
+                                    ({{ user.Child_ID }})
                                 </h4>
                                 <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name }}
                                 </h4>
                                 <hr>
                                 <p v-if="user.is_admin == false">Type: Client</p>
                                 <p v-if="user.is_admin == true">Type: Admin</p>
-                                <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing
-                                    elit.
-                                    Eos,
-                                    adipisci</p>
+                                <p> Age: {{ user.Age }} Gender: {{ user.Sex }}</p>
+                                <p><i class="fas fa-quote-left"></i> Hospital: {{ user.Hospital }}</p>
+                                <p><i class="fas fa-quote-left"></i> Diagnosis: {{ user.Diagnosis }}</p>
+
                                 <!-- 
                                 <button type="submit">Details</button> -->
                                 <router-link :to="'/user/' + user._id">Update</router-link>
                                 <!-- <a href="/cProfile" class="card-link">Details</a>   -->
                             </div>
+
+                            <!-- <div class="overlay">
+                                <div class="overlay-content"></div>
+                                <router-link :to="'/user/' + user._id">Update</router-link> 
+                            </div> -->
                         </div>
 
                     </section>
@@ -71,17 +86,20 @@
 
 <script>
 import navBar from '@/components/public/navBar.vue'
-import navSecondBar from '@/components/Bruce/navSecondBar.vue'
+// import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 import { ref, computed, onMounted } from "vue";
+// import { useRoute } from 'vue-router';
 
 
 export default {
     name: 'UserView',
     components: {
-        navSecondBar,
+        // navSecondBar,
         navBar,
     },
     setup() {
+        // const route = useRoute();
+        const searchValue = ref('');
         const users = ref([]);
         const lastPage = ref(0);
         const perPage = ref(6);
@@ -95,23 +113,6 @@ export default {
 
         })
 
-        // const userView = async function(){
-        //     let token = localStorage.getItem("user");
-        //     var response = await fetch("api/hello/users", {
-        //         method: "get",
-        //         headers: {
-        //             "x-access-token": token
-        //         }
-        //     });
-        //     if (response.ok) {
-        //         var data = await response.json();
-        //         users.value = data.users;
-        //         lastPage.value = data.pages
-        //         alert("Welcome Admin!");
-        //     } else {
-        //         alert(response.statusText);
-        //     }
-        // }
 
         const fetchPage = async function (page) {
             currentPageNum.value = page;
@@ -131,21 +132,43 @@ export default {
                 alert(response.statusText);
             }
         };
+
+        const SearchUser = async function (page) {
+
+            currentPageNum.value = page;
+            alert(searchValue.value)
+
+            var response = await fetch("/api/users2/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
+                method: 'GET',
+                headers: {
+
+                }
+            });
+            if (response.ok) {
+                var data = await response.json();
+                users.value = data.users;
+                lastPage.value = data.pages;
+                alert(users.value);
+            } else {
+                alert(response.statusText);
+            }
+        };
+
+
         onMounted(function () {
-            // userView()
             fetchPage(1);
             // alert(props.msg);
         });
 
         return {
-            navSecondBar,
             navBar,
             pages,
             fetchPage,
             currentPageNum,
             lastPage,
             users,
-            // userView
+            SearchUser,
+            searchValue
         }
     }
 
@@ -158,6 +181,29 @@ export default {
 .cards {
     margin-left: 250px;
 }
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, .3), 0 0 1px 0 rgba(0, 0, 0, .25)
+}
+
+.card .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+}
+
+.overlay-content {
+    line-height: 224px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+
 
 body {
     background-color: #f5f7fa;
@@ -184,5 +230,11 @@ body {
     overflow: hidden;
     border: 5px solid #fff;
     border-radius: 50%;
+}
+
+.container-md {
+    max-width: 90%;
+    border-radius: 20px;
+    background-color: #c1c1c153;
 }
 </style>

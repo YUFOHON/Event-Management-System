@@ -48,61 +48,74 @@
             </div>
 
             <div class="row mt-4">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="inputCity">Responsible Worker</label>
                     <input type="text" class="form-control" v-model="user.Responsible_Worker">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="inputCity">Contact Person</label>
                     <input type="text" class="form-control" v-model="user.Contact_Person">
                 </div>
-            </div>
-
-            <div class="row mt-4">
                 <div class="form-group col-md-4">
                     <label for="inputCity">Relationship</label>
                     <input type="text" class="form-control" v-model="user.Relationship">
                 </div>
-                <div class="form-group col-md-4">
+            </div>
+
+            <!-- <div v-if="user.Sibling_1 == null && user.Age_1 == null" class="row mt-4">
+                <button class="btn btn-primary" @click="addSibling">Add Sibling</button>
+
+            </div> -->
+
+            <div v-if="user.Sibling_1 != null && user.Age_1 != null" class="row mt-4">
+                <div class="form-group col-md-6">
                     <label for="inputCity">Sibling(1)</label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <input type="text" class="form-control" v-model="user.Sibling_1">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="inputCity">Age(1)</label>
-                    <input type="text" class="form-control" id="inputCity1">
+                    <input type="text" class="form-control" v-model="user.Age_1">
                 </div>
 
+            </div>
+            <div v-if="user.Sibling_2 != null && user.Age_2 != null" class="row mt-4">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Sibling(2)</label>
+                    <input type="text" class="form-control" v-model="user.Sibling_2">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Age(2)</label>
+                    <input type="text" class="form-control" v-model="user.Age_2">
+                </div>
+            </div>
+            <div v-if="user.Sibling_3 != null && user.Age_3 != null" class="row mt-4">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Sibling(3)</label>
+                    <input type="text" class="form-control" v-model="user.Sibling_3">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Age(3)</label>
+                    <input type="text" class="form-control" v-model="user.Age_3">
+                </div>
             </div>
 
             <div class="row mt-4">
                 <div class="form-group col-md-4">
                     <label for="inputZip">Date of Open</label>
-                    <input type="date" data-format="dd/mm/yyyy" class="form-control" v-model="user.Date_of_open">
+                    <input type="date" class="form-control" v-model="user.Date_of_open">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputZip">Onset Date</label>
-                    <input type="date" data-format="dd/mm/yyyy" class="form-control" v-model="user.Onset_date">
+                    <input type="date" class="form-control" v-model="user.Onset_date">
                 </div>
-                <!-- <div class="form-group col-md-4">
-                    <label for="inputZip">Relapsed Date</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div> -->
-            </div>
 
-            <!-- <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    Check me out
-                </label>
             </div>
-        </div> -->
             <div class="row justify-content-center">
                 <div class="col-md-2">
                     <button type="submit" class="green baseButton mt-4 ">Update!</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="red baseButton mt-4 " @click="delUser()">delete!</button>
+                    <button type="submit" class="red baseButton mt-4 " @click="delUser()">Delete!</button>
                 </div>
 
             </div>
@@ -123,6 +136,14 @@ export default {
         navBar,
         // navSecondBar
         // SideBar
+    },
+    methods:{
+        addSibling(){
+            this.user.push({
+                Sibling_2: '',
+                Age_2: ''
+            })
+        }
     },
 
     setup() {
@@ -200,6 +221,11 @@ export default {
 
 
 <style scoped>
+.form-group label{
+    color: black;
+    font-weight: bold;
+}
+
 .baseButton{
     padding: 6px;
     border: none;
