@@ -2,7 +2,7 @@
     <div class="row">
         <navBar />
     </div>
-
+<div class="backGround">
     <div class="container">
         <form @submit.prevent="updateUser()">
             <div class="row mt-4">
@@ -121,6 +121,7 @@
             </div>
         </form>
     </div>
+</div>
 </template>
 
 
@@ -257,15 +258,15 @@ form{
   margin-top: 1px;
 }
 
-.container {
+/* .container { */
   /* border-radius: 100%; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  background-image: url("@/assets/city.jpg");
+  background-image: url("@/assets/city.jpg"); */
   /* background-size: 100% 100%;
   background-attachment: fixed; */
 
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   min-width: 100%;
   min-height: 100%;
@@ -273,6 +274,22 @@ form{
   justify-content: center;
   align-items: center;
 
+} */
+
+.backGround{
+    display: flex;
+    flex-direction: column;
+    background-image: url("@/assets/city.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+
+    width: 100%;
+    height: 100%;
+    min-width: 900px;
+    min-height: 1000px;
+
+    justify-content: center;
+    align-items: center;
 }
 
 

@@ -2,6 +2,7 @@
     <div class="row" id="navBar">
         <navBar />
     </div>
+
     <div class="container-md mt-4">
         <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
 
@@ -24,62 +25,73 @@
         </nav>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="row d-flex">
-                <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
-                    <section class="mx-auto my-5">
+    <div class="backGround">
+        <div class="container">
+            <div class="row">
+                <div class="row d-flex">
+                    <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
+                        <section class="mx-auto my-5">
 
-                        <div class="card testimonial-card mt-2 mb-3">
-                            <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
-                            <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
-                            <div class="avatar mx-auto white">
-                                <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
-                            </div>
-                            <div class="card-body text-center">
-                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{ user.Patient_Name
-                                }}
-                                    ({{ user.Child_ID }})
-                                </h4>
-                                <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name }}
-                                </h4>
-                                <hr>
-                                <p v-if="user.is_admin == false">Type: Client</p>
-                                <p v-if="user.is_admin == true">Type: Admin</p>
-                                <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
-                                <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
-                                <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
+                            <div class="card testimonial-card mt-2 mb-3">
+                                <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
+                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
+                                <div class="avatar mx-auto white">
+                                    <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
+                                </div>
+                                <div class="card-body text-center">
+                                    <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
+                                        user.Patient_Name
+                                    }}
+                                        ({{ user.Child_ID }})
+                                    </h4>
+                                    <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
+                                    }}
+                                    </h4>
+                                    <hr>
+                                    <p v-if="user.is_admin == false">Type: Client</p>
+                                    <p v-if="user.is_admin == true">Type: Admin</p>
+                                    <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
+                                    <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
+                                    <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
 
-                                <!-- 
+                                    <!-- 
                                 <button type="submit">Details</button> -->
-                                <router-link :to="'/user/' + user._id">Update</router-link>
-                                <!-- <a href="/cProfile" class="card-link">Details</a>   -->
-                            </div>
+                                    <router-link :to="'/user/' + user._id">Update</router-link>
+                                    <!-- <a href="/cProfile" class="card-link">Details</a>   -->
+                                </div>
 
-                            <!-- <div class="overlay">
+                                <!-- <div class="overlay">
                                 <div class="overlay-content"></div>
                                 <router-link :to="'/user/' + user._id">Update</router-link> 
                             </div> -->
-                        </div>
+                            </div>
 
-                    </section>
+                        </section>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a v-if="currentPageNum > 1" @click="fetchPage(currentPageNum - 2)" class="page-link">Previous</a>
-                    </li>
-                    <li class="page-item" v-for="i in pages" :key="i" @click="fetchPage(i)"><a v-if="i > 0"
-                            class="page-link" v-bind:class="{ active: currentPageNum == i }">{{ i }}</a></li>
-                    <li class="page-item">
-                        <a v-if="currentPageNum < lastPage" @click="fetchPage(currentPageNum + 2)"
-                            class="page-link">Next</a>
-                    </li>
-                </ul>
-            </nav>
+            <div class="row">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a v-if="currentPageNum > 1" @click="fetchPage(currentPageNum - 2)" class="page-link"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" v-for="i in pages" :key="i" @click="fetchPage(i)"><a v-if="i > 0"
+                                class="page-link" v-bind:class="{ active: currentPageNum == i }">{{ i }}</a></li>
+                        <li class="page-item">
+                            <a v-if="currentPageNum < lastPage" @click="fetchPage(currentPageNum + 2)" class="page-link"
+                                aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </template>
@@ -178,6 +190,22 @@ export default {
 </script>
 
 <style scoped>
+.backGround {
+    display: flex;
+    flex-direction: column;
+    background-image: url("@/assets/city.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+
+    width: 100%;
+    height: 100%;
+    min-width: 900px;
+    min-height: 1000px;
+
+    justify-content: center;
+    align-items: center;
+}
+
 .cards {
     margin-left: 250px;
 }
