@@ -1,16 +1,17 @@
 <template>
   <div class="container">
 
-    <!-- <img :src="'/api/files/' + props.eventID + '.' + fileFormat" class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;"> -->
-        <img :src="url" class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;">
+    <div v-if="isEventFormDetail" class="row">
 
-    <div class="row">
-      <h1 class="">{{ fileFormat }}</h1>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <form v-if="isEventFormDetail">
+      <div class="col" id="eventImg" style="">
+        <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+                                            border-radius:50%;">
+        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+                                            border-radius:50%;">
+        <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
+      </div>
+      <div class="col ">
+        <form>
           <div class="row">
             <div class="col">
               <div class="mb-3">
@@ -92,22 +93,24 @@
             </div>
           </div>
 
-          <div class="row">
-            <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
-          </div>
 
-          <div class=" py-4 d-flex justify-content-evenly">
+
+          <div v-if="!loading" class=" py-4 d-flex justify-content-evenly">
             <div class="b">
-              <button type="button" class="btn btn-primary" @click="updateEvent()">Update</button>
+              <button type="button" class="btn btn-primary" @click="updateEvent()">更新</button>
             </div>
             <div class="b">
-              <button type="button" class="btn btn-danger" @click="deleteEvent()">Delete</button>
+              <button type="button" class="btn btn-danger" @click="deleteEvent()">刪除</button>
             </div>
+          </div>
+          <div v-if="loading" class="spinner-border text-danger" role="status"
+            style="margin-left: 200px; margin-top: 20px;">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </form>
       </div>
 
-      <div class="col" id="applyerList">
+      <div class="col " id="applyerList">
         <form action="">
           <h3 style="padding-left: 31%; color: red;">申請人名單</h3>
 
@@ -144,108 +147,139 @@
       </div>
 
     </div>
-    <form v-if="!isEventFormDetail">
-      <div class="row">
 
-        <div class="col">
+    <div class="row" id="add" v-if="!isEventFormDetail">
+      <div class="col" id="eventImg">
+        <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
+                                            border-radius:50%;">
+        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
+                                            border-radius:50%;">
+        <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility: ;" @change="fileChanges" class="test"
+          accept=".jpg,.jpeg" multiple />
+      </div>
+      <form class="col">
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="eventName" class="form-label">活動名稱</label>
+              <input v-model="result.eventName" type="text" class="form-control" id="eventName"
+                aria-describedby="emailHelp">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="mb-3">
+              <label for="eventDate" class="form-label">活動日期</label>
+              <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
+                aria-describedby="emailHelp">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
           <div class="mb-3">
-            <label for="eventName" class="form-label">活動名稱</label>
-            <input v-model="result.eventName" type="text" class="form-control" id="eventName"
-              aria-describedby="emailHelp">
+            <label for="eventLocation" class="form-label">活動地點</label>
+            <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <div class="row">
+              <label for="Category" class="form-label" style="margin-left:-20px ;">活動種類: </label>
+            </div>
+            <!-- v-model="result.Category"  -->
+            <select v-model="result.Category" class="form-select" aria-label="Default select example" required="required">
+              <option value="青年活動">青年活動</option>
+              <option value="活動義工招募">活動義工招募</option>
+              <option value="兒童活動">兒童活動</option>
+              <option value="同路人支援平台">同路人支援平台</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <label for="content" class="form-label">內容</label>
+            <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
           </div>
         </div>
 
-        <div class="col">
-          <div class="mb-3">
-            <label for="eventDate" class="form-label">活動日期</label>
-            <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
-              aria-describedby="emailHelp">
+        <div class="row">
+
+          <div class="col">
+            <div class="mb-3">
+              <label for="coach" class="form-label">導師</label>
+              <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="mb-3">
+              <label for="target" class="form-label">對象</label>
+              <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="quota" class="form-label">名額</label>
+              <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="staff" class="form-label">負責職員</label>
+              <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
+            </div>
           </div>
         </div>
 
-      </div>
-      <div class="row">
-        <div class="mb-3">
-          <label for="eventLocation" class="form-label">活動地點</label>
-          <input v-model="result.eventLocation" type="text" class="form-control" id="eventLocation">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="mb-3">
-          <label for="content" class="form-label">內容</label>
-          <textarea v-model="result.content" class="form-control" aria-label="With textarea" id="content"></textarea>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div class="col">
-          <div class="mb-3">
-            <label for="coach" class="form-label">導師</label>
-            <input v-model="result.coach" type="text" class="form-control" id="coach" aria-describedby="emailHelp">
+        <div class="row">
+          <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
+          <div class="col">
+            <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
+          </div>
+          <div class="col">
+            <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
           </div>
         </div>
 
-        <div class="col">
+        <div class="row">
           <div class="mb-3">
-            <label for="target" class="form-label">對象</label>
-            <input v-model="result.target" type="text" class="form-control" id="target" aria-describedby="emailHelp">
+            <label for="Remark" class="form-label">備註</label>
+            <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
+          </div>
+        </div>
+        <div class=" py-4 d-flex justify-content-evenly">
+          <div class="b">
+            <Alert :msg="alertMsg" />
+
+            <button v-if="!loading" type="button" class="btn btn-primary" @click="addEvent()">上傳</button>
+            <div v-if="loading" class="spinner-border text-danger" role="status"
+              style="margin-left: 25px; margin-top: 20px;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+
           </div>
         </div>
 
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="quota" class="form-label">名額</label>
-            <input v-model="result.quota" type="number" class="form-control" id="quota" aria-describedby="emailHelp">
-          </div>
-        </div>
-        <div class="col">
-          <div class="mb-3">
-            <label for="staff" class="form-label">負責職員</label>
-            <input v-model="result.staff" type="text" class="form-control" id="staff" aria-describedby="emailHelp">
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="age" class="form-label">年齡: {{ result.ageLimit }}</label>
-        <div class="col">
-          <input v-model="result.ageLimit" type="range" class="form-range" id="ageLimit" min="0" max="150">
-        </div>
-        <div class="col">
-          <input v-model="result.ageLimit" type="number" class="form-control" id="ageLimit" min="0" max="150">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="mb-3">
-          <label for="Remark" class="form-label">備註</label>
-          <textarea v-model="result.Remark" class="form-control" aria-label="With textarea" id="Remark"></textarea>
-        </div>
-      </div>
-      <div class=" py-4 d-flex justify-content-evenly">
-        <div class="b">
-          <button type="button" class="btn btn-primary" @click="addEvent()">Submit</button>
-        </div>
-      </div>
-
-    </form>
-
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue'
 import FileInput from '@/components/Bruce/FileInput.vue';
+import Alert from '@/components/Bruce/AlertWindow.vue';
 export default {
 
   name: 'eventForm',
   components: {
-    FileInput
+    FileInput,
+    Alert
   },
   props: {
 
@@ -262,7 +296,34 @@ export default {
     const applyerList = ref([])
     const imgData = ref({});
     const fileFormat = ref('');
-    const url = ref('');
+    const url = ref("");
+    const alertMsg = ref("intial alert");
+    const loading = ref(false);
+    const fileInput = ref(null);
+    async function addEvent() {
+      //check the result.value.files is empty or not
+
+      if (result.value.Category == "") {
+        var msg = ""
+        msg += "請選擇活動種類"
+        alertMsg.value = msg
+        return
+      }
+      loading.value = true;
+
+      var response = await fetch("/api/events/add?id=" + props.eventID, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(result.value)
+      });
+      //reload the page
+      alert(response.statusText)
+      //relocate to event page
+      location.href = "/events"
+    }
+
     // const img = new Image();
     async function getEventDetail() {
       //get data from server
@@ -271,27 +332,13 @@ export default {
 
       //get image from server using params
       result.value = data.results[0]
-      fileFormat.value = result.value.files[0].split("/")[1].split(";")[0]
-      url.value = '/api/files/' + props.eventID + '.' + fileFormat.value
-      // console.log(fileFormat.value)
 
-      // var imgResponse = await fetch("/api/files/", {
-
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   params: {
-      //     filename: props.eventID + "." + fileFormat.value
-      //   }
-      // });
-      // imgData.value = await imgResponse.blob();
-
-      // console.log(imgResponse)
-      // imgData.value = await imgResponse.json();
-      // img.src = URL.createObjectURL(await imgResponse.blob());
-      // document.body.appendChild(img);
-
+      if (result.value.files == undefined) {
+        url.value = "default"
+      } else {
+        fileFormat.value = result.value.files[0].split("/")[1].split(";")[0]
+        url.value = '/api/files/' + props.eventID + '.' + fileFormat.value
+      }
       applyerList.value = result.value.registrationRecord
       //remove the _id field in result
       delete result.value._id;
@@ -310,7 +357,7 @@ export default {
     }
 
     async function updateEvent() {
-
+      loading.value = true;
       var response = await fetch("/api/events/update?id=" + props.eventID, {
         method: 'PUT',
         headers: {
@@ -324,22 +371,10 @@ export default {
       // location.assign("/events");
     }
 
-    async function addEvent() {
-      var response = await fetch("/api/events/add", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(result.value)
-      });
-      //reload the page
-      alert(response.statusText)
-      //relocate to event page
-      location.href = "/events"
-    }
+
 
     async function deleteEvent() {
-
+      loading.value = true;
       var response = await fetch("/api/events/delete?id=" + props.eventID, {
         method: 'PUT'
       });
@@ -351,8 +386,11 @@ export default {
     }
 
     const fileChanges = (files) => {
-
+      // console.log(files)
       result.value.files = files
+
+      url.value = result.value.files[0]
+
     }
 
     async function approve(isApproved) {
@@ -381,9 +419,13 @@ export default {
     }
 
     onMounted(() => {
+      console.log(fileInput.value)
+
+
       if (props.isEventFormDetail) {
         getEventDetail()
       } else {
+        url.value = "default"
         result.value = {
           eventName: "",
           eventDate: "",
@@ -393,20 +435,33 @@ export default {
           target: "",
           quota: "",
           staff: "",
+          Category: "",
+          isDelete: false,
           ageLimit: 0,
           Remark: ""
+
         }
       }
     })
     return {
       //return all the variable
-      url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
+      fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
     }
   }
 }
 </script>
 
 <style scoped>
+#eventImg {
+  /* padding-left: 15%; */
+
+
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px; */
+  padding: 30px 20px;
+  /* margin-top: 100px; */
+  margin-right: 150px;
+}
+
 .container {
   /* border-radius: 100%; */
   display: flex;
@@ -414,7 +469,7 @@ export default {
   background-image: url("@/assets/city.jpg");
   /* background-size: 100% 100%;
   background-attachment: fixed; */
-
+  margin-top: -5%;
   width: 100%;
   height: 100%;
   min-width: 100%;
@@ -445,7 +500,10 @@ form {
   margin-top: 1px;
 }
 
-
+#add {
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
 
 textarea {
   height: 83%;
