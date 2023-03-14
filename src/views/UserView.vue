@@ -46,9 +46,9 @@
                                 <hr>
                                 <p v-if="user.is_admin == false">Type: Client</p>
                                 <p v-if="user.is_admin == true">Type: Admin</p>
-                                <p> Age: {{ user.Age }} Gender: {{ user.Sex }}</p>
-                                <p><i class="fas fa-quote-left"></i> Hospital: {{ user.Hospital }}</p>
-                                <p><i class="fas fa-quote-left"></i> Diagnosis: {{ user.Diagnosis }}</p>
+                                <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
+                                <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
+                                <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
 
                                 <!-- 
                                 <button type="submit">Details</button> -->
