@@ -1,5 +1,10 @@
 <template>
-    <div class="container">
+    <div class="row" id="navBar">
+        <navBar />
+    </div>
+
+
+    <div class="container mt-4">
         <form @submit.prevent="createUser()">
             <div class="row">
                 <div class="form-group col-md-6">
@@ -30,7 +35,11 @@
                     <input type="text" class="form-control" v-model="user.phone">
                 </div>
             </div>
-            <button v-if="!$route.params.id" type="submit" class="btn btn-primary">Create</button>
+            <div class="row justify-content-center">
+                <div class="col-md-2">
+                    <button v-if="!$route.params.id" type="submit" class="btn btn-primary mt-4">Create</button>
+                </div>
+            </div>
         </form>
     </div>
 </template>
@@ -38,9 +47,13 @@
 
 <script>
 import { ref } from "vue";
+import navBar from '@/components/public/navBar.vue';
 
 export default {
     name: 'CreateUserView',
+    components: {
+        navBar
+    },
     props: {
         id: String,
         newRecord: Boolean
@@ -73,8 +86,24 @@ export default {
 
         return {
             user,
-            createUser
+            createUser,
+            navBar
         }
     }
 }
 </script>
+
+<style scoped>
+.container {
+    border-top-right-radius: 5%;
+    border-top-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    background-color: #fff;
+    min-width: 500px;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
+    padding: 30px 20px;
+    margin-top: 1px;
+}
+</style>

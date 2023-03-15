@@ -22,7 +22,7 @@
 <style >
  /* @import '@/assets/font/index.css'; */
  #app {
-    font-family: 't';
+    font-family: 'jf-openhuninn-1.1';
     font-weight: 530;
   }
 

@@ -89,7 +89,7 @@ methods: {
       if (response.ok) {
         var text = await response.text();
         alert(text);
-        location.assign("/cProfile");
+        location.assign("/aProfile");
       } else {
         alert(response.statusText);
       }
