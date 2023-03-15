@@ -9,36 +9,35 @@
           <img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" />
         </span>
 
-
         <span>
           <div class="p-3 py-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 class="text-right">Profile Settings</h4>
+                <h4 class="mx-auto" style="font-weight: bolder;">Profile Settings</h4>
             </div>
             <form class="row g-3">
-              <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">Name</span></div>
+              <div class="row mt-8 mt-4">
+                <div class="col-md-8"><span class="infoTitle">姓名</span></div>
                 <div class="col-md-4"><span class="info">{{ users.username }}</span></div>
               </div>
               <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">Staff_ID</span></div>
+                <div class="col-md-8"><span class="infoTitle">員工編號</span></div>
                 <div class="col-md-4"><span class="info">{{ users.Child_ID }}</span></div>
               </div>
               <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">Age</span></div>
+                <div class="col-md-8"><span class="infoTitle">年齡</span></div>
                 <div class="col-md-4"><span class="info">{{ users.Age }}</span></div>
               </div>
               <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">Sex</span></div>
+                <div class="col-md-8"><span class="infoTitle">性別</span></div>
                 <div class="col-md-4"><span class="info">{{ users.Sex }}</span></div>
               </div>
               <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">Staff Name : </span></div>
+                <div class="col-md-8"><span class="infoTitle">員工姓名</span></div>
                 <div class="col-md-4"><span class="info">{{ users.Patient_Name }}</span></div>
               </div>
 
 
-              <div class="col-md-5 text-center">
+              <div class="col-md-5 mx-auto">
                 <router-link :to="`/editAProfile/${users._id}`">
                   <button class="btn btn-primary profile-button" type="button">Edit Profile</button>
                 </router-link>
@@ -48,56 +47,7 @@
         </span>
       </div>
 
-      <!-- <div class="row">
-      <div class="left-half">
-        <div class="col-md-3 border-right">
-        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img class="rounded-circle mt-5" width="300px" :src="require(`../assets/CCF.jpg`)">
-          <img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-        </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="right-half"> -->
-      <!-- <div class="col-md-5 border-right"> -->
-      <!-- <div class="p-3 py-5">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Profile Settings</h4>
-          </div>
-          <form class="row g-3">
-            <div class="row mt-8">
-              <div class="col-md-8"><span class="infoTitle">Name</span></div>
-              <div class="col-md-4"><span class="info">{{ users.username }}</span></div>
-            </div>
-            <div class="row mt-8">
-              <div class="col-md-8"><span class="infoTitle">Staff_ID</span></div>
-              <div class="col-md-4"><span class="info">{{ users.Child_ID }}</span></div>
-            </div>
-            <div class="row mt-8">
-              <div class="col-md-8"><span class="infoTitle">Age</span></div>
-              <div class="col-md-4"><span class="info">{{ users.Age }}</span></div>
-            </div>
-            <div class="row mt-8">
-              <div class="col-md-8"><span class="infoTitle">Sex</span></div>
-              <div class="col-md-4"><span class="info">{{ users.Sex }}</span></div>
-            </div>
-            <div class="row mt-8">
-              <div class="col-md-8"><span class="infoTitle">Staff Name : </span></div>
-              <div class="col-md-4"><span class="info">{{ users.Patient_Name }}</span></div>
-            </div>
-
-
-            <div class="col-md-5 text-center">
-              <router-link :to="`/editAProfile/${users._id}`">
-                <button class="btn btn-primary profile-button" type="button">Edit Profile</button>
-              </router-link>
-            </div>
-          </form>
-        </div> -->
-      <!-- </div> -->
-
-      <!-- </div> -->
-      <!-- </div> -->
+    
     </div>
   </div>
 </template>
@@ -161,57 +111,59 @@ export default {
 } */
 
 .backGround {
-  background-color: rgb(254, 223, 228);
+  background: linear-gradient(0deg, #FF5C58, #FFEDD3);
   padding: 100px;
 
 }
 
-.center-split > * {
+.center-split>* {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 2.5rem;
 }
 
-.center-split > img,
-.center-split > picture,
-.center-split > video {
+.center-split>img,
+.center-split>picture,
+.center-split>video {
   display: block;
   padding: 0;
   object-fit: cover;
 }
+
 @media (min-width: 720px) {
+
   /* [1] */
   .center-split {
     display: grid;
-    grid-template-columns: repeat(2, 50%);  /*setting 2 columns: 50%wide*/
-    align-items: stretch; /*2 sides equal in height */
+    grid-template-columns: repeat(2, 50%);
+    /*setting 2 columns: 50%wide*/
+    align-items: stretch;
+    /*2 sides equal in height */
   }
 
   /* [2] */
-  .center-split > * > * {
+  .center-split>*>* {
     max-width: var(--center-split-max-width);
   }
 
   /* [3] */
-  .center-split > *:nth-child(odd) > * {
+  .center-split>*:nth-child(odd)>* {
     margin: 0 0 0 auto;
   }
 
-  .center-split > *:nth-child(even) > * {
+  .center-split>*:nth-child(even)>* {
     margin: 0 auto 0 0;
   }
 
   /* [4] */
-  .center-split > img,
-  .center-split > picture,
-  .center-split > video {
+  .center-split>img,
+  .center-split>picture,
+  .center-split>video {
     max-width: 100%;
     margin: 0;
   }
 }
-
-
 
 
 .container {
@@ -239,13 +191,13 @@ export default {
 }
 
 .profile-button {
-  background: rgb(99, 39, 120);
+  background:#FE8F8F;
   box-shadow: none;
   border: none
 }
 
 .profile-button:hover {
-  background: #682773
+  background: #737373
 }
 
 .profile-button:focus {
@@ -287,5 +239,4 @@ export default {
   /* margin:15px; */
   /* margin:20px; */
   padding: 10px;
-}
-</style>
+}</style>
