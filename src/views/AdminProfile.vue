@@ -11,40 +11,40 @@
 
         <span>
           <form class="row g-3">
-          <div class="p-3 py-5">
+          <!-- <div class="p-3 py-5"> -->
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h1 class="mx-auto" style="font-weight: bolder;">Profile Settings</h1>
+              <h1 class="mx-auto" style="font-weight: bolder;">用戶設定</h1>
             </div>
 
             <div class="row mt-8 mt-4">
-              <div class="col-md-6"><span class="infoTitle">姓名</span></div>
-              <div class="col-md-6"><span class="info">{{ users.username }}</span></div>
+              <div class="col-md-7"><span class="infoTitle">姓名</span></div>
+              <div class="col-md-5"><span class="info">{{ users.username }}</span></div>
             </div>
             <div class="row mt-8">
-              <div class="col-md-6"><span class="infoTitle">員工編號</span></div>
-              <div class="col-md-6"><span class="info">{{ users.Child_ID }}</span></div>
+              <div class="col-md-7"><span class="infoTitle">員工編號</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Child_ID }}</span></div>
             </div>
             <div class="row mt-8">
-              <div class="col-md-6"><span class="infoTitle">年齡</span></div>
-              <div class="col-md-6"><span class="info">{{ users.Age }}</span></div>
+              <div class="col-md-7"><span class="infoTitle">年齡</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Age }}</span></div>
             </div>
             <div class="row mt-8">
-              <div class="col-md-6"><span class="infoTitle">性別</span></div>
-              <div class="col-md-6"><span class="info">{{ users.Sex }}</span></div>
+              <div class="col-md-7"><span class="infoTitle">性別</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Sex }}</span></div>
             </div>
             <div class="row mt-8">
-              <div class="col-md-6"><span class="infoTitle">員工姓名</span></div>
-              <div class="col-md-6"><span class="info">{{ users.Patient_Name }}</span></div>
+              <div class="col-md-7"><span class="infoTitle">員工姓名</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Patient_Name }}</span></div>
             </div>
 
 
             <div class="col-md-5 mt-4 mx-auto">
               <router-link :to="`/editAProfile/${users._id}`">
-                <button class="btn btn-primary profile-button" type="button">Edit Profile</button>
+                <button class="btn btn-primary profile-button" type="button">編輯用戶資料</button>
               </router-link>
             </div>
 
-          </div>
+          <!-- </div> -->
           </form>
         </span>
       </div>

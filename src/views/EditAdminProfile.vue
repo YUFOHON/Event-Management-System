@@ -14,18 +14,18 @@
 
               <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h1 class="mx-auto" style="font-weight: bolder;'">Profile Settings</h1>
+                  <h1 class="mx-auto" style="font-weight: bolder;'">用戶設定</h1>
                 </div>
                 <div class="row mt-2">
-                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                  <div class="col-md-6"><label class="labels">姓名</label><input type="text" class="form-control"
                       placeholder="Name" v-model="users.username"></div>
-                  <div class="col-md-6"><label class="labels">Admin_ID</label><input type="text" class="form-control"
+                  <div class="col-md-6"><label class="labels">員工編號</label><input type="text" class="form-control"
                       placeholder="" v-model="users.Child_ID"></div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-md-6"><label class="labels">Age</label><input type="number" min="0" max="150"
+                  <div class="col-md-6"><label class="labels">年齡</label><input type="number" min="0" max="150"
                       class="form-control" placeholder="" v-model="users.Age"></div>
-                  <div class="col-md-6"><label class="labels">Gender</label>
+                  <div class="col-md-6"><label class="labels">性別</label>
                     <!-- <input type="text" class="form-control" placeholder="" v-model="users.Sex"> -->
                     <select id="gender" v-model="users.Sex" class="form-control">
                       <option value="M">M</option>
@@ -34,8 +34,7 @@
                   </div>
                 </div>
 
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save
-                    Profile</button></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">儲存變更</button></div>
               </div>
 
           </form>
