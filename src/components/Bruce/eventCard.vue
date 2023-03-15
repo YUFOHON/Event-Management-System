@@ -1,14 +1,18 @@
 <template>
     <div class="card"
-        :style="{ width: props.cardWidth * 0.9 + 'rem', height: props.cardWidth * 1.17 + 'rem', fontSize: props.fontSize + 'rem' }">
+        :style="{ width: props.cardWidth * 0.7 + 'rem', height: props.cardWidth-4.5 + 'rem', fontSize: props.fontSize + 'rem' }">
 
 
-        <div class=" card-body overflow-auto py-4">
-            <!-- <img :src=props.image   class="mb-3" alt="..." style="width: 25rem; height: 15rem;"> -->
-            <img src="@/assets/BG2.jpg" class="mb-3" alt="..." style="width: 26.7rem; height: 15rem;">
+        <div class=" card-body overflow-auto py-4" style="margin-top: -5%;">
+            <!-- <img :src=props.image   class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
+         
+            <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
+        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
+            <!-- <img :src="url" class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
+        
             <ul class="list-group list-group-flush">
 
-                <li class="list-group-item">
+                <li class="list-group-item" style="margin-top: -5%;">
                     <div class="card-title row">
                         <!-- <p ref="root" class="eventName text-center">
                                     名稱： {{ props.eventName }}
@@ -20,20 +24,16 @@
                     </div>
                 </li>
 
-                <li class="list-group-item">
+                <li class="list-group-item" style="margin-top: -4%;">
                     <div class="content overflow-auto row" style="height:5rem ;">
-
-                        <!-- <p class="card-text ">內容： {{ props.content }}</p> -->
 
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
 
                         <div class="col gy-3">{{ props.content }}</div>
-
-
                     </div>
                 </li>
 
-                <li class="list-group-item">
+                <li class="list-group-item" style="margin-top: -5%;">
                     <!-- <p class="card-text text-center">日期：{{ props.Date }}</p> -->
                     <div class="row">
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
@@ -46,7 +46,7 @@
                 </li>
             </ul>
 
-            <div class="d-grid gap-2 col-3 mx-auto my-3">
+            <div class="" style="padding-left: 42%; padding-top: 4%;">
                 <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
             </div>
 
@@ -71,7 +71,8 @@ export default {
         Date: String,
         Category: String,
         fontSize: Number,
-        cardWidth: Number
+        cardWidth: Number,
+        file: Array,
     },
     setup(props) {
         const root = ref(null)
@@ -83,17 +84,17 @@ export default {
         // });
         const shadow = computed(() => {
 
-            var color='3px 4px 18px 2px'
+            var color = '3px 4px 18px 2px'
 
 
             if (props.Category == '兒童活動') {
-                return color+' #af8221'
+                return color + ' #af8221'
             } else if (props.Category == '青年活動') {
-                return color+' #40d859'
+                return color + ' #40d859'
             } else if (props.Category == '同路人支援平台') {
-                return color+' #8a56dd'
+                return color + ' #8a56dd'
             } else {
-                return color+' #ff0000'
+                return color + ' #ff0000'
             }
 
 
@@ -113,7 +114,8 @@ export default {
         }
 
         )
-
+        const fileFormat = ref('')
+        const url = ref(props.image)
         const textColor = computed(() => {
             if (props.Category == '兒童活動') {
                 return '#af8221'
@@ -128,20 +130,21 @@ export default {
 
 
         onMounted(() => {
-            // const dom = root.value
-            // const paddingLeft = getComputedStyle(dom);
-            // const padding = parseFloat(paddingLeft) || 0
-            // if (dom.scrollWidth > dom.offsetWidth) {
-            //     dom.style.fontSize = `${(dom.offsetWidth - padding * 2) / dom.scrollWidth * 25}px`;
-            // }
-            // compute if the props.category is == something then change the shadow 
-            // child -> 5px 5px 15px #e74c3c
-            // adult -> 5px 5px 15px #e67e22
-            // family -> 5px 5px 15px #2ecc71
-            // console.log(shadow.value)
+            // console.log(props.id)
+            if (props.file == undefined) {
+                url.value = 'default'
+            } else {
+                fileFormat.value = props.file[0].split("/")[1].split(";")[0]
+                console.log(fileFormat.value)
+                url.value = '/api/files/' + props.id + '.' + fileFormat.value
+            }
+
+
+
+
         })
         return {
-            props, root, shadow, btnColor, textColor
+            props, root, shadow, btnColor, textColor, url
         }
     }
 }
@@ -164,7 +167,7 @@ animation:rainbow-animation 200ms linear infinite;
      }
  }
 
- 
+
  .card:hover {
      background-color: #c1c1c153;
      transform: scale(1.08);
@@ -173,6 +176,7 @@ animation:rainbow-animation 200ms linear infinite;
      /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
      box-shadow: v-bind('shadow');
  }
+
  .card {
      animation-duration: 1s;
      animation-name: slidein;
@@ -200,7 +204,7 @@ animation:rainbow-animation 200ms linear infinite;
 
  .list-group-item:hover {
      background-color: whitesmoke;
-     
+
      transition: 0.3s;
  }
 
@@ -224,14 +228,15 @@ animation:rainbow-animation 200ms linear infinite;
      border-radius: 10px;
  }
 
- img:hover {
+ /* img:hover {
 
      transform: scale(1.07);
      transition: 0.3s;
      border-radius: 1rem;
- }
+ } */
 
  img:hover[data-v-6608a9fc] {
+    transform: scale(1.12);
      border-radius: 1rem;
 
  }

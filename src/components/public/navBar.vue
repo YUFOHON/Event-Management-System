@@ -94,7 +94,6 @@ export default {
     const logout = function () {
       alert("Successful logout");
       localStorage.removeItem('token');
-      token = null;
       location.reload()
       location.assign("/login")
     }

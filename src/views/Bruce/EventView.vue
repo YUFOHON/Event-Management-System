@@ -1,22 +1,22 @@
 <template>
     <!-- <QrCode data="test" />
     <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
-    <BufferFileInput @change="importExcel" accept=".xlsx" />
+    <!-- <BufferFileInput @change="importExcel" accept=".xlsx" /> -->
 
     <form @submit.prevent="uploadTable">
         <table class="table table-striped">
-        <tr>
-            <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
-        </tr>
-        <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
-            <td v-for="(val, colIndex) in item" :key="val">
-                <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
-            </td>
-            <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
-        </tr>
-    </table>
+            <tr>
+                <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
+            </tr>
+            <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
+                <td v-for="(val, colIndex) in item" :key="val">
+                    <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
+                </td>
+                <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
+            </tr>
+        </table>
 
-	<input type="submit" value="Save" />
+        <input type="submit" value="Save" />
     </form>
     <table class="table table-striped">
         <tr>
@@ -57,22 +57,17 @@
             <SideBar @setFontSize="setFontSize" />
         </div> -->
 
-            <div class="col col-10 " style="margin-left: 140px;">
+            <div class="col " style="margin-left: 140px;">
 
 
                 <div class="row d-flex">
-                    <div v-for="a in arr" :key="a" class="col">
+                    <div v-for="a in arr" :key="a" class="col" id="cards">
+                        <!-- {{ a._id }} -->
                         <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
                             :Date="a.eventDate" :fontSize="fontSize" :cardWidth="cardWidth" :Category="a.Category"
-                            ref="card" />
+                            :file="a.files" ref="card" />
                     </div>
                 </div>
-                <!-- <div class="row d-flex py-4">
-                    <div v-for="a in arr.slice(0, 3)" :key="a" class="col">
-                        <eventCard :eventName="a.eventName" :image="a.image" :content="a.content" :id="a._id"
-                            :Date="a.eventDate" ref="cards" />
-                    </div>
-                </div> -->
 
                 <div class="d-flex justify-content-center p-4" id="pagination">
                     <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
@@ -96,13 +91,12 @@ import { onMounted } from 'vue'
 import { ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
+// import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
-import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
 import { utils, read } from 'xlsx';
 // import QrCode from '@/components/Bruce/QrCode.vue'
 // import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
-
 // import { useRouter } from 'vue-router'
 export default {
     name: 'EventView',
@@ -111,11 +105,10 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
-        BufferFileInput
+        // BufferFileInput
         // SideBar,
         // QrCode,
         // QrCodeScanner
-
     },
     setup() {
         let arr = ref([]);
@@ -128,7 +121,6 @@ export default {
         const card = ref(null)
         const fontSize = ref(1)
         const cardWidth = ref(22 + 2 * 5)
-
         const route = useRoute()
         // const onScan = (decodedText, decodedResult) => {
         //     alert(decodedText);
@@ -146,7 +138,6 @@ export default {
             }
             return [page, sort, category]
         }
-
         const excelData = ref([]);
         const importExcel = (files) => {
             if (files.length > 0) {
@@ -157,7 +148,6 @@ export default {
                 console.log(excelData.value);
             }
         }
-
         const uploadTable = async () => {
             let response = await fetch('/api/import', {
                 method: 'post',
@@ -186,7 +176,7 @@ export default {
                 navSecondBar.value.isSearchEvent = false
                 pagination.value.isSearchEvents = false
                 pagination.value.category = category
-                response = await fetch('/api/events?perPage=' + 6 + "&page=" + page + "&sort=" + sort + "&category=" + category, {
+                response = await fetch('/api/events?perPage=' + 12 + "&page=" + page + "&sort=" + sort + "&category=" + category, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -218,8 +208,6 @@ export default {
                 alert(response.statusText);
             }
         }
-
-
         async function fetchSearchEvent(page, sort, input) {
             // sent request to server
             page = Number(page)
@@ -246,10 +234,6 @@ export default {
             }
             // location.reload()
         }
-
-
-
-
         watch(fontSize, (currentValue, oldValue) => {
             console.log(currentValue);
             console.log(oldValue);
@@ -262,6 +246,7 @@ export default {
             fetchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input, currentValue.query.category)
 
         });
+
         function setFontSize(s) {
             fontSize.value = s
             cardWidth.value = 22 + 2 * s
@@ -273,7 +258,7 @@ export default {
         })
         return {
             arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            checkRouterValue, importExcel, excelData, deleteRow,uploadTable
+            checkRouterValue, importExcel, excelData, deleteRow, uploadTable
             //  QrCode, onScan
 
         }
@@ -298,7 +283,7 @@ export default {
     align-items: center;
 }
 
-.cards {
-    margin-left: 250px;
+#cards {
+    max-width: max-content;
 }
 </style>
