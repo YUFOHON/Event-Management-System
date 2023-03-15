@@ -102,12 +102,20 @@
             <div class="row mt-4">
                 <div class="form-group col-md-4">
                     <label for="inputZip">Date of Open</label>
-                    <input type="date" class="form-control" v-model="user.Date_of_open">
+                    <input v-model="user.Date_of_open" data-format="dd/mm/yyyy" type="date" class="form-control" >
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputZip">Onset Date</label>
-                    <input type="date" class="form-control" v-model="user.Onset_date">
+                    <input v-model="user.Onset_date" data-format="dd/mm/yyyy" type="date" class="form-control" >
                 </div>
+
+                <!-- <div class="col">
+              <div class="mb-3">
+                <label for="eventDate" class="form-label">活動日期</label>
+                <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
+                  aria-describedby="emailHelp">
+              </div>
+            </div> -->
 
             </div>
             <div class="row justify-content-center">
@@ -179,6 +187,7 @@ export default {
             if (response.ok) {
                 var text = await response.text();
                 alert(text);
+                location.assign("/users");
 
             } else {
                 alert(response.statusText)

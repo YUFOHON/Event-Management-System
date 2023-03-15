@@ -48,8 +48,8 @@
       </router-link>
     </div>
 
-    <button v-if="!token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
-    <button v-if="token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+    <button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+    <button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
     
 
 
@@ -89,7 +89,6 @@ export default {
     const logout = function () {
       alert("Successful logout");
       localStorage.removeItem('token');
-      token = null;
       location.reload()
       location.assign("/login")
     }

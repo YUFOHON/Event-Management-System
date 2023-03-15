@@ -15,6 +15,7 @@
                         <a class="nav-link" href="/users">用戶</a>
                     </li>
                 </ul>
+                <button class="btn btn-primary d-flex ms-auto" @click="createUser()">Create User</button>
                 <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-5">
                     <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
                         aria-label="Search">
@@ -56,7 +57,7 @@
 
                                     <!-- 
                                 <button type="submit">Details</button> -->
-                                    <router-link :to="'/user/' + user._id">Update</router-link>
+                                    <router-link :to="'/user/' + user._id">查看</router-link>
                                     <!-- <a href="/cProfile" class="card-link">Details</a>   -->
                                 </div>
 
@@ -165,6 +166,10 @@ export default {
                 alert(response.statusText);
             }
         };
+        const createUser = async function(){
+            
+            location.assign("/createUser");
+        };
 
 
         onMounted(function () {
@@ -180,7 +185,8 @@ export default {
             lastPage,
             users,
             SearchUser,
-            searchValue
+            searchValue,
+            createUser
         }
     }
 
@@ -212,7 +218,8 @@ export default {
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, .3), 0 0 1px 0 rgba(0, 0, 0, .25)
+    transition: 0.5s;
+    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25)
 }
 
 .card .overlay {
