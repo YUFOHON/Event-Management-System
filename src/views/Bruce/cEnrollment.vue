@@ -4,10 +4,28 @@
     <div class="row">
       <clientNavbar />
     </div>
+    <div class="row py-4" id="navSecondBar">
+      <navSecondBar :arr="[
+        {
+          name: '主頁',
+          URL: '/events'
+        }
+        ,
+        {
+          name: '用戶設定',
+          URL: '/cProfile'
+        },
+        {
+          name: '活動參與紀錄',
+          URL: '#'
+        }
+      ]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
+    </div>
+
 
     <div class="col col-10 py-4" id="table">
 
-      <div class="container">
+      <div class="container" style="padding-left: 25%;">
         <table class="table table-Secondary table-striped">
           <thead class="table-light">
             <tr>
@@ -22,9 +40,14 @@
             <tr v-for=" (a, index) in arr" :key="a">
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ a.eventName }} </td>
-              <td>{{ a.eventDate }}</td>
-              <td>{{ a.Category }}</td>
-              <td> <button class="btn btn-danger" type="button">Button</button></td>
+              <td>{{ a.userRegistrationRecord[0].eventDate }}</td>
+              <td>{{ a.userRegistrationRecord[0].Category }}</td>
+              <td>
+                eventID: {{ a.eventID }}
+                <RouterLink :to="{ name: 'feedBackView', params: { id: a.eventID } }">
+                  <button class="btn btn-danger" type="button">評價活動</button>
+                </RouterLink>
+              </td>
             </tr>
 
           </tbody>
@@ -40,6 +63,7 @@
   
 <script setup>
 import clientNavbar from '@/components/ali/clientNavbar.vue'
+import navSecondBar from '@/components/Bruce/navSecondBar.vue';
 import { onMounted, ref } from 'vue'
 // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 // export default {
@@ -53,7 +77,7 @@ import { onMounted, ref } from 'vue'
 const userID = ref('')
 const arr = ref([])
 const getEnrollment = async () => {
-  const response = await fetch('/api/userRegistrationRecord?userID='+userID.value, {
+  const response = await fetch('/api/userRegistrationRecord?userID=' + userID.value, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -61,8 +85,8 @@ const getEnrollment = async () => {
 
   })
   const data = await response.json()
-  console.log(data)
-  arr.value = data.results[0].userRegistrationRecord
+  // console.log(data)
+  arr.value = data.results
 }
 
 onMounted(() => {

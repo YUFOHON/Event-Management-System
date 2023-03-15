@@ -16,7 +16,7 @@ import clientEventView from '../views/ali/clientEventView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-
+import feedBackView from '../views/feedBackView.vue'
 
 
 import UserView from '../views/UserView.vue'
@@ -54,6 +54,11 @@ const routes = [
     path: '/events/register',
     name: 'eventRegister',
     component: RegisterView
+  },
+  {
+    path: '/feedBack/:id',
+    name: 'feedBackView',
+    component: feedBackView
   },
   //=====================================JOHN=============================================================
   {
