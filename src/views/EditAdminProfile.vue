@@ -1,47 +1,49 @@
 <template>
   <div class="row">
-      <navBar />
+    <navBar />
   </div>
+  <div class="backGround">
 
-  <div class="container rounded bg-white mt-5 mb-5"  >
-    <div class="row">
-        <form class="row g-3" @submit.prevent="updateAProfile(users._id)">
-          <div class="col-md-3 border-right">
-              <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <!-- <img class="rounded-circle mt-5" width="300px" :src="require(`../assets/CCF.jpg`)"> -->
-                <img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-              </div>
-          </div>
-          <div class="col-md-5 border-right">
+    <div class="container my-5">
+      <div class="center-split">
+
+        <span><img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" /></span>
+
+        <span>
+          <form class="row g-3" @submit.prevent="updateAProfile(users._id)">
+
               <div class="p-3 py-5">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                      <h4 class="text-right" style="font-weight: bolder;'">Profile Settings</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h1 class="mx-auto" style="font-weight: bolder;'">Profile Settings</h1>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                      placeholder="Name" v-model="users.username"></div>
+                  <div class="col-md-6"><label class="labels">Admin_ID</label><input type="text" class="form-control"
+                      placeholder="" v-model="users.Child_ID"></div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-6"><label class="labels">Age</label><input type="number" min="0" max="150"
+                      class="form-control" placeholder="" v-model="users.Age"></div>
+                  <div class="col-md-6"><label class="labels">Gender</label>
+                    <!-- <input type="text" class="form-control" placeholder="" v-model="users.Sex"> -->
+                    <select id="gender" v-model="users.Sex" class="form-control">
+                      <option value="M">M</option>
+                      <option value="F">F</option>
+                    </select>
                   </div>
-                  <div class="row mt-2">
-                      <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Name" v-model="users.username"></div>
-                      <div class="col-md-6"><label class="labels">Admin_ID</label><input type="text" class="form-control" placeholder="" v-model="users.Child_ID"></div>
-                  </div>
-                  <div class="row mt-3">
-                      <div class="col-md-6"><label class="labels">Age</label><input type="number" min="0" max="150" class="form-control" placeholder="" v-model="users.Age"></div>
-                      <div class="col-md-6"><label class="labels">Gender</label>
-                        <!-- <input type="text" class="form-control" placeholder="" v-model="users.Sex"> -->
-                      <select id="gender" v-model="users.Sex" class="form-control">
-                          <option value="M">M</option>
-                          <option value="F">F</option>
-                      </select>
-                    </div>
-                      
-                    
-                  </div>
+                </div>
 
-                  <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save
+                    Profile</button></div>
               </div>
-          </div>
 
-        </form>
+          </form>
+        </span>
+
       </div>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -56,24 +58,24 @@ import { ref, onMounted } from "vue";
 // import SideBar from '@/components/sideBar.vue';
 // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 export default {
-name: "ClientProfile",
-components: {
-  navBar,
-  // navSecondBar
-  // SideBar
-},
+  name: "ClientProfile",
+  components: {
+    navBar,
+    // navSecondBar
+    // SideBar
+  },
 
-methods: {
-  
+  methods: {
 
-  
+
+
     async updateAProfile(id) {
       // event.preventDefault();
       delete this.users._id;
-      
-      
 
-      
+
+
+
 
       var response = await fetch("/api/users/" + id, {
         method: "put",
@@ -94,7 +96,7 @@ methods: {
         alert(response.statusText);
       }
     }
-    
+
   },
   setup() {
 
@@ -102,7 +104,7 @@ methods: {
     const users = ref({});
     // const route = useRoute();
     const token = localStorage.getItem("tt");
-    
+
 
     // onMounted(async () => {
     //   var response = await fetch("/api/users/" + tt);
@@ -115,7 +117,7 @@ methods: {
     //   }
     // });
     const fetchData = async function () {
-      var response = await fetch("/api/users/"+token);
+      var response = await fetch("/api/users/" + token);
 
       if (response.ok) {
         var data = await response.json();
@@ -129,7 +131,7 @@ methods: {
 
     onMounted(function () {
       fetchData();
-      
+
     });
 
     return {
@@ -145,9 +147,78 @@ methods: {
   background: rgb(99, 39, 120)
 } */
 
-#avatar{
-border-radius: 50%;
-border:2px black;
+.backGround {
+  background: linear-gradient(0deg, #FF5C58, #FFEDD3);
+  padding: 100px;
+}
+.center-split>* {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2.5rem;
+}
+
+.center-split>img,
+.center-split>picture,
+.center-split>video {
+  display: block;
+  padding: 0;
+  object-fit: cover;
+}
+
+@media (min-width: 720px) {
+
+  /* [1] */
+  .center-split {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    /*setting 2 columns: 50%wide*/
+    align-items: stretch;
+    /*2 sides equal in height */
+  }
+
+  /* [2] */
+  .center-split>*>* {
+    max-width: var(--center-split-max-width);
+  }
+
+  /* [3] */
+  .center-split>*:nth-child(odd)>* {
+    margin: 0 0 0 auto;
+  }
+
+  .center-split>*:nth-child(even)>* {
+    margin: 0 auto 0 0;
+  }
+
+  /* [4] */
+  .center-split>img,
+  .center-split>picture,
+  .center-split>video {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+.container {
+  border-top-right-radius: 5%;
+  border-top-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  border-bottom-left-radius: 5%;
+  background-color: #fff;
+  min-width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
+  padding: 30px 20px;
+  margin-top: 1px;
+
+
+}
+
+
+
+#avatar {
+  border-radius: 50%;
+  border: 2px black;
 }
 
 .form-control:focus {
@@ -156,13 +227,13 @@ border:2px black;
 }
 
 .profile-button {
-  background: rgb(99, 39, 120);
+  background: #FE8F8F;
   box-shadow: none;
   border: none
 }
 
 .profile-button:hover {
-  background: #682773
+  background: #FCD2D1
 }
 
 .profile-button:focus {
@@ -190,6 +261,4 @@ border:2px black;
   cursor: pointer;
   border: solid 1px #BA68C8
 }
-
-
 </style>

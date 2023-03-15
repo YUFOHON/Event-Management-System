@@ -10,44 +10,46 @@
         </span>
 
         <span>
+          <form class="row g-3">
           <div class="p-3 py-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="mx-auto" style="font-weight: bolder;">Profile Settings</h4>
+              <h1 class="mx-auto" style="font-weight: bolder;">Profile Settings</h1>
             </div>
-            <form class="row g-3">
-              <div class="row mt-8 mt-4">
-                <div class="col-md-8"><span class="infoTitle">姓名</span></div>
-                <div class="col-md-4"><span class="info">{{ users.username }}</span></div>
-              </div>
-              <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">員工編號</span></div>
-                <div class="col-md-4"><span class="info">{{ users.Child_ID }}</span></div>
-              </div>
-              <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">年齡</span></div>
-                <div class="col-md-4"><span class="info">{{ users.Age }}</span></div>
-              </div>
-              <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">性別</span></div>
-                <div class="col-md-4"><span class="info">{{ users.Sex }}</span></div>
-              </div>
-              <div class="row mt-8">
-                <div class="col-md-8"><span class="infoTitle">員工姓名</span></div>
-                <div class="col-md-4"><span class="info">{{ users.Patient_Name }}</span></div>
-              </div>
+
+            <div class="row mt-8 mt-4">
+              <div class="col-md-6"><span class="infoTitle">姓名</span></div>
+              <div class="col-md-6"><span class="info">{{ users.username }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-6"><span class="infoTitle">員工編號</span></div>
+              <div class="col-md-6"><span class="info">{{ users.Child_ID }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-6"><span class="infoTitle">年齡</span></div>
+              <div class="col-md-6"><span class="info">{{ users.Age }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-6"><span class="infoTitle">性別</span></div>
+              <div class="col-md-6"><span class="info">{{ users.Sex }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-6"><span class="infoTitle">員工姓名</span></div>
+              <div class="col-md-6"><span class="info">{{ users.Patient_Name }}</span></div>
+            </div>
 
 
-              <div class="col-md-5 mx-auto">
-                <router-link :to="`/editAProfile/${users._id}`">
-                  <button class="btn btn-primary profile-button" type="button">Edit Profile</button>
-                </router-link>
-              </div>
-            </form>
+            <div class="col-md-5 mt-4 mx-auto">
+              <router-link :to="`/editAProfile/${users._id}`">
+                <button class="btn btn-primary profile-button" type="button">Edit Profile</button>
+              </router-link>
+            </div>
+
           </div>
+          </form>
         </span>
       </div>
 
-    
+
     </div>
   </div>
 </template>
@@ -191,13 +193,13 @@ export default {
 }
 
 .profile-button {
-  background:#FE8F8F;
+  background: #FE8F8F;
   box-shadow: none;
   border: none
 }
 
 .profile-button:hover {
-  background: #737373
+  background: #FCD2D1;
 }
 
 .profile-button:focus {
@@ -239,4 +241,5 @@ export default {
   /* margin:15px; */
   /* margin:20px; */
   padding: 10px;
-}</style>
+}
+</style>
