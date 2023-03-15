@@ -1,7 +1,7 @@
 <template>
     <!-- <QrCode data="test" />
     <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
-    <BufferFileInput @change="importExcel" accept=".xlsx" />
+    <!-- <BufferFileInput @change="importExcel" accept=".xlsx" /> -->
 
     <form @submit.prevent="uploadTable">
         <table class="table table-striped">
@@ -91,7 +91,7 @@ import { onMounted } from 'vue'
 import { ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
-import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
+// import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils, read } from 'xlsx';
@@ -105,7 +105,7 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
-        BufferFileInput
+        // BufferFileInput
         // SideBar,
         // QrCode,
         // QrCodeScanner
