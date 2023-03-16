@@ -2,31 +2,34 @@
     <div class="row" id="navBar">
         <navBar />
     </div>
-
-    <div class="container-md mt-4">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
-
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">主頁 / <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users">用戶</a>
-                    </li>
-                </ul>
-                <button class="btn btn-primary d-flex ms-auto" @click="createUser()">Create User</button>
-                <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-5">
-                    <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><font-awesome-icon
-                            icon="fa-solid fa-magnifying-glass" /></button>
-                </form>
-            </div>
-        </nav>
-    </div>
-
     <div class="backGround">
+        <div class="container-md mt-4">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">主頁 / <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">用戶</a>
+                        </li>
+                    </ul>
+
+                    <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-1">
+                        <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-danger my-2 my-sm-0 margin-right" type="submit"><font-awesome-icon
+                                icon="fa-solid fa-magnifying-glass" /></button>
+                        <button class="btn btn-outline-danger d-flex" @click="createUser()"><font-awesome-icon
+                                icon="fa-solid fa-user-plus" /></button>
+                    </form>
+
+                </div>
+            </nav>
+        </div>
+
+
         <div class="container">
             <div class="row">
                 <div class="row d-flex">
@@ -166,8 +169,8 @@ export default {
                 alert(response.statusText);
             }
         };
-        const createUser = async function(){
-            
+        const createUser = async function () {
+
             location.assign("/createUser");
         };
 
@@ -199,7 +202,7 @@ export default {
 .backGround {
     display: flex;
     flex-direction: column;
-    background-image: url("@/assets/city.jpg");
+    background-image: url("@/assets/watercolor.jpg");
     background-size: 100% 100%;
     background-attachment: fixed;
 
@@ -208,8 +211,12 @@ export default {
     min-width: 900px;
     min-height: 1000px;
 
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
+}
+
+.margin-right {
+    margin-right: 8px;
 }
 
 .cards {
