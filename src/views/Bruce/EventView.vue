@@ -77,6 +77,7 @@
             </div>
         </div>
     </div>
+    <Alert ref="alert" />
 </template>
 
 <script>
@@ -95,6 +96,8 @@ import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils, read } from 'xlsx';
+import Alert from '@/components/Bruce/AlertWindow.vue';
+
 // import QrCode from '@/components/Bruce/QrCode.vue'
 // import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
 // import { useRouter } from 'vue-router'
@@ -105,12 +108,14 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
+        Alert,
         // BufferFileInput
         // SideBar,
         // QrCode,
         // QrCodeScanner
     },
     setup() {
+        const alert = ref(null)
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
@@ -167,6 +172,7 @@ export default {
         }
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
+            alert.value.alert("成功加載", "success")
             // console.log(category)
             page = Number(page)
             let response
@@ -254,10 +260,12 @@ export default {
 
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
+
+            alert.value.alert("歡迎", "success")
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {
-            arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
+            alert, Alert, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
             checkRouterValue, importExcel, excelData, deleteRow, uploadTable
             //  QrCode, onScan
 

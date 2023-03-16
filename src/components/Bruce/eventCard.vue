@@ -1,5 +1,5 @@
 <template>
-    <div class="card"
+    <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor =defaultColor"
         :style="{ width: props.cardWidth * 0.7 + 'rem', height: props.cardWidth - 4.5 + 'rem', fontSize: props.fontSize + 'rem' }">
 
 
@@ -89,13 +89,13 @@ export default {
 
 
             if (props.Category == '兒童活動') {
-                return color + ' #af8221'
+                return color + ' #F0C659'
             } else if (props.Category == '青年活動') {
-                return color + ' #40d859'
+                return color + ' #B9F48E'
             } else if (props.Category == '同路人支援平台') {
-                return color + ' #8a56dd'
+                return color + ' #D090EE'
             } else {
-                return color + ' #ff0000'
+                return color + ' #ED5A5A'
             }
 
 
@@ -104,24 +104,25 @@ export default {
         )
         const btnColor = computed(() => {
             if (props.Category == '兒童活動') {
-                return '#af8221'
+                return '#F0C659'
             } else if (props.Category == '青年活動') {
-                return '#40d859'
+                return '#B9F48E'
             } else if (props.Category == '同路人支援平台') {
-                return '#8a56dd'
+                return '#D090EE'
             } else {
-                return '#ff0000'
+                return '#ED5A5A'
             }
         }
 
         )
         const fileFormat = ref('')
         const url = ref(props.image)
-        const textColor = computed(() => {
+        const textColor = ref('#000000')
+        const defaultColor = computed(() => {
             if (props.Category == '兒童活動') {
                 return '#af8221'
             } else if (props.Category == '青年活動') {
-                return '#40d859'
+                return '#037316'
             } else if (props.Category == '同路人支援平台') {
                 return '#8a56dd'
             } else {
@@ -131,6 +132,7 @@ export default {
 
 
         onMounted(() => {
+            textColor.value = defaultColor.value
             // console.log(props.id)
             if (props.file == undefined) {
                 url.value = 'default'
@@ -145,7 +147,7 @@ export default {
 
         })
         return {
-            props, root, shadow, btnColor, textColor, url
+            props, root, shadow, btnColor, url,textColor,defaultColor
         }
     }
 }
@@ -168,14 +170,14 @@ animation:rainbow-animation 200ms linear infinite;
          width: 100%;
      } */
      0% {
-		transform: scale(0);
-		transform-origin: 50% 100%;
-	}
+         transform: scale(0);
+         transform-origin: 50% 100%;
+     }
 
-	100% {
-		transform: scale(1);
-		transform-origin: 50% 100%;
-	}
+     100% {
+         transform: scale(1);
+         transform-origin: 50% 100%;
+     }
  }
 
 
@@ -186,6 +188,8 @@ animation:rainbow-animation 200ms linear infinite;
      box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
      /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
      box-shadow: v-bind('shadow');
+     background-color: v-bind('btnColor');
+
  }
 
  .card {
@@ -202,7 +206,6 @@ animation:rainbow-animation 200ms linear infinite;
      overflow: hidden;
      box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
 
-     background-color: #f8f9fa;
 
  }
 
@@ -249,7 +252,6 @@ animation:rainbow-animation 200ms linear infinite;
  img:hover[data-v-6608a9fc] {
      transform: scale(1.12);
      border-radius: 1rem;
-
  }
 
  img[data-v-6608a9fc] {
@@ -314,4 +316,5 @@ animation:rainbow-animation 200ms linear infinite;
     max-width: 11em;
     overflow: hidden;
     overflow-x: auto;
-} */</style>
+} */
+</style>

@@ -3,7 +3,7 @@
 
     <div class="container">
         <div class="loginForm">
-            <h5>Login</h5>
+            <h5>登入</h5>
             <img src="@/assets/CCF.jpg" class="rounded mx-auto d-block" alt="Bootstrap" width="300" height="300">
         <form @submit.prevent="login()">
             <div class="mb-3">

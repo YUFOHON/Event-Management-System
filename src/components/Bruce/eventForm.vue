@@ -5,10 +5,11 @@
 
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                                  border-radius:50%;">
+                                                          border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                                  border-radius:50%;">
-        <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
+                                                          border-radius:50%;">
+        <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg"
+          multiple />
       </div>
       <div class="col ">
         <form>
@@ -38,6 +39,23 @@
 
 
           </div>
+
+          <div class="row" id="category">
+            <div class="mb-3">
+              <div class="row">
+                <label for="Category" class="form-label">活動種類: </label>
+              </div>
+              <!-- v-model="result.Category"  -->
+              <select v-model="result.Category" class="form-select" aria-label="Default select example"
+                required="required">
+                <option value="青年活動">青年活動</option>
+                <option value="活動義工招募">活動義工招募</option>
+                <option value="兒童活動">兒童活動</option>
+                <option value="同路人支援平台">同路人支援平台</option>
+              </select>
+            </div>
+          </div>
+
           <div class="row">
             <div class="mb-3">
               <label for="content" class="form-label">內容</label>
@@ -93,7 +111,7 @@
             </div>
           </div>
 
-
+          <Alert ref="alert" :msg="alertMsg" />
 
           <div v-if="!loading" class=" py-4 d-flex justify-content-evenly">
             <div class="b">
@@ -148,12 +166,12 @@
 
     </div>
 
-    <div class="row" id="add" v-if="!isEventFormDetail">
+    <div v-if="!isEventFormDetail" class="row" id="add">
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                  border-radius:50%;">
+                                                          border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                  border-radius:50%;">
+                                                          border-radius:50%;">
         <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
           class="test" accept=".jpg,.jpeg" multiple />
       </div>
@@ -254,7 +272,7 @@
         </div>
         <div class=" py-4 d-flex justify-content-evenly">
           <div class="b">
-            <Alert :msg="alertMsg" />
+
 
             <button v-if="!loading" type="button" class="btn btn-primary" @click="addEvent()">上傳</button>
             <div v-if="loading" class="spinner-border text-danger" role="status"
@@ -268,6 +286,7 @@
       </form>
     </div>
   </div>
+  <Alert ref="alert" :msg="alertMsg" />
 </template>
 
 <script>
@@ -300,13 +319,14 @@ export default {
     const alertMsg = ref("intial alert");
     const loading = ref(false);
     const fileInput = ref(null);
+    const alert = ref(null);
     async function addEvent() {
       //check the result.value.files is empty or not
 
       if (result.value.Category == "") {
         var msg = ""
         msg += "請選擇活動種類"
-        alertMsg.value = msg
+        alert.value.alert(msg, "danger")
         return
       }
       loading.value = true;
@@ -357,6 +377,14 @@ export default {
     }
 
     async function updateEvent() {
+      if (result.value.Category == "") {
+        var msg = ""
+        msg += "請選擇活動種類"
+        alert.value.alert(msg, "danger")
+        return
+      }
+
+
       loading.value = true;
       var response = await fetch("/api/events/update?id=" + props.eventID, {
         method: 'PUT',
@@ -444,7 +472,7 @@ export default {
     })
     return {
       //return all the variable
-      triggerFileComponent, fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
+      triggerFileComponent, alert, fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
     }
   }
 }
@@ -461,7 +489,7 @@ export default {
   /* margin-right: 150px; */
 }
 
-img:hover{
+img:hover {
   cursor: pointer;
   content: url("@/assets/upload.jpg");
   /* transform: scale(1.1); */
@@ -490,6 +518,7 @@ img:hover{
   display: flex;
   flex-wrap: wrap;
   margin-right: 10px;
+  margin-top: -10px;
   /* margin-left: 10px; */
 }
 

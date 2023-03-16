@@ -4,7 +4,7 @@
 
 
 <script setup>
-import { onMounted, defineProps,watch } from 'vue';
+import { onMounted, defineProps,watch,defineExpose } from 'vue';
 const props = defineProps({
     msg: String
 })
@@ -15,10 +15,14 @@ const alert = (message, type) => {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = [
         `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-        `   <div>${message}</div>`,
+        `   <div style="padding-left:50%;">${message}</div>`,
         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
         '</div>'
     ].join('')
+
+    setTimeout(()=>{
+        wrapper.remove()
+    },2000)
 
     alertPlaceholder.append(wrapper)
 }
@@ -28,6 +32,10 @@ watch(() => props.msg, (first, second) => {
     alert(props.msg, 'danger')
     console.log(first, second)
 });
+
+defineExpose({
+    alert
+})
 
 onMounted(() => {
     // console.log("props.msg", props.msg)
@@ -40,9 +48,11 @@ onMounted(() => {
 <style>
 #liveAlertPlaceholder {
     position: fixed; 
-     top: 0;
-    right: 0;
+     top: 0%;
+    right: 0%;
     width: 100%;
+    align-content: center;
+/* padding-left: 50%; */
     /* height: 100%; */
     /* z-index: 999;
     pointer-events: none; */
