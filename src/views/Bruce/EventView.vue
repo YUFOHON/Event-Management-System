@@ -164,7 +164,7 @@ export default {
 
             if (response.ok) {
                 excelData.value = []
-                alert('data import success.')
+                // alert('data import success.')
             }
         }
         const deleteRow = (rowIndex) => {

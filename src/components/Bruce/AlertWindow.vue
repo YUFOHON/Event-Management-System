@@ -4,12 +4,15 @@
 
 
 <script setup>
-import { onMounted, defineProps,watch,defineExpose } from 'vue';
+import { onMounted, defineProps, watch, defineExpose } from 'vue';
 const props = defineProps({
     msg: String
 })
 
-const alert = (message, type) => {
+const alert = (message, type, time) => {
+    console.log(time)
+    if (time == null) time = 1000
+
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
     const wrapper = document.createElement('div')
@@ -20,9 +23,9 @@ const alert = (message, type) => {
         '</div>'
     ].join('')
 
-    setTimeout(()=>{
+    setTimeout(() => {
         wrapper.remove()
-    },2000)
+    }, time)
 
     alertPlaceholder.append(wrapper)
 }
@@ -47,12 +50,12 @@ onMounted(() => {
 </script>
 <style>
 #liveAlertPlaceholder {
-    position: fixed; 
-     top: 0%;
+    position: fixed;
+    top: 0%;
     right: 0%;
     width: 100%;
     align-content: center;
-/* padding-left: 50%; */
+    /* padding-left: 50%; */
     /* height: 100%; */
     /* z-index: 999;
     pointer-events: none; */

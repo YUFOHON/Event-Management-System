@@ -138,7 +138,7 @@ export default {
                 url.value = 'default'
             } else {
                 fileFormat.value = props.file[0].split("/")[1].split(";")[0]
-                console.log(fileFormat.value)
+                // console.log(fileFormat.value)
                 url.value = '/api/files/' + props.id + '.' + fileFormat.value
             }
 
