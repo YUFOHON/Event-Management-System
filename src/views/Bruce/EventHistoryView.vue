@@ -21,10 +21,10 @@
       }
     ]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
 
-    <div class="d-flex flex-row mb-3 justify-content-center" id="search" style="position: absolute;margin-top: -50px; ">
+    <div class="d-flex flex-row mb-3 justify-content-center" id="search" style="position: absolute;margin-top: -5px; ">
 
-      <div class="p-2"> <input class="form-control" v-model="input" type="text" id="demo"></div>
-      <div class="p-2"> <button type="button" @click="search" class="btn btn-danger" id="search">查找</button></div>
+      <div class="p-2"> <input placeholder="輸入活動資料" class="form-control" v-model="input" type="text" id="demo"></div>
+      <!-- <div class="p-2"> <button type="button" @click="search" class="btn btn-danger" id="search">查找</button></div> -->
     </div>
 
 
@@ -93,7 +93,10 @@ export default {
 
     const search = () => {
 
-
+      if(arr.value.length <= 0)
+      {
+        arr.value = arrServerData.value
+      }
       var newArr = arr.value.filter((item) => {
         return item.eventName.includes(input.value)||item.eventDate.includes(input.value)||item.Category.includes(input.value);
       });

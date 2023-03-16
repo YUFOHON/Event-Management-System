@@ -22,7 +22,8 @@
       ]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
       <div class="d-flex flex-row mb-3 justify-content-center" id="search" style="position: absolute;margin-top: -5px; ">
 
-        <div class="p-2"> <input placeholder="輸入想查找的活動資料" class="form-control" v-model="input" type="text" id="demo"></div>
+        <div class="p-2"> <input placeholder="輸入想查找的活動資料" class="form-control" v-model="input" type="text" id="demo">
+        </div>
         <!-- <div class="p-2"> <button type="button" @click="search" class="btn btn-danger" id="search">查找</button></div> -->
       </div>
     </div>
@@ -97,13 +98,14 @@ const getEnrollment = async () => {
   arrServerData.value = arr.value
 }
 const search = () => {
-
+if(arr.value.length <= 0)
+arr.value = arrServerData.value
 
   var newArr = arr.value.filter((item) => {
-  //  console.log(item)
-    return item.eventName.includes(input.value)||item.userRegistrationRecord[0].Category.includes(input.value)||item.userRegistrationRecord[0].eventDate.includes(input.value);
+     console.log(item)
+    return item.eventName.includes(input.value) || item.userRegistrationRecord[0].Category.includes(input.value) || item.userRegistrationRecord[0].eventDate.includes(input.value);
   });
-
+  // console.log(newArr)
   arr.value = newArr;
 
   // console.log(input.value)
