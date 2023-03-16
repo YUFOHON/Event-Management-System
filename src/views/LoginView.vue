@@ -16,8 +16,8 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <button type="submit" class="pink baseButton mx-4">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button>
-                <a href="/createUser"> <button class="pink baseButton mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button> </a>
+                <button type="submit" class="btn btn-primary login-button mx-4">Login<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button>
+                <a href="/createUser"> <button class="btn btn-primary login-button mx-4">Create Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button> </a>
             </div>
       
         </form>
@@ -117,10 +117,14 @@ export default {
     border-radius: 4px;
 }
 
-.pink {
-background-color: palevioletred;
-color: white;
-/* border: 1px solid gray; */
+.login-button {
+    background: #FE8F8F;
+    box-shadow: none;
+    border: none
+}
+
+.login-button:hover {
+    background: #FCD2D1;
 }
 
 .container{

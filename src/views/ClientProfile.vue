@@ -168,10 +168,26 @@ export default {
     background: rgb(99, 39, 120)
 } */
 
-.backGround {
+/* .backGround {
   background: linear-gradient(0deg, #FF5C58, #FFEDD3);
   padding: 100px;
 
+} */
+
+.backGround {
+    display: flex;
+    flex-direction: column;
+    background-image: url("@/assets/watercolor.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+
+    width: 100%;
+    height: 100%;
+    min-width: 900px;
+    min-height: 1000px;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .center-split>* {
