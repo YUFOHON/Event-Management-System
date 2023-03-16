@@ -3,12 +3,12 @@
 
     <div v-if="isEventFormDetail" class="row">
 
-      <div class="col" id="eventImg" >
-        <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                            border-radius:50%;">
-        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                            border-radius:50%;">
-        <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
+      <div class="col" id="eventImg">
+        <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+                                                  border-radius:50%;">
+        <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+                                                  border-radius:50%;">
+        <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
       </div>
       <div class="col ">
         <form>
@@ -150,12 +150,12 @@
 
     <div class="row" id="add" v-if="!isEventFormDetail">
       <div class="col" id="eventImg">
-        <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                            border-radius:50%;">
-        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                            border-radius:50%;">
-        <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility: ;" @change="fileChanges" class="test"
-          accept=".jpg,.jpeg" multiple />
+        <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
+                                                  border-radius:50%;">
+        <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
+                                                  border-radius:50%;">
+        <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
+          class="test" accept=".jpg,.jpeg" multiple />
       </div>
       <form class="col">
         <div class="row">
@@ -370,8 +370,9 @@ export default {
       location.reload();
       // location.assign("/events");
     }
-
-
+    const triggerFileComponent = () => {
+      fileInput.value.addFile();
+    }
 
     async function deleteEvent() {
       loading.value = true;
@@ -395,7 +396,7 @@ export default {
       if (isApproved) return;
 
 
-      console.log("approve")
+      // console.log("approve")
       //send request to sever to approve the event
       var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
         method: 'POST'
@@ -443,7 +444,7 @@ export default {
     })
     return {
       //return all the variable
-      fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
+      triggerFileComponent, fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
     }
   }
 }
@@ -458,6 +459,13 @@ export default {
   /* padding: 30px 20px; */
   margin-top: 100px;
   /* margin-right: 150px; */
+}
+
+img:hover{
+  cursor: pointer;
+  content: url("@/assets/upload.jpg");
+  /* transform: scale(1.1); */
+  /* transition: 1s; */
 }
 
 .container {

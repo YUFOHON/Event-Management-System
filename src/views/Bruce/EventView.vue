@@ -3,7 +3,7 @@
     <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
     <!-- <BufferFileInput @change="importExcel" accept=".xlsx" /> -->
 
-    <form @submit.prevent="uploadTable">
+    <!-- <form @submit.prevent="uploadTable">
         <table class="table table-striped">
             <tr>
                 <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
@@ -28,7 +28,7 @@
             </td>
             <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
         </tr>
-    </table>
+    </table> -->
 
 
     <div class="row" id="navBar">
@@ -167,7 +167,7 @@ export default {
         }
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
-            console.log(category)
+            // console.log(category)
             page = Number(page)
             let response
             if (input == undefined || input == '') {

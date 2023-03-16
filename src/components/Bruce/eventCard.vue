@@ -1,15 +1,16 @@
 <template>
     <div class="card"
-        :style="{ width: props.cardWidth * 0.7 + 'rem', height: props.cardWidth-4.5 + 'rem', fontSize: props.fontSize + 'rem' }">
+        :style="{ width: props.cardWidth * 0.7 + 'rem', height: props.cardWidth - 4.5 + 'rem', fontSize: props.fontSize + 'rem' }">
 
 
         <div class=" card-body overflow-auto py-4" style="margin-top: -5%;">
             <!-- <img :src=props.image   class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
-         
+
             <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
-        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
+            <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片"
+                style="width: 20rem; height: 10rem;">
             <!-- <img :src="url" class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
-        
+
             <ul class="list-group list-group-flush">
 
                 <li class="list-group-item" style="margin-top: -5%;">
@@ -156,7 +157,8 @@ animation:rainbow-animation 200ms linear infinite;
 } */
 
  @keyframes slidein {
-     from {
+
+     /* from {
          margin-left: 100%;
          width: 300%;
      }
@@ -164,7 +166,16 @@ animation:rainbow-animation 200ms linear infinite;
      to {
          margin-left: 0%;
          width: 100%;
-     }
+     } */
+     0% {
+		transform: scale(0);
+		transform-origin: 50% 100%;
+	}
+
+	100% {
+		transform: scale(1);
+		transform-origin: 50% 100%;
+	}
  }
 
 
@@ -236,7 +247,7 @@ animation:rainbow-animation 200ms linear infinite;
  } */
 
  img:hover[data-v-6608a9fc] {
-    transform: scale(1.12);
+     transform: scale(1.12);
      border-radius: 1rem;
 
  }
@@ -303,5 +314,4 @@ animation:rainbow-animation 200ms linear infinite;
     max-width: 11em;
     overflow: hidden;
     overflow-x: auto;
-} */
-</style>
+} */</style>
