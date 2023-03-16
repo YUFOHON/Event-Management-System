@@ -3,7 +3,7 @@
 
     <div v-if="isEventFormDetail" class="row">
 
-      <div class="col" id="eventImg" style="">
+      <div class="col" id="eventImg" >
         <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
                                             border-radius:50%;">
         <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
@@ -378,8 +378,6 @@ export default {
       var response = await fetch("/api/events/delete?id=" + props.eventID, {
         method: 'PUT'
       });
-
-
       //relocate to event page
       console.log(response)
       location.assign("/events");
@@ -419,7 +417,7 @@ export default {
     }
 
     onMounted(() => {
-      console.log(fileInput.value)
+      // console.log(fileInput.value)
 
 
       if (props.isEventFormDetail) {
@@ -457,9 +455,9 @@ export default {
 
 
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px; */
-  padding: 30px 20px;
-  /* margin-top: 100px; */
-  margin-right: 150px;
+  /* padding: 30px 20px; */
+  margin-top: 100px;
+  /* margin-right: 150px; */
 }
 
 .container {
@@ -484,7 +482,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-right: 10px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 form {
