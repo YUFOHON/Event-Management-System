@@ -156,4 +156,6 @@ export default {
   padding: 30px 20px;
   margin-top: 1px;
 }
+
+
 </style>

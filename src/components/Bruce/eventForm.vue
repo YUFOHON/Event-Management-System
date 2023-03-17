@@ -457,7 +457,7 @@ export default {
 
     onMounted(() => {
       // console.log(fileInput.value)
-alert.value.alert("點擊用戶名查看詳細資料","success","2000")
+alert.value.alert("點擊用戶名查看詳細資料","success","3000")
 
       if (props.isEventFormDetail) {
         getEventDetail()
