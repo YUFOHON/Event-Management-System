@@ -172,7 +172,7 @@ export default {
         }
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
-            alert.value.alert("成功加載", "success")
+            alert.value.alert("成功加載活動", "success")
             // console.log(category)
             page = Number(page)
             let response
@@ -261,7 +261,7 @@ export default {
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
 
-            alert.value.alert("歡迎", "success")
+            alert.value.alert("歡迎回來", "success")
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {

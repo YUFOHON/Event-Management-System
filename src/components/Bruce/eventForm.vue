@@ -5,9 +5,9 @@
 
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                                          border-radius:50%;">
+                                                                    border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                                          border-radius:50%;">
+                                                                    border-radius:50%;">
         <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg"
           multiple />
       </div>
@@ -129,7 +129,7 @@
       </div>
 
       <div class="col " id="applyerList">
-        <form action="">
+        <form action="" class="applyerList">
           <h3 style="padding-left: 31%; color: red;">申請人名單</h3>
 
           <div class="list">
@@ -146,14 +146,19 @@
               <tbody>
                 <tr v-for=" (applyerList, index) in applyerList" :key="applyerList">
                   <th scope="row">{{ index + 1 }}</th>
-                  <td>{{ applyerList.username }} </td>
+                    <td>
+                  <router-link :to="{ name: 'userDetail', params: { id: applyerList.userID } }">
+                 {{ applyerList.username }}
+                  </router-link>
+                </td>
+                  <!-- <td>{{ applyer?List.username }} </td> -->
 
                   <td v-if="applyerList.isApproved">通過 </td>
                   <td v-if="!applyerList.isApproved">不通過</td>
 
-                  <td> <button @click="approve(applyerList.isApproved)" class="btn btn-danger"
+                  <td> <button @click="approve(applyerList.isApproved, applyerList)" class="btn btn-danger"
                       type="button"><font-awesome-icon icon="fa-solid fa-thumbs-up" /></button></td>
-                  <td> <button @click="reject(applyerList.isApproved)" class="btn btn-danger"
+                  <td> <button @click="reject(applyerList.isApproved, applyerList)" class="btn btn-danger"
                       type="button"><font-awesome-icon icon="fa-solid fa-xmark" /></button></td>
                 </tr>
 
@@ -169,9 +174,9 @@
     <div v-if="!isEventFormDetail" class="row" id="add">
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                          border-radius:50%;">
+                                                                    border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                          border-radius:50%;">
+                                                                    border-radius:50%;">
         <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
           class="test" accept=".jpg,.jpeg" multiple />
       </div>
@@ -293,12 +298,14 @@
 import { ref, onMounted } from 'vue'
 import FileInput from '@/components/Bruce/FileInput.vue';
 import Alert from '@/components/Bruce/AlertWindow.vue';
+
 export default {
 
   name: 'eventForm',
   components: {
     FileInput,
-    Alert
+    Alert,
+
   },
   props: {
 
@@ -420,34 +427,37 @@ export default {
 
     }
 
-    async function approve(isApproved) {
+    async function approve(isApproved, record) {
       if (isApproved) return;
 
 
       // console.log("approve")
       //send request to sever to approve the event
-      var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
+      var response = await fetch("/api/events/approve?id=" + record._id, {
         method: 'POST'
       });
-      console.log(response)
-      //refresh the current page
-      location.reload();
+
+
+      //SET THE APPROVE STATUS TO TRUE
+      if (response.status == 200)
+        record.isApproved = true;
+
 
     }
-    async function reject(isApproved) {
+    async function reject(isApproved, record) {
       if (!isApproved) return
       //send request to sever to approve the event
-      var response = await fetch("/api/events/reject?id=" + applyerList.value[0]._id, {
+      var response = await fetch("/api/events/reject?id=" + record._id, {
         method: 'POST'
       });
-      console.log(response)
-      location.reload();
+      if (response.status == 200)
+        record.isApproved = false;
 
     }
 
     onMounted(() => {
       // console.log(fileInput.value)
-
+alert.value.alert("點擊用戶名查看詳細資料","success","2000")
 
       if (props.isEventFormDetail) {
         getEventDetail()
@@ -485,7 +495,7 @@ export default {
 
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px; */
   /* padding: 30px 20px; */
-  margin-top: 100px;
+  margin-top: 300px;
   /* margin-right: 150px; */
 }
 
@@ -522,7 +532,15 @@ img:hover {
   /* margin-left: 10px; */
 }
 
+.form-label {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
 form {
+
   border-top-right-radius: 5%;
   border-top-left-radius: 5%;
   border-bottom-right-radius: 5%;
@@ -532,7 +550,36 @@ form {
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
-  margin-top: 1px;
+  margin-top: 100px;
+}
+
+.applyerList {
+  /* if over-flow y */
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+
+a{
+  color: red;
+  text-decoration: none;
+}
+.list {
+  overflow-y: scroll;
+  max-height: 920px !important;
+  /* max-height: 100px !important; */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: #d6d2d2;
+  border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
 }
 
 #add {
@@ -541,6 +588,6 @@ form {
 }
 
 textarea {
-  height: 83%;
+  height: 70%;
 }
 </style>

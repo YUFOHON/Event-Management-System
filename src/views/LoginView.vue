@@ -63,10 +63,13 @@ export default {
                     location.assign("/events")
                 } else if (data.role == "user") {
                     location.assign("/cEvents")
+                }else{
+                    location.assign("/cEvents")
                 }
 
             } else {
-                alert(response.statusText)
+                // alert(response.statusText)
+                alert.value.alert(response.statusText, "success",3000)
             }
 
         }
@@ -93,26 +96,27 @@ export default {
     100% {
         transform: translateX(0%);
         transform-origin: 50% 50%;
+        
     }
 
     15% {
-        transform: translateX(-30px) rotate(-6deg);
+        transform: translateX(-30px) rotate(-6deg)scale(1.1);
     }
 
     30% {
-        transform: translateX(15px) rotate(6deg);
+        transform: translateX(15px) rotate(6deg)scale(1);
     }
 
     45% {
-        transform: translateX(-15px) rotate(-3.6deg);
+        transform: translateX(-15px) rotate(-3.6deg)scale(1.1);
     }
 
     60% {
-        transform: translateX(9px) rotate(2.4deg);
+        transform: translateX(9px) rotate(2.4deg)scale(1);
     }
 
     75% {
-        transform: translateX(-6px) rotate(-1.2deg);
+        transform: translateX(-6px) rotate(-1.2deg)scale(1.1);
     }
 }
 
@@ -182,7 +186,8 @@ img {
     -ms-user-select: none;
     -khtml-user-select: none;
     user-select: none;
-    animation: dance 4s ease 0s infinite normal forwards;
+    animation: dance 4s ease-in-out 1 ;
+    margin-bottom: 5%;
 }
 
 h5,
