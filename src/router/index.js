@@ -10,6 +10,7 @@ import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/Bruce/cEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
+import testView from '../views/NicoleTam/testView.vue'
 
 
 //if you want to use the eventDetails page, uncomment the line below 
@@ -109,6 +110,11 @@ const routes = [
     path: '/user/:id',
     name: 'userDetail',
     component: UserDetail
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: testView
   },
 
 
