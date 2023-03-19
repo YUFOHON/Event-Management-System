@@ -30,15 +30,15 @@
                 <h5 class="fw-bold"> 問題{{ index+1 }}: {{ q.text }}</h5>
 
                 <div class="form-check mb-2" v-if="q.type == 'normal'">
-                    <input type="radio" id="one" value="One" />
+                    <input type="radio" id="one" value="One" v-model="feedback[index]"/>
                     <label for="one">option 1</label>
 
-                    <input type="radio" id="two" value="Two" />
+                    <input type="radio" id="two" value="Two" v-model="feedback[index]"/>
                     <label for="two">option 2</label>
                 </div>
 
-                <div class="form-check mb-2" v-if="q.type == 'open'">
-                    <input type="text" placeholder="請輸入">
+                <div class="form-check mb-2" v-if="q.type == 'open'" >
+                    <input type="text" placeholder="請輸入" v-model="feedback[index]"/>
                 </div>
 
                 <div class="form-check mb-2" v-if="q.type == 'scoring'">

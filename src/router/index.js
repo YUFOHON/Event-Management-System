@@ -112,6 +112,11 @@ const routes = [
     component: UserDetail
   },
   {
+    path: '/feedBack',
+    name: 'feedBackView',
+    component: feedBackView
+  },
+  {
     path: '/test',
     name: 'test',
     component: testView
