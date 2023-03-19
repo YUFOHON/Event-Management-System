@@ -17,7 +17,7 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-import FeedbackView from '../views/FeedbackView.vue'
+import feedBackView from '../views/feedBackView.vue'
 
 
 import UserView from '../views/UserView.vue'
@@ -57,9 +57,9 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/feedback',
-    name: 'Feedback',
-    component: FeedbackView
+    path: '/feedBack/:id',
+    name: 'feedBackView',
+    component: feedBackView
   },
   //=====================================JOHN=============================================================
   {
@@ -140,35 +140,35 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 
 
-//   if (to.path === '/login' || to.path === '/') {
-//     next();
-//   } else {
-//     let token = localStorage.getItem('token');
-//     // console.log(token)
+  if (to.path === '/login' || to.path === '/') {
+    next();
+  } else {
+    let token = localStorage.getItem('token');
+    // console.log(token)
 
-//     if (!token) {
-//       alert("Please login first.")
-//       next('/login');
-//     } else {
-      
-//       next();
-//     }
-//   }
+    if (!token) {
+      alert("Please login first.")
+      next('/login');
+    } else {
 
-//   if (to.meta.adminAuth) {
-//     let role = localStorage.getItem('role')
-//     if (role === "admin") {
-//       return next();
-//     } else {
-//       alert("You don't have the access right.");
-//       router.push({ path: '/' });
-//     }
-//   }
+      next();
+    }
+  }
 
-// })
+  if (to.meta.adminAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin") {
+      return next();
+    } else {
+      // alert("You don't have the access right.");
+      router.push({ path: '/' });
+    }
+  }
+
+})
 
 
 export default router

@@ -1,28 +1,36 @@
 <template>
-    <div class="container">
+    <div class="bg">
         <div class="loginForm">
-            <h5>登入</h5>
-            <img src="@/assets/CCF.jpg" class="rounded mx-auto d-block" alt="Bootstrap" width="300" height="300">
-            <form @submit.prevent="login()">
-                <div class="mb-3">
+            <div class="left">
+                <video src="@/assets/loginVideo.mp4" muted autoplay loop></video>
+            </div>
+            <div class="right">
+                <!-- <img src="@/assets/CCF.jpg" class="rounded mx-auto d-block" alt="Bootstrap" width="300" height="300"> -->
+                <form @submit.prevent="login()">
+                    <h1 class="">登入</h1>
                     <label for="exampleInputEmail1" class="form-label">Username</label>
                     <input type="text" class="form-control" v-model="credential.username" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
+
+
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control" v-model="credential.password">
-                </div>
 
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary login-button mx-4">Login<font-awesome-icon
-                            icon="fa-solid fa-right-to-bracket " /></button>
-                    <a href="/createUser"> <button class="btn btn-primary login-button mx-4">Create
-                            Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button> </a>
-                </div>
 
-            </form>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary login-button mx-4">Login<font-awesome-icon
+                                icon="fa-solid fa-right-to-bracket " /></button>
+                        <!-- <a href="/createUser"> <button class="btn btn-primary login-button mx-4">Create
+                                Account<font-awesome-icon icon="fa-solid fa-right-to-bracket " /></button> </a> -->
+                    </div>
+
+                </form>
+            </div>
+
         </div>
     </div>
+
+
+
     <Alert ref="alert" />
 </template>
   
@@ -36,7 +44,7 @@ export default {
     },
     setup() {
         const credential = ref({});
-        const alert=ref(null)
+        const alert = ref(null)
         const login = async function () {
 
             var response = await fetch("/api/user/login", {
@@ -58,45 +66,40 @@ export default {
                 // console.log(decoded["user_id"]);
                 // alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
-                
+
                 if (data.role == "admin") {
                     location.assign("/events")
                 } else if (data.role == "user") {
                     location.assign("/cEvents")
-                }else{
+                } else {
                     location.assign("/cEvents")
                 }
 
             } else {
                 // alert(response.statusText)
-                alert.value.alert(response.statusText, "success",3000)
+                alert.value.alert(response.statusText, "success", 3000)
             }
 
         }
         onMounted(() => {
-            alert.value.alert("歡迎使用CCF管理系統", "success",3000)
+            alert.value.alert("歡迎使用CCF管理系統", "success", 3000)
         })
 
         return {
-            credential, login,alert
+            credential, login, alert
         }
     }
 }
 </script>
 
 <style scoped>
-#app {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #2c3e50;
-}
-
-@keyframes dance {
+/* @keyframes dance {
 
     0%,
     100% {
         transform: translateX(0%);
         transform-origin: 50% 50%;
-        
+
     }
 
     15% {
@@ -118,84 +121,118 @@ export default {
     75% {
         transform: translateX(-6px) rotate(-1.2deg)scale(1.1);
     }
-}
+} */
 
 .baseButton {
-    padding: 6px;
+    /* padding: 6px; */
     border: none;
     border-radius: 4px;
 }
 
 .login-button {
     background: #FE8F8F;
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #7ea4ec, #5aaff3, #22b8f3);
     box-shadow: none;
-    border: none
+    width: 100%;
+    border: none;
+    border-radius: 20px;
 }
 
 .login-button:hover {
     background: #FCD2D1;
 }
 
-.container {
-    /* border-radius: 100%; */
-    display: flex;
-    flex-direction: column;
-    background-image: url("@/assets/BG2.jpg");
-    background-size: 100% 100%;
-    background-attachment: fixed;
-
+video {
     width: 100%;
     height: 100%;
-    min-width: 900px;
-    min-height: 1000px;
+    object-fit: cover;
+}
 
+.right {
+    width: 300px;
+    height: 360px;
+    display: flex;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
+    background-color: color(255, 255, 255, 0.9);
+}
 
+.bg {
+    /* border-radius: 100%; */
+    /* position: absolute; */
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #7ea4ec, #5aaff3, #22b8f3, #00c3ec, #00ccd7, #00d1b4, #0ed488);
+    justify-content: center;
+    align-items: center;
 }
 
 .loginForm {
-    /* border-radius: 80%; */
-    border-top-right-radius: 5%;
-    border-top-left-radius: 5%;
-    border-bottom-right-radius: 5%;
-    border-bottom-left-radius: 5%;
+    width: 600px;
+    height: 360px;
     background-color: #fff;
-    min-width: 500px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
-    padding: 30px 20px;
+    box-shadow: 0 0 20px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+}
+
+.left {
+    width: 50%;
+    height: 100%;
+    background-color: #00c3ec;
 }
 
 input {
-    margin-left: 120px;
     width: fit-content;
     border: 1px solid gray;
     border-radius: 4px;
+    width: 100%;
+    margin-bottom: 10%;
+    height:30px;
+    border: none;
+    outline: none;
+}
+
+
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #be4eb8;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 label {
-    margin-left: 200px;
+    color: #be4eb8;
+    font-size: 1rem;
+    padding-bottom: 15px;
+    /* padding-left: 23%; */
+    margin-bottom: -10px;
     width: fit-content;
 
 }
 
-img {
+/* img {
 
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     -khtml-user-select: none;
     user-select: none;
-    animation: dance 4s ease-in-out 1 ;
+    animation: dance 4s ease-in-out 1;
     margin-bottom: 5%;
-}
+} */
 
-h5,
-.h5 {
+/* h5, */
+/* .h5 {
     margin-bottom: 0.5rem;
     font-weight: 500;
     line-height: 1.2;
     color: inherit;
     text-align: center;
     font-size: 5rem;
-}</style>
+} */
+</style>

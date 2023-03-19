@@ -22,8 +22,10 @@ window.addEventListener('storage', res => {
 <style >
 /* @import '@/assets/font/index.css'; */
 #app {
-  font-family: 't';
+  /* font-family: 't'; */
   font-weight: 530;
+  padding: 0; margin: 0; 
 }
+
 </style>
 
