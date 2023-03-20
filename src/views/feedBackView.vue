@@ -216,7 +216,7 @@ export default {
 
                 var text = await response.text();
                 console.log(text)
-                alert("成功提交");
+                alert("成功提交, 多謝您的寶貴意見!");
             } else {
                 alert(response.statusText)
             }
