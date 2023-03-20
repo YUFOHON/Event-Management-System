@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
+
+import feedBackView from '../views/Bruce/FeedBackView.vue'
+
 import EventFormView from '../views/Bruce/EventFormView.vue'
 import eventHistoryView from '../views/Bruce/EventHistoryView.vue'
 import AdminProfile from '../views/AdminProfile.vue'
@@ -16,9 +19,6 @@ import clientEventView from '../views/ali/clientEventView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-
-
-
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
 import UserDetail from '../views/UserDetail.vue'
@@ -54,7 +54,13 @@ const routes = [
     path: '/events/register',
     name: 'eventRegister',
     component: RegisterView
+  },  
+  {
+    path: '/feedBack',
+    name: 'feedBack',
+    component: feedBackView
   },
+
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',

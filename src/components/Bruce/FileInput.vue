@@ -33,7 +33,6 @@ const fileChange = (e) => {
     reader.readAsDataURL(f);
   })
 }
-
 // function addFile() {
 //   document.getElementById("formFileMultiple").click();
 // }

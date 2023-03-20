@@ -153,8 +153,8 @@
         <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
                                             border-radius:50%;">
         <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                            border-radius:50%;">
-        <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility: ;" @change="fileChanges" class="test"
+                                            border-radius:50%;" @click="fileInput.click()">
+        <FileInput ref="fileInput" style="margin-left: 10%; visibility: ;" @change="fileChanges" class="test"
           accept=".jpg,.jpeg" multiple />
       </div>
       <form class="col">
@@ -300,6 +300,9 @@ export default {
     const alertMsg = ref("intial alert");
     const loading = ref(false);
     const fileInput = ref(null);
+
+
+
     async function addEvent() {
       //check the result.value.files is empty or not
 
@@ -394,9 +397,9 @@ export default {
     }
 
     async function approve(isApproved) {
+      console.log("here")
+
       if (isApproved) return;
-
-
       console.log("approve")
       //send request to sever to approve the event
       var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
@@ -419,7 +422,7 @@ export default {
     }
 
     onMounted(() => {
-      console.log(fileInput.value)
+      // console.log(fileInput.value)
 
 
       if (props.isEventFormDetail) {

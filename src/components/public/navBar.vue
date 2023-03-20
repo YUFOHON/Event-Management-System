@@ -31,7 +31,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Feedback</a>
+          <a class="nav-link" href="/feedBack">Feedback</a>
         </li>
         <li class="nav-item">
           <a class="nav-link ">Disabled</a>
