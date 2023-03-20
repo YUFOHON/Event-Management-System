@@ -23,6 +23,7 @@
     "google-recaptcha-v2": "^1.0.4",
     "html5-qrcode": "^2.3.7",
     "jwt-decode": "^3.1.2",
+    "mongodb": "^5.1.0",
     "qrcode": "^1.5.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
