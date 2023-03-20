@@ -10,7 +10,7 @@ const props = defineProps({
 })
 
 const alert = (message, type, time) => {
-    console.log(time)
+    // console.log(time)
     if (time == null) time = 1000
 
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
