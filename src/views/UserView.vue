@@ -143,9 +143,9 @@ export default {
                 var data = await response.json();
                 users.value = data.users;
                 lastPage.value = data.lastPage
-                alert("Welcome Admin!");
+                alert("Welcome Admin!","success");
             } else {
-                alert(response.statusText);
+                // alert(response.statusText);
             }
         };
 
@@ -164,9 +164,9 @@ export default {
                 var data = await response.json();
                 users.value = data.users;
                 lastPage.value = data.pages;
-                alert(users.value);
+                // alert(users.value);
             } else {
-                alert(response.statusText);
+                // alert(response.statusText);
             }
         };
         const createUser = async function () {

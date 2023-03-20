@@ -163,15 +163,14 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  if (to.meta.adminAuth) {
-    let role = localStorage.getItem('role')
-    if (role === "admin") {
-      return next();
-    } else {
-      // alert("You don't have the access right.");
-      router.push({ path: '/' });
-    }
-  }
+  // if (to.meta.adminAuth) {
+  //   let role = localStorage.getItem('role')
+  //   if (role === "admin") {
+  //     return next();
+  //   } else {
+  //     router.push({ path: '/' });
+  //   }
+  // }
 
 })
 

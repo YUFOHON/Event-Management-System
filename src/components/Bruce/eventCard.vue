@@ -193,7 +193,7 @@ animation:rainbow-animation 200ms linear infinite;
  }
 
  .card {
-     animation-duration: 1s;
+     animation-duration: 0.5s;
      animation-name: slidein;
      width: 18rem;
      height: 592px;
