@@ -11,14 +11,18 @@ import AdminProfile from '../views/AdminProfile.vue'
 import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminProfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
-import cEnrollment from '../views/cEnrollment.vue'
+import cEnrollment from '../views/Bruce/cEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
+import testView from '../views/NicoleTam/testView.vue'
 
 
 //if you want to use the eventDetails page, uncomment the line below 
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
+import feedBackView from '../views/feedBackView.vue'
+
+
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
 import UserDetail from '../views/UserDetail.vue'
@@ -54,19 +58,18 @@ const routes = [
     path: '/events/register',
     name: 'eventRegister',
     component: RegisterView
-  },  
+  },
   {
-    path: '/feedBack',
-    name: 'feedBack',
+    path: '/feedBack/:id',
+    name: 'feedBackView',
     component: feedBackView
   },
-
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',
     name: 'AdminProfile',
     component: AdminProfile,
-    meta: {adminAuth: true }
+    meta: { adminAuth: true }
   },
   {
     path: '/cProfile',
@@ -77,24 +80,24 @@ const routes = [
     path: '/editAProfile/:id/',
     name: 'editAdminProfile',
     component: EditAdminProfile,
-    meta: {adminAuth: true }
+    meta: { adminAuth: true }
   },
   {
     path: '/editCProfile/:id/',
     name: 'editClientProfile',
     component: EditClientProfile
-  },  
+  },
   {
     path: '/cEnrollment/',
     name: 'clientEnrollment',
     component: cEnrollment
   },
-  
+
   //=====================Nicoles======================//
   {
     path: '/login',
     name: 'login',
-    component: LoginView 
+    component: LoginView
   },
   {
     path: '/createUser',
@@ -104,12 +107,22 @@ const routes = [
   {
     path: '/users',
     name: 'users',
-    component: UserView 
+    component: UserView
   },
   {
     path: '/user/:id',
     name: 'userDetail',
-    component: UserDetail 
+    component: UserDetail
+  },
+  {
+    path: '/feedBack',
+    name: 'feedBackView',
+    component: feedBackView
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: testView
   },
 
 
@@ -118,7 +131,7 @@ const routes = [
   {
     path: '/eventDetails/:id',
     name: 'eventDetails',
-    component: eventDetails 
+    component: eventDetails
   },
 
   {
@@ -136,18 +149,19 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  
-  
-  if (to.path === '/login' || to.path === '/createUser' || to.path === '/') {
+
+
+  if (to.path === '/login' || to.path === '/') {
     next();
   } else {
     let token = localStorage.getItem('token');
-    console.log(token)
- 
+    // console.log(token)
+
     if (!token) {
       alert("Please login first.")
       next('/login');
     } else {
+
       next();
     }
   }
@@ -157,8 +171,8 @@ router.beforeEach((to, from, next) => {
     if (role === "admin") {
       return next();
     } else {
-      alert("You don't have the access right.");
-      router.push({path: '/'});
+      // alert("You don't have the access right.");
+      router.push({ path: '/' });
     }
   }
 

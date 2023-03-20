@@ -1,62 +1,57 @@
 <template>
   <div class="row">
-      <navBar />
+    <navBar />
   </div>
+  <div class="backGround">
+    <div class="container my-5">
+      <div class="center-split">
+        <span>
+          <img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+        </span>
 
-  <div class="container rounded bg-white mt-5 mb-5"  >
-    <div class="row">
-        <form class="row g-3" >
-          <div class="col-md-3 border-right">
-              <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <!-- <img class="rounded-circle mt-5" width="300px" :src="require(`../assets/CCF.jpg`)"> -->
-                <img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-              </div>
-          </div>
-          <div class="col-md-5 border-right">
-              <div class="p-3 py-5">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                      <h4 class="text-right">Profile Settings</h4>
-                  </div>
+        <span>
+          <form class="row g-3">
+          <!-- <div class="p-3 py-5"> -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h1 class="mx-auto" style="font-weight: bolder;">用戶設定</h1>
+            </div>
 
-                
-                  <div class="row mt-8">
-                      <div class="col-md-8"><span class="infoTitle">Name</span></div>
-                      <div class="col-md-4"><span class="info">{{ users.username }}</span></div>
-                    </div>
-                    <div class="row mt-8">
-                      <div class="col-md-8"><span class="infoTitle">Staff_ID</span></div>
-                      <div class="col-md-4"><span class="info">{{ users.Child_ID }}</span></div>
-                    </div>
-                    <div class="row mt-8">
-                      <div class="col-md-8"><span class="infoTitle">Age</span></div>
-                      <div class="col-md-4"><span class="info">{{ users.Age }}</span></div>
-                    </div>
-                    <div class="row mt-8">
-                      <div class="col-md-8"><span class="infoTitle">Sex</span></div>
-                      <div class="col-md-4"><span class="info">{{ users.Sex }}</span></div>
-                    </div>
-                    <div class="row mt-8">
-                      <div class="col-md-8"><span class="infoTitle">Staff Name : </span></div>
-                      <div class="col-md-4"><span class="info">{{ users.Patient_Name }}</span></div>
-                    </div>
-                  
-
-                <div class="col-md-5 text-center">
-                    <router-link :to="`/editAProfile/${users._id}`">
-                      <button class="btn btn-primary profile-button" type="button">Edit Profile</button>
-                    </router-link>
-                </div>
+            <div class="row mt-8 mt-4">
+              <div class="col-md-7"><span class="infoTitle">姓名</span></div>
+              <div class="col-md-5"><span class="info">{{ users.username }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-7"><span class="infoTitle">員工編號</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Child_ID }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-7"><span class="infoTitle">年齡</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Age }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-7"><span class="infoTitle">性別</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Sex }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-7"><span class="infoTitle">員工姓名</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Patient_Name }}</span></div>
+            </div>
 
 
-                  
-                  
-              </div>
-          </div>
+            <div class="col-md-5 mt-4 mx-auto">
+              <router-link :to="`/editAProfile/${users._id}`">
+                <button class="btn btn-primary profile-button" type="button">編輯用戶資料</button>
+              </router-link>
+            </div>
 
-        </form>
+          <!-- </div> -->
+          </form>
+        </span>
       </div>
-  </div>
 
+
+    </div>
+  </div>
 </template>
 
 <script>
@@ -69,45 +64,45 @@ import { ref, onMounted } from "vue";
 // import SideBar from '@/components/sideBar.vue';
 // import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 export default {
-name: "AdminProfile",
-components: {
-  navBar,
-  // navSecondBar
-  // SideBar
-},
-// data() {
-//   return {
-//     token: null,
-//   };
-// },
-// mounted(){
-//   this.token = localStorage.getItem('tt');
-// },
-setup() {
-  const users = ref([]);
-  const token = localStorage.getItem("tt");
+  name: "AdminProfile",
+  components: {
+    navBar,
+    // navSecondBar
+    // SideBar
+  },
+  // data() {
+  //   return {
+  //     token: null,
+  //   };
+  // },
+  // mounted(){
+  //   this.token = localStorage.getItem('tt');
+  // },
+  setup() {
+    const users = ref([]);
+    const token = localStorage.getItem("tt");
 
-  const fetchData = async function () {
-    var response = await fetch("/api/users/"+token);
+    const fetchData = async function () {
+      var response = await fetch("/api/users/" + token);
 
-    if (response.ok) {
-      var data = await response.json();
-      // console.log(token);
+      if (response.ok) {
+        var data = await response.json();
+        // console.log(token);
 
-      users.value = data.users;
-    } else {
-      alert(response.statusText);
-    }
-  };
+        users.value = data.users;
+      } else {
+        alert(response.statusText);
+      }
+    };
 
-  onMounted(function () {
-    fetchData();
-  });
+    onMounted(function () {
+      fetchData();
+    });
 
-  return {
-    users,
-  };
-},
+    return {
+      users,
+    };
+  },
 };
 </script>
 
@@ -117,9 +112,94 @@ setup() {
   background: rgb(99, 39, 120)
 } */
 
-#avatar{
-border-radius: 50%;
-border:2px black;
+/* .backGround {
+  background: linear-gradient(0deg, #FF5C58, #FFEDD3);
+  padding: 100px;
+
+} */
+.backGround {
+    display: flex;
+    flex-direction: column;
+    background-image: url("@/assets/watercolor.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+
+    width: 100%;
+    height: 100%;
+    min-width: 900px;
+    min-height: 1000px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.center-split>* {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2.5rem;
+}
+
+.center-split>img,
+.center-split>picture,
+.center-split>video {
+  display: block;
+  padding: 0;
+  object-fit: cover;
+}
+
+@media (min-width: 720px) {
+
+  /* [1] */
+  .center-split {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    /*setting 2 columns: 50%wide*/
+    align-items: stretch;
+    /*2 sides equal in height */
+  }
+
+  /* [2] */
+  .center-split>*>* {
+    max-width: var(--center-split-max-width);
+  }
+
+  /* [3] */
+  .center-split>*:nth-child(odd)>* {
+    margin: 0 0 0 auto;
+  }
+
+  .center-split>*:nth-child(even)>* {
+    margin: 0 auto 0 0;
+  }
+
+  /* [4] */
+  .center-split>img,
+  .center-split>picture,
+  .center-split>video {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+
+.container {
+  border-top-right-radius: 5%;
+  border-top-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  border-bottom-left-radius: 5%;
+  background-color: #fff;
+  min-width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
+  padding: 30px 20px;
+  margin-top: 1px;
+
+
+}
+
+#avatar {
+  border-radius: 50%;
+  border: 2px black;
 }
 
 .form-control:focus {
@@ -128,13 +208,13 @@ border:2px black;
 }
 
 .profile-button {
-  background: rgb(99, 39, 120);
+  background: #FE8F8F;
   box-shadow: none;
   border: none
 }
 
 .profile-button:hover {
-  background: #682773
+  background: #FCD2D1;
 }
 
 .profile-button:focus {
@@ -163,20 +243,18 @@ border:2px black;
   border: solid 1px #BA68C8
 }
 
-.infoTitle{
-/* padding-top:20px; */
-font-size:20px;
-font-weight: bold;
-padding: 10px;
-/* border-bottom: 3px  black solid; */
+.infoTitle {
+  /* padding-top:20px; */
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  /* border-bottom: 3px  black solid; */
 }
 
-.info{
+.info {
   text-align: center;
   /* margin:15px; */
   /* margin:20px; */
-  padding:10px;
+  padding: 10px;
 }
-
-
 </style>

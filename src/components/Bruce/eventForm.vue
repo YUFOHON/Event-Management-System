@@ -3,12 +3,13 @@
 
     <div v-if="isEventFormDetail" class="row">
 
-      <div class="col" id="eventImg" style="">
-        <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                            border-radius:50%;">
-        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
-                                            border-radius:50%;">
-        <FileInput @change="fileChanges" class="test" accept=".jpg,.jpeg" multiple />
+      <div class="col" id="eventImg">
+        <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+                                                                                  border-radius:50%;">
+        <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+                                                                                  border-radius:50%;">
+        <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg"
+          multiple />
       </div>
       <div class="col ">
         <form>
@@ -38,6 +39,23 @@
 
 
           </div>
+
+          <div class="row" id="category">
+            <div class="mb-3">
+              <div class="row">
+                <label for="Category" class="form-label">活動種類: </label>
+              </div>
+              <!-- v-model="result.Category"  -->
+              <select v-model="result.Category" class="form-select" aria-label="Default select example"
+                required="required">
+                <option value="青年活動">青年活動</option>
+                <option value="活動義工招募">活動義工招募</option>
+                <option value="兒童活動">兒童活動</option>
+                <option value="同路人支援平台">同路人支援平台</option>
+              </select>
+            </div>
+          </div>
+
           <div class="row">
             <div class="mb-3">
               <label for="content" class="form-label">內容</label>
@@ -93,7 +111,7 @@
             </div>
           </div>
 
-
+          <Alert ref="alert" :msg="alertMsg" />
 
           <div v-if="!loading" class=" py-4 d-flex justify-content-evenly">
             <div class="b">
@@ -111,7 +129,7 @@
       </div>
 
       <div class="col " id="applyerList">
-        <form action="">
+        <form action="" class="applyerList">
           <h3 style="padding-left: 31%; color: red;">申請人名單</h3>
 
           <div class="list">
@@ -128,14 +146,19 @@
               <tbody>
                 <tr v-for=" (applyerList, index) in applyerList" :key="applyerList">
                   <th scope="row">{{ index + 1 }}</th>
-                  <td>{{ applyerList.username }} </td>
+                  <td>
+                    <router-link :to="{ name: 'userDetail', params: { id: applyerList.userID } }">
+                      {{ applyerList.username }}
+                    </router-link>
+                  </td>
+                  <!-- <td>{{ applyer?List.username }} </td> -->
 
                   <td v-if="applyerList.isApproved">通過 </td>
                   <td v-if="!applyerList.isApproved">不通過</td>
 
-                  <td> <button @click="approve(applyerList.isApproved)" class="btn btn-danger"
+                  <td> <button @click="approve(applyerList.isApproved, applyerList)" class="btn btn-danger"
                       type="button"><font-awesome-icon icon="fa-solid fa-thumbs-up" /></button></td>
-                  <td> <button @click="reject(applyerList.isApproved)" class="btn btn-danger"
+                  <td> <button @click="reject(applyerList.isApproved, applyerList)" class="btn btn-danger"
                       type="button"><font-awesome-icon icon="fa-solid fa-xmark" /></button></td>
                 </tr>
 
@@ -148,6 +171,7 @@
 
     </div>
 
+<<<<<<< HEAD
     <div class="row" id="add" v-if="!isEventFormDetail">
       <div class="col" id="eventImg">
         <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
@@ -156,6 +180,16 @@
                                             border-radius:50%;" @click="fileInput.click()">
         <FileInput ref="fileInput" style="margin-left: 10%; visibility: ;" @change="fileChanges" class="test"
           accept=".jpg,.jpeg" multiple />
+=======
+    <div v-if="!isEventFormDetail" class="row" id="add" style="margin-top: -10px;">
+      <div class="col" id="eventImg" style="margin-right: 80px;">
+        <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
+                                                                             border-radius:50%;">
+        <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
+                                                                border-radius:50%;">
+        <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
+          class="test" accept=".jpg,.jpeg" multiple />
+>>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
       </div>
       <form class="col">
         <div class="row">
@@ -254,7 +288,7 @@
         </div>
         <div class=" py-4 d-flex justify-content-evenly">
           <div class="b">
-            <Alert :msg="alertMsg" />
+
 
             <button v-if="!loading" type="button" class="btn btn-primary" @click="addEvent()">上傳</button>
             <div v-if="loading" class="spinner-border text-danger" role="status"
@@ -268,18 +302,21 @@
       </form>
     </div>
   </div>
+  <Alert ref="alert" :msg="alertMsg" />
 </template>
 
 <script>
 import { ref, onMounted } from 'vue'
 import FileInput from '@/components/Bruce/FileInput.vue';
 import Alert from '@/components/Bruce/AlertWindow.vue';
+
 export default {
 
   name: 'eventForm',
   components: {
     FileInput,
-    Alert
+    Alert,
+
   },
   props: {
 
@@ -300,16 +337,23 @@ export default {
     const alertMsg = ref("intial alert");
     const loading = ref(false);
     const fileInput = ref(null);
+<<<<<<< HEAD
 
 
 
+=======
+    const alert = ref(null);
+>>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
     async function addEvent() {
       //check the result.value.files is empty or not
-
+      var msg = ""
       if (result.value.Category == "") {
-        var msg = ""
         msg += "請選擇活動種類"
-        alertMsg.value = msg
+        alert.value.alert(msg, "danger")
+        return
+      } else if (result.value.name == "") {
+        msg += "請輸入活動名稱"
+        alert.value.alert(msg, "danger")
         return
       }
       loading.value = true;
@@ -321,8 +365,12 @@ export default {
         },
         body: JSON.stringify(result.value)
       });
-      //reload the page
-      alert(response.statusText)
+      //reload the page 
+      // alert(response.statusText)
+      if (response.status == 200)
+        alert.value.alert("上傳成功", "success")
+      else
+        alert.value.alert("上傳失敗", "danger")
       //relocate to event page
       location.href = "/events"
     }
@@ -360,6 +408,14 @@ export default {
     }
 
     async function updateEvent() {
+      if (result.value.Category == "") {
+        var msg = ""
+        msg += "請選擇活動種類"
+        alert.value.alert(msg, "danger")
+        return
+      }
+
+
       loading.value = true;
       var response = await fetch("/api/events/update?id=" + props.eventID, {
         method: 'PUT',
@@ -373,16 +429,15 @@ export default {
       location.reload();
       // location.assign("/events");
     }
-
-
+    const triggerFileComponent = () => {
+      fileInput.value.addFile();
+    }
 
     async function deleteEvent() {
       loading.value = true;
       var response = await fetch("/api/events/delete?id=" + props.eventID, {
         method: 'PUT'
       });
-
-
       //relocate to event page
       console.log(response)
       location.assign("/events");
@@ -396,34 +451,49 @@ export default {
 
     }
 
+<<<<<<< HEAD
     async function approve(isApproved) {
       console.log("here")
 
       if (isApproved) return;
       console.log("approve")
+=======
+    async function approve(isApproved, record) {
+      if (isApproved) return;
+
+
+      // console.log("approve")
+>>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
       //send request to sever to approve the event
-      var response = await fetch("/api/events/approve?id=" + applyerList.value[0]._id, {
+      var response = await fetch("/api/events/approve?id=" + record._id, {
         method: 'POST'
       });
-      console.log(response)
-      //refresh the current page
-      location.reload();
+
+
+      //SET THE APPROVE STATUS TO TRUE
+      if (response.status == 200)
+        record.isApproved = true;
+
 
     }
-    async function reject(isApproved) {
+    async function reject(isApproved, record) {
       if (!isApproved) return
       //send request to sever to approve the event
-      var response = await fetch("/api/events/reject?id=" + applyerList.value[0]._id, {
+      var response = await fetch("/api/events/reject?id=" + record._id, {
         method: 'POST'
       });
-      console.log(response)
-      location.reload();
+      if (response.status == 200)
+        record.isApproved = false;
 
     }
 
     onMounted(() => {
       // console.log(fileInput.value)
+<<<<<<< HEAD
 
+=======
+      alert.value.alert("點擊用戶名查看詳細資料", "success", "3000")
+>>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
 
       if (props.isEventFormDetail) {
         getEventDetail()
@@ -448,7 +518,7 @@ export default {
     })
     return {
       //return all the variable
-      fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
+      triggerFileComponent, alert, fileInput, loading, Alert, alertMsg, url, fileFormat, imgData, approve, reject, result, applyerList, getEventDetail, updateEvent, addEvent, deleteEvent, FileInput, fileChanges, props
     }
   }
 }
@@ -460,9 +530,16 @@ export default {
 
 
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px; */
-  padding: 30px 20px;
-  /* margin-top: 100px; */
-  margin-right: 150px;
+  /* padding: 30px 20px; */
+  margin-top: 300px;
+  /* margin-right: 150px; */
+}
+
+img:hover {
+  cursor: pointer;
+  content: url("@/assets/upload.jpg");
+  /* transform: scale(1.1); */
+  /* transition: 1s; */
 }
 
 .container {
@@ -487,10 +564,19 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-right: 10px;
-  margin-left: 10px;
+  margin-top: -10px;
+  /* margin-left: 10px; */
+}
+
+.form-label {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 10px;
+  margin-bottom: 10px;
 }
 
 form {
+
   border-top-right-radius: 5%;
   border-top-left-radius: 5%;
   border-bottom-right-radius: 5%;
@@ -500,7 +586,37 @@ form {
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
   padding: 30px 20px;
-  margin-top: 1px;
+  margin-top: 100px;
+}
+
+.applyerList {
+  /* if over-flow y */
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+
+a {
+  color: red;
+  text-decoration: none;
+}
+
+.list {
+  overflow-y: scroll;
+  max-height: 920px !important;
+  /* max-height: 100px !important; */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: #d6d2d2;
+  border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
 }
 
 #add {
@@ -509,6 +625,6 @@ form {
 }
 
 textarea {
-  height: 83%;
+  height: 70%;
 }
 </style>

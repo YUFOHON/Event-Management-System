@@ -154,7 +154,7 @@ export default {
     // register function that will send the data to the backend
     async function register() {
       loading.value = true
-      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email, {
+      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email+ "&eventName=" + props.eventName, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

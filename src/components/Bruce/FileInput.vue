@@ -1,5 +1,58 @@
+<!-- <script>
+import { ref } from 'vue';
+export default {
+  name: 'FileInput',
+  setup() {
+
+    const emit = ['change']
+    const files = ref([])
+
+    const fileChange = (e) => {
+      if (e.target.files.length == 0) {
+        //set the file.value from read file from local storage
+        // file.value = [];
+        // emit('change', file.value);
+        return
+      }
+
+      //read only 1 file  
+      // const f = Array.from(e.target.files)[0]
+      // console.log(f)
+      // const reader = new FileReader(f.value);
+      // reader.addEventListener("load", (event) => {
+      //   file.value = event.target.result;
+      //   console.log(file.value);
+      //   emit('change', file.value);
+      // }, false);
+      // reader.readAsDataURL(f);
+
+      Array.from(e.target.files).forEach((f) => {
+        const reader = new FileReader(f)
+        reader.addEventListener("load", (event) => {
+          files.value[0] = (event.target.result)
+          console.log(files.value[0])
+          emit('change', files.value);
+        }, false);
+        reader.readAsDataURL(f);
+      })
+    }
+    function addFile() {
+  document.getElementById("formFileMultiple").click();
+}
+    return {
+      emit,
+      files,
+      fileChange,
+      addFile
+    }
+  }
+
+
+}
+</script> -->
+
 <script setup>
-import { defineEmits, ref } from 'vue'
+import { defineEmits, defineExpose, ref } from 'vue'
 
 const emit = defineEmits(['change'])
 const files = ref([])
@@ -33,10 +86,23 @@ const fileChange = (e) => {
     reader.readAsDataURL(f);
   })
 }
+<<<<<<< HEAD
 // function addFile() {
 //   document.getElementById("formFileMultiple").click();
 // }
+=======
 
+>>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
+
+const addFile = () => {
+  document.getElementById("formFileMultiple").click();
+}
+defineExpose({
+  addFile,
+  emit,
+  files,
+  fileChange
+})
 </script>
 
 <template>
