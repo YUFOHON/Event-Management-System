@@ -16,7 +16,7 @@
           URL: '/cProfile'
         },
         {
-          name: '活動參與紀錄',
+          name: '活動紀錄',
           URL: '#'
         }
       ]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
