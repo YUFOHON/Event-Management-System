@@ -157,7 +157,7 @@ router.beforeEach((to, from, next) => {
     // console.log(token)
 
     if (!token) {
-      alert("Please login first.")
+      alert("請先登入")
       next('/login');
     } else {
 
@@ -165,12 +165,13 @@ router.beforeEach((to, from, next) => {
     }
   }
 
+
   if (to.meta.staffAuth) {
     let role = localStorage.getItem('role')
     if (role === "admin" || role === "staff") {
       return next();
     } else {
-      alert("You don't have the access right.");
+      alert("您沒有權限登入", 99999);
       router.push({ path: '/' });
     }
   }
@@ -180,7 +181,7 @@ router.beforeEach((to, from, next) => {
     if (role === "admin") {
       return next();
     } else {
-      alert("You don't have the access right.");
+      alert("您沒有權限登入", 99999);
       router.push({ path: '/' });
     }
   }
