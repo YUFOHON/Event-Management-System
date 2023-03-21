@@ -25,32 +25,32 @@
             <h1> 活動名稱: {{ event.eventName }} </h1>
             <h3> 活動日期: {{ event.eventDate }} </h3>
 
-            <div class="row" v-for="(q, index) in survey.questions" :key='q'>
+            <div class="row" v-for="(q, index) in survey.questions" :key='q' >
 
                 <h5 class="fw-bold"> 問題{{ index + 1 }}: {{ q.text }} :</h5>
 
                 <div class="form-check mb-2" v-if="q.type == 'normal'">
-                    <input type="radio" id="1" value="非常同意" v-model="feedback[q.text]" required="required" />
+                    <input type="radio" id="1" value="非常同意" v-model="temp[index]" required="required" />
                     <label for="1">非常同意</label>
-                    <input type="radio" id="2" value="同意" v-model="feedback[q.text]" required="required" />
+                    <input type="radio" id="2" value="同意" v-model="temp[index]" required="required" />
                     <label for="2">同意</label>
-                    <input type="radio" id="3" value="少許同意" v-model="feedback[q.text]" required="required" />
+                    <input type="radio" id="3" value="少許同意" v-model="temp[index]" required="required" />
                     <label for="3">少許同意</label>
-                    <input type="radio" id="4" value="少許不同意" v-model="feedback[q.text]" required="required" />
+                    <input type="radio" id="4" value="少許不同意" v-model="temp[index]" required="required" />
                     <label for="4">少許不同意</label>
-                    <input type="radio" id="5" value="不同意" v-model="feedback[q.text]" required="required" />
+                    <input type="radio" id="5" value="不同意" v-model="temp[index]" required="required" />
                     <label for="5">不同意</label>
-                    <input type="radio" id="5" value="非常不同意" v-model="feedback[q.text]" required="required" />
+                    <input type="radio" id="5" value="非常不同意" v-model="temp[index]" required="required" />
                     <label for="5">非常不同意</label>
                 </div>
 
                 <div class="form-check mb-2" v-if="q.type == 'open'">
-                    <input type="text" placeholder="請輸入" v-model="feedback[q.text]" required="required" />
+                    <input type="text" placeholder="請輸入" v-model="temp[index]" required="required" />
                 </div>
 
                 <div class="form-check mb-2" v-if="q.type == 'rating'">
-                    (1-10分，1分表示非常不值得推介；10分表示非常值得推介) 
-                    <select v-model="feedback[q.text]" class="form-select" required="required">
+                    (1-10分，1分表示非常不值得推介；10分表示非常值得推介)
+                    <select v-model="temp[index]" class="form-select" required="required">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -66,18 +66,18 @@
                 </div>
                 <div class="form-check mb-2" v-if="q.type == 'custom'">
                     <label for="ice-cream-choice">Choose:</label>
-                    <input list="datalist" v-model="feedback[q.text]" required="required">
+                    <input list="datalist" v-model="temp[index]" required="required">
                     <datalist id="datalist">
                         <!-- <option value="1"></option> -->
                         <option v-for="c in q.choose" :key='c' :value="c.option"></option>
                     </datalist>
                 </div>
                 <div class="form-check mb-2" v-if="q.type == 'filling'">
-                    <input type="number" placeholder="請輸入" v-model="feedback[q.text]" required="required" /> 人
+                    <input type="number" placeholder="請輸入" v-model="temp[index]" required="required" /> 人
                 </div>
 
             </div>
-            <button type="submit" class="btn btn-primary mt-4" >Submit</button>
+            <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
     </div>
 </template>
@@ -107,6 +107,7 @@ export default {
         const route = useRoute();
         const userId = localStorage.getItem('userId');
         const event = ref({})
+        const temp = ref({})
         const feedback = ref({});
         const questionIndex = 0;
         const questions = ["活動日期、時間、地點合適",
@@ -186,7 +187,7 @@ export default {
                     type: "filling",
                     text: "現時同住的家庭人數",
                 }
-                
+
             ]
         };
 
@@ -199,10 +200,30 @@ export default {
 
             feedback.value.eventId = event.value._id
             feedback.value.userId = userId
+            feedback.value.question = []
+
+
+            for (let i = 0; i < survey.questions.length; i++) {
+                let obj = {
+                    text: "",
+                    ans: ""
+                }
+                obj.text = survey.questions[i].text
+                feedback.value.question[i] = obj
+            }
+
+
+            console.log(feedback.value)
         });
 
 
         const submitSurvey = async function () {
+            console.log(temp)
+
+            for (let i = 0; i < survey.questions.length; i++) {
+                feedback.value.question[i].ans = temp.value[i]
+            }
+
             var response = await fetch("/api/feedback/submit", {
                 method: "post",
                 headers: {
@@ -231,7 +252,8 @@ export default {
             props,
             survey,
             questionIndex,
-            submitSurvey
+            submitSurvey,
+            temp
         }
     }
 
@@ -243,8 +265,7 @@ export default {
 };
 </script>
 
-<style scoped> 
-.container {
+<style scoped> .container {
      display: flex;
      align-items: center;
      gap: 50px;
@@ -257,7 +278,6 @@ export default {
  }
 
  label {
-    font-family: 'Fira Sans', sans-serif;
-}
-
+     font-family: 'Fira Sans', sans-serif;
+ }
 </style>
