@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
       <div class="navPage" style="width: 250px;">
 
-        <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>
+        <a v-for="(a,index) in props.arr" :key="a.name" :href=a.URL>{{ a.name }} <a v-if="index<props.arr.length-1"> ></a>  </a>
       </div>
 
       <form v-if="props.searchButton" class="d-flex" role="search" style="padding-left: 30%;">
