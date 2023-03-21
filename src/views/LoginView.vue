@@ -77,7 +77,7 @@ export default {
 
             } else {
                 // alert(response.statusText)
-                alert.value.alert(response.statusText, "success", 3000)
+                alert(response.statusText, "danger", 30000)
             }
 
         }

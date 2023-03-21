@@ -1,20 +1,20 @@
 <template>
-  <div class="container-md">
+  <div class="container-md" >
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
-      <div class="navPage" style="width: 250px;">
+      <div class="navPage" style="width: 1000px;">
 
         <a v-for="(a,index) in props.arr" :key="a.name" :href=a.URL>{{ a.name }} <a v-if="index<props.arr.length-1"> ></a>  </a>
       </div>
 
-      <form v-if="props.searchButton" class="d-flex" role="search" style="padding-left: 30%;">
+      <form v-if="props.searchButton" class="d-flex" role="search" >
         <input v-model="input" class="form-control me-2" type="search" placeholder="名稱或日期" aria-label="Search">
 
         <button class="btn btn-outline-danger" type="button"
           @click="searchEvent(sorting = 'Descending')"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
       </form>
       
-      <div v-if="props.sortButton" class="d-flex-button">
-        <ul class="nav gap-3">
+      <div v-if="props.sortButton" class="d-flex-button" >
+        <ul class="nav gap-3" style="width: 500px;">
         <div class="dropdown" id="sortButton">
           <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
             data-bs-auto-close="outside">
@@ -77,19 +77,19 @@
           </div>
         </div>
        
-          <router-link to="/events/eventHistory">
-            <button v-if="props.eventHistoryButton" type="button" class="btn btn-danger ">
-              <font-awesome-icon icon="fa-solid fa-clock-rotate-left" />
-              歷史記錄</button>
-          </router-link>
-
-          <router-link to="/events/eventForm">
-            <button v-if="props.addButton" type="button" class="btn btn-danger">
-              <font-awesome-icon icon="fa-solid fa-file-import" />
-              添加活動
-            </button>
-          </router-link>
-        </ul>
+        <router-link to="/events/eventHistory">
+          <button v-if="props.eventHistoryButton" type="button" class="btn btn-danger ">
+            <font-awesome-icon icon="fa-solid fa-clock-rotate-left" />
+            歷史記錄</button>
+        </router-link>
+  
+        <router-link to="/events/eventForm">
+          <button v-if="props.addButton" type="button" class="btn btn-danger">
+            <font-awesome-icon icon="fa-solid fa-file-import" />
+            添加活動
+          </button>
+        </router-link>
+      </ul>
       </div>
 
 

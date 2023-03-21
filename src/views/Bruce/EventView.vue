@@ -35,22 +35,22 @@
         <navBar />
     </div>
 
-    <div class="row py-4" id="navSecondBar">
-        <navSecondBar :arr="[
-            {
-                name: '主頁',
-                URL: '/events'
-            }
-            ,
-            {
-                name: '活動',
-                URL: '/events'
-            }
-        ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
-    </div>
 
     <div :class="bg">
+        <div class="row py-4" id="navSecondBar">
+            <navSecondBar :arr="[
+                {
+                    name: '主頁',
+                    URL: '/events'
+                }
+                ,
+                {
+                    name: '活動',
+                    URL: '/events'
+                }
+            ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
+                :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
+        </div>
         <div class="row" id="cards">
 
             <!-- <div class="col col-1 py-4 px-4" id="sideBarContainer">
@@ -69,12 +69,12 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center p-4" id="pagination">
-                    <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
-                        :isSearchEvents="isSearchEvents" ref="pagination" />
-
-                </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-center p-4" id="pagination">
+            <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
+                :isSearchEvents="isSearchEvents" ref="pagination" />
+
         </div>
     </div>
 </template>
@@ -298,7 +298,7 @@ export default {
 
 <style scoped>
 .bg {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     background-image: url("@/assets/city.jpg");
     /* background-image: v-bind(url('bg')); */
@@ -316,7 +316,7 @@ export default {
 }
 
 .child {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
@@ -336,7 +336,7 @@ export default {
 }
 
 .teen {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
@@ -355,7 +355,7 @@ export default {
 }
 
 .volunteer {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
@@ -374,7 +374,7 @@ export default {
 }
 
 .platform {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
@@ -393,4 +393,5 @@ export default {
 
 #cards {
     max-width: max-content;
-}</style>
+}
+</style>

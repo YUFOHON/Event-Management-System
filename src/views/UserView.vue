@@ -3,6 +3,7 @@
         <navBar />
     </div>
     <div class="backGround">
+
         <div class="container-md mt-4">
             <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
 
@@ -23,12 +24,36 @@
                                 icon="fa-solid fa-magnifying-glass" /></button>
                         <button class="btn btn-outline-danger d-flex" @click="createUser()"><font-awesome-icon
                                 icon="fa-solid fa-user-plus" /></button>
+
+                        <button @click="addFile" style="min-width: 120px;margin-left: 10px;"
+                            class="btn btn-outline-danger"><font-awesome-icon :icon="['fas', 'file-import']" />
+                            導入Excel</button>
                     </form>
+                    <BufferFileInput ref="BufferFileInput" @change="importExcel" style="visibility: hidden;"
+                        accept=" .xlsx" />
 
                 </div>
             </nav>
         </div>
 
+        <div class="excel">
+            <form @submit.prevent="uploadTable">
+                <table class="table table-striped">
+                    <tr>
+                        <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
+                    </tr>
+                    <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
+                        <td v-for="(val, colIndex) in item" :key="val">
+                            <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
+                        </td>
+                        <td><button type="button" @click="deleteRow(rowIndex + 1)">刪除</button></td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+
+        <button v-if="excelData.length > 0" class="btn my-3 btn-danger" @click="uploadTable">上傳</button>
 
         <div class="container">
             <div class="row">
@@ -97,12 +122,15 @@
                 </nav>
             </div>
         </div>
+
+
     </div>
 </template>
 
 <script>
 import navBar from '@/components/public/navBar.vue'
-// import navSecondBar from '@/components/Bruce/navSecondBar.vue'
+import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
+import { utils, read } from 'xlsx';
 import { ref, computed, onMounted } from "vue";
 // import { useRoute } from 'vue-router';
 
@@ -112,6 +140,7 @@ export default {
     components: {
         // navSecondBar,
         navBar,
+        BufferFileInput
     },
     setup() {
         // const route = useRoute();
@@ -120,6 +149,22 @@ export default {
         const lastPage = ref(0);
         const perPage = ref(6);
         const currentPageNum = ref(0);
+        const BufferFileInput = ref(null);
+        const excelData = ref([]);
+        const importExcel = (files) => {
+            if (files.length > 0) {
+                const workbook = read(files[0]);
+                // console.log(workbook.SheetNames[0])
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                excelData.value = Array.from(utils.sheet_to_json(worksheet, { raw: false, header: 1 }));
+                // console.log(excelData.value);
+            } else
+                excelData.value = [];
+        }
+
+        const deleteRow = (rowIndex) => {
+            excelData.value.splice(rowIndex, 1);
+        }
         const pages = computed(() => {
             var pages = [];
             for (var i = currentPageNum.value - 2; i <= Math.min(currentPageNum.value + 2, lastPage.value); i++) {
@@ -128,7 +173,6 @@ export default {
             return pages;
 
         })
-
 
         const fetchPage = async function (page) {
             currentPageNum.value = page;
@@ -143,7 +187,7 @@ export default {
                 var data = await response.json();
                 users.value = data.users;
                 lastPage.value = data.lastPage
-                alert("Welcome Admin!","success");
+                // alert("Welcome Admin!", "success");
             } else {
                 // alert(response.statusText);
             }
@@ -152,7 +196,7 @@ export default {
         const SearchUser = async function (page) {
 
             currentPageNum.value = page;
-            alert(searchValue.value)
+            // alert(searchValue.value)
 
             var response = await fetch("/api/users2/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
                 method: 'GET',
@@ -166,15 +210,35 @@ export default {
                 lastPage.value = data.pages;
                 // alert(users.value);
             } else {
-                // alert(response.statusText);
+                alert("response.statusText", "danger");
             }
         };
         const createUser = async function () {
 
             location.assign("/createUser");
         };
+        const addFile = (
+            () => {
+                BufferFileInput.value.addFile();
+
+            }
 
 
+        )
+        const uploadTable = async () => {
+            let response = await fetch('/api/import', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(excelData.value)
+            })
+
+            if (response.ok) {
+                excelData.value = []
+                alert('成功上傳', 'success')
+            }
+        }
         onMounted(function () {
             fetchPage(1);
             // alert(props.msg);
@@ -182,6 +246,7 @@ export default {
 
         return {
             navBar,
+            uploadTable,
             pages,
             fetchPage,
             currentPageNum,
@@ -189,7 +254,12 @@ export default {
             users,
             SearchUser,
             searchValue,
-            createUser
+            createUser,
+            addFile,
+            deleteRow,
+            importExcel,
+            excelData,
+            BufferFileInput
         }
     }
 
@@ -272,6 +342,16 @@ body {
     overflow: hidden;
     border: 5px solid #fff;
     border-radius: 50%;
+}
+
+.excel {
+    margin-top: 20px;
+
+    width: 80%;
+    overflow-x: auto;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
 }
 
 .container-md {

@@ -14,7 +14,6 @@ const alert = (message, type, time) => {
   if (time == null) time = 1000
   if (type == null) type = 'success'
   const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-  console.log(alertPlaceholder)
   const wrapper = document.createElement('div')
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
