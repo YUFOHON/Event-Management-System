@@ -34,22 +34,26 @@ const routes = [
   {
     path: '/events',
     name: 'events',
-    component: EventView
+    component: EventView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/eventForm/:id',
     name: 'eventFormDetail',
-    component: EventFormView
+    component: EventFormView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/eventForm',
     name: 'eventForm',
-    component: EventFormView
+    component: EventFormView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/eventHistory',
     name: 'eventHistory',
-    component: eventHistoryView
+    component: eventHistoryView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/register',
@@ -66,7 +70,7 @@ const routes = [
     path: '/aProfile',
     name: 'AdminProfile',
     component: AdminProfile,
-    meta: { adminAuth: true }
+    meta: { staffAuth: true }
   },
   {
     path: '/cProfile',
@@ -77,7 +81,7 @@ const routes = [
     path: '/editAProfile/:id/',
     name: 'editAdminProfile',
     component: EditAdminProfile,
-    meta: { adminAuth: true }
+    meta: { staffAuth: true }
   },
   {
     path: '/editCProfile/:id/',
@@ -99,17 +103,20 @@ const routes = [
   {
     path: '/createUser',
     name: 'createUser',
-    component: CreateUserView
+    component: CreateUserView,
+    meta: { adminAuth: true }
   },
   {
     path: '/users',
     name: 'users',
-    component: UserView
+    component: UserView,
+    meta: { adminAuth: true }
   },
   {
     path: '/user/:id',
     name: 'userDetail',
-    component: UserDetail
+    component: UserDetail,
+    meta: { adminAuth: true }
   },
   {
     path: '/test',
@@ -158,14 +165,25 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  // if (to.meta.adminAuth) {
-  //   let role = localStorage.getItem('role')
-  //   if (role === "admin") {
-  //     return next();
-  //   } else {
-  //     router.push({ path: '/' });
-  //   }
-  // }
+  if (to.meta.staffAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin" || role === "staff") {
+      return next();
+    } else {
+      alert("You don't have the access right.");
+      router.push({ path: '/' });
+    }
+  }
+
+  if (to.meta.adminAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin") {
+      return next();
+    } else {
+      alert("You don't have the access right.");
+      router.push({ path: '/' });
+    }
+  }
 
 })
 
