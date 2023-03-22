@@ -11,7 +11,7 @@
 
         <span>
           <form class="row g-3">
-          <!-- <div class="p-3 py-5"> -->
+            <!-- <div class="p-3 py-5"> -->
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h1 class="mx-auto" style="font-weight: bolder;">用戶設定</h1>
             </div>
@@ -44,7 +44,7 @@
               </router-link>
             </div>
 
-          <!-- </div> -->
+            <!-- </div> -->
           </form>
         </span>
       </div>
@@ -88,7 +88,6 @@ export default {
       if (response.ok) {
         var data = await response.json();
         // console.log(token);
-
         users.value = data.users;
       } else {
         alert(response.statusText);
@@ -118,19 +117,19 @@ export default {
 
 } */
 .backGround {
-    display: flex;
-    flex-direction: column;
-    background-image: url("@/assets/watercolor.jpg");
-    background-size: 100% 100%;
-    background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/watercolor.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
 
-    width: 100%;
-    height: 100%;
-    min-width: 900px;
-    min-height: 1000px;
+  width: 100%;
+  height: 100%;
+  min-width: 900px;
+  min-height: 1000px;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .center-split>* {

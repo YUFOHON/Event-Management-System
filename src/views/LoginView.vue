@@ -31,7 +31,7 @@
 
 
 
-    <Alert ref="alert" />
+    <!-- <Alert ref="alert" /> -->
 </template>
   
 <script>
@@ -44,7 +44,7 @@ export default {
     },
     setup() {
         const credential = ref({});
-        const alert = ref(null)
+        // const alert = ref(null)
         const login = async function () {
 
             var response = await fetch("/api/user/login", {
@@ -77,12 +77,13 @@ export default {
 
             } else {
                 // alert(response.statusText)
-                alert.value.alert(response.statusText, "success", 3000)
+                alert(response.statusText, "danger", 30000)
             }
 
         }
         onMounted(() => {
-            alert.value.alert("歡迎使用CCF管理系統", "success", 3000)
+            alert("歡迎使用CCF管理系統", "success", 3000)
+            alert("I overwrite the alert function, you can use it like this alert('the input message','sucess or danger any color you like','the input time'')", "danger", 300000)
         })
 
         return {
@@ -131,8 +132,9 @@ export default {
 
 .login-button {
     background: #FE8F8F;
-    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #7ea4ec, #5aaff3, #22b8f3);
-    box-shadow: none;
+    color: black;
+    font-weight: 500;
+    background-image: linear-gradient(to right top, #d16ba5, #d48ac0, #d8a7d6, #dec3e7, #e8ddf4, #e6d8f1, #e5d4ed, #e4cfe9, #dda8cd, #d880a5, #cf5773, #bb2d3b);    box-shadow: none;
     width: 100%;
     border: none;
     border-radius: 20px;
@@ -164,8 +166,7 @@ video {
     display: flex;
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #7ea4ec, #5aaff3, #22b8f3, #00c3ec, #00ccd7, #00d1b4, #0ed488);
-    justify-content: center;
+    background-image: linear-gradient(to right top, #d16ba5, #d48ac0, #d8a7d6, #dec3e7, #e8ddf4, #e6d8f1, #e5d4ed, #e4cfe9, #dda8cd, #d880a5, #cf5773, #bb2d3b);    justify-content: center;
     align-items: center;
 }
 
@@ -194,6 +195,7 @@ input {
     height:30px;
     border: none;
     outline: none;
+    
 }
 
 

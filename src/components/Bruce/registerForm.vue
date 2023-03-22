@@ -20,8 +20,8 @@
       <div class="row">
         <label for="eventName" class="form-label text"> 聯絡電話號碼:<label class="text-danger"> *</label></label>
         <input v-model="result.phone" placeholder="12345678
-                                                              " type="text" class="form-control" id="eventName"
-          aria-describedby="emailHelp" required>
+                                                                                        " type="text"
+          class="form-control" id="eventName" aria-describedby="emailHelp" required>
       </div>
 
       <div class="row" id="checkBoxCluster">
@@ -59,9 +59,30 @@
           aria-describedby="emailHelp" required>
       </div>
 
+      <div class="row" id="consentForm">
+
+        <!-- <a href="" class="">拍照錄影同意書</a>
+   -->
+        <pre id='info' @scroll="handleScroll">
+              兒童癌病基金 
+              拍照錄影同意書
+
+本人及所有家庭成員在參與 貴基金舉辦的『活動名稱』活動期間，對
+被攝製的照片及錄像之使用，有以下的意願：
+
+1. 同意 使用於基金之刊物、光碟上
+2. 同意 使用於基金之網頁上
+3. 同意 使用於(贊助商/合辦機構)之刊物、網頁上
+        </pre>
+
+        <label for="nan">
+          <input type="checkbox" value="同意" v-model="message" style="margin-left: 43%;"/>同意协议
+        </label>
+      </div>
+
       <div v-if="empty" class="form-error-message" role="alert">
         <label for="name" class="form-sub-label text-danger"
-          style="padding-left: 170px; padding-top: 20px; font-weight: bold;"> 請填寫所有必填項.<label class="text-danger">
+          style="margin-left: 230px; padding-top: 20px; font-weight: bold;"> 請填寫所有必填項.<label class="text-danger">
             *</label></label>
       </div>
 
@@ -71,51 +92,56 @@
           style="margin-left: 200px; margin-top: 20px;">
           <span class="visually-hidden">Loading...</span>
         </div>
-
-        <button v-if="!loading" type="summit" class="btn btn-danger"
-          style="margin-left: 200px; margin-top: 20px;">提交</button>
-      </div>
-
-
-
-
-    </form>
+        
+        <p v-if="!loading & !isRead"  class="btn btn-danger"
+          style="margin-left: 260px; margin-top: 20px;">請先閱讀條款</p>
+        <button v-if="!loading & isRead" type="summit" class="btn btn-danger"
+          style="margin-left: 270px; margin-top: 20px;">提交</button>
+        </div>
+        
+        
+        
+        
+      </form>
 
     <form v-if="props.isRegistered" @submit.prevent="register">
-      <div class="b" >
+      <div class="b">
         <span style="font-size: 250px; color: greenyellow; margin-left: 100px;">
 
-          <font-awesome-icon icon="fa-solid fa-circle-check"  style="--fa-animation-duration: 4s;" />
+          <font-awesome-icon icon="fa-solid fa-circle-check" style="--fa-animation-duration: 4s;" />
         </span>
         <span style="font-size: 250px; color: black;">
           <div class="h1" style="padding-left: 140px; padding-bottom: 50px;">成功提交申請</div>
-          <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-  <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: 50%"></div>
-</div>
+          <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: 50%"></div>
+          </div>
         </span>
       </div>
       <div v-if="!props.isApproved" class="row">
-     <div class="h2" style="margin-left: 18%;"><font-awesome-icon icon="fa-solid fa-paste" />目前狀態：處理中</div>
+        <div class="h2" style="margin-left: 18%;"><font-awesome-icon icon="fa-solid fa-paste" />目前狀態：處理中</div>
       </div>
-      <div v-if="props.isApproved" class="row"><div class="h1" style="margin-left: 10%;">目前狀態：您已成功參加！</div></div>
+      <div v-if="props.isApproved" class="row">
+        <div class="h1" style="margin-left: 10%;">目前狀態：您已成功參加！</div>
+      </div>
     </form>
 
-    <form @submit.prevent="GoogleReCaptcha.validate($event)">
+    <!-- <form @submit.prevent="GoogleReCaptcha.validate($event)">
       <div class="g-recaptcha" data-sitekey="6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH"></div>
 
       <input type="hidden" name="g-recaptcha-response" v-model="formData.captcha" />
       <input type="submit" value="Submit" />
-    </form>
+    </form> -->
 
 
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 //
 import { computed } from 'vue'
-import GoogleReCaptcha from 'google-recaptcha-v2';
+// import GoogleReCaptcha from 'google-recaptcha-v2';
 
 
 export default {
@@ -141,7 +167,8 @@ export default {
   setup(props) {
     const loading = ref(false)
     const formData = ref({})
-
+    const isRead = ref(false)
+    const message = ref(false)
     //  if the input is empty for required field , the error message will show up
     const empty = computed(() => {
       if (result.value.name == '' || result.value.phone == '' || result.value.email == '') {
@@ -150,11 +177,25 @@ export default {
         return false
       }
     })
+    const handleScroll = () => {
+      var info = document.getElementById("info")
+      if (info.scrollHeight - info.scrollTop == info.clientHeight) {
+        //scroll bar is scrolled to the bottom, the form is available
+        isRead.value = true
+        alert("您已成功閱讀條款", "success")
+      }
+    }
 
     // register function that will send the data to the backend
     async function register() {
+      if (message.value == false) {
+        alert("請同意條款", "danger")
+        return
+      }
+
+
       loading.value = true
-      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email+ "&eventName=" + props.eventName, {
+      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email + "&eventName=" + props.eventName, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -170,9 +211,12 @@ export default {
         // body: JSON.stringify(result.value)
       })
       // const data = await response.json()
+      if (sendEmail.status == 200) {
+        alert("已寄送郵件至您的信箱，請至信箱確認", "success")
+      } else {
+        alert("未知錯誤發生", "danger")
+      }
 
-      console.log(response)
-      console.log(sendEmail)
       //if the register is success, the page will redirect to the event page
       if (response.status == 201) {
         location.reload()
@@ -186,37 +230,37 @@ export default {
       email: '',
     })
 
-    onMounted(
-      () => {
-        GoogleReCaptcha.init({
-          siteKey: '6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH',
-          callback: async (token) => {
-            console.log(token)
-            formData.value['g-recaptcha-response'] = token
+    // onMounted(
+    //   () => {
+    //     GoogleReCaptcha.init({
+    //       siteKey: '6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH',
+    //       callback: async (token) => {
+    //         console.log(token)
+    //         formData.value['g-recaptcha-response'] = token
 
-            // AJAX form submit goes here
-            let response = await fetch('/api/upload', {
-              method: 'post',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(formData.value)
-            })
+    //         // AJAX form submit goes here
+    //         let response = await fetch('/api/upload', {
+    //           method: 'post',
+    //           headers: {
+    //             'Content-Type': 'application/json'
+    //           },
+    //           body: JSON.stringify(formData.value)
+    //         })
 
-            if (response.ok) {
-              let data = await response.json()
-              console.log(data)
-            } else {
-              alert(await response.text())
-            }
+    //         if (response.ok) {
+    //           let data = await response.json()
+    //           console.log(data)
+    //         } else {
+    //           alert(await response.text())
+    //         }
 
-            // AJAX form submit goes here
-          }
-        })
-      }
-    )
+    //         // AJAX form submit goes here
+    //       }
+    //     })
+    //   }
+    // )
     return {
-      props, result, empty, register, loading, formData, GoogleReCaptcha
+      props,message, isRead, handleScroll, result, empty, register, loading, formData,
     }
   }
 }
@@ -249,6 +293,15 @@ export default {
   margin-left: 10px;
 }
 
+#info {
+  width: 500px;
+  height: 150px;
+  background-color: #bfa;
+  overflow: auto;
+  margin-left: 8%;
+margin-top: 3%;
+}
+
 form {
   border-top-right-radius: 5%;
   border-top-left-radius: 5%;
@@ -270,14 +323,15 @@ textarea {
   height: 83%;
 }
 
-.h1{
+.h1 {
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 20px;
   margin-top: 20px;
   color: yellowgreen;
 }
-.h2{
+
+.h2 {
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 20px;

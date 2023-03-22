@@ -35,22 +35,22 @@
         <navBar />
     </div>
 
-    <div class="row py-4" id="navSecondBar">
-        <navSecondBar :arr="[
-            {
-                name: '主頁',
-                URL: '/events'
-            }
-            ,
-            {
-                name: '活動',
-                URL: '/events'
-            }
-        ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-            :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
-    </div>
 
     <div :class="bg">
+        <div class="row py-4" id="navSecondBar">
+            <navSecondBar :arr="[
+                {
+                    name: '主頁',
+                    URL: '/events'
+                }
+                ,
+                {
+                    name: '活動',
+                    URL: '/events'
+                }
+            ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
+                :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
+        </div>
         <div class="row" id="cards">
 
             <!-- <div class="col col-1 py-4 px-4" id="sideBarContainer">
@@ -69,15 +69,14 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center p-4" id="pagination">
-                    <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
-                        :isSearchEvents="isSearchEvents" ref="pagination" />
-
-                </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center p-4" id="pagination">
+            <pagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
+                :isSearchEvents="isSearchEvents" ref="pagination" />
+
+        </div>
     </div>
-    <Alert ref="alert" />
 </template>
 
 <script>
@@ -94,7 +93,6 @@ import pagination from '@/components/Bruce/pagination.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils, read } from 'xlsx';
-import Alert from '@/components/Bruce/AlertWindow.vue';
 
 // import QrCode from '@/components/Bruce/QrCode.vue'
 // import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
@@ -106,14 +104,13 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
-        Alert,
         // BufferFileInput
         // SideBar,
         // QrCode,
         // QrCodeScanner
     },
     setup() {
-        const alert = ref(null)
+
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
@@ -175,7 +172,7 @@ export default {
 
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
-            alert.value.alert("成功加載活動", "success")
+            alert("成功加載活動", "success")
             // console.log(category)
             page = Number(page)
             let response
@@ -214,7 +211,7 @@ export default {
                 // navSecondBar.value.isSearchEvent = false
                 // pagination.value.isSearchEvents = false
             } else {
-                alert(response.statusText);
+                alert(response.statusText, "danger");
             }
         }
         async function fetchSearchEvent(page, sort, input) {
@@ -239,7 +236,7 @@ export default {
                 pagination.value.input = input
 
             } else {
-                alert(response.statusText);
+                alert(response.statusText, "danger");
             }
             // location.reload()
         }
@@ -258,7 +255,7 @@ export default {
 
         const bg = computed(() => {
             //check the route value, if the route value is undefined, then use the default value
-            if(route.query.category == undefined) return "bg"
+            if (route.query.category == undefined) return "bg"
             var category = route.query.category.split("|")
             if (category.length > 1) return "bg"
 
@@ -285,12 +282,12 @@ export default {
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
 
-            alert.value.alert("歡迎回來", "success")
+            alert("歡迎回來", "success")
 
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         })
         return {
-            bg, alert, Alert, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
+            bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
             importExcel, excelData, deleteRow, uploadTable
             //  QrCode, onScan
 
@@ -301,7 +298,7 @@ export default {
 
 <style scoped>
 .bg {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     background-image: url("@/assets/city.jpg");
     /* background-image: v-bind(url('bg')); */
@@ -319,12 +316,13 @@ export default {
 }
 
 .child {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
     /* make the dradient to yellow */
     background-image: linear-gradient(to right top, #f5ffb3, #fff0c5, #ffece9, #fff3fe, #f8f8f8);
+    /* background-image:url("@/assets/child.jpg"); */
     background-size: 100% 100%;
     background-attachment: fixed;
     position: absolute;
@@ -337,8 +335,8 @@ export default {
     align-items: center;
 }
 
-.teen{
-    display: flex;
+.teen {
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
@@ -356,13 +354,14 @@ export default {
     align-items: center;
 }
 
-.volunteer{
-    display: flex;
+.volunteer {
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
     /* make the dradient to yellow */
-    background-image: linear-gradient(to right top, #f8c2d5, #f4d1e5, #f1dff0, #f2ecf6, #f8f8f8);    background-size: 100% 100%;
+    background-image: linear-gradient(to right top, #f8c2d5, #f4d1e5, #f1dff0, #f2ecf6, #f8f8f8);
+    background-size: 100% 100%;
     background-attachment: fixed;
     /* position: absolute; */
     width: 100%;
@@ -373,13 +372,15 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.platform{
-    display: flex;
+
+.platform {
+    /* display: flex; */
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
     /* make the dradient to yellow */
-    background-image: linear-gradient(to right top, #d090ee, #d4acf6, #dbc7f9, #e7e0fa, #f8f8f8);    background-attachment: fixed;
+    background-image: linear-gradient(to right top, #d090ee, #d4acf6, #dbc7f9, #e7e0fa, #f8f8f8);
+    background-attachment: fixed;
     /* position: absolute; */
     width: 100%;
     height: 100%;
@@ -389,6 +390,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
 #cards {
     max-width: max-content;
 }

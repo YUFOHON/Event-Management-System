@@ -20,7 +20,15 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
+<<<<<<< HEAD
 // import feedBackView from '../views/feedBackView.vue'
+=======
+<<<<<<< HEAD
+import feedbackView from '../views/feedBackView.vue'
+=======
+import feedBackView from '../views/feedBackView.vue'
+>>>>>>> 733366ffe4a217d0b9a52df71bf752dcd2259e29
+>>>>>>> 056bb4806ae6bff3a4613ebdb37f56717f960133
 
 
 import UserView from '../views/UserView.vue'
@@ -37,22 +45,26 @@ const routes = [
   {
     path: '/events',
     name: 'events',
-    component: EventView
+    component: EventView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/eventForm/:id',
     name: 'eventFormDetail',
-    component: EventFormView
+    component: EventFormView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/eventForm',
     name: 'eventForm',
-    component: EventFormView
+    component: EventFormView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/eventHistory',
     name: 'eventHistory',
-    component: eventHistoryView
+    component: eventHistoryView,
+    meta: { staffAuth: true }
   },
   {
     path: '/events/register',
@@ -60,16 +72,22 @@ const routes = [
     component: RegisterView
   },
   {
+<<<<<<< HEAD
+    path: '/feedback',
+    name: 'Feedback',
+    component: feedbackView
+=======
     path: '/feedBack/:id',
     name: 'feedBackView',
     component: feedBackView
+>>>>>>> 733366ffe4a217d0b9a52df71bf752dcd2259e29
   },
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',
     name: 'AdminProfile',
     component: AdminProfile,
-    meta: { adminAuth: true }
+    meta: { staffAuth: true }
   },
   {
     path: '/cProfile',
@@ -80,7 +98,7 @@ const routes = [
     path: '/editAProfile/:id/',
     name: 'editAdminProfile',
     component: EditAdminProfile,
-    meta: { adminAuth: true }
+    meta: { staffAuth: true }
   },
   {
     path: '/editCProfile/:id/',
@@ -102,22 +120,20 @@ const routes = [
   {
     path: '/createUser',
     name: 'createUser',
-    component: CreateUserView
+    component: CreateUserView,
+    meta: { adminAuth: true }
   },
   {
     path: '/users',
     name: 'users',
-    component: UserView
+    component: UserView,
+    meta: { adminAuth: true }
   },
   {
     path: '/user/:id',
     name: 'userDetail',
-    component: UserDetail
-  },
-  {
-    path: '/feedBack',
-    name: 'feedBackView',
-    component: feedBackView
+    component: UserDetail,
+    meta: { adminAuth: true }
   },
   {
     path: '/test',
@@ -158,11 +174,22 @@ router.beforeEach((to, from, next) => {
     // console.log(token)
 
     if (!token) {
-      alert("Please login first.")
+      alert("請先登入")
       next('/login');
     } else {
 
       next();
+    }
+  }
+
+
+  if (to.meta.staffAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin" || role === "staff") {
+      return next();
+    } else {
+      alert("您沒有權限登入", 99999);
+      router.push({ path: '/' });
     }
   }
 
@@ -171,7 +198,7 @@ router.beforeEach((to, from, next) => {
     if (role === "admin") {
       return next();
     } else {
-      // alert("You don't have the access right.");
+      alert("您沒有權限登入", 99999);
       router.push({ path: '/' });
     }
   }
