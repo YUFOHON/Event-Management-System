@@ -91,7 +91,7 @@
 
                                 <!-- 
                                 <button type="submit">Details</button> -->
-                                <router-link :to="'/user/' + user._id">查看</router-link>
+                                <router-link :to="'/user/' + user._id"><button class="btn btn-primary check-button">查看</button></router-link>
                                 <!-- <a href="/cProfile" class="card-link">Details</a>   -->
                             </div>
 
@@ -266,7 +266,7 @@ export default {
             deleteRow,
             importExcel,
             excelData,
-            BufferFileInput
+            BufferFileInput,
         }
     }
 
@@ -306,45 +306,27 @@ export default {
 
 .card:hover {
     /* color: #fff; */
-    transform: scale(1.025);
+    transform: scale(1.03);
     box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25);
-}
-
-.card:hover{
     /* transform: translateY(-4px); */
     transition: 0.5s;
     width: 100%;
-    background: #FEF1E6;
-    animation: popBackground 0.5s ease-in
+    /* background: linear-gradient(180deg,#FDF6F0, #f06565); */
+    background: #f06565;
+    opacity: 0.8;
+    /* background: #f06565; */
+    color: #fff;
 }
 
-@keyframes popBackground {
-    0% {
-        height: 20px;
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%
-    }
-
-    50% {
-        height: 80px;
-        border-top-left-radius: 75%;
-        border-top-right-radius: 75%
-    }
-
-    75% {
-        height: 160px;
-        border-top-left-radius: 85%;
-        border-top-right-radius: 85%
-    }
-
-    100% {
-        height: 320px;
-        border-top-left-radius: 100%;
-        border-top-right-radius: 100%
-    }
-
+.check-button {
+  background: #FE8F8F;
+  box-shadow: none;
+  border: none
 }
 
+.check-button:hover {
+  background: #FCD2D1;
+}
 
 
 body {
