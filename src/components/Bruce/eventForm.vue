@@ -171,16 +171,6 @@
 
     </div>
 
-<<<<<<< HEAD
-    <div class="row" id="add" v-if="!isEventFormDetail">
-      <div class="col" id="eventImg">
-        <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                            border-radius:50%;">
-        <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                            border-radius:50%;" @click="fileInput.click()">
-        <FileInput ref="fileInput" style="margin-left: 10%; visibility: ;" @change="fileChanges" class="test"
-          accept=".jpg,.jpeg" multiple />
-=======
     <div v-if="!isEventFormDetail" class="row" id="add" style="margin-top: -10px;">
       <div class="col" id="eventImg" style="margin-right: 80px;">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
@@ -189,7 +179,6 @@
                                                                 border-radius:50%;">
         <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
           class="test" accept=".jpg,.jpeg" multiple />
->>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
       </div>
       <form class="col">
         <div class="row">
@@ -337,13 +326,7 @@ export default {
     const alertMsg = ref("intial alert");
     const loading = ref(false);
     const fileInput = ref(null);
-<<<<<<< HEAD
-
-
-
-=======
     const alert = ref(null);
->>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
     async function addEvent() {
       //check the result.value.files is empty or not
       var msg = ""
@@ -451,19 +434,11 @@ export default {
 
     }
 
-<<<<<<< HEAD
-    async function approve(isApproved) {
-      console.log("here")
-
-      if (isApproved) return;
-      console.log("approve")
-=======
     async function approve(isApproved, record) {
       if (isApproved) return;
 
 
       // console.log("approve")
->>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
       //send request to sever to approve the event
       var response = await fetch("/api/events/approve?id=" + record._id, {
         method: 'POST'
@@ -489,11 +464,7 @@ export default {
 
     onMounted(() => {
       // console.log(fileInput.value)
-<<<<<<< HEAD
-
-=======
       alert.value.alert("點擊用戶名查看詳細資料", "success", "3000")
->>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
 
       if (props.isEventFormDetail) {
         getEventDetail()

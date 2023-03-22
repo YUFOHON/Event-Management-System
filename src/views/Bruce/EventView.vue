@@ -258,6 +258,7 @@ export default {
 
         const bg = computed(() => {
             //check the route value, if the route value is undefined, then use the default value
+            if(route.query.category == undefined) return "bg"
             var category = route.query.category.split("|")
             if (category.length > 1) return "bg"
 

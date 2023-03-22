@@ -43,7 +43,7 @@ defineExpose({
 onMounted(() => {
     // console.log("props.msg", props.msg)
     // alert(props.msg, 'danger')
-
+    window.alert = alert
 })
 
 

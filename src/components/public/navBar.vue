@@ -30,14 +30,14 @@
          
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/feedBack">Feedback</a>
         </li>
         <li class="nav-item">
           <a class="nav-link ">Disabled</a>
-        </li>
+        </li> -->
         <li v-if = "role == 'admin'" class="nav-item">
-          <a class="nav-link" href="/users">User</a>
+          <a class="nav-link" href="/users">管理用戶</a>
         </li>
       </ul>
     </div>

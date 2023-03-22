@@ -86,13 +86,6 @@ const fileChange = (e) => {
     reader.readAsDataURL(f);
   })
 }
-<<<<<<< HEAD
-// function addFile() {
-//   document.getElementById("formFileMultiple").click();
-// }
-=======
-
->>>>>>> 30b12045ecfd9602cf7562940281171ac9d92847
 
 const addFile = () => {
   document.getElementById("formFileMultiple").click();

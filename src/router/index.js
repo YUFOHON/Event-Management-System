@@ -20,7 +20,7 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-import feedBackView from '../views/feedBackView.vue'
+// import feedBackView from '../views/feedBackView.vue'
 
 
 import UserView from '../views/UserView.vue'
