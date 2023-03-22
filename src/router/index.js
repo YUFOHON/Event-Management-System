@@ -17,11 +17,7 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-<<<<<<< HEAD
 import feedbackView from '../views/feedBackView.vue'
-=======
-import feedBackView from '../views/feedBackView.vue'
->>>>>>> 733366ffe4a217d0b9a52df71bf752dcd2259e29
 
 
 import UserView from '../views/UserView.vue'
@@ -65,15 +61,9 @@ const routes = [
     component: RegisterView
   },
   {
-<<<<<<< HEAD
-    path: '/feedback',
-    name: 'Feedback',
-    component: feedbackView
-=======
     path: '/feedBack/:id',
-    name: 'feedBackView',
-    component: feedBackView
->>>>>>> 733366ffe4a217d0b9a52df71bf752dcd2259e29
+    name: 'feedbackView',
+    component: feedbackView
   },
   //=====================================JOHN=============================================================
   {

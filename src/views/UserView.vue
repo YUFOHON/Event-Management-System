@@ -61,13 +61,15 @@
                     <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
                         <section class="mx-auto my-5">
 
-                            <div class="card testimonial-card mt-2 mb-3">
-                                <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
-                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
-                                <div class="avatar mx-auto white">
+                            <div class="card">
+
+                            <!-- <div class="card testimonial-card mt-2 mb-3"> -->
+                                <!-- <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
+                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div> -->
+                                <!-- <div class="avatar mx-auto white">
                                     <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
-                                </div>
-                                <div class="card-body text-center">
+                                </div> -->
+                                <div class="card-body  text-center">
                                     <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
                                         user.Patient_Name
                                     }}
@@ -93,8 +95,9 @@
                                 <div class="overlay-content"></div>
                                 <router-link :to="'/user/' + user._id">Update</router-link> 
                             </div> -->
-                            </div>
+                            <!-- </div> -->
 
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -286,11 +289,15 @@ export default {
 }
 
 .margin-right {
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 .cards {
     margin-left: 250px;
+}
+
+.card{
+    border-radius: 20px;
 }
 
 .card:hover {
@@ -299,21 +306,24 @@ export default {
     box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25)
 }
 
-.card .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+.card-body{
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: .5s;
     background-color: #fff;
-    opacity: 0;
+    border-radius: 20px;
 }
-
-.overlay-content {
-    line-height: 224px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
+.card-body :after{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-140%, -50%);
+    background-color: #f5c8c8;
+    opacity: 0.8;
+    transition: .8s;
 }
 
 
@@ -346,7 +356,6 @@ body {
 
 .excel {
     margin-top: 20px;
-
     width: 80%;
     overflow-x: auto;
     padding: 1em;

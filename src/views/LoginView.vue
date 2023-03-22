@@ -132,9 +132,10 @@ export default {
 
 .login-button {
     background: #FE8F8F;
-    color: black;
+    color: white;
     font-weight: 500;
-    background-image: linear-gradient(to right top, #d16ba5, #d48ac0, #d8a7d6, #dec3e7, #e8ddf4, #e6d8f1, #e5d4ed, #e4cfe9, #dda8cd, #d880a5, #cf5773, #bb2d3b);    box-shadow: none;
+    /* background-image: linear-gradient(to right top, #d16ba5, #d48ac0, #d8a7d6, #dec3e7, #e8ddf4, #e6d8f1, #e5d4ed, #e4cfe9, #dda8cd, #d880a5, #cf5773, #bb2d3b);     */
+    box-shadow: none;
     width: 100%;
     border: none;
     border-radius: 20px;
@@ -166,7 +167,9 @@ video {
     display: flex;
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(to right top, #d16ba5, #d48ac0, #d8a7d6, #dec3e7, #e8ddf4, #e6d8f1, #e5d4ed, #e4cfe9, #dda8cd, #d880a5, #cf5773, #bb2d3b);    justify-content: center;
+    background-image: url("@/assets/watercolor.jpg");
+    /* background-image: linear-gradient(to right top, #d16ba5, #d48ac0, #d8a7d6, #dec3e7, #e8ddf4, #e6d8f1, #e5d4ed, #e4cfe9, #dda8cd, #d880a5, #cf5773, #bb2d3b);     */
+    justify-content: center;
     align-items: center;
 }
 
@@ -202,13 +205,13 @@ input {
 h1 {
     font-size: 2rem;
     font-weight: 500;
-    color: #be4eb8;
+    color: rgb(221, 10, 10);
     margin-bottom: 30px;
     text-align: center;
 }
 
 label {
-    color: #be4eb8;
+    color: rgb(221, 10, 10);
     font-size: 1rem;
     padding-bottom: 15px;
     /* padding-left: 23%; */
