@@ -47,8 +47,8 @@
                 <ul class="pagination pagination-circle">
 
                     <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" @click="prePage">
-                            Previous
+                        <a class="page-link" @click="prePage" style="background: none; border: none; color: #9b0000;">
+                            <font-awesome-icon icon="fa-solid fa-chevron-left" />
                         </a>
                     </li>
 
@@ -67,9 +67,8 @@
                     </li>
 
                     <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" @click="nextPage">
-                            Next
-                        </a>
+                        <a class="page-link" @click="nextPage" style="background: none; border: none; color: #9b0000;">
+                            <font-awesome-icon icon="fa-solid fa-chevron-right" />   </a>
                     </li>
 
                 </ul>

@@ -31,6 +31,7 @@
                         <select class="form-control" v-model="user.role">
                             <option selected>Open this select menu</option>
                             <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
                             <option value="user">User</option>
                         </select>
                     </div>
