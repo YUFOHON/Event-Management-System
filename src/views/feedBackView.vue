@@ -137,7 +137,7 @@ export default {
 };
 </script>
 
-<style> .container {
+<style scoped> .container {
      display: flex;
      align-items: center;
      gap: 50px;

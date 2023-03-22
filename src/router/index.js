@@ -17,7 +17,7 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-import FeedbackView from '../views/FeedbackView.vue'
+import feedbackView from '../views/feedBackView.vue'
 
 
 import UserView from '../views/UserView.vue'
@@ -59,7 +59,7 @@ const routes = [
   {
     path: '/feedback',
     name: 'Feedback',
-    component: FeedbackView
+    component: feedbackView
   },
   //=====================================JOHN=============================================================
   {
