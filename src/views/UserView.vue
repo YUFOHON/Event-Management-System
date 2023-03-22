@@ -59,46 +59,50 @@
             <div class="row">
                 <div class="row d-flex">
                     <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
-                        <section class="mx-auto my-5">
-
-                            <div class="card">
+                        <!-- <section class="mx-auto my-5"> -->
+                        <div class="backgroundEffect"></div>
+                        <div class="card">
 
                             <!-- <div class="card testimonial-card mt-2 mb-3"> -->
-                                <!-- <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
+                            <!-- <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
                                 <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div> -->
-                                <!-- <div class="avatar mx-auto white">
-                                    <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
-                                </div> -->
-                                <div class="card-body  text-center">
-                                    <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
-                                        user.Patient_Name
-                                    }}
-                                        ({{ user.Child_ID }})
-                                    </h4>
-                                    <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
-                                    }}
-                                    </h4>
-                                    <hr>
-                                    <p v-if="user.is_admin == false">Type: Client</p>
-                                    <p v-if="user.is_admin == true">Type: Admin</p>
-                                    <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
-                                    <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
-                                    <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
+                            <div class="avatar mx-auto white">
+                                <!-- <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF"> -->
+                                <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                                <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                            </div>
+                            <div class="card-body  text-center">
+                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
+                                    user.Patient_Name
+                                }}
+                                    ({{ user.Child_ID }})
+                                </h4>
+                                <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
+                                }}
+                                </h4>
+                                <hr>
+                                <p v-if="user.is_admin == false">Type: Client</p>
+                                <p v-if="user.is_admin == true">Type: Admin</p>
+                                <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
+                                <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
+                                <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
 
-                                    <!-- 
+                                <!-- 
                                 <button type="submit">Details</button> -->
-                                    <router-link :to="'/user/' + user._id">查看</router-link>
-                                    <!-- <a href="/cProfile" class="card-link">Details</a>   -->
-                                </div>
+                                <router-link :to="'/user/' + user._id">查看</router-link>
+                                <!-- <a href="/cProfile" class="card-link">Details</a>   -->
+                            </div>
 
-                                <!-- <div class="overlay">
+                            <!-- <div class="overlay">
                                 <div class="overlay-content"></div>
                                 <router-link :to="'/user/' + user._id">Update</router-link> 
                             </div> -->
                             <!-- </div> -->
 
-                            </div>
-                        </section>
+                        </div>
+                        <!-- </section> -->
                     </div>
                 </div>
             </div>
@@ -296,35 +300,51 @@ export default {
     margin-left: 250px;
 }
 
-.card{
+.card {
     border-radius: 20px;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    transition: 0.5s;
-    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25)
+    /* color: #fff; */
+    transform: scale(1.025);
+    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25);
 }
 
-.card-body{
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    transition: .5s;
-    background-color: #fff;
-    border-radius: 20px;
+.card:hover{
+    /* transform: translateY(-4px); */
+    transition: 0.5s;
+    width: 100%;
+    background: #FEF1E6;
+    animation: popBackground 0.5s ease-in
 }
-.card-body :after{
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-140%, -50%);
-    background-color: #f5c8c8;
-    opacity: 0.8;
-    transition: .8s;
+
+@keyframes popBackground {
+    0% {
+        height: 20px;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%
+    }
+
+    50% {
+        height: 80px;
+        border-top-left-radius: 75%;
+        border-top-right-radius: 75%
+    }
+
+    75% {
+        height: 160px;
+        border-top-left-radius: 85%;
+        border-top-right-radius: 85%
+    }
+
+    100% {
+        height: 320px;
+        border-top-left-radius: 100%;
+        border-top-right-radius: 100%
+    }
+
 }
+
 
 
 body {
