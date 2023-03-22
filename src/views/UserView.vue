@@ -308,6 +308,7 @@ export default {
     /* color: #fff; */
     transform: scale(1.03);
     box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25);
+
     /* transform: translateY(-4px); */
     transition: 0.5s;
     width: 100%;
