@@ -197,7 +197,7 @@ animation:rainbow-animation 200ms linear infinite;
  .card {
      animation-duration: 0.5s;
      animation-name: slidein;
-     transform: skewX(5deg);
+     /* transform: skewX(5deg); */
      width: 355px;
      height: 334px;
      margin: 1rem;

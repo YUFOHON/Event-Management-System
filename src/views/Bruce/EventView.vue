@@ -1,35 +1,6 @@
 <template>
     <!-- <QrCode data="test" />
     <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
-    <!-- <BufferFileInput @change="importExcel" accept=".xlsx" /> -->
-
-    <!-- <form @submit.prevent="uploadTable">
-        <table class="table table-striped">
-            <tr>
-                <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
-            </tr>
-            <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
-                <td v-for="(val, colIndex) in item" :key="val">
-                    <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
-                </td>
-                <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
-            </tr>
-        </table>
-
-        <input type="submit" value="Save" />
-    </form>
-    <table class="table table-striped">
-        <tr>
-            <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
-        </tr>
-        <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
-            <td v-for="(val, colIndex) in item" :key="val">
-                <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
-            </td>
-            <td><button type="button" @click="deleteRow(rowIndex + 1)">X</button></td>
-        </tr>
-    </table> -->
-
 
     <div class="row" id="navBar">
         <navBar />
@@ -300,7 +271,7 @@ export default {
 .bg {
     /* display: flex; */
     flex-direction: column;
-    background-image: url("@/assets/city.jpg");
+    /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
     /* background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #7ea4ec, #5aaff3, #22b8f3, #00c3ec, #00ccd7, #00d1b4, #0ed488); */
     background-size: 100% 100%;
@@ -341,8 +312,7 @@ export default {
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
     /* make the dradient to yellow */
-    background-image: linear-gradient(to right top, #b9f48e, #87fedb, #a1fcff, #ddf6ff, #f8f8f8);
-    background-size: 100% 100%;
+    background-image: linear-gradient(to right top, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e);background-image: linear-gradient(to right top, #b9f48e, #bff39a, #c5f2a5, #cbf1b0, #d1f0bb, #d1f0bb, #d1f0bb, #d1f0bb, #cbf1b0, #c5f2a5, #bff39a, #b9f48e);    background-size: 100% 100%;
     background-attachment: fixed;
     /* position: absolute; */
     width: 100%;
