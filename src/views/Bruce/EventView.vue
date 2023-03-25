@@ -9,7 +9,9 @@
 
     <div :class="bg">
         <div class="row py-4" id="navSecondBar">
-            <navSecondBar :arr="[
+            <navSecondBar
+            @changeEventNumber="handleChangeEventNumber"
+            :arr="[
                 {
                     name: '主頁',
                     URL: '/events'
@@ -91,7 +93,7 @@ export default {
         const pagination = ref(null)
         const card = ref(null)
         const fontSize = ref(1)
-
+        const perPage = ref(12);
         const cardWidth = ref(22 + 2 * 5)
         const route = useRoute()
 
@@ -139,6 +141,11 @@ export default {
             excelData.value.splice(rowIndex, 1);
         }
 
+        const handleChangeEventNumber = (eventNumber) => {
+            alert(eventNumber, "success")
+            perPage.value = eventNumber
+            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
+        }
         //check the router value and set the default background iamge
 
         async function fetchEvent(page, sort, input, category) {
@@ -153,7 +160,7 @@ export default {
                 navSecondBar.value.isSearchEvent = false
                 pagination.value.isSearchEvents = false
                 pagination.value.category = category
-                response = await fetch('/api/events?perPage=' + 12 + "&page=" + page + "&sort=" + sort + "&category=" + category, {
+                response = await fetch('/api/events?perPage=' + perPage.value + "&page=" + page + "&sort=" + sort + "&category=" + category, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -167,7 +174,7 @@ export default {
                 pagination.value.input = input
                 pagination.value.category = category
 
-                response = await fetch('/api/events/searchAll?input=' + input + '&sort=' + sort + "&page=" + page + "&category=" + category, {
+                response = await fetch('/api/events/searchAll?input=' + input+'&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category, {
                     method: 'POST'
 
                 })
@@ -211,14 +218,14 @@ export default {
             }
             // location.reload()
         }
-        watch(fontSize, (currentValue, oldValue) => {
-            console.log(currentValue);
-            console.log(oldValue);
+        watch(fontSize, () => {
+            // console.log(currentValue);
+            // console.log(oldValue);
         });
         //watch the route, if the route change, then we need to fetch the event again
-        watch(route, (currentValue, oldValue) => {
-            console.log(currentValue.query.input);
-            console.log(oldValue);
+        watch(route, (currentValue) => {
+            // console.log(currentValue.query.input);
+            // console.log(oldValue);
             sortDefault.value = currentValue.query.sort
             fetchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input, currentValue.query.category)
 
@@ -259,7 +266,7 @@ export default {
         })
         return {
             bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            importExcel, excelData, deleteRow, uploadTable
+            importExcel, excelData, deleteRow, uploadTable,perPage,handleChangeEventNumber
             //  QrCode, onScan
 
         }
@@ -273,7 +280,8 @@ export default {
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
-    /* background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #7ea4ec, #5aaff3, #22b8f3, #00c3ec, #00ccd7, #00d1b4, #0ed488); */
+    background-color: rgb(250, 250, 250);
+
     background-size: 100% 100%;
     background-attachment: fixed;
 
@@ -312,7 +320,9 @@ export default {
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
     /* make the dradient to yellow */
-    background-image: linear-gradient(to right top, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e);background-image: linear-gradient(to right top, #b9f48e, #bff39a, #c5f2a5, #cbf1b0, #d1f0bb, #d1f0bb, #d1f0bb, #d1f0bb, #cbf1b0, #c5f2a5, #bff39a, #b9f48e);    background-size: 100% 100%;
+    background-image: linear-gradient(to right top, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e, #b9f48e);
+    background-image: linear-gradient(to right top, #b9f48e, #bff39a, #c5f2a5, #cbf1b0, #d1f0bb, #d1f0bb, #d1f0bb, #d1f0bb, #cbf1b0, #c5f2a5, #bff39a, #b9f48e);
+    background-size: 100% 100%;
     background-attachment: fixed;
     /* position: absolute; */
     width: 100%;
