@@ -8,15 +8,11 @@
         <clientNav2bar :arr="[
         {
             name: '主頁',
-            URL: '/'
+            URL: '/cEvents'
         }
-        ,
-        {
-            name: '活動',
-            URL: '/events'
-        }
+
         ]" :sortButton="true" :searchButton="true"
-        :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"  ref="clientNav2bar" />
+        :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="clientNav2bar" />
     </div>
     
     <div class="bg">

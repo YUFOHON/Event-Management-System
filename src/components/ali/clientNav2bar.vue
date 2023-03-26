@@ -1,24 +1,32 @@
 <template>
-    <div class="container-md">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between ">
-        <div class="navPage" style="width: 250px;">
+   
+      <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-between" id="cSecondbar">
+        <div class="container-fluid">
+
+          <div class="navPage">
+        <a v-for="(a, index) in props.arr" :key="a.name" :href=a.URL>{{ a.name }} <a v-if="index < props.arr.length - 1">></a>
+        </a>
+      </div>
+
+      <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
   
-          <a v-for="a in props.arr" :key="a.name" :href=a.URL>{{ a.name }}/</a>
-        </div>
-  
-        <form v-if="props.searchButton" class="d-flex" role="search" style="padding-left: 30%;">
+        <form v-if="props.searchButton" class="d-flex py-1" role="search" style="padding-left: 40%;">
           <input v-model="input" class="form-control me-2" type="search" placeholder="名稱或日期" aria-label="Search">
   
           <button class="btn btn-outline-danger" type="button"
             @click="searchEvent(sorting = 'Descending')"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
         </form>
         
-        <div v-if="props.sortButton" class="d-flex-button">
+        <div v-if="props.sortButton" class="py-2 " style="margin-left: 16%;">
           <ul class="nav gap-3">
           <div class="dropdown" id="sortButton">
             <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
               data-bs-auto-close="outside">
-              <!-- icon above the text -->
+          
               <font-awesome-icon icon="fa-solid fa-arrow-up-z-a" />
               排序
             </button>
@@ -69,6 +77,12 @@
                     </div>
                   </div>
                 </div>
+                <div class="col col-14 ">
+                    <p class="position-relative  px-5 " style="color:red">活動數量:{{ perPage }}</p>
+                    <input @change="changeEventNumber" v-model="perPage" type="range" class="form-range" id="ageLimit"
+                      min="12" max="50">
+                  </div>
+
                 <div class="row" style="padding-left:48%;">
                   <button @click="sortEvent" type="btn" class="btn btn-danger "
                     style="width: fit-content;height: 1cm;">確定</button>
@@ -82,30 +96,27 @@
   
   
   
-      </nav>
+      </div>
   
-    </div>
+      </div>
+    </nav>
   </template>
   
   <script>
   import router from '@/router';
   import { ref } from 'vue'
   import { computed } from 'vue'
-  // import { inject } from 'vue'
-  // import router from '@/router';
-  // import { getCurrentInstance } from "vue";
+ 
   import { useRoute } from 'vue-router'
   export default {
     name: "clientNav2bar",
     props: {
       arr: Array,
       sortButton: { Boolean, default: false },
-      //eventHistoryButton: { Boolean, default: false },
-      //addButton: { Boolean, default: false },
       searchButton: { Boolean, default: false },
       isSearchEvents: { Boolean },
     },
-    setup(props) {
+    setup(props, context) {
       const input = ref('');
       const isSearchEvent = ref(false);
       const sortCheckbox = ref([]);
@@ -133,6 +144,7 @@
   
       const route = useRoute()
       var category = '';
+      const perPage = ref(12);
 
       // push the query from sortCheckbox to the router
       const sortEvent = async () => {
@@ -156,44 +168,50 @@
         // console.log(category)
         if (isSearchEvent.value) {
           //get the  query from the router
-          router.push({ name: 'cEvents', query: { page: 1, sort: sorting, category: category, input: route.query.input } });
+          router.push({ name: 'clientEventView', query: { page: 1, sort: sorting, category: category, input: route.query.input } });
 
         } else
-          router.push({ name: 'cEvents', query: { page: 1, sort: sorting, category: category } });
+          router.push({ name: 'clientEventView', query: { page: 1, sort: sorting, category: category } });
         //reset the category
         category = '';
       }
   
       const searchEvent = async () => {
   
-        router.push({ name: 'cEvents', query: { page: 1, sort: sorting.value, input: input.value, category: category } });
+        router.push({ name: 'clientEventView', query: { page: 1, sort: sorting.value, input: input.value, category: category } });
   
       }
       const Descending = async () => {
         if (isSearchEvent.value == true) {
-          router.push({ name: 'cEvents', query: { page: 1, sort: 'Descending', input: input.value } });
+          router.push({ name: 'clientEventView', query: { page: 1, sort: 'Descending', input: input.value } });
         } else
-          router.push({ name: 'cEvents', query: { page: 1, sort: 'Descending' } });
+          router.push({ name: 'clientEventView', query: { page: 1, sort: 'Descending' } });
   
   
       }
       const Ascending = async () => {
         if (isSearchEvent.value == true) {
-          router.push({ name: 'cEvents', query: { page: 1, sort: 'Ascending', input: input.value } });
+          router.push({ name: 'clientEventView', query: { page: 1, sort: 'Ascending', input: input.value } });
         } else if (isSearchEvent.value == false) {
-          router.push({ name: 'cEvents', query: { page: 1, sort: 'Ascending' } });
+          router.push({ name: 'clientEventView', query: { page: 1, sort: 'Ascending' } });
   
         }
   
       }
+
+      const changeEventNumber = () => {
+      //when the perPage is change emit the event to the parent
+
+      context.emit("changeEventNumber", perPage.value);
+    }
   
   
       return {
-        props, searchEvent, input, isSearchEvent, parent,
+        props, searchEvent, input, isSearchEvent, parent,perPage, changeEventNumber,
         Descending, Ascending, sortCheckbox, is_D_checked, is_A_checked, sortEvent, sorting
       };
     },
-    // components: { router }
+
   }
   </script>
   
@@ -203,7 +221,6 @@
     --bs-btn-border-color: #fff;
     /* --bs-btn-active-bg:#8a56dd */
   
-  
   }
   
   .container-md {
@@ -212,6 +229,13 @@
     background-color: #c1c1c153;
   }
   
+  #cSecondbar {
+  margin-left: 10%;
+  max-width: 80%;
+  border-radius: 20px;
+
+  background-color: #c1c1c153;
+}
   
   .navbar-brand {
     color: rgb(221, 10, 10);
