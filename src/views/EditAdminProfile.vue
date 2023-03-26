@@ -7,18 +7,22 @@
     <div class="container my-5">
       <div class="center-split">
 
-        <span><img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" /></span>
+        <span class="gradient">
+          <img v-if="users.Sex == 'F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex == 'M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+        </span>
 
         <span>
           <form class="row g-3" @submit.prevent="updateAProfile(users._id)">
 
               <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h1 class="mx-auto" style="font-weight: bolder;'">用戶設定</h1>
+                  <h1 style="font-weight: bolder;'">用戶設定</h1>
                 </div>
+                <hr>
                 <div class="row mt-2">
-                  <div class="col-md-6"><label class="labels">姓名</label><input type="text" class="form-control"
-                      placeholder="Name" v-model="users.username"></div>
+                  <div class="col-md-6"><label class="labels">員工姓名</label><input type="text" class="form-control"
+                      placeholder="Name" v-model="users.Patient_Name"></div>
                   <div class="col-md-6"><label class="labels">員工編號</label><input type="text" class="form-control"
                       placeholder="" v-model="users.Child_ID"></div>
                 </div>
@@ -163,8 +167,15 @@ export default {
     min-width: 900px;
     min-height: 1000px;
 
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
+}
+
+.gradient {
+  background:
+    linear-gradient(217deg, #FFEDD3, rgba(255, 0, 0, 0) 70.71%),
+    linear-gradient(127deg, #FCD2D1, rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, #FE8F8F, rgba(0, 0, 255, 0) 70.71%);
 }
 .center-split>* {
   display: flex;
@@ -223,10 +234,10 @@ export default {
   background-color: #fff;
   min-width: 500px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
-  padding: 30px 20px;
-  margin-top: 1px;
-
-
+  overflow: hidden;
+  padding-left: 0px;
+  /* padding: 30px 20px;
+  margin-top: 1px; */
 }
 
 

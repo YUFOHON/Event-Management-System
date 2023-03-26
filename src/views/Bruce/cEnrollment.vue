@@ -16,7 +16,7 @@
           URL: '/cProfile'
         },
         {
-          name: '活動參與紀錄',
+          name: '活動紀錄',
           URL: '#'
         }
       ]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
@@ -50,7 +50,7 @@
               <td>{{ a.userRegistrationRecord[0].Category }}</td>
               <td>
                 eventID: {{ a.eventID }}
-                <RouterLink :to="{ name: 'feedBackView', params: { id: a.eventID } }">
+                <RouterLink :to="{ name: 'feedbackView', params: { id: a.eventID } }">
                   <button class="btn btn-danger" type="button">評價活動</button>
                 </RouterLink>
               </td>

@@ -3,6 +3,7 @@
         <navBar />
     </div>
     <div class="backGround">
+
         <div class="container-md mt-4">
             <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
 
@@ -23,54 +24,85 @@
                                 icon="fa-solid fa-magnifying-glass" /></button>
                         <button class="btn btn-outline-danger d-flex" @click="createUser()"><font-awesome-icon
                                 icon="fa-solid fa-user-plus" /></button>
+
+                        <button @click="addFile" style="min-width: 120px;margin-left: 10px;"
+                            class="btn btn-outline-danger"><font-awesome-icon :icon="['fas', 'file-import']" />
+                            導入Excel</button>
                     </form>
+                    <BufferFileInput ref="BufferFileInput" @change="importExcel" style="visibility: hidden;"
+                        accept=" .xlsx" />
 
                 </div>
             </nav>
         </div>
 
+        <div class="excel">
+            <form @submit.prevent="uploadTable">
+                <table class="table table-striped">
+                    <tr>
+                        <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
+                    </tr>
+                    <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
+                        <td v-for="(val, colIndex) in item" :key="val">
+                            <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
+                        </td>
+                        <td><button type="button" @click="deleteRow(rowIndex + 1)">刪除</button></td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+
+        <button v-if="excelData.length > 0" class="btn my-3 btn-danger" @click="uploadTable">上傳</button>
 
         <div class="container">
             <div class="row">
                 <div class="row d-flex">
                     <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
-                        <section class="mx-auto my-5">
+                        <!-- <section class="mx-auto my-5"> -->
+                        <div class="backgroundEffect"></div>
+                        <div class="card">
 
-                            <div class="card testimonial-card mt-2 mb-3">
-                                <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
-                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
-                                <div class="avatar mx-auto white">
-                                    <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
-                                </div>
-                                <div class="card-body text-center">
-                                    <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
-                                        user.Patient_Name
-                                    }}
-                                        ({{ user.Child_ID }})
-                                    </h4>
-                                    <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
-                                    }}
-                                    </h4>
-                                    <hr>
-                                    <p v-if="user.is_admin == false">Type: Client</p>
-                                    <p v-if="user.is_admin == true">Type: Admin</p>
-                                    <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
-                                    <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
-                                    <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
+                            <!-- <div class="card testimonial-card mt-2 mb-3"> -->
+                            <!-- <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
+                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div> -->
+                            <div class="avatar mx-auto white">
+                                <!-- <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF"> -->
+                                <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                                <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                            </div>
+                            <div class="card-body  text-center">
+                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
+                                    user.Patient_Name
+                                }}
+                                    ({{ user.Child_ID }})
+                                </h4>
+                                <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
+                                }}
+                                </h4>
+                                <hr>
+                                <p v-if="user.is_admin == false">Type: Client</p>
+                                <p v-if="user.is_admin == true">Type: Admin</p>
+                                <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
+                                <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
+                                <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
 
-                                    <!-- 
+                                <!-- 
                                 <button type="submit">Details</button> -->
-                                    <router-link :to="'/user/' + user._id">查看</router-link>
-                                    <!-- <a href="/cProfile" class="card-link">Details</a>   -->
-                                </div>
+                                <router-link :to="'/user/' + user._id"><button class="btn btn-primary check-button">查看</button></router-link>
+                                <!-- <a href="/cProfile" class="card-link">Details</a>   -->
+                            </div>
 
-                                <!-- <div class="overlay">
+                            <!-- <div class="overlay">
                                 <div class="overlay-content"></div>
                                 <router-link :to="'/user/' + user._id">Update</router-link> 
                             </div> -->
-                            </div>
+                            <!-- </div> -->
 
-                        </section>
+                        </div>
+                        <!-- </section> -->
                     </div>
                 </div>
             </div>
@@ -97,12 +129,15 @@
                 </nav>
             </div>
         </div>
+
+
     </div>
 </template>
 
 <script>
 import navBar from '@/components/public/navBar.vue'
-// import navSecondBar from '@/components/Bruce/navSecondBar.vue'
+import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
+import { utils, read } from 'xlsx';
 import { ref, computed, onMounted } from "vue";
 // import { useRoute } from 'vue-router';
 
@@ -112,6 +147,7 @@ export default {
     components: {
         // navSecondBar,
         navBar,
+        BufferFileInput
     },
     setup() {
         // const route = useRoute();
@@ -120,6 +156,22 @@ export default {
         const lastPage = ref(0);
         const perPage = ref(6);
         const currentPageNum = ref(0);
+        const BufferFileInput = ref(null);
+        const excelData = ref([]);
+        const importExcel = (files) => {
+            if (files.length > 0) {
+                const workbook = read(files[0]);
+                // console.log(workbook.SheetNames[0])
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                excelData.value = Array.from(utils.sheet_to_json(worksheet, { raw: false, header: 1 }));
+                // console.log(excelData.value);
+            } else
+                excelData.value = [];
+        }
+
+        const deleteRow = (rowIndex) => {
+            excelData.value.splice(rowIndex, 1);
+        }
         const pages = computed(() => {
             var pages = [];
             for (var i = currentPageNum.value - 2; i <= Math.min(currentPageNum.value + 2, lastPage.value); i++) {
@@ -128,7 +180,6 @@ export default {
             return pages;
 
         })
-
 
         const fetchPage = async function (page) {
             currentPageNum.value = page;
@@ -143,16 +194,16 @@ export default {
                 var data = await response.json();
                 users.value = data.users;
                 lastPage.value = data.lastPage
-                alert("Welcome Admin!");
+                // alert("Welcome Admin!", "success");
             } else {
-                alert(response.statusText);
+                // alert(response.statusText);
             }
         };
 
         const SearchUser = async function (page) {
 
             currentPageNum.value = page;
-            alert(searchValue.value)
+            // alert(searchValue.value)
 
             var response = await fetch("/api/users2/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
                 method: 'GET',
@@ -164,17 +215,37 @@ export default {
                 var data = await response.json();
                 users.value = data.users;
                 lastPage.value = data.pages;
-                alert(users.value);
+                // alert(users.value);
             } else {
-                alert(response.statusText);
+                alert("response.statusText", "danger");
             }
         };
         const createUser = async function () {
 
             location.assign("/createUser");
         };
+        const addFile = (
+            () => {
+                BufferFileInput.value.addFile();
+
+            }
 
 
+        )
+        const uploadTable = async () => {
+            let response = await fetch('/api/import', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(excelData.value)
+            })
+
+            if (response.ok) {
+                excelData.value = []
+                alert('成功上傳', 'success')
+            }
+        }
         onMounted(function () {
             fetchPage(1);
             // alert(props.msg);
@@ -182,6 +253,7 @@ export default {
 
         return {
             navBar,
+            uploadTable,
             pages,
             fetchPage,
             currentPageNum,
@@ -189,7 +261,12 @@ export default {
             users,
             SearchUser,
             searchValue,
-            createUser
+            createUser,
+            addFile,
+            deleteRow,
+            importExcel,
+            excelData,
+            BufferFileInput,
         }
     }
 
@@ -216,34 +293,40 @@ export default {
 }
 
 .margin-right {
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 .cards {
     margin-left: 250px;
 }
 
+.card {
+    border-radius: 20px;
+}
+
 .card:hover {
-    transform: translateY(-4px);
+    /* color: #fff; */
+    transform: scale(1.03);
+    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25);
+
+    /* transform: translateY(-4px); */
     transition: 0.5s;
-    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25)
-}
-
-.card .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
-    background-color: #fff;
-    opacity: 0;
-}
-
-.overlay-content {
-    line-height: 224px;
-    width: 100%;
-    text-align: center;
+    /* background: linear-gradient(180deg,#FDF6F0, #f06565); */
+    background: #f06565;
+    opacity: 0.8;
+    /* background: #f06565; */
     color: #fff;
+}
+
+.check-button {
+  background: #FE8F8F;
+  box-shadow: none;
+  border: none
+}
+
+.check-button:hover {
+  background: #FCD2D1;
 }
 
 
@@ -272,6 +355,15 @@ body {
     overflow: hidden;
     border: 5px solid #fff;
     border-radius: 50%;
+}
+
+.excel {
+    margin-top: 20px;
+    width: 80%;
+    overflow-x: auto;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
 }
 
 .container-md {

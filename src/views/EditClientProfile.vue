@@ -7,14 +7,19 @@
     <div class="container">
 
       <div class="center-split">
-        <span><img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" /></span>
+        <span class="gradient">
+          <img v-if="users.Sex == 'F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex == 'M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+        </span>
 
         <span>
           <form class="row g-3" @submit.prevent="updateCProfile(users._id)">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h1 class="mx-auto" style="font-weight:bolder">用戶設定</h1>
+              <h1 style="font-weight:bolder">用戶設定</h1>
             </div>
+            <hr>
+            <h3>基本資料</h3>
             <div class="row mt-2">
               <div class="col-md-6"><label class="labels">姓名</label><input type="text" class="form-control"
                   placeholder="Name" v-model="users.username"></div>
@@ -28,13 +33,13 @@
                   <option value="F">F</option>
                 </select>
               </div>
-              <div class="col-md-12"><label class="labels">醫院</label><input type="text" class="form-control"
-                  placeholder="" v-model="users.Hospital"></div>
-              <div class="col-md-12"><label class="labels">診斷</label><input type="text" class="form-control"
-                  placeholder="" v-model="users.Diagnosis"></div>
+              <div class="col-md-6"><label class="labels">醫院</label><input type="text" class="form-control" placeholder=""
+                  v-model="users.Hospital"></div>
+              <div class="col-md-6"><label class="labels">診斷</label><input type="text" class="form-control" placeholder=""
+                  v-model="users.Diagnosis"></div>
 
-              <div class="col-md-12"><label class="labels">負責員工</label><input type="text"
-                  class="form-control" v-model="users.Responsible_Worker" max="2023-07-22"></div>
+              <div class="col-md-12"><label class="labels">負責員工</label><input type="text" class="form-control"
+                  v-model="users.Responsible_Worker" max="2023-07-22"></div>
               <div class="col-md-12"><label class="labels">Date_of_open</label><input type="date" class="form-control"
                   v-model="users.Date_of_open"></div>
 
@@ -43,15 +48,18 @@
               <!-- {{users.Onset_date}} -->
               <div class="col-md-12"><label class="labels">Relapsed_date</label><input type="date" class="form-control"
                   v-model="users.Relapsed_date"></div>
-              <div class="col-md-12"><label class="labels">聯絡人</label><input type="text" class="form-control"
+              <hr style="margin-top: 30px;">
+              <h3>親屬關係</h3>
+              <div class="col-md-6"><label class="labels">聯絡人</label><input type="text" class="form-control"
                   placeholder="" v-model="users.Contact_person"></div>
-              <div class="col-md-12"><label class="labels">關係</label><input type="text" class="form-control"
-                  placeholder="" v-model="users.Relationship"></div>
+              <div class="col-md-6"><label class="labels">關係</label><input type="text" class="form-control" placeholder=""
+                  v-model="users.Relationship"></div>
               <!-- <div class="col-md-12"><label class="labels">Sibling(1)</label><input type="text" class="form-control" placeholder="education" v-model='users.Sibling(1)''></div>
                     <div class="col-md-12"><label class="labels">Age(1)</label><input type="text" class="form-control" placeholder="education" v-model="users.Age(1)"></div> -->
               <!-- </div> -->
               <!-- </div> -->
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">儲存變更</button></div>
+              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">儲存變更</button>
+              </div>
             </div>
 
 
@@ -169,19 +177,26 @@ export default {
 } */
 
 .backGround {
-    display: flex;
-    flex-direction: column;
-    background-image: url("@/assets/watercolor.jpg");
-    background-size: 100% 100%;
-    background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/watercolor.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
 
-    width: 100%;
-    height: 100%;
-    min-width: 900px;
-    min-height: 1000px;
+  width: 100%;
+  height: 100%;
+  min-width: 900px;
+  min-height: 1000px;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradient {
+  background:
+    linear-gradient(217deg, #FFEDD3, rgba(255, 0, 0, 0) 70.71%),
+    linear-gradient(127deg, #FCD2D1, rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, #FE8F8F, rgba(0, 0, 255, 0) 70.71%);
 }
 
 .center-split>* {
@@ -204,7 +219,7 @@ export default {
   /* [1] */
   .center-split {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: 1fr 2fr;
     /*setting 2 columns: 50%wide*/
     align-items: stretch;
     /*2 sides equal in height */
@@ -241,8 +256,9 @@ export default {
   background-color: #fff;
   min-width: 500px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
-  padding: 30px 20px;
-  margin-top: 1px;
+  padding-left: 0px;
+  /* padding: 30px 20px;
+  margin-top: 1px; */
 
 
 }

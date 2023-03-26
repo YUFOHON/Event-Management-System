@@ -80,7 +80,7 @@ const fileChange = (e) => {
     const reader = new FileReader(f)
     reader.addEventListener("load", (event) => {
       files.value[0] = (event.target.result)
-      console.log(files.value[0])
+      // console.log(files.value[0])
       emit('change', files.value);
     }, false);
     reader.readAsDataURL(f);

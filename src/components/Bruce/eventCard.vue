@@ -1,9 +1,8 @@
 <template>
-    <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor =defaultColor"
-        :style="{ width: props.cardWidth * 0.7 + 'rem', height: props.cardWidth - 4.5 + 'rem', fontSize: props.fontSize + 'rem' }">
+    <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor = defaultColor">
 
 
-        <div class=" card-body overflow-auto py-4" style="margin-top: -5%;">
+        <div class=" card-body py-4" style="margin-top: -5%;">
             <!-- <img :src=props.image   class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
 
             <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
@@ -45,11 +44,21 @@
                         <div class="col gy-3">{{ props.Date }}</div>
                     </div>
                 </li>
+                <div class="" style="padding-left: 42%; padding-top: 4%;">
+                    <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
+                </div>
+                <li class="list-group-item">
+                    <div class="content overflow-auto row" style="height:5rem ;">
+
+                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
+
+                        <div class="col gy-3">{{ props.content }}</div>
+                    </div>
+                </li>
+
             </ul>
 
-            <div class="" style="padding-left: 42%; padding-top: 4%;">
-                <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
-            </div>
+
 
         </div>
     </div>
@@ -147,7 +156,7 @@ export default {
 
         })
         return {
-            props, root, shadow, btnColor, url,textColor,defaultColor
+            props, root, shadow, btnColor, url, textColor, defaultColor
         }
     }
 }
@@ -182,21 +191,24 @@ animation:rainbow-animation 200ms linear infinite;
 
 
  .card:hover {
-     background-color: #c1c1c153;
+     /* background-color: #c1c1c153; */
+     height: 430px;
+     transform: skew(0deg);
      transform: scale(1.08);
      transition: 0.7s;
      box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
      /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
      box-shadow: v-bind('shadow');
-     background-color: v-bind('btnColor');
+     /* background-color: v-bind('btnColor'); */
 
  }
 
  .card {
-     animation-duration: 1s;
+     animation-duration: 0.5s;
      animation-name: slidein;
-     width: 18rem;
-     height: 592px;
+     /* transform: skewX(5deg); */
+     width: 355px;
+     height: 334px;
      margin: 1rem;
      border-radius: 1rem;
      /* box-shadow: 5px 5px 15px #af8221; */
@@ -204,8 +216,8 @@ animation:rainbow-animation 200ms linear infinite;
      /* box-shadow: v-bind('shadow'); */
      transition: 0.3s;
      overflow: hidden;
-     box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
 
+     box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
 
  }
 
@@ -217,8 +229,9 @@ animation:rainbow-animation 200ms linear infinite;
  }
 
  .list-group-item:hover {
-     background-color: whitesmoke;
-
+     max-height: 10%;
+     background-color: v-bind('btnColor');
+     border-radius: 3%;
      transition: 0.3s;
  }
 
@@ -306,9 +319,6 @@ animation:rainbow-animation 200ms linear infinite;
      font-weight: 1000;
 
  }
-
-
-
 
  /* .card-title {
 

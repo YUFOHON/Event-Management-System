@@ -7,16 +7,24 @@
 
     <div class="container my-5">
       <div class="center-split">
-        <span><img src="../assets/CCF.jpg" class="card-img-top" id="avatar" alt="Avatar" /></span>
+        <span class="gradient">
+          <img v-if="users.Sex=='F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex=='M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <h3 class="mx-auto" style="margin-top: 20px;">{{ users.username }}</h3>
+          <p class="mx-auto" style="margin-top: 10px; color: dimgray ;">{{ users.Child_ID}}</p>
+        </span>
+        
         <div class="row">
 
           <span>
             <form class="row">
               <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h1 class="mx-auto" style="font-weight:bolder">用戶設定</h1>
+                  <h1 style="font-weight:bolder">用戶設定</h1>
                 </div>
 
+                <hr>
+                <h3>基本資料</h3>
                 <div class="row mt-8">
                   <div class="col-md-6"><span class="infoTitle">姓名</span></div>
                   <div class="col-md-6"><span class="info">{{ users.username }}</span></div>
@@ -42,27 +50,6 @@
                   <div class="col-md-6"><span class="info">{{ users.Diagnosis }}</span></div>
                 </div>
 
-                <!-- <div class="row mt-3">
-                        <div class="col-md-5">Age : {{ users.Age }}</div>
-                        <div class="col-md-5">Gender : {{ users.Sex }}</div>
-                        <div class="col-md-10">Hospital : {{ users.Hospital }}</div>
-                        <div class="col-md-10">Diagnosis :  {{ users.Diagnosis }}</div>
-                    </div> -->
-
-
-                <!-- <div class="col-md-6">
-                <router-link :to="`/cEnrollment`">
-                  <button class="btn btn-primary profile-button" type="">Your Enrollment</button>
-                </router-link>
-              </div> -->
-                <!-- <div class="col-md-12">Responsible_Worker : {{ users.Responsible_Worker }}</div>
-                      <div class="col-md-12">Date_of_open : {{ users.Date_of_open }}</div>
-                      <div class="col-md-12">Onset_date :{{ users.Onset_date }}</div>
-                      <div class="col-md-12">Relapsed_date : {{ users.Relapsed_date }}</div>
-                      <div class="col-md-12">Contact_person :{{ users.Contact_person }}</div>
-                      <div class="col-md-12">Relationship :{{ users.Relationship }}</div> -->
-                <!-- <div class="col-md-12"><label class="labels">Sibling(1)</label><input type="text" class="form-control" placeholder="education" v-model='users.Sibling(1)''></div>
-                      <div class="col-md-12"><label class="labels">Age(1)</label><input type="text" class="form-control" placeholder="education" v-model="users.Age(1)"></div> -->
                 <div class="row mt-8">
                   <div class="col-md-6"><span class="infoTitle">負責員工</span></div>
                   <div class="col-md-6"><span class="info">{{ users.Responsible_Worker }}</span></div>
@@ -79,6 +66,8 @@
                   <div class="col-md-6"><span class="infoTitle">Relapsed_date</span></div>
                   <div class="col-md-6"><span class="info">{{ users.Relapsed_date }}</span></div>
                 </div>
+                <hr>
+                <h3>親屬關係</h3>
                 <div class="row mt-8">
                   <div class="col-md-6"><span class="infoTitle">聯絡人</span></div>
                   <div class="col-md-6"><span class="info">{{ users.Contact_person }}</span></div>
@@ -87,14 +76,30 @@
                   <div class="col-md-6"><span class="infoTitle">關係</span></div>
                   <div class="col-md-6"><span class="info">{{ users.Relationship }}</span></div>
                 </div>
+                <div class="row mt-8" v-if="users.Sibling_1 != null && users.Age_1 != null">
+                  <div class="col-md-6"><span class="infoTitle">家庭成員</span></div>
+                  <div class="col-md-6"><span class="info">{{ users.Sibling_1 }} ({{users.Age_1}})</span></div>
+                </div>
+                <div class="row mt-8"  v-if="users.Sibling_2 != null && users.Age_2 != null">
+                  <div class="col-md-6"><span class="infoTitle">家庭成員</span></div>
+                  <div class="col-md-6"><span class="info">{{ users.Sibling_2 }} ({{users.Age_2}})</span></div>
+                </div>
+                <div class="row mt-8" v-if="users.Sibling_3 != null && users.Age_3 != null">
+                  <div class="col-md-6"><span class="infoTitle">家庭成員</span></div>
+                  <div class="col-md-6"><span class="info">{{ users.Sibling_3 }} ({{users.Age_3}})</span></div>
+                </div>
+
+
+
+
               </div>
               <div class="row justify-content-center">
                 <div class="col-md-6">
                   <router-link :to="`/editCProfile/${users._id}`">
                     <button class="btn btn-primary profile-button" type="button">編輯用戶資料</button>
                   </router-link>
-                  </div>
-                  <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
                   <router-link :to="`/cEnrollment`">
                     <button class="btn btn-primary profile-button" type="">活動參與紀錄</button>
                   </router-link>
@@ -175,19 +180,26 @@ export default {
 } */
 
 .backGround {
-    display: flex;
-    flex-direction: column;
-    background-image: url("@/assets/watercolor.jpg");
-    background-size: 100% 100%;
-    background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  background-image: url("@/assets/watercolor.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
 
-    width: 100%;
-    height: 100%;
-    min-width: 900px;
-    min-height: 1000px;
+  width: 100%;
+  height: 100%;
+  min-width: 900px;
+  min-height: 1000px;
 
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradient {
+  background: 
+  linear-gradient(217deg, #FFEDD3, rgba(255, 0, 0, 0) 70.71%), 
+  linear-gradient(127deg, #FCD2D1, rgba(0, 255, 0, 0) 70.71%), 
+  linear-gradient(336deg, #FE8F8F, rgba(0, 0, 255, 0) 70.71%); 
 }
 
 .center-split>* {
@@ -210,7 +222,8 @@ export default {
   /* [1] */
   .center-split {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: 1fr 2fr;
+    /* grid-template-columns: repeat(2, 50%); */
     /*setting 2 columns: 50%wide*/
     align-items: stretch;
     /*2 sides equal in height */
@@ -245,13 +258,18 @@ export default {
   border-bottom-right-radius: 5%;
   border-bottom-left-radius: 5%;
   background-color: #fff;
+  overflow: hidden;
   min-width: 500px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 30px;
-  padding: 30px 20px;
-  margin-top: 1px;
-
+  padding-left: 0;
+  /* padding: 30px 20px;
+  margin-top: 1px; */
 
 }
+
+/* .gradient{
+  background-color: linear-gradient;
+} */
 
 #avatar {
   border-radius: 50%;
