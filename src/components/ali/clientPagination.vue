@@ -2,7 +2,7 @@
     <div>
         <div v-if="isSearchEvents" class="d-flex">
             <nav aria-label="Page navigation">
-                <ul class="pagination pagination-circle">
+                <ul class="pagination">
 
                     <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
                         <a class="page-link" @click="prePage">
