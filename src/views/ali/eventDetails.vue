@@ -37,12 +37,7 @@
         <li class="list-group-item">Remark: {{ event.Remark }} </li>
       </ul>
     </div>
-<!-- <div class="col" style="padding-left: 590px;">
-  <RouterLink :to="'/events/register/' + event._id" class="btn btn-primary float-right">Register</RouterLink>
-</div> -->
-<!-- <div class="col" style="padding-left: 590px;">
-  <RouterLink :to=" { name: 'eventRegister', params:{eventId:event._id,eventName:event.eventName} } " class="btn btn-primary float-right">註冊</RouterLink>
-</div>  -->
+
    <div class="text-middle" style="padding-left: 590px;"><button @click="routerTo" class="btn btn-primary float-right">Register</button></div>
 
     </div>
