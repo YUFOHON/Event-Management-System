@@ -32,8 +32,7 @@
                         <div class="col gy-3">{{ props.content }}</div>
                     </div>
                 </li>
-
-                <li class="list-group-item" style="margin-top: -5%;">
+                <li class="list-group-item" style="margin-top: -4%;">
                     <!-- <p class="card-text text-center">日期：{{ props.Date }}</p> -->
                     <div class="row">
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
@@ -44,11 +43,11 @@
                         <div class="col gy-3">{{ props.Date }}</div>
                     </div>
                 </li>
-                <div class="" style="padding-left: 42%; padding-top: 4%;">
+                <div class="" style="padding-left: 42%; margin-top: 4%">
                     <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
                 </div>
-                <li class="list-group-item">
-                    <div class="content overflow-auto row" style="height:5rem ;">
+                <li class="list-group-item" style="margin-top: 10px;  ">
+                    <div class="content  overflow-auto row">
 
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
 
@@ -311,13 +310,24 @@ animation:rainbow-animation 200ms linear infinite;
      font-size: 1.2rem;
      border: none;
      transition: 0.3s;
-
-
+     box-shadow: -15px -15px 30px 0 #fff, 15px 15px 30px 0 #1d0dca17;
+     width: 353px;
+     margin-left: -81%;
+     margin-top: 3%;
  }
+
+ .btn:hover {
+     background-color: v-bind('btnColor');
+     /* box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1; */
+     box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+         -4px -4px 6px 0 rgba(116, 125, 136, .5),
+         inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+         inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+ }
+
 
  span {
      font-weight: 1000;
-
  }
 
  /* .card-title {
