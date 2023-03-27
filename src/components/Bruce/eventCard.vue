@@ -20,7 +20,16 @@
 
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">名稱 </div>
 
-                        <div class="col  gy-3">{{ props.eventName }}</div>
+                        <div class="col gy-3">{{ props.eventName }}</div>
+                    </div>
+                </li>
+
+                <li class="list-group-item" >
+                    <div class="content overflow-auto row" style="height:5rem ;">
+
+                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
+
+                        <div class="col gy-3">{{ props.content }}</div>
                     </div>
                 </li>
                 <li class="list-group-item" style="margin-top: -4%;">
@@ -112,8 +121,8 @@ export default {
                 return '#ED5A5A'
             }
         }
-
         )
+        
         const fileFormat = ref('')
         const url = ref(props.image)
         const textColor = ref('#000000')

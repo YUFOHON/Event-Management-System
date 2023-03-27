@@ -67,7 +67,7 @@ export default {
                 // alert(JSON.stringify(decoded))
                 // alert(JSON.stringify(data))
 
-                if (data.role == "admin") {
+                if (data.role == "admin" || data.role == "staff") {
                     location.assign("/events")
                 } else if (data.role == "user") {
                     location.assign("/cEvents")
@@ -138,7 +138,7 @@ export default {
     box-shadow: none;
     width: 100%;
     border: none;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 
 .login-button:hover {
