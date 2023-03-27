@@ -154,6 +154,15 @@ export default {
 
 @keyframes slidein {
 
+/* from {
+    margin-left: 100%;
+    width: 300%;
+}
+
+to {
+    margin-left: 0%;
+    width: 100%;
+} */
 0% {
     transform: scale(0);
     transform-origin: 50% 100%;
@@ -162,124 +171,140 @@ export default {
 100% {
     transform: scale(1);
     transform-origin: 50% 100%;
-    }
+}
 }
 
+
 .card:hover {
-     background-color: #c1c1c153;
-     transform: scale(1.08);
-     transition: 0.7s;
-     box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
-     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
-     box-shadow: v-bind('shadow');
-     background-color: v-bind('btnColor');
+/* background-color: #c1c1c153; */
+height: 430px;
+transform: skew(0deg);
+transform: scale(1.08);
+transition: 0.7s;
+box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+/* box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); */
+box-shadow: v-bind('shadow');
+/* background-color: v-bind('btnColor'); */
 
- }
+}
 
- .card {
-     animation-duration: 1s;
-     animation-name: slidein;
-     width: 18rem;
-     height: 592px;
-     margin: 1rem;
-     border-radius: 1rem;
-     /* box-shadow: 5px 5px 15px #af8221; */
-     /* border-image: repeating-linear-gradient(30deg, #4d9f0c, #9198e5, #4d9f0c 20px) 60; */
-     /* box-shadow: v-bind('shadow'); */
-     transition: 0.3s;
-     overflow: hidden;
-     box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+.card {
+animation-duration: 0.5s;
+animation-name: slidein;
+/* transform: skewX(5deg); */
+width: 355px;
+height: 334px;
+margin: 1rem;
+border-radius: 1rem;
+/* box-shadow: 5px 5px 15px #af8221; */
+/* border-image: repeating-linear-gradient(30deg, #4d9f0c, #9198e5, #4d9f0c 20px) 60; */
+/* box-shadow: v-bind('shadow'); */
+transition: 0.3s;
+overflow: hidden;
+
+box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+
+}
+
+.list-group-item {
+
+border: none;
+background-color: #c1c1c100;
+
+}
+
+.list-group-item:hover {
+max-height: 10%;
+background-color: v-bind('btnColor');
+border-radius: 3%;
+transition: 0.3s;
+}
 
 
- }
+.eventName {
+font-size: 1.4rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+}
 
- .list-group-item {
+::-webkit-scrollbar {
+width: 10px;
+height: 10px;
+background: #f1f1f1;
+border-radius: 10px;
 
-     border: none;
-     background-color: #c1c1c100;
+}
 
- }
+::-webkit-scrollbar-thumb {
+background: v-bind('textColor');
+border-radius: 10px;
+}
 
- .list-group-item:hover {
-     background-color: whitesmoke;
+/* img:hover {
 
-     transition: 0.3s;
- }
+transform: scale(1.07);
+transition: 0.3s;
+border-radius: 1rem;
+} */
+
+img:hover[data-v-6608a9fc] {
+transform: scale(1.12);
+border-radius: 1rem;
+}
+
+img[data-v-6608a9fc] {
+border-radius: 10rem;
+
+}
+
+img {
+/* opacity: 0.7; */
+
+/* four conor round */
 
 
- .eventName {
-     font-size: 1.4rem;
-     font-weight: 700;
-     margin-bottom: 0.5rem;
- }
+object-fit: cover;
+object-position: 50% 50%;
+/* //round let the image close to the card border */
+transition: 0.3s;
+/* width: 100%; */
+/* height: 300px; */
+object-fit: cover;
+/* object-position: 50% 50%; */
 
- ::-webkit-scrollbar {
-     width: 10px;
-     height: 10px;
-     background: #f1f1f1;
-     border-radius: 10px;
 
- }
 
- ::-webkit-scrollbar-thumb {
-     background: v-bind('textColor');
-     border-radius: 10px;
- }
 
- /* img:hover {
+border-radius: 1rem 1rem 0 0;
 
-     transform: scale(1.07);
-     transition: 0.3s;
-     border-radius: 1rem;
- } */
 
- img:hover[data-v-6608a9fc] {
-     transform: scale(1.12);
-     border-radius: 1rem;
- }
+-webkit-user-drag: none;
+-webkit-user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+-khtml-user-select: none;
+user-select: none;
+}
 
- img[data-v-6608a9fc] {
-     border-radius: 10rem;
+.btn {
+/* border-radius: 50%; */
+/* assign button color to the card */
+background-color: v-bind('btnColor');
+color: white;
+font-weight: 700;
+font-size: 1.2rem;
+border: none;
+transition: 0.3s;
 
- }
 
- img {
-     /* opacity: 0.7; */
+}
 
-     /* four conor round */
+span {
+font-weight: 1000;
 
-     object-fit: cover;
-     object-position: 50% 50%;
-     /* //round let the image close to the card border */
-     transition: 0.3s;
-     /* width: 100%; */
-     /* height: 300px; */
-     object-fit: cover;
-     /* object-position: 50% 50%; */
+}
 
-     border-radius: 1rem 1rem 0 0;
-
-     -webkit-user-drag: none;
-     -webkit-user-select: none;
-     -moz-user-select: none;
-     -webkit-user-select: none;
-     -ms-user-select: none;
-     -khtml-user-select: none;
-     user-select: none;
- }
-
- .btn {
-     background-color: v-bind('btnColor');
-     color: white;
-     font-weight: 700;
-     font-size: 1.2rem;
-     border: none;
-     transition: 0.3s;
- }
-
- span {
-     font-weight: 1000;
- }
 
 </style>
 

@@ -130,11 +130,7 @@ export default {
   color: #000000;
 }
 
-img {
-  /* write a animation effect to make the image rotate */
 
-
-}
 
 /* .fade-enter-active,
 .fade-leave-active {
