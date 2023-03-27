@@ -4,9 +4,9 @@
     <div v-if="isEventFormDetail" class="row">
 
       <div class="col" id="eventImg">
-        <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+        <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
                                                                                       border-radius:50%;">
-        <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 25rem; height: 20rem;object-fit:cover;
+        <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
                                                                                       border-radius:50%;">
         <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg"
           multiple />
