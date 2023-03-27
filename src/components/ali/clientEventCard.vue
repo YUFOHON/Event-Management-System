@@ -1,22 +1,18 @@
 <template>
-   <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor =defaultColor"
-        :style="{ width: props.cardWidth * 0.7 + 'rem', height: props.cardWidth - 4.5 + 'rem', fontSize: props.fontSize + 'rem' }">
+   <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor =defaultColor">
 
 
-        <div class=" card-body overflow-auto py-4" style="margin-top: -5%;">
-            <!-- <img :src=props.image   class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
+        <div class=" card-body py-4" style="margin-top: -5%;">
 
             <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
             <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片"
                 style="width: 20rem; height: 10rem;">
-            <!-- <img :src="url" class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
-
+            
             <ul class="list-group list-group-flush">
 
                 <li class="list-group-item" style="margin-top: -5%;">
                     <div class="card-title row">
                        
-
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">名稱 </div>
 
                         <div class="col gy-3">{{ props.eventName }}</div>
@@ -43,12 +39,22 @@
                         <div class="col gy-3">{{ props.Date }}</div>
                     </div>
                 </li>
-            </ul>
+            
 
             <div class="" style="padding-left: 42%; padding-top: 4%;">
                 <router-link :to="'/eventDetails/' + props.id" class="btn btn-danger ">Register</router-link>
             </div>
 
+            <li class="list-group-item">
+                    <div class="content overflow-auto row" style="height:5rem ;">
+
+                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
+
+                        <div class="col gy-3">{{ props.content }}</div>
+                    </div>
+                </li>
+
+            </ul>
         </div>
     </div>
 </template>
@@ -56,10 +62,9 @@
 
 <script>
 import { ref } from 'vue'
-
 import { onMounted } from 'vue';
-
 import { computed } from 'vue';
+
 export default {
     name: 'clientEventCard',
     props: {
