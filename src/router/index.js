@@ -20,7 +20,7 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-import feedBackView from '../views/feedBackView.vue'
+import feedbackView from '../views/feedBackView.vue'
 
 
 import UserView from '../views/UserView.vue'
@@ -65,8 +65,8 @@ const routes = [
   },
   {
     path: '/feedBack/:id',
-    name: 'feedBackView',
-    component: feedBackView
+    name: 'feedbackView',
+    component: feedbackView
   },
   //=====================================JOHN=============================================================
   {
@@ -144,6 +144,7 @@ const routes = [
 
 
 ]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

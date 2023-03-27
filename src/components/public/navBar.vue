@@ -1,35 +1,35 @@
 <template>
+  <nav class="navbar d-none d-lg-block  bg-body-tertiary shadow" style="background-color: white; ">
 
-  <nav  class="navbar  bg-body-tertiary shadow" style="background-color: white; ">
-    
-    <div class="d-flex align-items-center  me-auto p-2">
-      <a class="navbar-brand px-4 " href="/">
+    <div class="d-flex justify-content-between align-items-center ">
+      <a class="navbar-brand " href="/" style="padding-left: 2%;">
         <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
         CRM
       </a>
-      <ul class="nav gap-5  ">
+      <ul class="nav gap-5 ">
         <li class="nav-item">
           <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
             href="https://www.ccf.org.hk/en/">
             <span style="font-size: 1em; color: red;">
-            <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
-            <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
+              <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
+              <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
             </span>
             主頁
           </a>
-          
+
         </li>
         <li class="nav-item">
-        
+
           <a @mouseover="hoverEvent = true" @mouseleave="hoverEvent = false" class="nav-link" href="/events">
             <span style="font-size: 1em; color: red;">
-            <font-awesome-icon v-if="hoverEvent" icon="fa-solid fa-calendar-check" bounce />
-            <font-awesome-icon v-if="!hoverEvent" icon="fa-solid fa-calendar-check" />
-          </span>
+              <font-awesome-icon v-if="hoverEvent" icon="fa-solid fa-calendar-check" bounce />
+              <font-awesome-icon v-if="!hoverEvent" icon="fa-solid fa-calendar-check" />
+            </span>
             活動
-         
+
           </a>
         </li>
+<<<<<<< HEAD
         <!-- <li class="nav-item">
           <a class="nav-link" href="/feedBack">Feedback</a>
         </li>
@@ -38,24 +38,147 @@
         </li> -->
         <li v-if = "role == 'admin'" class="nav-item">
           <a class="nav-link" href="/users">管理用戶</a>
+=======
+
+        <li v-if="role == 'admin'" class="nav-item">
+          <a class="nav-link" href="/users">User</a>
+>>>>>>> 38119d8613d5bc7a1aaf090d1c1b342aa1dcba5d
         </li>
       </ul>
+
+
+      <div class="userIcon p-3 ">
+        <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute" class="userIcon">
+          <span style="font-size: 1rem; color: red;">
+            <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" size="2xl" />
+            <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
+          </span>
+        </router-link>
+        <button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+        <button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+      </div>
+
+
     </div>
 
 
-    <div class="p-4">
-      <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute" class="userIcon">
-        <span style="font-size: 1rem; color: red;">
-        <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user"  size="2xl" />
-        <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
+
+  </nav>
+
+  <nav class="navbar-mobile align-items-center d-flex justify-content-between	.d-none .d-lg-block .d-xl-none bg-body-tertiary shadow" style="background-color: white; ">
+    <a class="navbar-brand  d-lg-none" href="/" style="padding-left: 2%;">
+        <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
+        CRM
+      </a>
+    <button class="btn btn-danger d-lg-none" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
+      <font-awesome-icon :icon="['fas', 'sliders']" />
+      </button>
+
+    <div class="offcanvas offcanvas-end d-flex flex-column" tabindex="-1" id="offcanvasResponsive"
+      aria-labelledby="offcanvasResponsiveLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">選單</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="">
+          <ul class="nav d-flex flex-column gap-5 ">
+            <li class="nav-item">
+              <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
+                href="https://www.ccf.org.hk/en/">
+                <span style="font-size: 1em; color: red;">
+                  <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
+                  <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
+                </span>
+                主頁
+              </a>
+
+            </li>
+            <li class="nav-item">
+
+              <a @mouseover="hoverEvent = true" @mouseleave="hoverEvent = false" class="nav-link" href="/events">
+                <span style="font-size: 1em; color: red;">
+                  <font-awesome-icon v-if="hoverEvent" icon="fa-solid fa-calendar-check" bounce />
+                  <font-awesome-icon v-if="!hoverEvent" icon="fa-solid fa-calendar-check" />
+                </span>
+                活動
+
+              </a>
+            </li>
+
+            <li v-if="role == 'admin'" class="nav-item">
+              <a class="nav-link" href="/users">User</a>
+            </li>
+            <div class="userIcon p-3 ">
+              <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute"
+                class="userIcon">
+                <span style="font-size: 1rem; color: red;">
+                  <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" size="2xl" />
+                  <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
+                </span>
+              </router-link>
+            </div>
+            <button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+            <button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="d-flex  align-items-center  me-auto p-2">
+  <a class="navbar-brand px-4 " href="/">
+    <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
+    CRM
+  </a>
+  <ul class="nav gap-5  ">
+    <li class="nav-item">
+      <a @mouseover="hover = true" @mouseleave="hover = false" class="nav-link  text-dark" aria-current="page"
+        href="https://www.ccf.org.hk/en/">
+        <span style="font-size: 1em; color: red;">
+          <font-awesome-icon v-if="hover == true" icon="fa-solid fa-house" bounce />
+          <font-awesome-icon v-if="hover == false" icon="fa-solid fa-house" />
         </span>
-      </router-link>
-    </div>
+        主頁
+      </a>
 
-    <button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
-    <button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
-    
+    </li>
+    <li class="nav-item">
 
+      <a @mouseover="hoverEvent = true" @mouseleave="hoverEvent = false" class="nav-link" href="/events">
+        <span style="font-size: 1em; color: red;">
+          <font-awesome-icon v-if="hoverEvent" icon="fa-solid fa-calendar-check" bounce />
+          <font-awesome-icon v-if="!hoverEvent" icon="fa-solid fa-calendar-check" />
+        </span>
+        活動
+
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Feedback</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link ">Disabled</a>
+    </li>
+    <li v-if="role == 'admin'" class="nav-item">
+      <a class="nav-link" href="/users">User</a>
+    </li>
+  </ul>
+</div>
+
+<div class="p-4">
+  <router-link @mouseover="hoverUser = true" @mouseleave="hoverUser = false" :to="profileRoute" class="userIcon">
+    <span style="font-size: 1rem; color: red;">
+      <font-awesome-icon v-if="hoverUser == true" icon="fa-solid fa-user" size="2xl" />
+      <font-awesome-icon v-if="hoverUser == false" icon="fa-solid fa-user" size="2xl" />
+    </span>
+  </router-link>
+</div>
+
+<button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
+<button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
+ -->
 
   </nav>
 </template>
@@ -119,7 +242,7 @@ export default {
   font-size: 2rem;
 }
 
-.navbar {
+.navbar .navbar-mobile {
   --bs-navbar-padding-y: 0rem;
   --bs-navbar-padding-x: 1rem;
 }

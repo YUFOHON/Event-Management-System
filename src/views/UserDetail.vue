@@ -7,7 +7,7 @@
 
             <form @submit.prevent="updateUser()">
                 <div class="d-flex justify-content-between align-items-center mb-3 baseButton" style="background-color: #FCD2D1;">
-                    <h1 class="mx-auto baseButton" style="font-weight: bolder; ">用戶設定</h1>
+                    <h1 class="mx-auto baseButton" style="font-weight: bolder;">用戶設定</h1>
                 </div>
 
                 <div class="row mt-4">
@@ -125,10 +125,10 @@
                 </div>
                 <div class="row justify-content-center align-items-center">
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary edit-button mt-4 ">更新!</button>
+                        <button type="submit" class="btn btn-primary edit-button mt-4 ">更新</button>
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary del-button mt-4 " @click="delUser()">刪除!</button>
+                        <button type="submit" class="btn btn-primary del-button mt-4 " @click="delUser()">刪除</button>
                     </div>
 
                 </div>

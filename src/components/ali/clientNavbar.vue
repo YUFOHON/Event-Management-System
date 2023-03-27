@@ -27,12 +27,7 @@
             <font-awesome-icon v-if="!hoverEvent" icon="fa-solid fa-calendar-check" />
           </span>
             活動
-
           </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#">Provide Feedback</a>
         </li>
 
       </ul>
@@ -51,7 +46,6 @@
     <button v-if="token" class="btn btn-outline-danger mx-2" type="button" @click="logout()">SignOut</button>
     <button v-if="!token" class="btn btn-danger mx-2" type="button" @click="login()">Login</button>
     
-
 
   </nav>
 </template>
@@ -152,3 +146,4 @@ img {
   opacity: 0;
 } */
 </style>
+

@@ -59,43 +59,50 @@
             <div class="row">
                 <div class="row d-flex">
                     <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
-                        <section class="mx-auto my-5">
+                        <!-- <section class="mx-auto my-5"> -->
+                        <div class="backgroundEffect"></div>
+                        <div class="card">
 
-                            <div class="card testimonial-card mt-2 mb-3">
-                                <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
-                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div>
-                                <div class="avatar mx-auto white">
-                                    <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF">
-                                </div>
-                                <div class="card-body text-center">
-                                    <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
-                                        user.Patient_Name
-                                    }}
-                                        ({{ user.Child_ID }})
-                                    </h4>
-                                    <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
-                                    }}
-                                    </h4>
-                                    <hr>
-                                    <p v-if="user.is_admin == false">Type: Client</p>
-                                    <p v-if="user.is_admin == true">Type: Admin</p>
-                                    <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
-                                    <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
-                                    <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
+                            <!-- <div class="card testimonial-card mt-2 mb-3"> -->
+                            <!-- <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
+                                <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div> -->
+                            <div class="avatar mx-auto white">
+                                <!-- <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF"> -->
+                                <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                                <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                            </div>
+                            <div class="card-body  text-center">
+                                <h4 v-if="user.is_admin == false" class="card-title font-weight-bold">{{
+                                    user.Patient_Name
+                                }}
+                                    ({{ user.Child_ID }})
+                                </h4>
+                                <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
+                                }}
+                                </h4>
+                                <hr>
+                                <p v-if="user.is_admin == false">Type: Client</p>
+                                <p v-if="user.is_admin == true">Type: Admin</p>
+                                <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
+                                <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
+                                <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
 
-                                    <!-- 
+                                <!-- 
                                 <button type="submit">Details</button> -->
-                                    <router-link :to="'/user/' + user._id">查看</router-link>
-                                    <!-- <a href="/cProfile" class="card-link">Details</a>   -->
-                                </div>
+                                <router-link :to="'/user/' + user._id"><button class="btn btn-primary check-button">查看</button></router-link>
+                                <!-- <a href="/cProfile" class="card-link">Details</a>   -->
+                            </div>
 
-                                <!-- <div class="overlay">
+                            <!-- <div class="overlay">
                                 <div class="overlay-content"></div>
                                 <router-link :to="'/user/' + user._id">Update</router-link> 
                             </div> -->
-                            </div>
+                            <!-- </div> -->
 
-                        </section>
+                        </div>
+                        <!-- </section> -->
                     </div>
                 </div>
             </div>
@@ -259,7 +266,7 @@ export default {
             deleteRow,
             importExcel,
             excelData,
-            BufferFileInput
+            BufferFileInput,
         }
     }
 
@@ -286,34 +293,40 @@ export default {
 }
 
 .margin-right {
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 .cards {
     margin-left: 250px;
 }
 
+.card {
+    border-radius: 20px;
+}
+
 .card:hover {
-    transform: translateY(-4px);
+    /* color: #fff; */
+    transform: scale(1.03);
+    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25);
+
+    /* transform: translateY(-4px); */
     transition: 0.5s;
-    box-shadow: 0 4px 25px 0 rgba(255, 119, 119, 0.729), 0 0 1px 0 rgba(0, 0, 0, .25)
-}
-
-.card .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
-    background-color: #fff;
-    opacity: 0;
-}
-
-.overlay-content {
-    line-height: 224px;
-    width: 100%;
-    text-align: center;
+    /* background: linear-gradient(180deg,#FDF6F0, #f06565); */
+    background: #f06565;
+    opacity: 0.8;
+    /* background: #f06565; */
     color: #fff;
+}
+
+.check-button {
+  background: #FE8F8F;
+  box-shadow: none;
+  border: none
+}
+
+.check-button:hover {
+  background: #FCD2D1;
 }
 
 
@@ -346,7 +359,6 @@ body {
 
 .excel {
     margin-top: 20px;
-
     width: 80%;
     overflow-x: auto;
     padding: 1em;
