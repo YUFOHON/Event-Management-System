@@ -96,7 +96,7 @@ export default {
         }
 
         const handleChangeEventNumber = (eventNumber) => {
-            alert(eventNumber, "success")
+            // alert(eventNumber, "success")
             perPage.value = eventNumber
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         }
@@ -219,7 +219,7 @@ export default {
 
         return {
             bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, clientNav2bar, clientPagination,
-           perPage,handleChangeEventNumber
+           perPage, handleChangeEventNumber
             
         }
     }
@@ -246,7 +246,7 @@ export default {
 }
 
 .child {
-
+    /* display: flex; */
     flex-direction: column;
    
     background-image: linear-gradient(to right top, #f5ffb3, #fff0c5, #ffece9, #fff3fe, #f8f8f8);

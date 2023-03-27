@@ -5,116 +5,141 @@
     <div class="backGround">
         <div class="container">
 
+
+
             <form @submit.prevent="updateUser()">
-                <div class="d-flex justify-content-between align-items-center mb-3 baseButton" style="background-color: #FCD2D1;">
-                    <h1 class="mx-auto baseButton" style="font-weight: bolder;">用戶設定</h1>
+
+                <div class="d-flex justify-content-between align-items-center mb-3 baseButton">
+                    <h1 class="mx-auto" style="font-weight: bolder;">用戶設定</h1>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3">
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">用戶名稱</label>
-                        <input type="text" class="form-control" v-model="user.username" placeholder="Username">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword4">密碼</label>
-                        <input type="text" class="form-control" v-model="user.password" placeholder="Password">
-                    </div>
-                </div>
+                        <div class="form-group" style="margin: auto;">
+                            <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
+                                id="avatar" alt="Avatar" />
+                            <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid" id="avatar"
+                                alt="Avatar" />
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-4">
-                        <label for="inputAddress">姓名</label>
-                        <input type="text" class="form-control" v-model="user.Patient_Name" placeholder="patient name">
+                        </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputAddress2">年紀</label>
-                        <input type="text" class="form-control" v-model="user.Age" placeholder="Age">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputState">性別</label>
-                        <select v-model="user.Sex" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>M</option>
-                            <option>F</option>
-                        </select>
-                    </div>
-                </div>
+                    <div class="col-md-9">
+                        <div class="row mt-4">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">用戶名稱</label>
+                                <input type="text" class="form-control" v-model="user.username" placeholder="Username">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">密碼</label>
+                                <input type="text" class="form-control" v-model="user.password" placeholder="Password">
+                            </div>
+                        </div>
 
-                <div class="row mt-4">
+                        <div class="row mt-4">
+                            <div class="form-group col-md-4">
+                                <label for="inputAddress">姓名</label>
+                                <input type="text" class="form-control" v-model="user.Patient_Name"
+                                    placeholder="patient name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputAddress2">年紀</label>
+                                <input type="text" class="form-control" v-model="user.Age" placeholder="Age">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">性別</label>
+                                <select v-model="user.Sex" class="form-control">
+                                    <option selected>Choose...</option>
+                                    <option>M</option>
+                                    <option>F</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">醫院</label>
-                        <input type="text" class="form-control" v-model="user.Hospital">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">診斷</label>
-                        <input type="text" class="form-control" v-model="user.Diagnosis">
-                    </div>
-                </div>
+                        <div class="row mt-4">
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-4">
-                        <label for="inputCity">負責職員</label>
-                        <input type="text" class="form-control" v-model="user.Responsible_Worker">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputCity">聯絡人</label>
-                        <input type="text" class="form-control" v-model="user.Contact_Person">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputCity">關係</label>
-                        <input type="text" class="form-control" v-model="user.Relationship">
-                    </div>
-                </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">醫院</label>
+                                <input type="text" class="form-control" v-model="user.Hospital">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">診斷</label>
+                                <input type="text" class="form-control" v-model="user.Diagnosis">
+                            </div>
+                        </div>
 
-                <!-- <div v-if="user.Sibling_1 == null && user.Age_1 == null" class="row mt-4">
+                        <div class="row mt-4">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">負責職員</label>
+                                <input type="text" class="form-control" v-model="user.Responsible_Worker">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">聯絡人</label>
+                                <input type="text" class="form-control" v-model="user.Contact_Person">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">關係</label>
+                                <input type="text" class="form-control" v-model="user.Relationship">
+                            </div>
+                        </div>
+
+                        <!-- <div v-if="user.Sibling_1 == null && user.Age_1 == null" class="row mt-4">
                 <button class="btn btn-primary" @click="addSibling">Add Sibling</button>
 
             </div> -->
 
-                <div v-if="user.Sibling_1 != null && user.Age_1 != null" class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">兄弟姐妹(1)</label>
-                        <input type="text" class="form-control" v-model="user.Sibling_1">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">年紀(1)</label>
-                        <input type="text" class="form-control" v-model="user.Age_1">
-                    </div>
+                        <div v-if="user.Sibling_1 != null && user.Age_1 != null" class="row mt-4">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">兄弟姐妹(1)</label>
+                                <input type="text" class="form-control" v-model="user.Sibling_1">
+                            </div>
 
-                </div>
-                <div v-if="user.Sibling_2 != null && user.Age_2 != null" class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">兄弟姐妹(2)</label>
-                        <input type="text" class="form-control" v-model="user.Sibling_2">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">年紀(2)</label>
-                        <input type="text" class="form-control" v-model="user.Age_2">
-                    </div>
-                </div>
-                <div v-if="user.Sibling_3 != null && user.Age_3 != null" class="row mt-4">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">兄弟姐妹(3)</label>
-                        <input type="text" class="form-control" v-model="user.Sibling_3">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">年紀(3)</label>
-                        <input type="text" class="form-control" v-model="user.Age_3">
-                    </div>
-                </div>
 
-                <div class="row mt-4">
-                    <div class="form-group col-md-4">
-                        <label for="inputZip">Date of Open</label>
-                        <input v-model="user.Date_of_open" data-format="dd/mm/yyyy" type="date" class="form-control">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip">Onset Date</label>
-                        <input v-model="user.Onset_date" data-format="dd/mm/yyyy" type="date" class="form-control">
-                    </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">年紀(1)</label>
+                                <div class="form-inline">
+                                    <input type="text" class="form-control" v-model="user.Age_1">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row mt-4">
+                            <button class="btn btn-outline-primary">Add Siblings</button>
+                        </div> -->
 
-                    <!-- <div class="col">
+
+                        <div v-if="user.Sibling_2 != null && user.Age_2 != null" class="row mt-4">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">兄弟姐妹(2)</label>
+                                <input type="text" class="form-control" v-model="user.Sibling_2">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">年紀(2)</label>
+                                <input type="text" class="form-control" v-model="user.Age_2">
+                            </div>
+                        </div>
+                        <div v-if="user.Sibling_3 != null && user.Age_3 != null" class="row mt-4">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">兄弟姐妹(3)</label>
+                                <input type="text" class="form-control" v-model="user.Sibling_3">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">年紀(3)</label>
+                                <input type="text" class="form-control" v-model="user.Age_3">
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="form-group col-md-4">
+                                <label for="inputZip">Date of Open</label>
+                                <input v-model="user.Date_of_open" data-format="dd/mm/yyyy" type="date"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputZip">Onset Date</label>
+                                <input v-model="user.Onset_date" data-format="dd/mm/yyyy" type="date" class="form-control">
+                            </div>
+
+                            <!-- <div class="col">
               <div class="mb-3">
                 <label for="eventDate" class="form-label">活動日期</label>
                 <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
@@ -122,16 +147,20 @@
               </div>
             </div> -->
 
-                </div>
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary edit-button mt-4 ">更新</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary del-button mt-4 " @click="delUser()">刪除</button>
-                    </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary edit-button mt-4 ">更新</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary del-button mt-4 "
+                                    @click="delUser()">刪除</button>
+                            </div>
 
+                        </div>
+                    </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -279,24 +308,6 @@ form {
     padding: 30px 20px;
     margin-top: 1px;
 }
-
-/* .container { */
-/* border-radius: 100%; */
-/* display: flex;
-  flex-direction: column;
-  background-image: url("@/assets/city.jpg"); */
-/* background-size: 100% 100%;
-  background-attachment: fixed; */
-
-/* width: 100%;
-  height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-
-  justify-content: center;
-  align-items: center;
-
-} */
 
 .backGround {
     display: flex;
