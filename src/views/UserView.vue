@@ -249,6 +249,8 @@ export default {
         onMounted(function () {
             fetchPage(1);
             // alert(props.msg);
+            alert("成功加載用戶資料", "success", 3000)
+
         });
 
         return {
