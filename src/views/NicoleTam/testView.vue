@@ -1,11 +1,15 @@
 <template>
-    <head>
+    <div> 
+        <star-rating :max-stars="5" :initial-rating="3"></star-rating>
+    <p>Current rating: {{ currentRating }}</p>
+    </div>
+    <!-- <head>
         <meta charset="utf-8">
 
         <title>VueJS Quiz Sample</title>
         <meta name="description" content="VueJS Quiz">
     </head>
-
+    
     <body>
         <div id="app">
             <div class="container">
@@ -52,10 +56,13 @@
                 </div>
             </div>
         </div>
-    </body>
+    </body> -->
 </template>
 
+
 <script>
+import StarRating from '@/components/NicoleTam/starRating.vue';
+import starRating from '@/components/NicoleTam/starRating.vue'
 
 let quiz = {
     title: "Quiz Sample Title",
@@ -97,37 +104,37 @@ let quiz = {
     ]
 };
 export default {
-    name: 'FeedbackView',
+    name: "FeedbackView",
     data: () => ({
         quiz: quiz,
         questionIndex: 0,
         responses: [],
         errors: [],
-        error: ''
+        error: ""
     }),
+    setup() {
+        return { starRating };
+    },
     methods: {
         prev: function () {
             this.questionIndex--;
         },
-
         next: function () {
             if (this.responses[this.questionIndex] === undefined) {
                 this.errors[this.questionIndex] = 1;
-                this.error = 'Please select your answer';
+                this.error = "Please select your answer";
             }
             else {
                 this.errors[this.questionIndex] = 0;
                 this.questionIndex++;
             }
         },
-
         score: function () {
-
         },
-
         playAgain: function () {
             this.questionIndex = 0;
         }
-    }
+    },
+    components: { StarRating }
 }
 </script>
