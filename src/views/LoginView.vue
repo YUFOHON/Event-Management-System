@@ -83,7 +83,10 @@ export default {
         }
         onMounted(() => {
             alert("歡迎使用CCF管理系統", "success", 3000)
-            alert("I overwrite the alert function, you can use it like this alert('the input message','sucess or danger any color you like','the input time'')", "danger", 300000)
+            alert("no bug before push", "danger", 99999999999999)
+            alert("no bug before push", "danger", 99999999999999)
+            alert("no bug before push", "danger", 99999999999999)
+ 
         })
 
         return {

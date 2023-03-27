@@ -138,7 +138,7 @@
                         <input v-model="sortCheckbox" value="同路人支援平台" type="checkbox" class="btn-check" id="btncheck1"
                           autocomplete="off">
                         <label class="btn btn-outline-primary" for="btncheck1" style="color: black;  --bs-btn-active-bg:#8a56dd
-            ">同路人支援平台</label>
+                  ">同路人支援平台</label>
 
                         <input v-model="sortCheckbox" value="活動義工招募" type="checkbox" class="btn-check" id="btncheck2"
                           autocomplete="off">
@@ -182,7 +182,24 @@
                       min="12" max="50">
                   </div>
 
+                  <div class="col col-14" style=" width: 50%; z-index: 999; margin-left: 20%; ">
 
+                    <div class="row">
+                      <div class="col col-7 ">
+
+                        <p class="position-relative  " style="color: red;">起始日期</p>
+
+                        <input v-model="startDate" data-format="dd/mm/yyyy" type="date" class="form-control"
+                          id="eventDate" aria-describedby="emailHelp">
+
+                      </div>
+                      <div class="col col-7 my-4">
+                        <p class="position-relative  " style="color: red;">結束日期</p>
+                        <input v-model="endDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
+                          aria-describedby="emailHelp">
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="row" style="padding-left:48%;">
                     <button @click="sortEvent" type="btn" class="btn btn-danger "
@@ -215,11 +232,7 @@
 
 <script>
 import router from '@/router';
-import { ref } from 'vue'
-import { computed } from 'vue'
-// import { inject } from 'vue'
-// import router from '@/router';
-// import { getCurrentInstance } from "vue";
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
@@ -233,11 +246,14 @@ export default {
     searchButton: { Boolean, default: false },
     isSearchEvents: { Boolean },
   },
-  setup(props,context) {
+  setup(props, context) {
     const input = ref('');
     const isSearchEvent = ref(false);
     const sortCheckbox = ref([]);
     const sorting = ref('');
+    const startDate = ref('');
+    const endDate = ref('');
+
     const is_A_checked = computed(
       () => {
         if (sortCheckbox.value.includes('日期升序')) {
@@ -278,13 +294,15 @@ export default {
 
         }
       }
-      // console.log(category)
+
       if (isSearchEvent.value) {
         //get the  query from the router
-        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category, input: route.query.input } });
+        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category, input: route.query.input,startDate: startDate.value,endDate:endDate.value } });
 
       } else
-        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category } });
+        router.push({ name: 'events', query: { 
+          page: 1, sort: sorting, category: category,startDate: startDate.value,endDate:endDate.value
+        } });
       //reset the category
       category = '';
     }
@@ -317,10 +335,8 @@ export default {
 
       context.emit("changeEventNumber", perPage.value);
     }
-
-
     return {
-      props, searchEvent, input, isSearchEvent, parent, perPage, changeEventNumber,
+      props, startDate, endDate, searchEvent, input, isSearchEvent, parent, perPage, changeEventNumber,
       Descending, Ascending, sortCheckbox, is_D_checked, is_A_checked, sortEvent, sorting
     };
   },
@@ -330,11 +346,8 @@ export default {
 
 <style scoped>
 .btn-outline-primary {
-
   --bs-btn-border-color: #fff;
   /* --bs-btn-active-bg:#8a56dd */
-
-
 }
 
 .container-md {
