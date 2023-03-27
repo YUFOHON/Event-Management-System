@@ -104,7 +104,7 @@ export default {
         
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
-            alert.value.alert("成功加載活動", "success")
+            alert("成功加載活動", "success")
             console.log(category)
             page = Number(page)
             let response
