@@ -29,20 +29,9 @@
 
           </a>
         </li>
-<<<<<<< HEAD
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/feedBack">Feedback</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ">Disabled</a>
-        </li> -->
-        <li v-if = "role == 'admin'" class="nav-item">
-          <a class="nav-link" href="/users">管理用戶</a>
-=======
 
         <li v-if="role == 'admin'" class="nav-item">
           <a class="nav-link" href="/users">User</a>
->>>>>>> 38119d8613d5bc7a1aaf090d1c1b342aa1dcba5d
         </li>
       </ul>
 

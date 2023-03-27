@@ -9,7 +9,7 @@ import EventFormView from '../views/Bruce/EventFormView.vue'
 import eventHistoryView from '../views/Bruce/EventHistoryView.vue'
 import AdminProfile from '../views/AdminProfile.vue'
 import ClientProfile from '../views/ClientProfile.vue'
-import EditAdminProfile from '../views/EditAdminProfile.vue'
+import EditAdminPronpmfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/Bruce/cEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
@@ -83,7 +83,7 @@ const routes = [
   {
     path: '/editAProfile/:id/',
     name: 'editAdminProfile',
-    component: EditAdminProfile,
+    component: EditAdminPronpmfile,
     meta: { staffAuth: true }
   },
   {
