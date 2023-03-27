@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
 
-import feedBackView from '../views/Bruce/FeedBackView.vue'
+// import feedBackView from '../views/Bruce/FeedBackView.vue'
 
 import EventFormView from '../views/Bruce/EventFormView.vue'
 import eventHistoryView from '../views/Bruce/EventHistoryView.vue'
@@ -20,15 +20,7 @@ import testView from '../views/NicoleTam/testView.vue'
 //and comment out the line below that
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
-<<<<<<< HEAD
-// import feedBackView from '../views/feedBackView.vue'
-=======
-<<<<<<< HEAD
-import feedbackView from '../views/feedBackView.vue'
-=======
 import feedBackView from '../views/feedBackView.vue'
->>>>>>> 733366ffe4a217d0b9a52df71bf752dcd2259e29
->>>>>>> 056bb4806ae6bff3a4613ebdb37f56717f960133
 
 
 import UserView from '../views/UserView.vue'
@@ -72,15 +64,9 @@ const routes = [
     component: RegisterView
   },
   {
-<<<<<<< HEAD
-    path: '/feedback',
-    name: 'Feedback',
-    component: feedbackView
-=======
     path: '/feedBack/:id',
     name: 'feedBackView',
     component: feedBackView
->>>>>>> 733366ffe4a217d0b9a52df71bf752dcd2259e29
   },
   //=====================================JOHN=============================================================
   {
