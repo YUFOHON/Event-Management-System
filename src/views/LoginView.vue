@@ -138,7 +138,7 @@ export default {
     box-shadow: none;
     width: 100%;
     border: none;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 
 .login-button:hover {

@@ -2,7 +2,7 @@
   <nav class="navbar d-none d-lg-block  bg-body-tertiary shadow" style="background-color: white; ">
 
     <div class="d-flex justify-content-between align-items-center ">
-      <a class="navbar-brand " href="/" style="padding-left: 2%;">
+      <a class="navbar-brand " href="/events" style="padding-left: 2%;">
         <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
         CRM
       </a>

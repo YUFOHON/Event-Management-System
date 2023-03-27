@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-sm">
                 <div class="card " :key="event._id">
-                    <img :src=event.image class="card-img-top" alt="...">
+                    <img :src=url style="width:600px;height:500px ; object-fit:cover;" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h2 class="card-title text-danger" style="padding-left: 220px; font-weight: ;">活動信息</h2>
                         <hr class="bg-danger border-2 border-top border-danger">
@@ -36,25 +36,24 @@
                                 <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                                 <ul class="list-group list-group-flush">
 
-                                    <li class="list-group-item">Event Name: {{ event.eventName }}</li>
-
-                                    <li class="list-group-item">Date of event: {{ event.eventDate }} </li>
-                                    <li class="list-group-item">Category: {{ event.Category }} </li>
-                                    <li class="list-group-item">Location: {{ event.eventLocation }} </li>
-                                    <li class="list-group-item">Quota: {{ event.quota }}</li>
-                                    <li class="list-group-item">Target Audience: {{ event.target }} </li>
-                                    <li class="list-group-item">Age Limit: {{ event.ageLimit }} </li>
+                                    <li class="list-group-item">活動名稱：{{ event.eventName }}</li>
+                                    <li class="list-group-item">活動日期：{{ event.eventDate }} </li>
+                                    <li class="list-group-item">類別：{{ event.Category }} </li>
+                                    <li class="list-group-item">地點：{{ event.eventLocation }} </li>
+                                    <li class="list-group-item">名額：{{ event.quota }}</li>
+                                    <li class="list-group-item">目標受眾：{{ event.target }} </li>
+                                    <li class="list-group-item">年齡限制：{{ event.ageLimit }} </li>
                                 </ul>
                             </div>
 
                             <div class="col-sm-6">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Coach: {{ event.coach }} </li>
-                                    <li class="list-group-item">Staff: {{ event.staff }} </li>
-                                    <li class="list-group-item">Responsibility: {{ event.responsibility }}</li>
-                                    <li class="list-group-item">Payment Method: {{ event.pMethod }}</li>
-                                    <li class="list-group-item">Description: {{ event.content }} </li>
-                                    <li class="list-group-item">Remark: {{ event.Remark }} </li>
+                                    <li class="list-group-item">教練：{{ event.coach }} </li>
+                                    <li class="list-group-item">工作人員：{{ event.staff }} </li>
+                                    <li class="list-group-item">職責：{{ event.responsibility }}</li>
+                                    <li class="list-group-item">付款方式：{{ event.pMethod }}</li>
+                                    <li class="list-group-item">描述：{{ event.content }} </li>
+                                    <li class="list-group-item">備註：{{ event.Remark }} </li>
                                 </ul>
                             </div>
                             <!-- <div class="col" style="padding-left: 590px;">
@@ -76,7 +75,7 @@
 
             <div class="col-sm">
                 <registerForm :isRegistered="isRegistered" :eventID="event._id" :eventName="event.eventName"
-                    :userId="userID" :isApproved="isApproved"/>
+                    :userId="userID" :isApproved="isApproved" />
             </div>
         </div>
     </div>
@@ -86,6 +85,7 @@
 import clientNavbar from '@/components/ali/clientNavbar.vue'
 import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 import registerForm from '@/components/Bruce/registerForm.vue';
+// import { url } from 'inspector';
 import { ref, onMounted } from 'vue'
 // import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
@@ -106,56 +106,60 @@ export default {
         const userID = localStorage.getItem('userId');
         const isRegistered = ref(false);
         const isApproved = ref(false);
+        const url = ref('');
+        // async function check_reg_record() {
 
-        async function check_reg_record() {
-
-            var response = await fetch("/api/events/check_reg_record/userID=" + userID.value);
-            if (response.ok) {
-                var result = await response.json();
-                if (result == true) {
-                    alert("You have already registered for this event");
-                } else {
-                    // routerTo();
-                }
-            } else {
-                alert(response.statusText);
-            }
-
-
-        }
-
-        onMounted(async function () {
+        //     var response = await fetch("/api/events/check_reg_record/userID=" + userID.value);
+        //     if (response.ok) {
+        //         var result = await response.json();
+        //         if (result == true) {
+        //             alert("You have already registered for this event");
+        //         } else {
+        //             // routerTo();
+        //         }
+        //     } else {
+        //         alert(response.statusText);
+        //     }
 
 
-            //get the user id from the token
-            // alert(userId);
-            // var response = await fetch("/api/events/search?id=" + path.params.id);
-            var response = await fetch("/api/events/search?id=" + path.params.id);
+        // }
 
-            if (response.ok) {
-                // event.value = await response.json();
-                var data = await response.json();
-                event.value = data.results[0];
-                //if the user has already registered for this event, the register button will be disabled
-                var regsitrationRecord = event.value.registrationRecord
-                for (var i = 0; i < regsitrationRecord.length; i++) {
-                    if (regsitrationRecord[i].userID == userID) {
-                        // console.log(regsitrationRecord)
-                        isRegistered.value = true;
-                        isApproved.value = regsitrationRecord[i].isApproved;
-                        break;
+        onMounted(
+            async function () {
+
+                var response = await fetch("/api/events/search?id=" + path.params.id);
+                if (response.ok) {
+                    // event.value = await response.json();
+                    var data = await response.json();
+                    event.value = data.results[0];
+                    if (event.value.files == undefined) {
+                        url.value = "default"
+                    } else {
+                        var fileFormat = event.value.files[0].split("/")[1].split(";")[0]
+                        url.value = '/api/files/' + path.params.id + '.' + fileFormat
                     }
+
+                    //if the user has already registered for this event, the register button will be disabled
+                    var regsitrationRecord = event.value.registrationRecord
+                    for (var i = 0; i < regsitrationRecord.length; i++) {
+                        if (regsitrationRecord[i].userID == userID) {
+                            // console.log(regsitrationRecord)
+                            isRegistered.value = true;
+                            isApproved.value = regsitrationRecord[i].isApproved;
+                            break;
+                        }
+                    }
+
+
+                } else {
+                    alert(response.statusText);
                 }
 
-
-            } else {
-                alert(response.statusText);
             }
-
-        });
+        );
 
         return {
-            event,isApproved, check_reg_record, registerForm, navSecondBar, userID, isRegistered
+            url,event, isApproved, registerForm, navSecondBar, userID, isRegistered
         };
 
     },
