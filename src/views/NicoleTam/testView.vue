@@ -1,9 +1,9 @@
 <template>
-    <div> 
+    <!-- <div> 
         <star-rating :max-stars="5" :initial-rating="3"></star-rating>
     <p>Current rating: {{ currentRating }}</p>
-    </div>
-    <!-- <head>
+    </div> -->
+    <head>
         <meta charset="utf-8">
 
         <title>VueJS Quiz Sample</title>
@@ -56,13 +56,13 @@
                 </div>
             </div>
         </div>
-    </body> -->
+    </body>
 </template>
 
 
 <script>
-import StarRating from '@/components/NicoleTam/starRating.vue';
-import starRating from '@/components/NicoleTam/starRating.vue'
+// import StarRating from '@/components/NicoleTam/starRating.vue';
+// import starRating from '@/components/NicoleTam/starRating.vue'
 
 let quiz = {
     title: "Quiz Sample Title",
@@ -113,7 +113,7 @@ export default {
         error: ""
     }),
     setup() {
-        return { starRating };
+        // return { starRating };
     },
     methods: {
         prev: function () {
@@ -135,6 +135,6 @@ export default {
             this.questionIndex = 0;
         }
     },
-    components: { StarRating }
+    // components: { StarRating }
 }
 </script>

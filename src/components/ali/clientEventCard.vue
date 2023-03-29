@@ -19,6 +19,19 @@
                     </div>
                 </li>
 
+                <li class="list-group-item" style="margin-top: -4%;">
+                 
+                 <div class="row">
+                     <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
+
+                         日期
+
+                     </div>
+                     <div class="col gy-3">{{ props.Date }}</div>
+                 </div>
+             </li>
+
+
                 <li class="list-group-item" >
                     <div class="content overflow-auto row" style="height:5rem ;">
 
@@ -28,25 +41,16 @@
                     </div>
                 </li>
 
-                <li class="list-group-item" style="margin-top: -5%;">
-                 
-                    <div class="row">
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
-
-                            日期
-
-                        </div>
-                        <div class="col gy-3">{{ props.Date }}</div>
-                    </div>
-                </li>
+                
+           
             
 
             <div class="" style="padding-left: 42%; padding-top: 4%;">
                 <router-link :to="'/eventDetails/' + props.id" class="btn btn-danger ">Register</router-link>
             </div>
 
-            <li class="list-group-item">
-                    <div class="content overflow-auto row" style="height:5rem ;">
+            <li class="list-group-item" style="margin-top: 10px;">
+                    <div class="content overflow-auto row" >
 
                         <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
 
@@ -193,7 +197,7 @@ animation-duration: 0.5s;
 animation-name: slidein;
 /* transform: skewX(5deg); */
 width: 355px;
-height: 334px;
+height: 335px;
 margin: 1rem;
 border-radius: 1rem;
 /* box-shadow: 5px 5px 15px #af8221; */
@@ -224,7 +228,7 @@ transition: 0.3s;
 .eventName {
 font-size: 1.4rem;
 font-weight: 700;
-margin-bottom: 0.5rem;
+margin-bottom: 0.3rem;
 }
 
 ::-webkit-scrollbar {
@@ -301,7 +305,7 @@ transition: 0.3s;
 }
 
 span {
-font-weight: 1000;
+font-weight: 800;
 
 }
 

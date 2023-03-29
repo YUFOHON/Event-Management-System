@@ -18,36 +18,39 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h1 style="font-weight:bolder">用戶設定</h1>
             </div>
-            <hr>
-            <h3>基本資料</h3>
+            <!-- <hr> -->
+
+            <!-- <h3>基本資料</h3> -->
             <div class="row mt-2">
-              <div class="col-md-6"><label class="labels">姓名</label><input type="text" class="form-control"
-                  placeholder="Name" v-model="users.username"></div>
+              <!-- <div class="col-md-6"><label class="labels">姓名</label><input type="text" class="form-control"
+                  placeholder="Name" v-model="users.username" readonly></div>
               <div class="col-md-6"><label class="labels">兒童編號</label><input type="text" class="form-control"
-                  placeholder="" v-model="users.Child_ID"></div>
+                  placeholder="" v-model="users.Child_ID" readonly></div>
               <div class="col-md-6"><label class="labels">年齡</label><input type="number" min="0" max="150"
-                  class="form-control" placeholder="" v-model="users.Age"></div>
-              <div class="col-md-6"><label class="labels">性別</label>
+                  class="form-control" placeholder="" v-model="users.Age" readonly></div> -->
+              <!-- <div class="col-md-6"><label class="labels">性別</label>
                 <select id="gender" v-model="users.Sex" class="form-control">
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
-              </div>
-              <div class="col-md-6"><label class="labels">醫院</label><input type="text" class="form-control" placeholder=""
-                  v-model="users.Hospital"></div>
+              </div> -->
+              <!-- <div class="col-md-6"><label class="labels">醫院</label><input type="text" class="form-control" placeholder=""
+                  v-model="users.Hospital" readonly></div>
               <div class="col-md-6"><label class="labels">診斷</label><input type="text" class="form-control" placeholder=""
-                  v-model="users.Diagnosis"></div>
+                  v-model="users.Diagnosis" readonly></div>
 
               <div class="col-md-12"><label class="labels">負責員工</label><input type="text" class="form-control"
-                  v-model="users.Responsible_Worker" max="2023-07-22"></div>
+                  v-model="users.Responsible_Worker" max="2023-07-22" readonly></div>
               <div class="col-md-12"><label class="labels">Date_of_open</label><input type="date" class="form-control"
-                  v-model="users.Date_of_open"></div>
+                  v-model="users.Date_of_open" readonly></div> -->
 
-              <div class="col-md-12"><label class="labels">Onset_date</label><input type="date" class="form-control"
-                  v-model="users.Onset_date" data-date-format="DD MMMM YYYY"></div>
+              <!-- <div class="col-md-12"><label class="labels">Onset_date</label><input type="date" class="form-control"
+                  v-model="users.Onset_date" data-date-format="DD MMMM YYYY" readonly></div> -->
               <!-- {{users.Onset_date}} -->
-              <div class="col-md-12"><label class="labels">Relapsed_date</label><input type="date" class="form-control"
-                  v-model="users.Relapsed_date"></div>
+              <!-- <div class="col-md-12"><label class="labels">Relapsed_date</label><input type="date" class="form-control"
+                  v-model="users.Relapsed_date" readonly></div> -->
+              
+              
               <hr style="margin-top: 30px;">
               <h3>親屬關係</h3>
               <div class="col-md-6"><label class="labels">聯絡人</label><input type="text" class="form-control"

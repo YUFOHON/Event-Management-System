@@ -96,7 +96,7 @@ export default {
         }
 
         const handleChangeEventNumber = (eventNumber) => {
-            // alert(eventNumber, "success")
+            alert(eventNumber, "success")
             perPage.value = eventNumber
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         }
@@ -104,8 +104,8 @@ export default {
         
         async function fetchEvent(page, sort, input, category) {
             [page, sort, category] = checkRouterValue(page, sort, category)
-            // alert.value.alert("成功加載活動", "success")
-            console.log(category)
+            alert("成功加載活動", "success")
+            //console.log(category)
             page = Number(page)
             let response
             if (input == undefined || input == '') {

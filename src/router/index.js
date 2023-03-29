@@ -173,7 +173,7 @@ router.beforeEach((to, from, next) => {
       return next();
     } else {
       alert("您沒有權限登入", 99999);
-      router.push({ path: '/' });
+      router.push({ path: '/cEvents' });
     }
   }
 
@@ -183,7 +183,7 @@ router.beforeEach((to, from, next) => {
       return next();
     } else {
       alert("您沒有權限登入", 99999);
-      router.push({ path: '/' });
+      router.push({ path: '/events' });
     }
   }
 
