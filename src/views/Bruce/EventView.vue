@@ -115,8 +115,13 @@ export default {
                 startDate = '1900-01-01'
             }
             if (endDate == undefined || endDate == '') {
-                //get the current date value
-                endDate = new Date().toISOString().slice(0, 10)
+                //get the current date value's next day
+                // endDate= new Date().toDateString()
+                
+                let currentDate = new Date();
+let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
+let nextDayISO = nextDay.toISOString().slice(0, 10);
+endDate = nextDayISO
                 alert(endDate)
             }
             return [page, sort, category,startDate,endDate]
