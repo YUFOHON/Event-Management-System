@@ -3,8 +3,8 @@
 
 
 
-  <div class="row py-4" id="navSecondBar">
-    <navSecondBar :arr="[
+  <div class="row py-4" id="navSecondBar" style="z-index: 0;">
+    <navSecondBar  :arr="[
       {
         name: '主頁',
         URL: '/'
@@ -21,7 +21,7 @@
       }
     ]" :sortButton="false" :eventHistoryButton="false" :addButton="false" :searchButton="false" />
 
-    <div class="d-flex flex-row mb-3 justify-content-center" id="search" style="position: absolute;margin-top: -5px; ">
+    <div class="d-flex flex-row mb-3 justify-content-center" id="search" style="position: absolute;margin-top: -5px; z-index: 0;width: 50%; margin-left: 20%;">
 
       <div class="p-2"> <input placeholder="輸入活動資料" class="form-control" v-model="input" type="text" id="demo"></div>
       <!-- <div class="p-2"> <button type="button" @click="search" class="btn btn-danger" id="search">查找</button></div> -->
@@ -29,7 +29,7 @@
 
 
   </div>
-  <div class="col col-10 py-4" id="table">
+  <div class="col col-10 py-4" id="table" >
 
     <div class="container">
       <table class="table table-Secondary table-striped">
@@ -48,7 +48,12 @@
             <td>{{ a.eventName }} </td>
             <td>{{ a.eventDate }}</td>
             <td>{{ a.Category }}</td>
-            <td> <button class="btn btn-danger" type="button">Button</button></td>
+            <td>
+
+               <!-- <button class="btn btn-danger" type="button">查看</button> -->
+               <router-link :to="'/events/eventForm/' + a._id" class="btn btn-danger  ">查看</router-link>
+
+              </td>
           </tr>
 
         </tbody>

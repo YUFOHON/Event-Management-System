@@ -4,19 +4,26 @@
     </div>
     <div class="backGround">
 
+
         <div class="container-md mt-4">
             <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between">
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">主頁 / <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users">用戶</a>
-                        </li>
-                    </ul>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">主頁 / <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">用戶</a>
+                    </li>
+                </ul>
 
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-1">
                         <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
                             aria-label="Search">
@@ -91,7 +98,8 @@
 
                                 <!-- 
                                 <button type="submit">Details</button> -->
-                                <router-link :to="'/user/' + user._id"><button class="btn btn-primary check-button">查看</button></router-link>
+                                <router-link :to="'/user/' + user._id"><button
+                                        class="btn btn-primary check-button">查看</button></router-link>
                                 <!-- <a href="/cProfile" class="card-link">Details</a>   -->
                             </div>
 
@@ -106,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-4">
                 <nav aria-label="...">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
@@ -322,13 +330,13 @@ export default {
 }
 
 .check-button {
-  background: #FE8F8F;
-  box-shadow: none;
-  border: none
+    background: #FE8F8F;
+    box-shadow: none;
+    border: none
 }
 
 .check-button:hover {
-  background: #FCD2D1;
+    background: #FCD2D1;
 }
 
 
@@ -373,4 +381,23 @@ body {
     border-radius: 20px;
     background-color: #c1c1c153;
 }
+
+.page-item{
+    color: #f06565;
+}
+
+
+.page-item :hover{
+    background: #FCD2D1;
+    color: white;
+}
+
+.pagination .page-item .active{
+    background: #FE8F8F;
+}
+.pagination{
+    --bs-pagination-color: dimgray;
+    --bs-pagination-active-border-color: white;
+}
+
 </style>

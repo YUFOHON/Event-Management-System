@@ -12,46 +12,43 @@
 
             <ul class="list-group list-group-flush">
 
-                <li class="list-group-item" style="margin-top: -5%;">
+                <li class="list-group-item" style="margin-top: -0%;">
                     <div class="card-title row">
                         <!-- <p ref="root" class="eventName text-center">
                                     名稱： {{ props.eventName }}
                                 </p> -->
 
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">名稱 </div>
+                        <!-- <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">名稱 </div> -->
 
-                        <div class="col gy-3">{{ props.eventName }}</div>
+                        <div class="col " :style="{ 'font-weight': 'bolder', 'color': textColor }">
+
+                            <p class="" style="text-align: center;"> {{ props.eventName }}</p>
+
+                        </div>
                     </div>
                 </li>
 
-                <li class="list-group-item" >
-                    <div class="content overflow-auto row" style="height:5rem ;">
 
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
-
-                        <div class="col gy-3">{{ props.content }}</div>
-                    </div>
-                </li>
                 <li class="list-group-item" style="margin-top: -4%;">
                     <!-- <p class="card-text text-center">日期：{{ props.Date }}</p> -->
                     <div class="row">
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
 
-                            日期
-
+                        <div class="col " :style="{ 'font-weight': 'bolder', 'color': textColor }">
+                            <p class="" style="text-align: center;"> {{ props.Date }}</p>
                         </div>
-                        <div class="col gy-3">{{ props.Date }}</div>
                     </div>
                 </li>
-                <div class="" style="padding-left: 42%; margin-top: 4%">
+                <div class="" style="padding-left: 42%; margin-top: %">
                     <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
                 </div>
                 <li class="list-group-item" style="margin-top: 10px;  ">
                     <div class="content  overflow-auto row">
 
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
+                        <!-- <div class="col col-5  pt-3" >內容 </div> -->
 
-                        <div class="col gy-3">{{ props.content }}</div>
+                        <div class="col gy-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
+                            <p class="" style="text-align: center;"> {{ props.content }}</p>
+                        </div>
                     </div>
                 </li>
 
@@ -122,7 +119,7 @@ export default {
             }
         }
         )
-        
+
         const fileFormat = ref('')
         const url = ref(props.image)
         const textColor = ref('#000000')
@@ -166,6 +163,7 @@ export default {
 animation:rainbow-animation 200ms linear infinite;
 } */
 
+
  @keyframes slidein {
 
      /* from {
@@ -191,7 +189,7 @@ animation:rainbow-animation 200ms linear infinite;
 
  .card:hover {
      /* background-color: #c1c1c153; */
-     height: 430px;
+     height: 460px;
      transform: skew(0deg);
      transform: scale(1.08);
      transition: 0.7s;

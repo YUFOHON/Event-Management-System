@@ -1,7 +1,6 @@
 <template>
    <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor =defaultColor">
 
-
         <div class=" card-body py-4" style="margin-top: -5%;">
 
             <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
@@ -10,49 +9,37 @@
             
             <ul class="list-group list-group-flush">
 
-                <li class="list-group-item" style="margin-top: -5%;">
+                <li class="list-group-item" style="margin-top: 0%;">
                     <div class="card-title row">
                        
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">名稱 </div>
+                        <div class="col" :style="{ 'font-weight': 'bolder', 'color': textColor }">
 
-                        <div class="col gy-3">{{ props.eventName }}</div>
-                    </div>
-                </li>
-
-                <li class="list-group-item" >
-                    <div class="content overflow-auto row" style="height:5rem ;">
-
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
-
-                        <div class="col gy-3">{{ props.content }}</div>
-                    </div>
-                </li>
-
-                <li class="list-group-item" style="margin-top: -5%;">
-                 
-                    <div class="row">
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
-
-                            日期
-
+                            <p class="" style="text-align: center;"> {{ props.eventName }}</p>
                         </div>
-                        <div class="col gy-3">{{ props.Date }}</div>
                     </div>
                 </li>
-            
 
-            <div class="" style="padding-left: 42%; padding-top: 4%;">
+                <li class="list-group-item" style="margin-top: -4%;">
+                 
+                 <div class="row">
+                     <div class="col" :style="{ 'font-weight': 'bolder', 'color': textColor }">
+                        <p class="" style="text-align: center;"> {{ props.Date }}</p>
+                     </div>
+                 </div>
+             </li>
+
+             <div class="" style="padding-left: 42%; padding-top: ;">
                 <router-link :to="'/eventDetails/' + props.id" class="btn btn-danger ">Register</router-link>
             </div>
 
-            <li class="list-group-item">
-                    <div class="content overflow-auto row" style="height:5rem ;">
-
-                        <div class="col col-5  pt-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">內容 </div>
-
-                        <div class="col gy-3">{{ props.content }}</div>
+                <li class="list-group-item" style="margin-top: 10px;" >
+                    <div class="content overflow-auto row">
+                        <div class="col gy-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
+                            <p class="" style="text-align: center;"> {{ props.content }}</p>
                     </div>
-                </li>
+                </div>
+            </li>
+
 
             </ul>
         </div>
@@ -177,7 +164,7 @@ to {
 
 .card:hover {
 /* background-color: #c1c1c153; */
-height: 430px;
+height: 460px;
 transform: skew(0deg);
 transform: scale(1.08);
 transition: 0.7s;
@@ -296,13 +283,23 @@ font-weight: 700;
 font-size: 1.2rem;
 border: none;
 transition: 0.3s;
-
+box-shadow: -15px -15px 30px 0 #fff, 15px 15px 30px 0 #1d0dca17;
+width: 353px;
+margin-left: -81%;
+margin-top: 3%;
 
 }
+.btn:hover {
+     background-color: v-bind('btnColor');
+     /* box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1; */
+     box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+         -4px -4px 6px 0 rgba(116, 125, 136, .5),
+         inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+         inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+ }
 
 span {
 font-weight: 1000;
-
 }
 
 

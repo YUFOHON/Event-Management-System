@@ -2,7 +2,7 @@
     <div>
         <div v-if="isSearchEvents" class="d-flex">
             <nav aria-label="Page navigation">
-                <ul class="pagination">
+                <ul class="pagination pagination-circle">
 
                     <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
                         <a class="page-link" @click="prePage">
@@ -47,28 +47,25 @@
                 <ul class="pagination pagination-circle">
 
                     <li :class="curPage == 1 ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" @click="prePage">
-                            Previous
+                        <a class="page-link" @click="prePage" style="background: none; border: none; color: #9b0000;">
+                            <font-awesome-icon icon="fa-solid fa-chevron-left" />
                         </a>
                     </li>
 
                     <li :class="props.curPage == page ? 'active' : 'page-item'" v-for="page in pages" :key="page">
-                        <!-- <a class="page-link " v-on:click="this.$emit('fetchPage', page, props.sort)" v-if="page != '...'"> -->
                         <router-link v-if="page != '...'" class="page-link"
                             :to="`/cEvents/?page=${page}&sort=${props.sort}&category=${category}`">
                             {{ page }}
                         </router-link>
-                        <!-- </a> -->
                         <router-link v-else class="page-link" :to="`/cEvents/?page=${page}&sort=${props.sort}`">
-                            <!-- <a class="page-link " v-else> -->
                             {{ page }}
                             <!-- </a> -->
                         </router-link>
                     </li>
 
                     <li :class="props.curPage == props.lastPage ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" @click="nextPage">
-                            Next
+                        <a class="page-link" @click="nextPage" style="background: none; border: none; color: #9b0000;">
+                            <font-awesome-icon icon="fa-solid fa-chevron-right"/>
                         </a>
                     </li>
 

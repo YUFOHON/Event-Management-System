@@ -87,47 +87,6 @@
                 <button class="btn btn-primary" @click="addSibling">Add Sibling</button>
 
             </div> -->
-
-                        <div v-if="user.Sibling_1 != null && user.Age_1 != null" class="row mt-4">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">兄弟姐妹(1)</label>
-                                <input type="text" class="form-control" v-model="user.Sibling_1">
-                            </div>
-
-
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">年紀(1)</label>
-                                <div class="form-inline">
-                                    <input type="text" class="form-control" v-model="user.Age_1">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="row mt-4">
-                            <button class="btn btn-outline-primary">Add Siblings</button>
-                        </div> -->
-
-
-                        <div v-if="user.Sibling_2 != null && user.Age_2 != null" class="row mt-4">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">兄弟姐妹(2)</label>
-                                <input type="text" class="form-control" v-model="user.Sibling_2">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">年紀(2)</label>
-                                <input type="text" class="form-control" v-model="user.Age_2">
-                            </div>
-                        </div>
-                        <div v-if="user.Sibling_3 != null && user.Age_3 != null" class="row mt-4">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">兄弟姐妹(3)</label>
-                                <input type="text" class="form-control" v-model="user.Sibling_3">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">年紀(3)</label>
-                                <input type="text" class="form-control" v-model="user.Age_3">
-                            </div>
-                        </div>
-
                         <div class="row mt-4">
                             <div class="form-group col-md-4">
                                 <label for="inputZip">Date of Open</label>
@@ -139,13 +98,62 @@
                                 <input v-model="user.Onset_date" data-format="dd/mm/yyyy" type="date" class="form-control">
                             </div>
 
-                            <!-- <div class="col">
-              <div class="mb-3">
-                <label for="eventDate" class="form-label">活動日期</label>
-                <input v-model="result.eventDate" data-format="dd/mm/yyyy" type="date" class="form-control" id="eventDate"
-                  aria-describedby="emailHelp">
-              </div>
-            </div> -->
+                            <hr class="mt-4">
+                            <div v-if="user.Sibling_1 != null && user.Age_1 != null" class="row mt-4">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">兄弟姐妹(1)</label>
+                                    <input type="text" class="form-control" v-model="user.Sibling_1">
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">年紀(1)</label>
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control" v-model="user.Age_1">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row mt-4">
+                                <button @click.prevent="addSibling" class="btn btn-outline-primary">Add Siblings</button>
+                            </div>
+
+                            <div v-for="(relative, index) in relatives" :key="index" class="row mt-4">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" v-model="relative.Sibling"
+                                        placeholder="Enter Sibling's name: " />
+                                    <input type="text" class="form-control" v-model="relative.Age"
+                                        placeholder="Enter Sibling's age: " />
+                                </div> -->
+                                <!-- <div class="form-group col-md-6">
+                                    <label for="inputCity">年紀(2)</label>
+                                    <input type="text" class="form-control" v-model="user.Age_2">
+                                </div> -->
+                                <!-- <button @click.prevent="remove(index)" class="btn btn-outline-danger" v-show="index != 0">
+                                    Remove
+                                </button>
+                            </div> -->
+
+
+                            <div v-if="user.Sibling_2 != null && user.Age_2 != null" class="row mt-4">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">兄弟姐妹(2)</label>
+                                    <input type="text" class="form-control" v-model="user.Sibling_2">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">年紀(2)</label>
+                                    <input type="text" class="form-control" v-model="user.Age_2">
+                                </div>
+                            </div>
+                            <div v-if="user.Sibling_3 != null && user.Age_3 != null" class="row mt-4">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">兄弟姐妹(3)</label>
+                                    <input type="text" class="form-control" v-model="user.Sibling_3">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">年紀(3)</label>
+                                    <input type="text" class="form-control" v-model="user.Age_3">
+                                </div>
+                            </div>
 
                         </div>
                         <div class="row justify-content-center align-items-center">
@@ -180,12 +188,24 @@ export default {
         // navSecondBar
         // SideBar
     },
+    data() {
+        return {
+            relatives: [
+                {
+                    Sibling_2: "",
+                },
+            ],
+        };
+    },
     methods: {
         addSibling() {
-            this.user.push({
-                Sibling_2: '',
-                Age_2: ''
-            })
+            this.relatives.push({
+                Sibling: "",
+                Age: ""
+            });
+        },
+        remove(index){
+            this.relative.splice(index,1);
         }
     },
 

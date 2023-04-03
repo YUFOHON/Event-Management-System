@@ -5,9 +5,9 @@
 
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                                      border-radius:50%;">
+                                                                                        border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                                      border-radius:50%;">
+                                                                                        border-radius:50%;">
         <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg"
           multiple />
       </div>
@@ -111,7 +111,7 @@
             </div>
           </div>
 
-  
+
 
           <div v-if="!loading" class=" py-4 d-flex justify-content-evenly">
             <div class="b">
@@ -174,9 +174,9 @@
     <div v-if="!isEventFormDetail" class="row" id="add" style="margin-top: -10px;">
       <div class="col" id="eventImg" style="margin-right: 80px;">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                                 border-radius:50%;">
+                                                                                   border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                    border-radius:50%;">
+                                                                      border-radius:50%;">
         <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
           class="test" accept=".jpg,.jpeg" multiple />
       </div>
@@ -327,11 +327,15 @@ export default {
       var msg = ""
       if (result.value.Category == "") {
         msg += "請選擇活動種類"
-        alert.value.alert(msg, "danger")
+        alert(msg, "danger")
         return
-      } else if (result.value.name == "") {
+      } else if (result.value.eventName == "") {
         msg += "請輸入活動名稱"
-        alert.value.alert(msg, "danger")
+        alert(msg, "danger")
+        return
+      } else if (result.value.eventDate == "") {
+        msg += "請輸入活動日期"
+        alert(msg, "danger")
         return
       }
       loading.value = true;
@@ -346,9 +350,9 @@ export default {
       //reload the page 
       // alert(response.statusText)
       if (response.status == 200)
-        alert.value.alert("上傳成功", "success")
+        alert("上傳成功", "success")
       else
-        alert.value.alert("上傳失敗", "danger")
+        alert("上傳失敗", "danger")
       //relocate to event page
       location.href = "/events"
     }
@@ -389,7 +393,7 @@ export default {
       if (result.value.Category == "") {
         var msg = ""
         msg += "請選擇活動種類"
-        alert.value.alert(msg, "danger")
+        alert(msg, "danger")
         return
       }
 
@@ -459,7 +463,7 @@ export default {
 
     onMounted(() => {
       // console.log(fileInput.value)
-     alert("點擊用戶名查看詳細資料", "success", "3000")
+      alert("點擊用戶名查看詳細資料", "success", "3000")
 
       if (props.isEventFormDetail) {
         getEventDetail()

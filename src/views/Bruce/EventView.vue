@@ -7,11 +7,10 @@
     </div>
 
 
+
     <div :class="bg">
         <div class="row py-4" id="navSecondBar">
-            <navSecondBar
-            @changeEventNumber="handleChangeEventNumber"
-            :arr="[
+            <navSecondBar @changeEventNumber="handleChangeEventNumber" :arr="[
                 {
                     name: '主頁',
                     URL: '/events'
@@ -23,6 +22,7 @@
                 }
             ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
                 :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
+
         </div>
         <div class="row" id="cards">
 
@@ -101,7 +101,7 @@ export default {
         //     alert(decodedText);
         //     console.log(decodedText, decodedResult)
         // }
-        const checkRouterValue = (page, sort, category) => {
+        const checkRouterValue = (page, sort, category, startDate, endDate) => {
             if (category == undefined || category == '') {
                 category = ['兒童活動|青年活動|活動義工招募|同路人支援平台']
             }
@@ -111,7 +111,20 @@ export default {
             if (sort == undefined || sort == '') {
                 sort = 'Descending'
             }
-            return [page, sort, category]
+            if (startDate == undefined || startDate == '') {
+                startDate = '1900-01-01'
+            }
+            if (endDate == undefined || endDate == '') {
+                //get the current date value's next day
+                // endDate= new Date().toDateString()
+
+                let currentDate = new Date();
+                let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
+                let nextDayISO = nextDay.toISOString().slice(0, 10);
+                endDate = nextDayISO
+                alert(endDate)
+            }
+            return [page, sort, category, startDate, endDate]
         }
         const excelData = ref([]);
         const importExcel = (files) => {
@@ -148,8 +161,8 @@ export default {
         }
         //check the router value and set the default background iamge
 
-        async function fetchEvent(page, sort, input, category) {
-            [page, sort, category] = checkRouterValue(page, sort, category)
+        async function fetchEvent(page, sort, input, category, startDate, endDate) {
+            [page, sort, category, startDate, endDate] = checkRouterValue(page, sort, category, startDate, endDate)
             alert("成功加載活動", "success")
             // console.log(category)
             page = Number(page)
@@ -160,7 +173,8 @@ export default {
                 navSecondBar.value.isSearchEvent = false
                 pagination.value.isSearchEvents = false
                 pagination.value.category = category
-                response = await fetch('/api/events?perPage=' + perPage.value + "&page=" + page + "&sort=" + sort + "&category=" + category, {
+                response = await fetch('/api/events?perPage=' + perPage.value + "&page=" + page + "&sort=" + sort + "&category=" + category
+                    + "&startDate=" + startDate + "&endDate=" + endDate, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -174,7 +188,7 @@ export default {
                 pagination.value.input = input
                 pagination.value.category = category
 
-                response = await fetch('/api/events/searchAll?input=' + input+'&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category, {
+                response = await fetch('/api/events/searchAll?input=' + input + '&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category + "&startDate=" + startDate + "&endDate=" + endDate, {
                     method: 'POST'
 
                 })
@@ -259,14 +273,15 @@ export default {
 
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
-
             alert("歡迎回來", "success")
-
-            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
+            fetchEvent(
+                route.query.page, route.query.sort, route.query.input, route.query.category
+                , route.query.startDate, route.query.endDate
+            )
         })
         return {
             bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            importExcel, excelData, deleteRow, uploadTable,perPage,handleChangeEventNumber
+            importExcel, excelData, deleteRow, uploadTable, perPage, handleChangeEventNumber
             //  QrCode, onScan
 
         }
