@@ -180,29 +180,29 @@ export default {
       result.value.name = userData.value.username
       result.value.members = selectedMembers.value.push(selectedMember.value)
       alert(JSON.stringify(result.value), "success", 90000000)
-      // var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email + "&eventName=" + props.eventName, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
+      var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email + "&eventName=" + props.eventName, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
 
-      // });
+      });
 
-      // var sendEmail = await fetch('/api/sendmail?email=' + result.value.email, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   // body: JSON.stringify(result.value)
-      // })
-      // if (sendEmail.status == 200) {
-      //   alert("已寄送郵件至您的信箱，請至信箱確認", "success", 5000)
-      // } else {
-      //   alert("未知錯誤發生", "danger")
-      // }
-      // if (response.status == 201) {
-      //   location.reload()
-      // }
+      var sendEmail = await fetch('/api/sendmail?email=' + result.value.email, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify(result.value)
+      })
+      if (sendEmail.status == 200) {
+        alert("已寄送郵件至您的信箱，請至信箱確認", "success", 5000)
+      } else {
+        alert("未知錯誤發生", "danger")
+      }
+      if (response.status == 201) {
+        location.reload()
+      }
 
     }
 
