@@ -77,11 +77,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="col col-14 ">
+                <!-- <div class="col col-14 ">
                     <p class="position-relative  px-5 " style="color:red">活動數量:{{ perPage }}</p>
                     <input @change="changeEventNumber" v-model="perPage" type="range" class="form-range" id="ageLimit"
                       min="12" max="50">
-                  </div>
+                  </div> -->
 
                 <div class="row" style="padding-left:48%;">
                   <button @click="sortEvent" type="btn" class="btn btn-danger "
