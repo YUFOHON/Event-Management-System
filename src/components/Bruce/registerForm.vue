@@ -169,10 +169,9 @@ export default {
       }
     })
 
-
     // register function that will send the data to the backend
     async function register() {
-      if (message.value == false) {
+      if (message.value != "同意") {
         alert("請同意條款", "danger")
         return
       }
@@ -261,7 +260,7 @@ export default {
     }
     const handleScroll = () => {
       var consentForm = document.getElementById("consentForm")
-      if (consentForm.scrollHeight - consentForm.scrollTop == consentForm.clientHeight) {
+      if (consentForm.scrollHeight - consentForm.scrollTop >= consentForm.clientHeight) {
         //scroll bar is scrolled to the bottom, the form is available
         isRead.value = true
         alert("您已成功閱讀條款", "success")
@@ -284,7 +283,6 @@ export default {
         //get user info api is /api/users/:id
 
         getUserInfo()
-
 
 
         // GoogleReCaptcha.init({
@@ -428,3 +426,4 @@ textarea {
   color: black;
 }
 </style>
+
