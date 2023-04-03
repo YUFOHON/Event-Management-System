@@ -117,14 +117,14 @@ export default {
             if (endDate == undefined || endDate == '') {
                 //get the current date value's next day
                 // endDate= new Date().toDateString()
-                
+
                 let currentDate = new Date();
-let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
-let nextDayISO = nextDay.toISOString().slice(0, 10);
-endDate = nextDayISO
+                let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
+                let nextDayISO = nextDay.toISOString().slice(0, 10);
+                endDate = nextDayISO
                 alert(endDate)
             }
-            return [page, sort, category,startDate,endDate]
+            return [page, sort, category, startDate, endDate]
         }
         const excelData = ref([]);
         const importExcel = (files) => {
@@ -188,7 +188,7 @@ endDate = nextDayISO
                 pagination.value.input = input
                 pagination.value.category = category
 
-                response = await fetch('/api/events/searchAll?input=' + input + '&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category+ "&startDate=" + startDate + "&endDate=" + endDate, {
+                response = await fetch('/api/events/searchAll?input=' + input + '&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category + "&startDate=" + startDate + "&endDate=" + endDate, {
                     method: 'POST'
 
                 })

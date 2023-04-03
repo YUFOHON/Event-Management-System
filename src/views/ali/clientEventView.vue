@@ -1,23 +1,20 @@
 <template>
-    
     <div class="row" id="clientNavbar">
-        <clientNavbar/>
+        <clientNavbar />
     </div>
-    
-    <div :class="bg">
-    <div class="row py-4" id="clientNav2bar">
-        <clientNav2bar 
-        @changeEventNumber="handleChangeEventNumber"
-        :arr="[
-        {
-            name: '主頁',
-            URL: '/cEvents'
-        }
 
-        ]" :sortButton="true" :searchButton="true"
-        :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="clientNav2bar"/>
-    </div>
-    
+    <div :class="bg">
+        <div class="row py-4" id="clientNav2bar">
+            <clientNav2bar @changeEventNumber="handleChangeEventNumber" :arr="[
+                {
+                    name: '主頁',
+                    URL: '/cEvents'
+                }
+
+            ]" :sortButton="true" :searchButton="true" :isSearchEvents="isSearchEvents" @sorting="fetchEvent"
+                @searchEvent="fetchSearchEvent" ref="clientNav2bar" />
+        </div>
+
         <div class="row" id="cards">
 
             <!-- <div class="col col-1 py-4 px-4" id="sideBarContainer">
@@ -38,13 +35,12 @@
             </div>
         </div>
 
-                <div class="d-flex justify-content-center p-4" id="clientPagination">
-                    <clientPagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
-                        :isSearchEvents="isSearchEvents" ref="clientPagination" />
+        <div class="d-flex justify-content-center p-4" id="clientPagination">
+            <clientPagination :pagesProps="arr" :curPage="curPage" :lastPage="lastPage" :sort="sortDefault"
+                :isSearchEvents="isSearchEvents" ref="clientPagination" />
 
-                </div>
-            </div>
-     
+        </div>
+    </div>
 </template>
 
 <script>
@@ -82,30 +78,41 @@ export default {
         const cardWidth = ref(22 + 2 * 5)
         const route = useRoute()
 
-        const checkRouterValue = (page, sort, category) => {
-            if (category == undefined || category == '') {
+        const checkRouterValue = (page, sort, category, startDate, endDate) => {
+            if (!category) {
                 category = ['兒童活動|青年活動|活動義工招募|同路人支援平台']
             }
-            if (page == undefined) {
+            if (!page) {
                 page = 1
             }
-            if (sort == undefined || sort == '') {
+            if (!sort) {
                 sort = 'Descending'
             }
-            return [page, sort, category]
+            if (!startDate) {
+                startDate = '1900-01-01'
+            }
+            if (!endDate) {
+                //get the current date value's next day
+
+                let currentDate = new Date();
+                let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
+                let nextDayISO = nextDay.toISOString().slice(0, 10);
+                endDate = nextDayISO
+                alert(endDate)
+            }
+            return [page, sort, category, startDate, endDate]
         }
 
         const handleChangeEventNumber = (eventNumber) => {
             alert(eventNumber, "success")
             perPage.value = eventNumber
-            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
+            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category, route.query.startDate, route.query.endDate )
         }
-        
-        
-        async function fetchEvent(page, sort, input, category) {
-            [page, sort, category] = checkRouterValue(page, sort, category)
+
+
+        async function fetchEvent(page, sort, input, category, startDate, endDate) {
+            [page, sort, category, startDate, endDate] = checkRouterValue(page, sort, category, startDate, endDate)
             alert("成功加載活動", "success")
-            //console.log(category)
             page = Number(page)
             let response
             if (input == undefined || input == '') {
@@ -114,7 +121,7 @@ export default {
                 clientNav2bar.value.isSearchEvent = false
                 clientPagination.value.isSearchEvents = false
                 clientPagination.value.category = category
-                response = await fetch('/api/cEvents?perPage=' + perPage.value + "&page=" + page + "&sort=" + sort + "&category=" + category, {
+                response = await fetch('/api/cEvents?perPage=' + perPage.value + "&page=" + page + "&sort=" + sort + "&category=" + category + "&startDate=" + startDate + "&endDate=" + endDate, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -127,10 +134,9 @@ export default {
                 clientPagination.value.isSearchEvents = true
                 clientPagination.value.input = input
                 clientPagination.value.category = category
-                
-                response = await fetch('/api/cEvents/searchAll?input=' + input + '&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category, {
+
+                response = await fetch('/api/cEvents/searchAll?input=' + input + '&perPage=' + perPage.value + '&sort=' + sort + "&page=" + page + "&category=" + category + "&startDate=" + startDate + "&endDate=" + endDate, {
                     method: 'POST'
-                    
                 })
             }
             if (response.ok) {
@@ -138,24 +144,23 @@ export default {
                 arr.value = data.results;
                 lastPage.value = data.pages;
                 curPage.value = page;
-                
+
             } else {
                 alert(response.statusText, "danger");
             }
         }
-        
-        
+
+
         async function fetchSearchEvent(page, sort, input) {
             // sent request to server
             page = Number(page)
-           
+
             let response = await fetch('/api/cEvents/searchAll?input=' + input + '&sort=' + sort + "&page=" + page, {
                 method: 'POST'
-
             })
+
             if (response.ok) {
                 var data = await response.json();
-                // console.log(data);
                 arr.value = data.results;
                 lastPage.value = data.pages;
                 curPage.value = page;
@@ -164,15 +169,15 @@ export default {
                 clientNav2bar.value.isSearchEvent = true
                 clientPagination.value.isSearchEvents = true
                 clientPagination.value.input = input
-                
+
             } else {
                 alert(response.statusText, "danger");
             }
         }
-               
+
         watch(fontSize, () => {
-        //     console.log(currentValue);
-        //     console.log(oldValue);
+            //     console.log(currentValue);
+            //     console.log(oldValue);
         });
 
         //watch the route, if the route change, then we need to fetch the event again
@@ -180,8 +185,8 @@ export default {
             //onsole.log(currentValue.query.input);
             //console.log(oldValue);
             sortDefault.value = currentValue.query.sort
-            fetchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input, currentValue.query.category)
-            
+            fetchEvent(currentValue.query.page, currentValue.query.sort, currentValue.query.input, currentValue.query.category, currentValue.query.startDate, currentValue.query.endDate)
+
         });
 
         const bg = computed(() => {
@@ -209,18 +214,17 @@ export default {
             fontSize.value = s
             cardWidth.value = 22 + 2 * s
         }
-        
+
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
             alert("歡迎回來", "success")
-
-            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
+            fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category, route.query.startDate, route.query.endDate)
         })
 
         return {
             bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, clientNav2bar, clientPagination,
-           perPage, handleChangeEventNumber
-            
+            perPage, handleChangeEventNumber
+
         }
     }
 }
@@ -228,9 +232,9 @@ export default {
 
 <style scoped>
 .bg {
-   
+
     flex-direction: column;
-   
+
     background-color: rgb(250, 250, 250);
 
     background-size: 100% 100%;
@@ -248,7 +252,7 @@ export default {
 .child {
     /* display: flex; */
     flex-direction: column;
-   
+
     background-image: linear-gradient(to right top, #f5ffb3, #fff0c5, #ffece9, #fff3fe, #f8f8f8);
     /* background-image:url("@/assets/child.jpg"); */
     background-size: 100% 100%;
@@ -282,6 +286,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
 .volunteer {
     /* display: flex; */
     flex-direction: column;
@@ -322,7 +327,6 @@ export default {
 #cards {
     max-width: max-content;
 }
-
 </style>
 
 
