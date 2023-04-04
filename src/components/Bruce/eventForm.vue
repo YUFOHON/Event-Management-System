@@ -5,9 +5,9 @@
 
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                                        border-radius:50%;">
+                                                                                          border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                                        border-radius:50%;">
+                                                                                          border-radius:50%;">
         <FileInput ref="fileInput" style="visibility: hidden;" @change="fileChanges" class="test" accept=".jpg,.jpeg"
           multiple />
       </div>
@@ -52,6 +52,8 @@
                 <option value="活動義工招募">活動義工招募</option>
                 <option value="兒童活動">兒童活動</option>
                 <option value="同路人支援平台">同路人支援平台</option>
+                <option value="陽光大道計劃">陽光大道計劃</option>
+                <option value="家庭活動">家庭活動</option>
               </select>
             </div>
           </div>
@@ -174,9 +176,9 @@
     <div v-if="!isEventFormDetail" class="row" id="add" style="margin-top: -10px;">
       <div class="col" id="eventImg" style="margin-right: 80px;">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                                   border-radius:50%;">
+                                                                                     border-radius:50%;">
         <img @click="triggerFileComponent" v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
-                                                                      border-radius:50%;">
+                                                                        border-radius:50%;">
         <FileInput id="fileInput" ref="fileInput" style="margin-left: 10%; visibility:hidden ;" @change="fileChanges"
           class="test" accept=".jpg,.jpeg" multiple />
       </div>
@@ -216,6 +218,8 @@
               <option value="活動義工招募">活動義工招募</option>
               <option value="兒童活動">兒童活動</option>
               <option value="同路人支援平台">同路人支援平台</option>
+              <option value="陽光大道計劃">陽光大道計劃</option>
+              <option value="家庭活動">家庭活動</option>
             </select>
           </div>
         </div>

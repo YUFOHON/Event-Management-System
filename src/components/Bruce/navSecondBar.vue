@@ -120,7 +120,7 @@
               icon="fa-solid fa-magnifying-glass" /></button>
         </form>
 
-        <div v-if="props.sortButton" class="py-2 " style="margin-left: 16%;">
+        <div v-if="props.sortButton" class="py-2 " style="margin-left: 5%;">
           <ul class="nav gap-3 ">
             <div class="dropdown" id="sortButton">
               <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
@@ -138,7 +138,7 @@
                         <input v-model="sortCheckbox" value="同路人支援平台" type="checkbox" class="btn-check" id="btncheck1"
                           autocomplete="off">
                         <label class="btn btn-outline-primary" for="btncheck1" style="color: black;  --bs-btn-active-bg:#8a56dd
-                  ">同路人支援平台</label>
+                    ">同路人支援平台</label>
 
                         <input v-model="sortCheckbox" value="活動義工招募" type="checkbox" class="btn-check" id="btncheck2"
                           autocomplete="off">
@@ -155,6 +155,22 @@
                         <label class="btn btn-outline-primary" for="btncheck4"
                           style="color: black;--bs-btn-active-bg:#af8221">兒童活動</label>
 
+                        <input v-model="sortCheckbox" value="陽光大道計劃" type="checkbox" class="btn-check" id="btncheck5"
+                          autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btncheck5"
+                          style="color: black;--bs-btn-active-bg:#FFCCCC">陽光大道計劃</label>
+
+                        <input v-model="sortCheckbox" value="家庭活動" type="checkbox" class="btn-check" id="btncheck6"
+                          autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btncheck6"
+                          style="color: black;--bs-btn-active-bg:#FFCCCC">家庭活動</label>
+
+
+
+
+
+
+
                       </div>
 
 
@@ -164,15 +180,15 @@
                     <p class="position-relative  px-5 " style="color:red">日期</p>
                     <div class="p-4 px-5">
                       <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
-                        <input v-model="sortCheckbox" value="日期升序" type="checkbox" class="btn-check" id="btncheck5"
+                        <input v-model="sortCheckbox" value="日期升序" type="checkbox" class="btn-check" id="up"
                           autocomplete="off">
-                        <label v-if="!is_D_checked" class="btn btn-outline-primary" style="color: black;"
-                          for="btncheck5">升序</label>
+                        <label v-if="!is_D_checked" class="btn btn-outline-primary"
+                          style="color: black;--bs-btn-active-bg:#FFCCCC" for="up">升序</label>
 
                         <input v-model="sortCheckbox" value="日期降序" type="checkbox" class="btn-check" style="color: black;"
-                          id="btncheck6" autocomplete="off">
-                        <label v-if="!is_A_checked" class="btn btn-outline-primary" style="color:black"
-                          for="btncheck6">降序</label>
+                          id="down" autocomplete="off">
+                        <label v-if="!is_A_checked" class="btn btn-outline-primary"
+                          style="color:black;--bs-btn-active-bg:#FFCCCC" for="down">降序</label>
                       </div>
                     </div>
                   </div>
@@ -212,20 +228,26 @@
             <router-link to="/events/eventHistory">
               <button v-if="props.eventHistoryButton" type="button" class="btn btn-danger ">
                 <font-awesome-icon icon="fa-solid fa-clock-rotate-left" />
-                歷史記錄</button>
+                記錄</button>
             </router-link>
 
             <router-link to="/events/eventForm">
               <button v-if="props.addButton" type="button" class="btn btn-danger">
                 <font-awesome-icon icon="fa-solid fa-file-import" />
-                添加活動
+                添加
               </button>
             </router-link>
+
+            <button v-if="props.exportButton" @click="exportFile" class="btn btn-outline-danger"><font-awesome-icon :icon="['fas', 'file-import']" />
+            匯出</button>
+          <button v-if="props.importButton" @click="addFile" class="btn btn-outline-danger"><font-awesome-icon :icon="['fas', 'file-import']" />
+            導入</button>
+    
           </ul>
         </div>
-
-
+    
       </div>
+
     </div>
   </nav>
 </template>
@@ -245,6 +267,8 @@ export default {
     addButton: { Boolean, default: false },
     searchButton: { Boolean, default: false },
     isSearchEvents: { Boolean },
+    importButton: { Boolean, default: false },
+    exportButton: { Boolean, default: false },
   },
   setup(props, context) {
     const input = ref('');
@@ -253,7 +277,13 @@ export default {
     const sorting = ref('');
     const startDate = ref('');
     const endDate = ref('');
+    const addFile = (
+            () => {
+              //emit the event to the parent component
+              context.emit('addFile');
 
+            }
+        )
     const is_A_checked = computed(
       () => {
         if (sortCheckbox.value.includes('日期升序')) {
@@ -281,7 +311,6 @@ export default {
       // use a variable to store the query from sortCheckbox
       var sorting = sortCheckbox.value.includes('日期升序') ? 'Ascending' : 'Descending';
       //use for loop to add all the query from sortCheckbox to the store in the variable
-      // var category = '';
       for (var i = 0; i < sortCheckbox.value.length; i++) {
         // var category = '';
         if (sortCheckbox.value[i] == '日期升序' || sortCheckbox.value[i] == '日期降序') {
@@ -297,16 +326,28 @@ export default {
 
       if (isSearchEvent.value) {
         //get the  query from the router
-        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category, input: route.query.input,startDate: startDate.value,endDate:endDate.value } });
+        router.push({ name: 'events', query: { page: 1, sort: sorting, category: category, input: route.query.input, startDate: startDate.value, endDate: endDate.value } });
 
       } else
-        router.push({ name: 'events', query: { 
-          page: 1, sort: sorting, category: category,startDate: startDate.value,endDate:endDate.value
-        } });
+        router.push({
+          name: 'events', query: {
+            page: 1, sort: sorting, category: category, startDate: startDate.value, endDate: endDate.value
+          }
+        });
       //reset the category
       category = '';
     }
-
+    const exportFile=async()=>{
+      // context.emit('exportFile');
+      const response = await fetch('/api/export.xlsx');
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'export.xlsx';
+      link.click();
+      URL.revokeObjectURL(url);
+    }
     const searchEvent = async () => {
 
       router.push({ name: 'events', query: { page: 1, sort: sorting.value, input: input.value, category: category } });
@@ -336,7 +377,7 @@ export default {
       context.emit("changeEventNumber", perPage.value);
     }
     return {
-      props, startDate, endDate, searchEvent, input, isSearchEvent, parent, perPage, changeEventNumber,
+      props,exportFile,addFile, startDate, endDate, searchEvent, input, isSearchEvent, parent, perPage, changeEventNumber,
       Descending, Ascending, sortCheckbox, is_D_checked, is_A_checked, sortEvent, sorting
     };
   },

@@ -20,10 +20,33 @@
                     name: '活動',
                     URL: '/events'
                 }
-            ]" :sortButton="true" :eventHistoryButton="true" :addButton="true" :searchButton="true"
-                :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
+            ]" :exportButton="true" :importButton="true" :sortButton="true" :eventHistoryButton="true" :addButton="true" @addFile="addFile"
+                :searchButton="true" :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"
+                ref="navSecondBar" />
 
         </div>
+        <BufferFileInput ref="BufferFileInput" @change="importExcel" style="visibility: hidden;" accept=" .xlsx" />
+        <div class="excel">
+            <form @submit.prevent="uploadTable">
+                <table class="table table-striped">
+                    <tr>
+                        <th v-for="item in excelData[0]" :key="item">{{ item }}</th>
+                    </tr>
+                    <tr v-for="(item, rowIndex) in excelData.slice(1)" :key="item">
+                        <td v-for="(val, colIndex) in item" :key="val">
+                            <input type="text" v-model="excelData[rowIndex + 1][colIndex]" />
+                        </td>
+                        <td><button type="button" @click="deleteRow(rowIndex + 1)">刪除</button></td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+
+        <button v-if="excelData.length > 0" class="btn my-3 btn-danger" style="margin-left: 50%;"
+            @click="uploadTable">上傳</button>
+
+
         <div class="row" id="cards">
 
             <!-- <div class="col col-1 py-4 px-4" id="sideBarContainer">
@@ -62,7 +85,7 @@ import navSecondBar from '@/components/Bruce/navSecondBar.vue'
 import { onMounted, computed, ref } from 'vue'
 import eventCard from '@/components/Bruce/eventCard.vue';
 import pagination from '@/components/Bruce/pagination.vue';
-// import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
+import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils, read } from 'xlsx';
@@ -77,13 +100,9 @@ export default {
         navSecondBar,
         pagination,
         eventCard,
-        // BufferFileInput
-        // SideBar,
-        // QrCode,
-        // QrCodeScanner
+        BufferFileInput
     },
     setup() {
-
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
@@ -96,14 +115,15 @@ export default {
         const perPage = ref(12);
         const cardWidth = ref(22 + 2 * 5)
         const route = useRoute()
-
+        const excelData = ref([]);
+        const BufferFileInput = ref(null)
         // const onScan = (decodedText, decodedResult) => {
         //     alert(decodedText);
         //     console.log(decodedText, decodedResult)
         // }
         const checkRouterValue = (page, sort, category, startDate, endDate) => {
             if (category == undefined || category == '') {
-                category = ['兒童活動|青年活動|活動義工招募|同路人支援平台']
+                category = ['兒童活動|青年活動|活動義工招募|同路人支援平台|陽光大道計劃|家庭活動']
             }
             if (page == undefined) {
                 page = 1
@@ -126,7 +146,10 @@ export default {
             }
             return [page, sort, category, startDate, endDate]
         }
-        const excelData = ref([]);
+
+        const addFile = () => {
+            BufferFileInput.value.addFile()
+        }
         const importExcel = (files) => {
             if (files.length > 0) {
                 const workbook = read(files[0]);
@@ -137,7 +160,8 @@ export default {
             }
         }
         const uploadTable = async () => {
-            let response = await fetch('/api/import', {
+           
+            let response = await fetch('/api/importEvent', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
@@ -147,7 +171,7 @@ export default {
 
             if (response.ok) {
                 excelData.value = []
-                // alert('data import success.')
+                alert('data import success.')
             }
         }
         const deleteRow = (rowIndex) => {
@@ -155,7 +179,6 @@ export default {
         }
 
         const handleChangeEventNumber = (eventNumber) => {
-            alert(eventNumber, "success")
             perPage.value = eventNumber
             fetchEvent(route.query.page, route.query.sort, route.query.input, route.query.category)
         }
@@ -281,7 +304,7 @@ export default {
         })
         return {
             bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            importExcel, excelData, deleteRow, uploadTable, perPage, handleChangeEventNumber
+            importExcel, excelData, deleteRow, uploadTable, perPage, handleChangeEventNumber, BufferFileInput, addFile
             //  QrCode, onScan
 
         }

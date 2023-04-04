@@ -7,7 +7,6 @@
         <hr class="bg-danger border-2 border-top border-danger">
       </div>
 
-
       <div class="row">
         <label for="name" class="form-label text "> 您是誰:<label class="text-danger"> *</label></label>
         <label v-for="(member, index) in members" :key="index">
@@ -40,9 +39,6 @@
                                                                                                                                                                                                                                                                                                                       "
           type="text" class="form-control" id="eventName" aria-describedby="emailHelp" required>
       </div>
-
-
-
       <div class="row" id="email">
         <label for="email" class="form-label text"> Email:<label class="text-danger"> *</label></label>
         <input placeholder="example@gmail.com" v-model="result.email" type="email" class="form-control" id="eventName"
@@ -67,30 +63,22 @@
           <input type="checkbox" value="同意" v-model="message" style="margin-left: 43%;" />同意协议
         </label>
       </div>
-
       <div v-if="empty" class="form-error-message" role="alert">
         <label for="name" class="form-sub-label text-danger"
           style="margin-left: 180px; padding-top: 20px; font-weight: bold;"> 請填寫所有必填項.<label class="text-danger">
             *</label></label>
       </div>
-
       <div class="b">
-
         <div v-if="loading" class="spinner-border text-danger" role="status"
           style="margin-left: 180px; margin-top: 20px;">
           <span class="visually-hidden">Loading...</span>
         </div>
-
-        <p v-if="!loading & !isRead" class="btn btn-danger" style="margin-left: 180px; margin-top: 20px;">請先閱讀條款</p>
-        <button v-if="!loading & isRead" type="summit" class="btn btn-danger"
+        <p v-if="!loading & !isRead &isPatient" class="text text-danger" style="margin-left: 180px; margin-top: 20px;">請先閱讀條款</p>
+      
+        <button v-if="!loading" type="summit" class="btn btn-danger"
           style="margin-left: 200px; margin-top: 20px;">提交</button>
-      </div>
-
-
-
-
+        </div>
     </form>
-
     <form v-if="props.isRegistered" @submit.prevent="register">
       <div class="b">
         <span style="font-size: 250px; color: greenyellow; margin-left: 100px;">
@@ -112,25 +100,19 @@
         <div class="h1" style="margin-left: 10%;">目前狀態：您已成功參加！</div>
       </div>
     </form>
-
     <!-- <form @submit.prevent="GoogleReCaptcha.validate($event)">
       <div class="g-recaptcha" data-sitekey="6Ldjg9YkAAAAALRMcvffg0XFNsG7KE3cTbtOH9ZH"></div>
 
       <input type="hidden" name="g-recaptcha-response" v-model="formData.captcha" />
       <input type="submit" value="Submit" />
     </form> -->
-
-
   </div>
 </template>
 
 <script>
 import { watch } from 'vue'
 import { ref, computed, onMounted } from 'vue'
-
 // import GoogleReCaptcha from 'google-recaptcha-v2';
-
-
 export default {
   name: 'registerForm',
   props: {
@@ -239,14 +221,11 @@ export default {
       return members.value.filter(member => member != selectedMember.value)
     })
     const handleDrag = ({ movementX, movementY }) => {
-
-      // alert("123")
       const consentForm = document.getElementById("consentForm")
       consentForm.addEventListener("mousemove", handleDrag);
       // consentForm.addEventListener("mouseup", () => {
       //   consentForm.removeEventListener("mousemove", handleDrag);
       // })
-
       // const info = document.getElementById("info")
       let getStyle = window.getComputedStyle(consentForm)
       let left = parseInt(getStyle.getPropertyValue("left"))
