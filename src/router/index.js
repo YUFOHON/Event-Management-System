@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EventView from '../views/Bruce/EventView.vue'
+import ReportView from '../views/Bruce/ReportView.vue'
 
 // import feedBackView from '../views/Bruce/FeedBackView.vue'
 
@@ -34,6 +35,12 @@ const routes = [
     name: 'home',
     component: clientEventView
   },
+  {
+    path: '/report',
+    name: 'report',
+    component: ReportView,
+  },
+
   {
     path: '/events',
     name: 'events',

@@ -103,6 +103,7 @@ export default {
         BufferFileInput
     },
     setup() {
+        let token = localStorage.getItem("token");
         let arr = ref([]);
         let curPage = ref(1);
         let lastPage = ref(1);
@@ -142,7 +143,7 @@ export default {
                 let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
                 let nextDayISO = nextDay.toISOString().slice(0, 10);
                 endDate = nextDayISO
-                alert(endDate)
+               
             }
             return [page, sort, category, startDate, endDate]
         }
@@ -171,7 +172,7 @@ export default {
 
             if (response.ok) {
                 excelData.value = []
-                alert('data import success.')
+                alert('成功添加活動', 'success',999999)
             }
         }
         const deleteRow = (rowIndex) => {
@@ -200,7 +201,8 @@ export default {
                     + "&startDate=" + startDate + "&endDate=" + endDate, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        "x-access-token": token
                     }
                 })
             } else {

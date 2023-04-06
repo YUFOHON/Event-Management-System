@@ -31,8 +31,21 @@
         </li>
 
         <li v-if="role == 'admin'" class="nav-item">
-          <a class="nav-link" href="/users">User</a>
+          <a class="nav-link" href="/users">
+            <span style="font-size: 1em; color: red;">
+              <font-awesome-icon :icon="['fas', 'users']" />
+            </span>
+            用戶</a>
         </li>
+
+        <li v-if="role == 'admin'" class="nav-item">
+          <a class="nav-link" href="/report">
+            <span style="font-size: 1em; color: red;">
+              <font-awesome-icon :icon="['fas', 'scroll']" /> </span>
+            報告</a>
+        </li>
+
+
       </ul>
 
 
@@ -54,15 +67,17 @@
 
   </nav>
 
-  <nav class="navbar-mobile align-items-center d-flex justify-content-between	.d-none .d-lg-block .d-xl-none bg-body-tertiary shadow" style="background-color: white; ">
+  <nav
+    class="navbar-mobile align-items-center d-flex justify-content-between	.d-none .d-lg-block .d-xl-none bg-body-tertiary shadow"
+    style="background-color: white; ">
     <a class="navbar-brand  d-lg-none" href="/" style="padding-left: 2%;">
-        <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
-        CRM
-      </a>
+      <img src="@/assets/CCF.jpg" alt="Bootstrap" width="50" height="50">
+      CRM
+    </a>
     <button class="btn btn-danger d-lg-none" type="button" data-bs-toggle="offcanvas"
       data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
       <font-awesome-icon :icon="['fas', 'sliders']" />
-      </button>
+    </button>
 
     <div class="offcanvas offcanvas-end d-flex flex-column" tabindex="-1" id="offcanvasResponsive"
       aria-labelledby="offcanvasResponsiveLabel">
