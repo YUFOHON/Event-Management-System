@@ -42,12 +42,12 @@
                     <router-link :to="'/events/eventForm/' + props.id" class="btn btn-danger  ">查看</router-link>
                 </div>
                 <li class="list-group-item" style="margin-top: 10px;  ">
-                    <div class="content  overflow-auto row">
+                    <div class="content  ">
 
                         <!-- <div class="col col-5  pt-3" >內容 </div> -->
 
                         <div class="col gy-3" :style="{ 'font-weight': 'bolder', 'color': textColor }">
-                            <p class="" style="text-align: center;"> {{ props.content }}</p>
+                            <p style="max-height: 100px;text-align: center; overflow-y: auto;">{{ props.content }}</p>
                         </div>
                     </div>
                 </li>
