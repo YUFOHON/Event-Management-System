@@ -414,4 +414,14 @@ export default {
 #cards {
     max-width: max-content;
 }
+
+.excel {
+    /* margin-top: -20px; */
+    width: 80%;
+    overflow-x: auto;
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    margin-left: 10%;
+}
 </style>
