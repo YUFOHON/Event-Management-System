@@ -24,12 +24,12 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form  class="d-flex ms-auto order-1">
-                    <!-- <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-1"> -->
+
+                    <form @submit.prevent="SearchUser()" class="d-flex ms-auto order-1">
                         <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
                             aria-label="Search">
-                        <router-link to="/search"><button class="btn btn-outline-danger my-2 my-sm-0 margin-right" type="submit"><font-awesome-icon
-                                icon="fa-solid fa-magnifying-glass" /></button></router-link>
+                        <button class="btn btn-outline-danger my-2 my-sm-0 margin-right" type="submit"><font-awesome-icon
+                                icon="fa-solid fa-magnifying-glass" /></button>
                         <button class="btn btn-outline-danger d-flex" @click="createUser()"><font-awesome-icon
                                 icon="fa-solid fa-user-plus" /></button>
 
@@ -209,25 +209,26 @@ export default {
             }
         };
 
-        const SearchUser = async function (page) {
+        const SearchUser = async function () {
+            location.assign("/search");
 
-            currentPageNum.value = page;
-            // alert(searchValue.value)
+            // currentPageNum.value = page;
+            // // alert(searchValue.value)
 
-            var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
-                method: 'GET',
-                headers: {
+            // var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
+            //     method: 'GET',
+            //     headers: {
 
-                }
-            });
-            if (response.ok) {
-                var data = await response.json();
-                users.value = data.users;
-                lastPage.value = data.pages;
-                // alert(users.value);
-            } else {
-                alert("response.statusText", "danger");
-            }
+            //     }
+            // });
+            // if (response.ok) {
+            //     var data = await response.json();
+            //     users.value = data.users;
+            //     lastPage.value = data.pages;
+            //     // alert(users.value);
+            // } else {
+            //     alert("response.statusText", "danger");
+            // }
         };
         const createUser = async function () {
 
@@ -383,22 +384,22 @@ body {
     background-color: #c1c1c153;
 }
 
-.page-item{
+.page-item {
     color: #f06565;
 }
 
 
-.page-item :hover{
+.page-item :hover {
     background: #FCD2D1;
     color: white;
 }
 
-.pagination .page-item .active{
+.pagination .page-item .active {
     background: #FE8F8F;
 }
-.pagination{
+
+.pagination {
     --bs-pagination-color: dimgray;
     --bs-pagination-active-border-color: white;
 }
-
 </style>
