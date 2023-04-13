@@ -24,12 +24,11 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form  class="d-flex ms-auto order-1">
-                    <!-- <form @submit.prevent="SearchUser(1)" class="d-flex ms-auto order-1"> -->
+                    <form @submit.prevent="fetchPage(1)" class="d-flex ms-auto order-1">
                         <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
                             aria-label="Search">
-                        <router-link to="/search"><button class="btn btn-outline-danger my-2 my-sm-0 margin-right" type="submit"><font-awesome-icon
-                                icon="fa-solid fa-magnifying-glass" /></button></router-link>
+                        <button class="btn btn-outline-danger my-2 my-sm-0 margin-right" type="submit"><font-awesome-icon
+                                icon="fa-solid fa-magnifying-glass" /></button>
                         <button class="btn btn-outline-danger d-flex" @click="createUser()"><font-awesome-icon
                                 icon="fa-solid fa-user-plus" /></button>
 
@@ -190,26 +189,26 @@ export default {
 
         })
 
-        const fetchPage = async function (page) {
-            currentPageNum.value = page;
-            let token = localStorage.getItem("user");
-            var response = await fetch("/api/hello/users?perPage=" + perPage.value + "&page=" + page, {
-                method: 'GET',
-                headers: {
-                    "x-access-token": token
-                }
-            });
-            if (response.ok) {
-                var data = await response.json();
-                users.value = data.users;
-                lastPage.value = data.lastPage
-                // alert("Welcome Admin!", "success");
-            } else {
-                // alert(response.statusText);
-            }
-        };
+        // const fetchPage = async function (page) {
+        //     currentPageNum.value = page;
+        //     let token = localStorage.getItem("user");
+        //     var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page, {
+        //         method: 'GET',
+        //         headers: {
+        //             "x-access-token": token
+        //         }
+        //     });
+        //     if (response.ok) {
+        //         var data = await response.json();
+        //         users.value = data.users;
+        //         lastPage.value = data.lastPage
+        //         // alert("Welcome Admin!", "success");
+        //     } else {
+        //         // alert(response.statusText);
+        //     }
+        // };
 
-        const SearchUser = async function (page) {
+        const fetchPage = async function (page) {
 
             currentPageNum.value = page;
             // alert(searchValue.value)
@@ -270,7 +269,7 @@ export default {
             currentPageNum,
             lastPage,
             users,
-            SearchUser,
+            // SearchUser,
             searchValue,
             createUser,
             addFile,
