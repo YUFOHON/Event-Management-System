@@ -239,7 +239,7 @@ export default {
     }
     const handleScroll = () => {
       var consentForm = document.getElementById("consentForm")
-      if (consentForm.scrollHeight - consentForm.scrollTop >= consentForm.clientHeight) {
+      if (consentForm.scrollHeight - consentForm.scrollTop == consentForm.clientHeight) {
         //scroll bar is scrolled to the bottom, the form is available
         isRead.value = true
         alert("您已成功閱讀條款", "success")
