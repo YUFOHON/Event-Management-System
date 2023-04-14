@@ -160,7 +160,7 @@ export default {
       loading.value = true
       result.value.name = userData.value.username
       result.value.members = selectedMembers.value.push(selectedMember.value)
-      alert(JSON.stringify(result.value), "success", 90000000)
+      // alert(JSON.stringify(result.value), "success", 90000000)
       var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email + "&eventName=" + props.eventName, {
         method: 'POST',
         headers: {
