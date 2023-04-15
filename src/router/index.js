@@ -160,46 +160,46 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 
 
-//   if (to.path === '/login' || to.path === '/') {
-//     next();
-//   } else {
-//     let token = localStorage.getItem('token');
-//     // console.log(token)
+  if (to.path === '/login' || to.path === '/') {
+    next();
+  } else {
+    let token = localStorage.getItem('token');
+    // console.log(token)
 
-//     if (!token) {
-//       alert("請先登入")
-//       next('/login');
-//     } else {
+    if (!token) {
+      alert("請先登入")
+      next('/login');
+    } else {
 
-//       next();
-//     }
-//   }
+      next();
+    }
+  }
 
 
-//   if (to.meta.staffAuth) {
-//     let role = localStorage.getItem('role')
-//     if (role === "admin" || role === "staff") {
-//       return next();
-//     } else {
-//       alert("您沒有權限登入", 99999);
-//       router.push({ path: '/cEvents' });
-//     }
-//   }
+  if (to.meta.staffAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin" || role === "staff") {
+      return next();
+    } else {
+      alert("您沒有權限登入", 99999);
+      router.push({ path: '/cEvents' });
+    }
+  }
 
-//   if (to.meta.adminAuth) {
-//     let role = localStorage.getItem('role')
-//     if (role === "admin") {
-//       return next();
-//     } else {
-//       alert("您沒有權限登入", 99999);
-//       router.push({ path: '/events' });
-//     }
-//   }
+  if (to.meta.adminAuth) {
+    let role = localStorage.getItem('role')
+    if (role === "admin") {
+      return next();
+    } else {
+      alert("您沒有權限登入", 99999);
+      router.push({ path: '/events' });
+    }
+  }
 
-// })
+})
 
 
 export default router
