@@ -28,6 +28,8 @@ import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
 import UserDetail from '../views/UserDetail.vue'
 import RegisterView from '../views/Bruce/RegisterView.vue'
+import SearchView from '../views/SearchView.vue'
+
 
 const routes = [
   {//=================================Bruce==========================================================
@@ -127,6 +129,11 @@ const routes = [
     name: 'userDetail',
     component: UserDetail,
     meta: { adminAuth: true }
+  },
+  {
+    path: '/search',
+    name: 'SearchView',
+    component: SearchView
   },
   {
     path: '/test',

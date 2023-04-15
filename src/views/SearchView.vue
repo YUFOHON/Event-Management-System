@@ -24,8 +24,7 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <form @submit.prevent="SearchUser()" class="d-flex ms-auto order-1">
+                    <form @submit.prevent="fetchPage(1)" class="d-flex ms-auto order-1">
                         <input class="form-control mr-sm-2 me-2" type="search" v-model="searchValue" placeholder="Search"
                             aria-label="Search">
                         <button class="btn btn-outline-danger my-2 my-sm-0 margin-right" type="submit"><font-awesome-icon
@@ -190,45 +189,44 @@ export default {
 
         })
 
+        // const fetchPage = async function (page) {
+        //     currentPageNum.value = page;
+        //     let token = localStorage.getItem("user");
+        //     var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page, {
+        //         method: 'GET',
+        //         headers: {
+        //             "x-access-token": token
+        //         }
+        //     });
+        //     if (response.ok) {
+        //         var data = await response.json();
+        //         users.value = data.users;
+        //         lastPage.value = data.lastPage
+        //         // alert("Welcome Admin!", "success");
+        //     } else {
+        //         // alert(response.statusText);
+        //     }
+        // };
+
         const fetchPage = async function (page) {
+
             currentPageNum.value = page;
-            let token = localStorage.getItem("user");
-            var response = await fetch("/api/hello/users?perPage=" + perPage.value + "&page=" + page, {
+            // alert(searchValue.value)
+
+            var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
                 method: 'GET',
                 headers: {
-                    "x-access-token": token
+
                 }
             });
             if (response.ok) {
                 var data = await response.json();
                 users.value = data.users;
-                lastPage.value = data.lastPage
-                // alert("Welcome Admin!", "success");
+                lastPage.value = data.pages;
+                // alert(users.value);
             } else {
-                // alert(response.statusText);
+                alert("response.statusText", "danger");
             }
-        };
-
-        const SearchUser = async function () {
-            location.assign("/search");
-
-            // currentPageNum.value = page;
-            // // alert(searchValue.value)
-
-            // var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
-            //     method: 'GET',
-            //     headers: {
-
-            //     }
-            // });
-            // if (response.ok) {
-            //     var data = await response.json();
-            //     users.value = data.users;
-            //     lastPage.value = data.pages;
-            //     // alert(users.value);
-            // } else {
-            //     alert("response.statusText", "danger");
-            // }
         };
         const createUser = async function () {
 
@@ -271,7 +269,7 @@ export default {
             currentPageNum,
             lastPage,
             users,
-            SearchUser,
+            // SearchUser,
             searchValue,
             createUser,
             addFile,
@@ -384,22 +382,22 @@ body {
     background-color: #c1c1c153;
 }
 
-.page-item {
+.page-item{
     color: #f06565;
 }
 
 
-.page-item :hover {
+.page-item :hover{
     background: #FCD2D1;
     color: white;
 }
 
-.pagination .page-item .active {
+.pagination .page-item .active{
     background: #FE8F8F;
 }
-
-.pagination {
+.pagination{
     --bs-pagination-color: dimgray;
     --bs-pagination-active-border-color: white;
 }
+
 </style>
