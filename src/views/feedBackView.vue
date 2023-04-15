@@ -10,23 +10,19 @@
 </template>
   
 <script>
-// import { VueFeedbackReaction } from 'vue-feedback-reaction';
-// import { VueReactionEmoji } from 'vue-feedback-reaction';
+
 // import { ref, onMounted } from "vue";
 import navBar from '@/components/public/navBar.vue';
 // import { useRoute } from "vue-router";
 import feedbackForm from "@/components/NicoleTam/feedbackForm.vue";
 
-// import scoringBox from '@/components/NicoleTam/scoringBox.vue'
 
 export default {
     name: 'FeedbackView',
     components: {
         navBar,
         feedbackForm,
-        // scoringBox,
-        // VueFeedbackReaction,
-        // VueReactionEmoji
+
     },
     setup() {
 

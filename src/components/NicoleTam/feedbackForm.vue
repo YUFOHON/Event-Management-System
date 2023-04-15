@@ -2,8 +2,11 @@
     <div class="container">
         <form @submit="submitSurvey()">
             <p></p>
-            <h1> 活動名稱: {{ event.eventName }} </h1>
-            <h3> 活動日期: {{ event.eventDate }} </h3>
+            <p>多謝 閣下參加兒童癌病基金的活動，希望您把意見寫下，讓我們能持續提升服務質素。</p>
+            <p></p>
+            <h3> 活動意見表 </h3>
+            <h3> 活動名稱: {{ event.eventName }} </h3>
+            <h4> 活動日期: {{ event.eventDate }} </h4>
 
             <div class="row" v-for="(q, index) in survey.questions" :key='index'>
 
@@ -323,5 +326,11 @@ export default {
 
  .qLabel {
      margin-right: 40px
+
  }
+
+ input[type=radio] {
+    width: 17px;
+    height: 17px;
+}
 </style>
