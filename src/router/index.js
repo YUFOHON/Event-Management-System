@@ -14,7 +14,6 @@ import EditAdminPronpmfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
 import cEnrollment from '../views/Bruce/cEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
-import testView from '../views/NicoleTam/testView.vue'
 
 
 //if you want to use the eventDetails page, uncomment the line below 
@@ -41,6 +40,7 @@ const routes = [
     path: '/report',
     name: 'report',
     component: ReportView,
+    meta: { staffAuth: true }
   },
 
   {
@@ -72,11 +72,7 @@ const routes = [
     name: 'eventRegister',
     component: RegisterView
   },
-  {
-    path: '/feedBack/:id',
-    name: 'feedbackView',
-    component: feedbackView
-  },
+
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',
@@ -101,7 +97,7 @@ const routes = [
     component: EditClientProfile
   },
   {
-    path: '/cEnrollment/',
+    path: '/cEnrollment',
     name: 'clientEnrollment',
     component: cEnrollment
   },
@@ -136,11 +132,10 @@ const routes = [
     component: SearchView
   },
   {
-    path: '/test',
-    name: 'test',
-    component: testView
+    path: '/feedBack/:id',
+    name: 'feedbackView',
+    component: feedbackView
   },
-
 
   //----------------------------------------------ALI route handlers--------------
   //--------------------------------------------------------
