@@ -1,5 +1,5 @@
-<template>
-  <div class="regContainer">
+<template >
+  <div class="regContainer" @mousemove="handleMouseMove">
     <form v-if="!props.isRegistered" @submit.prevent="register">
       <div class="row ">
         <label for="eventName" class="form-label text-center text-danger" style="font-size: 40px; padding-bottom: 20px;">
@@ -36,7 +36,7 @@
         <label for="eventName" class="form-label text"> 聯絡電話號碼:<label class="text-danger"> *</label></label>
         <input v-model="result.phone"
           placeholder="12345678
-                                                                                                                                                                                                                                                                                                                      "
+                                                                                                                                                                                                                                                                                                                            "
           type="text" class="form-control" id="eventName" aria-describedby="emailHelp" required>
       </div>
       <div class="row" id="email">
@@ -56,13 +56,12 @@
         <p>我了解該活動的性質和風險，並在此從任何和所有索賠、損害或責任中釋放和免除[組織或個人]。 </p>
         <p>我在此授權[組織或個人]在緊急情況下尋求[未成年人的全名]的醫療治療，並承擔與此類治療相關的任何和所有費用。 </p>
         <p>我證明[未成年人的全名]已獲得參加該活動的許可，我是具有法律授權簽署本同意書的父母/法定監護人。 </p>
-        <p>父母/法定監護人簽名：________________________</p>
-        <p>日期：________________________</p>
 
         <label for="nan">
           <input type="checkbox" value="同意" v-model="message" style="margin-left: 43%;" />同意协议
         </label>
       </div>
+
       <div v-if="empty" class="form-error-message" role="alert">
         <label for="name" class="form-sub-label text-danger"
           style="margin-left: 180px; padding-top: 20px; font-weight: bold;"> 請填寫所有必填項.<label class="text-danger">
@@ -73,11 +72,12 @@
           style="margin-left: 180px; margin-top: 20px;">
           <span class="visually-hidden">Loading...</span>
         </div>
-        <p v-if="!loading & !isRead &isPatient" class="text text-danger" style="margin-left: 180px; margin-top: 20px;">請先閱讀條款</p>
-      
+        <p v-if="!loading & !isRead & isPatient" class="text text-danger" style="margin-left: 180px; margin-top: 20px;">
+          請先閱讀條款</p>
+
         <button v-if="!loading" type="summit" class="btn btn-danger"
           style="margin-left: 200px; margin-top: 20px;">提交</button>
-        </div>
+      </div>
     </form>
     <form v-if="props.isRegistered" @submit.prevent="register">
       <div class="b">
@@ -135,7 +135,7 @@ export default {
   setup(props) {
     const loading = ref(false)
     const userData = ref({})
-    const isRead = ref(false)
+    const isRead = ref(true)
     const message = ref(false)
     const members = ref([])
     const selectedMember = ref('')
@@ -153,14 +153,14 @@ export default {
 
     // register function that will send the data to the backend
     async function register() {
-      if (message.value != "同意") {
+      if (isRead.value == false) {
         alert("請同意條款", "danger")
         return
       }
       loading.value = true
       result.value.name = userData.value.username
       result.value.members = selectedMembers.value.push(selectedMember.value)
-      alert(JSON.stringify(result.value), "success", 90000000)
+      // alert(JSON.stringify(result.value), "success", 90000000)
       var response = await fetch("/api/register?eventID=" + props.eventID + "&userID=" + props.userId + "&email=" + result.value.email + "&eventName=" + props.eventName, {
         method: 'POST',
         headers: {
@@ -230,16 +230,35 @@ export default {
       let getStyle = window.getComputedStyle(consentForm)
       let left = parseInt(getStyle.getPropertyValue("left"))
       let top = parseInt(getStyle.getPropertyValue("top"))
-      consentForm.style.left = left + movementX + "px"
-      consentForm.style.top = top + movementY + "px"
+      consentForm.style.left = left + movementX * 1.3 + "px"
+      consentForm.style.top = top + movementY * 1.3 + "px"
     }
     const handleDrop = () => {
       const consentForm = document.getElementById("consentForm")
       consentForm.removeEventListener("mousemove", handleDrag);
     }
+
+    // watch the mouse location, if the mouse if outside of the consent form , the form will be closed
+    const handleMouseMove = event => {
+      const form = document.getElementById("consentForm")
+      if (!form) return
+      const formRect = form.getBoundingClientRect()
+      const mouseX = event.clientX
+      const mouseY = event.clientY
+
+      if (mouseX < formRect.left || mouseX > formRect.right || mouseY < formRect.top || mouseY > formRect.bottom) {
+        form.removeEventListener("mousemove", handleDrag);
+      } else {
+        // alert("in", "danger", 1000s)
+
+      }
+    }
+
     const handleScroll = () => {
       var consentForm = document.getElementById("consentForm")
-      if (consentForm.scrollHeight - consentForm.scrollTop == consentForm.clientHeight) {
+      // alert(consentForm.scrollHeight - consentForm.scrollTop +" clientHeight= "+ consentForm.clientHeight)
+
+      if (consentForm.scrollHeight - consentForm.scrollTop <= consentForm.clientHeight) {
         //scroll bar is scrolled to the bottom, the form is available
         isRead.value = true
         alert("您已成功閱讀條款", "success")
@@ -248,11 +267,14 @@ export default {
     watch(selectedMember, (val) => {
       if (val) {
         alert("已選擇" + val, "success")
-        if (val == userData.value.Patient_Name)
+        if (val == userData.value.Patient_Name) {
           isPatient.value = true
-        else
+          isRead.value = false
+        } else{
+         isRead.value = true 
           isPatient.value = false
-        selectedMembers.value = []
+        }
+          selectedMembers.value = []
       }
     })
 
@@ -292,7 +314,7 @@ export default {
       }
     )
     return {
-      props, handleDrag, handleDrop, isPatient, selectedMembers, filteredMembers, members, selectedMember, onMounted, getUserInfo, message, isRead, handleScroll, result, empty, register, loading, userData,
+      props, handleMouseMove, handleDrag, handleDrop, isPatient, selectedMembers, filteredMembers, members, selectedMember, onMounted, getUserInfo, message, isRead, handleScroll, result, empty, register, loading, userData,
     }
   }
 }

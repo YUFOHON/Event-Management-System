@@ -2,6 +2,7 @@
   <div class="container">
 
     <div v-if="isEventFormDetail" class="row">
+     
 
       <div class="col" id="eventImg">
         <img @click="triggerFileComponent" v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 40rem; height: 40rem;object-fit:cover;
@@ -116,10 +117,10 @@
 
 
           <div v-if="!loading" class=" py-4 d-flex justify-content-evenly">
-            <div class="b">
+            <div class="b" v-if="!result.isDelete">
               <button type="button" class="btn btn-primary" @click="updateEvent()">更新</button>
             </div>
-            <div class="b">
+            <div class="b" v-if="!result.isDelete">
               <button type="button" class="btn btn-danger" @click="deleteEvent()">刪除</button>
             </div>
           </div>
