@@ -12,7 +12,8 @@ import AdminProfile from '../views/AdminProfile.vue'
 import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminPronpmfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
-import cEnrollment from '../views/Bruce/cEnrollment.vue'
+// import cEnrollment from '../views/Bruce/cEnrollment.vue'
+import ClientEnrollment from '../views/ClientEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
 
 
@@ -21,6 +22,7 @@ import clientEventView from '../views/ali/clientEventView.vue'
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
 import feedbackView from '../views/feedBackView.vue'
+import RecordView from '../views/RecordView.vue'
 
 
 import UserView from '../views/UserView.vue'
@@ -99,7 +101,7 @@ const routes = [
   {
     path: '/cEnrollment',
     name: 'clientEnrollment',
-    component: cEnrollment
+    component: ClientEnrollment
   },
 
   //=====================Nicoles======================//
@@ -135,6 +137,11 @@ const routes = [
     path: '/feedBack/:id',
     name: 'feedbackView',
     component: feedbackView
+  },
+  {
+    path: '/feedbackRecord/:eid/:uid',
+    name: 'RecordView',
+    component: RecordView
   },
 
   //----------------------------------------------ALI route handlers--------------

@@ -3,8 +3,8 @@
         <navBar />
     </div>
     <div class="backGround">
-        <div class="feedbackForm">
-            <feedbackForm />
+        <div class="feedbackRecord">
+            <Record />
         </div>
     </div>
 </template>
@@ -12,21 +12,21 @@
 <script>
 
 import navBar from '@/components/public/navBar.vue';
-import feedbackForm from "@/components/NicoleTam/feedbackForm.vue";
+import Record from "@/components/NicoleTam/Record.vue";
 
 
 export default {
-    name: 'FeedbackView',
+    name: 'RecordView',
     components: {
         navBar,
-        feedbackForm,
+        Record,
 
     },
     setup() {
 
         return {
             navBar,
-            feedbackForm
+            Record
         }
     }
 };
