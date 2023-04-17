@@ -88,14 +88,14 @@
                                     ({{ user.Child_ID }})
                                 </h4>
                                 <h4 v-if="user.is_admin == true" class="card-title font-weight-bold">{{ user.Staff_Name
-                                }}
+                                }}({{ user.Staff_ID }})
                                 </h4>
                                 <hr>
                                 <p v-if="user.is_admin == false">Type: Client</p>
                                 <p v-if="user.is_admin == true">Type: Admin</p>
                                 <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
-                                <p><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
-                                <p><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
+                                <p v-if="user.is_admin == false"><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
+                                <p v-if="user.is_admin == false"><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
 
                                 <!-- 
                                 <button type="submit">Details</button> -->
