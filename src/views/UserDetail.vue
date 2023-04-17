@@ -94,12 +94,12 @@
             </div> -->
                         <div class="row mt-4">
                             <div class="form-group col-md-4">
-                                <label for="inputZip">Date of Open</label>
+                                <label for="inputZip">註冊日期</label>
                                 <input v-model="user.Date_of_open" data-format="dd/mm/yyyy" type="date"
                                     class="form-control">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputZip">Onset Date</label>
+                                <label for="inputZip">確診日期</label>
                                 <input v-model="user.Onset_date" data-format="dd/mm/yyyy" type="date" class="form-control">
                             </div>
 
