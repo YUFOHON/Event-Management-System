@@ -1,92 +1,74 @@
-
-Sure, here's a simple star rating component in Vue.js:
-
-```
 <template>
   <div>
-    <span v-for="(star, index) in maxStars" :class="'star'" :key="index" @click="setStarRating(index)">
-      {{ star }}
-    </span>
+    <div class="star_rating">
+      <button class="star" v-for="i in max" :key='i' :value="i" @click="rate(i)">&star;</button>
+
+      <div class="star_rating_current">
+        <button class="star current" v-for="i in current" :key='i' :value="i">&starf;</button>
+      </div>
+      <p> Your rating: {{ current }} </p>
+    </div>
+
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+
+const allStar = document.querySelectorAll('.star.current')
+console.log(allStar)
+
 export default {
-  props: {
-    maxStars: {
-      type: Number,
-      default: 5
-    },
-    initialRating: {
-      type: Number,
-      default: 0
-    }
-  },
+  name: "starRating",
   data() {
     return {
-      currentRating: this.initialRating
-    };
-  },
-  methods: {
-    setStarRating(index) {
-      this.currentRating = index + 1;
+      max: 10,
+      current: 0,
     }
+  },
+  watch: {
+    current() {
+      Vue.forceUpdate()
+    }
+  },
+  setup(){
+    
+    const rate = async function(i){
+
+      console.log(i)
+      this.current = i
+
+      console.log(this.current)
+    }
+
+    return{
+      rate
+    }
+
   }
-};
+
+
+}
 </script>
 
-<!-- <script>
-export default {
-  props: {
-    maxStars: {
-      type: Number,
-      default: 5
-    },
-    initialRating: {
-      type: Number,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      allStars: []
-    };
-  },
-  created() {
-    this.setStarRating(this.initialRating);
-  },
-  methods: {
-    setStarRating(index) {
-      this.allStars = new Array(this.maxStars).fill("&#9734");
-      for (let i = 0; i <= index; i++) {
-        this.$set(this.allStars, i, "&#9733");
-      }
-      this.$emit("rating-updated", index + 1);
-    }
-  }
-};
-</script> -->
+<style>
+.star {
+  color: #f1c40f;
+  background-color: unset;
+  border: none;
+}
 
-<style> * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
- }
+.star_rating {
+  display: inline-block;
+  font-size: 24px;
+  position: relative;
+}
 
- .star {
-   font-size: 3rem;
-   color: rgb(250, 229, 42);
-   background-color: unset;
-   border: none;
- }
-
- .star:hover {
-   cursor: pointer;
- }
-
- .star_rating {
-   user-select: none;
- }
-</style> 
+.star_rating_current {
+  font-size: 24px;
+  position: absolute;
+  top: 0;
+}
 
 
+</style>

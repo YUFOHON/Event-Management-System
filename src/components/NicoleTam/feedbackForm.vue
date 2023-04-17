@@ -1,18 +1,15 @@
 <template>
     <div class="container">
-        <form @submit="submitSurvey()">
+        <form @submit.prevent="submitSurvey()">
             <p></p>
-            <h1> 活動名稱: {{ event.eventName }} </h1>
-            <h3> 活動日期: {{ event.eventDate }} </h3>
-
+            <p>多謝 閣下參加兒童癌病基金的活動，希望您把意見寫下，讓我們能持續提升服務質素。 &#128522;</p>
+            <p></p>
+            <h2> 活動意見表 </h2>
+            <h4> 活動名稱: {{ event.eventName }} &nbsp; &nbsp; &nbsp; 活動日期: {{ event.eventDate }} </h4>
+            <p></p>
             <div class="row" v-for="(q, index) in survey.questions" :key='index'>
 
-                <!-- <div v-show="index === questionIndex"> -->
-
                 <h5 class="fw-bold"> 問題{{ index + 1 }}: {{ q.text }} :</h5>
-                <!-- <p v-if="error" class="alert alert-danger">
-                        Please select your answer
-                    </p> -->
 
                 <div class="form-check mb-2" v-if="q.type == 'normal'">
 
@@ -48,18 +45,22 @@
 
                 <div class="form-check mb-2" v-if="q.type == 'rating'">
                     (1-10分，1分表示非常不值得推介；10分表示非常值得推介)
-                    <select style="text-align:center" v-model="temp[index]" class="form-select " required="required">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
+                    <div class="range">
+                        <input type="range" class="form-range" min="1" max="10" step="1" v-model="temp[index]" />
+                    </div>
+                    <ul class="range-labels">
+                        <li class="active selected">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>6</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9</li>
+                        <li>10</li>
+                    </ul>
+                    <p>分數: {{ temp[index] }}</p>
                     <!-- <starRating /> -->
                 </div>
                 <div class="form-check mb-2" v-if="q.type == 'custom'">
@@ -73,32 +74,20 @@
                     <input type="number" placeholder="請輸入" v-model="temp[index]" required="required" /> 人
                 </div>
 
-                <!-- <div class="page">
-                        <button class="btn btn-primary" v-if="questionIndex > 0" @click="prev()">
-                            prev
-                        </button>
-                        <button class="btn btn-primary" @click="next()">
-                            next
-                        </button>
-                    </div> -->
             </div>
             <button type="submit" class="btn btn-primary mt-4">Submit</button>
-            <!-- </div> -->
-            <!-- <div v-if="questionIndex = survey.questions.length">
-                <button @click="submitSurvey()" class="btn btn-primary mt-4">Submit</button>
-            </div> -->
+
         </form>
 
     </div>
 </template>
   
 <script>
-// import { VueFeedbackReaction } from 'vue-feedback-reaction';
-// import { VueReactionEmoji } from 'vue-feedback-reaction';
+
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-// import scoringBox from '@/components/NicoleTam/scoringBox.vue'
+// import starRating from '@/components/NicoleTam/scoringBox.vue'
 
 export default {
     name: 'feedbackForm',
@@ -225,23 +214,6 @@ export default {
             console.log(feedback.value)
         });
 
-        // const next = async function () {
-        //     console.log(temp[questionIndex])
-        //     if (temp[questionIndex] == undefined) {
-        //         this.error = true;
-
-        //     }
-        //     else {
-        //         this.error = false;
-        //         questionIndex++;
-        //     }
-        //     console.log(this.error)
-        // }
-
-        // const prev = async function () {
-        //     questionIndex--;
-        // }
-
 
         const submitSurvey = async function () {
             console.log(temp)
@@ -255,52 +227,47 @@ export default {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-
                 body: JSON.stringify(feedback.value)
             });
-            console.log(feedback.value)
-            if (response.ok) {
+            // console.log(feedback.value)
 
+            if (response.status === 200) {
                 var text = await response.text();
                 console.log(text)
                 alert("成功提交, 多謝您的寶貴意見!");
+                location.assign("/cEnrollment")
             } else {
                 alert(response.statusText)
             }
         }
 
         return {
-            // scoringBox,
             event,
-            // questions,
             feedback,
             props,
             survey,
             questionIndex,
             submitSurvey,
             temp,
-            // next,
-            // prev
-        }
-    },
-    watch: {
-        error() {
-            if (this.error) {
-                alert("Please select your answer")
-            }
         }
     }
+    // watch: {
+    //     error() {
+    //         if (this.error) {
+    //             alert("Please select your answer")
+    //         }
+    //     }
+    // }
 
 };
 </script>
 
-<style scoped> 
-.container {
+<style scoped> .container {
      width: 70%;
      display: flex;
      align-items: center;
      gap: 50px;
-     background-color: rgb(246, 240, 242);
+     background-color: rgb(255, 255, 255);
      border-radius: 10px;
  }
 
@@ -323,5 +290,28 @@ export default {
 
  .qLabel {
      margin-right: 40px
+ }
+
+ input[type=radio] {
+     width: 17px;
+     height: 17px;
+ }
+
+ .range-labels {
+     margin: 18px -41px 0;
+     padding: 0;
+     list-style: none;
+
+
+ }
+
+ .range-labels li {
+     position: relative;
+     float: left;
+     width: 97px;
+     text-align: center;
+     color: #b2b2b2;
+     font-size: 14px;
+     cursor: pointer;
  }
 </style>

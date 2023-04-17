@@ -12,9 +12,9 @@ import AdminProfile from '../views/AdminProfile.vue'
 import ClientProfile from '../views/ClientProfile.vue'
 import EditAdminPronpmfile from '../views/EditAdminProfile.vue'
 import EditClientProfile from '../views/EditClientProfile.vue'
-import cEnrollment from '../views/Bruce/cEnrollment.vue'
+// import cEnrollment from '../views/Bruce/cEnrollment.vue'
+import ClientEnrollment from '../views/ClientEnrollment.vue'
 import clientEventView from '../views/ali/clientEventView.vue'
-import testView from '../views/NicoleTam/testView.vue'
 
 
 //if you want to use the eventDetails page, uncomment the line below 
@@ -22,6 +22,7 @@ import testView from '../views/NicoleTam/testView.vue'
 // import eventDetails from '../views/ali/eventDetails.vue'
 import eventDetails from '../views/Bruce/ClientEventFormView.vue'
 import feedbackView from '../views/feedBackView.vue'
+import RecordView from '../views/RecordView.vue'
 
 
 import UserView from '../views/UserView.vue'
@@ -41,6 +42,7 @@ const routes = [
     path: '/report',
     name: 'report',
     component: ReportView,
+    meta: { staffAuth: true }
   },
 
   {
@@ -72,11 +74,7 @@ const routes = [
     name: 'eventRegister',
     component: RegisterView
   },
-  {
-    path: '/feedBack/:id',
-    name: 'feedbackView',
-    component: feedbackView
-  },
+
   //=====================================JOHN=============================================================
   {
     path: '/aProfile',
@@ -101,9 +99,9 @@ const routes = [
     component: EditClientProfile
   },
   {
-    path: '/cEnrollment/',
+    path: '/cEnrollment',
     name: 'clientEnrollment',
-    component: cEnrollment
+    component: ClientEnrollment
   },
 
   //=====================Nicoles======================//
@@ -136,11 +134,15 @@ const routes = [
     component: SearchView
   },
   {
-    path: '/test',
-    name: 'test',
-    component: testView
+    path: '/feedBack/:id',
+    name: 'feedbackView',
+    component: feedbackView
   },
-
+  {
+    path: '/feedbackRecord/:eid/:uid',
+    name: 'RecordView',
+    component: RecordView
+  },
 
   //----------------------------------------------ALI route handlers--------------
   //--------------------------------------------------------
