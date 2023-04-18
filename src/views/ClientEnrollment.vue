@@ -130,6 +130,11 @@ const checkFeedbackRecord = async () => {
     console.log(arr)
 }
 
+const fetchData = async ()=>{
+    await getEnrollment()
+    checkFeedbackRecord()
+}
+
 const search = () => {
     if (arr.value.length <= 0)
         arr.value = arrServerData.value
@@ -155,11 +160,13 @@ watch(() => input.value, (newVal) => {
         search()
     }
 })
+
 onMounted(() => {
     //get the user id from token
     userID.value = localStorage.getItem('userId')
-    getEnrollment()
-    checkFeedbackRecord()
+    // getEnrollment()
+    // checkFeedbackRecord()
+    fetchData()
 
 })
 
