@@ -27,11 +27,11 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1" class="form-label">身分</label>
-                        <select class="form-control" v-model="user.is_admin">
+                        <select class="form-control" v-model="user.role">
                             <option selected>請選擇</option>
-                            <option :value=true>管理員</option>
-                            <option :value=false>員工</option>
-                            <option :value=false>一般用戶</option>
+                            <option value="admin">管理員</option>
+                            <option value="staff">員工</option>
+                            <option value="user">一般用戶</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
@@ -40,11 +40,11 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="form-group col-md-4" v-if="user.is_admin==false">
+                    <div class="form-group col-md-4" v-if="user.role=='staff' ">
                         <label for="inputAddress">姓名</label>
                         <input type="text" class="form-control" v-model="user.Patient_Name" placeholder="Staff name">
                     </div>
-                    <div class="form-group col-md-4" v-if="user.is_admin==true">
+                    <div class="form-group col-md-4" v-if="user.role=='user'">
                         <label for="inputAddress">姓名</label>
                         <input type="text" class="form-control" v-model="user.Staff_Name" placeholder="patient name">
                     </div>
@@ -58,11 +58,12 @@
                             <option selected>Choose...</option>
                             <option>M</option>
                             <option>F</option>
+                            <option>N/A</option>
                         </select>
                     </div>
                 </div>
 
-                <div v-if="user.is_admin == false" class="form-group">
+                <div v-if="user.role == 'user'" class="form-group">
                     <div class="row mt-4">
                         <div class="form-group col-md-6">
                             <label for="inputCity">醫院</label>
@@ -117,6 +118,11 @@ export default {
 
         const createUser = async function () {
 
+            if (user.value.role == "admin"){
+                user.value.is_admin = true 
+            } else {
+                user.value.is_admin = false
+            }
             var response = await fetch("/api/user/create", {
                 method: "post",
                 headers: {

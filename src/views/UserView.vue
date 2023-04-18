@@ -63,13 +63,15 @@
 
         <button v-if="excelData.length > 0" class="btn my-3 btn-danger" @click="uploadTable">上傳</button>
 
+
+        <!-- <div class="col-lg-4 mb-3 d-flex "></div> -->
         <div class="container">
             <div class="row">
                 <div class="row d-flex">
                     <div class="container mt-4" v-for="user in users" :key="user._id" style="width: 18rem;">
                         <!-- <section class="mx-auto my-5"> -->
                         <div class="backgroundEffect"></div>
-                        <div class="card">
+                        <div class="card h-100">
 
                             <!-- <div class="card testimonial-card mt-2 mb-3"> -->
                             <!-- <div v-if="user.is_admin == false" class="card-up aqua-gradient"></div>
@@ -79,6 +81,10 @@
                                 <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
                                     id="avatar" alt="Avatar" />
                                 <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                                <img v-if="user.Sex == 'N/A'" src="../assets/User.jpg" class="rounded-circle img-fluid"
+                                    id="avatar" alt="Avatar" />
+                                <img v-if="user.Sex == null" src="../assets/User.jpg" class="rounded-circle img-fluid"
                                     id="avatar" alt="Avatar" />
                             </div>
                             <div class="card-body  text-center">
@@ -94,8 +100,10 @@
                                 <p v-if="user.is_admin == false">Type: Client</p>
                                 <p v-if="user.is_admin == true">Type: Admin</p>
                                 <p> 年紀: {{ user.Age }} 性別: {{ user.Sex }}</p>
-                                <p v-if="user.is_admin == false"><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}</p>
-                                <p v-if="user.is_admin == false"><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}</p>
+                                <p v-if="user.is_admin == false"><i class="fas fa-quote-left"></i> 醫院: {{ user.Hospital }}
+                                </p>
+                                <p v-if="user.is_admin == false"><i class="fas fa-quote-left"></i> 診斷: {{ user.Diagnosis }}
+                                </p>
 
                                 <!-- 
                                 <button type="submit">Details</button> -->
@@ -209,26 +217,26 @@ export default {
             }
         };
 
-        const SearchUser = async function () {
-            location.assign("/search");
+        const SearchUser = async function (page) {
+            // location.assign("/search");
 
-            // currentPageNum.value = page;
-            // // alert(searchValue.value)
+            currentPageNum.value = page;
+            // alert(searchValue.value)
 
-            // var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
-            //     method: 'GET',
-            //     headers: {
+            var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
+                method: 'GET',
+                headers: {
 
-            //     }
-            // });
-            // if (response.ok) {
-            //     var data = await response.json();
-            //     users.value = data.users;
-            //     lastPage.value = data.pages;
-            //     // alert(users.value);
-            // } else {
-            //     alert("response.statusText", "danger");
-            // }
+                }
+            });
+            if (response.ok) {
+                var data = await response.json();
+                users.value = data.users;
+                lastPage.value = data.pages;
+                // alert(users.value);
+            } else {
+                alert("response.statusText", "danger");
+            }
         };
         const createUser = async function () {
 
@@ -334,7 +342,10 @@ export default {
 .check-button {
     background: #FE8F8F;
     box-shadow: none;
-    border: none
+    border: none;
+    display: inline-block;
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 .check-button:hover {
