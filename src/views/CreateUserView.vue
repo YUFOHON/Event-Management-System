@@ -1,48 +1,97 @@
 <template>
-    
-        <div class="row" id="navBar">
-            <navBar />
-        </div>
-<div class="backGround">
+    <div class="row" id="navBar">
+        <navBar />
+    </div>
+    <div class="backGround">
         <div class="container mt-5">
             <div class="d-flex justify-content-between align-items-center mb-3 baseButton"
                 style="background-color: #FEF1E6;">
                 <h1 class="mx-auto baseButton" style="font-weight: bolder; ">新增用戶</h1>
             </div>
             <form @submit.prevent="createUser()">
-                <div class="row">
+                <div class="row mt-4">
                     <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <label for="exampleInputEmail1" class="form-label">電郵地址</label>
                         <input type="email" class="form-control" v-model="user.email" aria-describedby="email">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        <div id="emailHelp" class="form-text">本機構不會向第三方分享你的電郵地址.</div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1" class="form-label">Username</label>
+                        <label for="exampleInputEmail1" class="form-label">用戶名稱</label>
                         <input type="text" class="form-control" v-model="user.username" aria-describedby="full name">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <div class="form-group col-md-4">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <label for="exampleInputPassword1" class="form-label">密碼</label>
                         <input type="password" class="form-control" v-model="user.password">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="exampleInputPassword1" class="form-label">role</label>
+                        <label for="exampleInputPassword1" class="form-label">身分</label>
                         <select class="form-control" v-model="user.role">
-                            <option selected>Open this select menu</option>
-                            <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
-                            <option value="user">User</option>
+                            <option selected>請選擇</option>
+                            <option value="admin">管理員</option>
+                            <option value="staff">員工</option>
+                            <option value="user">一般用戶</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="exampleInputPassword1" class="form-label">Phone</label>
+                        <label for="exampleInputPassword1" class="form-label">電話</label>
                         <input type="text" class="form-control" v-model="user.phone">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="form-group col-md-4" v-if="user.role=='staff' ">
+                        <label for="inputAddress">姓名</label>
+                        <input type="text" class="form-control" v-model="user.Patient_Name" placeholder="Staff name">
+                    </div>
+                    <div class="form-group col-md-4" v-if="user.role=='user'">
+                        <label for="inputAddress">姓名</label>
+                        <input type="text" class="form-control" v-model="user.Staff_Name" placeholder="patient name">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputAddress2">年紀</label>
+                        <input type="text" class="form-control" v-model="user.Age" placeholder="Age">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">性別</label>
+                        <select v-model="user.Sex" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>M</option>
+                            <option>F</option>
+                            <option>N/A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div v-if="user.role == 'user'" class="form-group">
+                    <div class="row mt-4">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">醫院</label>
+                            <input type="text" class="form-control" v-model="user.Hospital">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">診斷</label>
+                            <input type="text" class="form-control" v-model="user.Diagnosis">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">負責職員</label>
+                            <input type="text" class="form-control" v-model="user.Responsible_Worker">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">聯絡人</label>
+                            <input type="text" class="form-control" v-model="user.Contact_Person">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputCity">關係</label>
+                            <input type="text" class="form-control" v-model="user.Relationship">
+                        </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-2">
-                        <button v-if="!$route.params.id" type="submit" class="btn btn-primary mt-4">Create</button>
+                        <button v-if="!$route.params.id" type="submit" class="btn btn-primary create-button mt-4">建立用戶</button>
                     </div>
                 </div>
             </form>
@@ -69,6 +118,11 @@ export default {
 
         const createUser = async function () {
 
+            if (user.value.role == "admin"){
+                user.value.is_admin = true 
+            } else {
+                user.value.is_admin = false
+            }
             var response = await fetch("/api/user/create", {
                 method: "post",
                 headers: {
@@ -133,5 +187,14 @@ export default {
 
     /* justify-content: center; */
     align-items: center;
+}
+.create-button {
+    background: #FE8F8F;
+    box-shadow: none;
+    border: none
+}
+
+.create-button:hover {
+    background: #FCD2D1;
 }
 </style>

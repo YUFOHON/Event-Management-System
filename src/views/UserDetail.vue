@@ -37,10 +37,15 @@
                         </div>
 
                         <div class="row mt-4">
-                            <div class="form-group col-md-4">
+                            <div v-if="user.is_admin==false" class="form-group col-md-4">
                                 <label for="inputAddress">姓名</label>
                                 <input type="text" class="form-control" v-model="user.Patient_Name"
                                     placeholder="patient name">
+                            </div>
+                            <div v-if="user.is_admin==true" class="form-group col-md-4">
+                                <label for="inputAddress">姓名</label>
+                                <input type="text" class="form-control" v-model="user.Staff_Name"
+                                    placeholder="Staff name">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputAddress2">年紀</label>
@@ -56,7 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="row mt-4">
+                        <div v-if="user.is_admin==false" class="row mt-4" >
 
                             <div class="form-group col-md-6">
                                 <label for="inputCity">醫院</label>
@@ -68,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div class="row mt-4">
+                        <div v-if="user.is_admin==false" class="row mt-4">
                             <div class="form-group col-md-4">
                                 <label for="inputCity">負責職員</label>
                                 <input type="text" class="form-control" v-model="user.Responsible_Worker">
@@ -89,12 +94,12 @@
             </div> -->
                         <div class="row mt-4">
                             <div class="form-group col-md-4">
-                                <label for="inputZip">Date of Open</label>
+                                <label for="inputZip">註冊日期</label>
                                 <input v-model="user.Date_of_open" data-format="dd/mm/yyyy" type="date"
                                     class="form-control">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputZip">Onset Date</label>
+                                <label for="inputZip">確診日期</label>
                                 <input v-model="user.Onset_date" data-format="dd/mm/yyyy" type="date" class="form-control">
                             </div>
 

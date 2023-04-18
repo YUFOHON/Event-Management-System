@@ -8,8 +8,8 @@
         <span class="gradient">
           <img v-if="users.Sex == 'F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
           <img v-if="users.Sex == 'M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-            <h3 class="mx-auto">{{ users.Patient_Name }}</h3>
-            <p class="mx-auto" style="color: dimgray;">{{ users.Child_ID }}</p>
+            <h3 class="mx-auto">{{ users.Staff_Name }}</h3>
+            <p class="mx-auto" style="color: dimgray;">{{ users.Staff_ID }}</p>
 
         </span>
 
@@ -26,11 +26,11 @@
             </div>
             <div class="row mt-8">
               <div class="col-md-7"><span class="infoTitle">員工編號</span></div>
-              <div class="col-md-5"><span class="info">{{ users.Child_ID }}</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Staff_ID }}</span></div>
             </div>
             <div class="row mt-8">
               <div class="col-md-7"><span class="infoTitle">員工姓名</span></div>
-              <div class="col-md-5"><span class="info">{{ users.Patient_Name }}</span></div>
+              <div class="col-md-5"><span class="info">{{ users.Staff_Name }}</span></div>
             </div>
             <div class="row mt-8">
               <div class="col-md-7"><span class="infoTitle">年齡</span></div>
@@ -39,6 +39,10 @@
             <div class="row mt-8">
               <div class="col-md-7"><span class="infoTitle">性別</span></div>
               <div class="col-md-5"><span class="info">{{ users.Sex }}</span></div>
+            </div>
+            <div class="row mt-8">
+              <div class="col-md-7"><span class="infoTitle">電話</span></div>
+              <div class="col-md-5"><span class="info">{{ users.phone }}</span></div>
             </div>
             
 

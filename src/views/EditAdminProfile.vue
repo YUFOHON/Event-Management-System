@@ -22,9 +22,9 @@
                 <hr>
                 <div class="row mt-2">
                   <div class="col-md-6"><label class="labels">員工姓名</label><input type="text" class="form-control"
-                      placeholder="Name" v-model="users.Patient_Name"></div>
+                      placeholder="Name" v-model="users.Staff_Name"></div>
                   <div class="col-md-6"><label class="labels">員工編號</label><input type="text" class="form-control"
-                      placeholder="" v-model="users.Child_ID"></div>
+                      placeholder="" v-model="users.Staff_ID"></div>
                 </div>
                 <div class="row mt-3">
                   <div class="col-md-6"><label class="labels">年齡</label><input type="number" min="0" max="150"
