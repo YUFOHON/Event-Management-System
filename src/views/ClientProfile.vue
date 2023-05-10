@@ -8,8 +8,8 @@
     <div class="container my-5">
       <div class="center-split">
         <span class="gradient">
-          <img v-if="users.Sex=='F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-          <img v-if="users.Sex=='M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex=='Female'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex=='Male'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
           <h3 class="mx-auto" style="margin-top: 20px;">{{ users.username }}</h3>
           <p class="mx-auto" style="margin-top: 10px; color: dimgray ;">{{ users.Child_ID}}</p>
         </span>

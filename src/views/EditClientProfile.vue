@@ -8,8 +8,8 @@
 
       <div class="center-split">
         <span class="gradient">
-          <img v-if="users.Sex == 'F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-          <img v-if="users.Sex == 'M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex == 'Female'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex == 'Male'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
         </span>
 
         <span>

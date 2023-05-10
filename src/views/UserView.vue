@@ -78,9 +78,9 @@
                                 <div v-if="user.is_admin == true" class="card-up aqua-gradient2"></div> -->
                             <div class="avatar mx-auto white">
                                 <!-- <img src="@/assets/CCF.jpg" class="rounded-circle img-fluid" alt="CCF"> -->
-                                <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
+                                <img v-if="user.Sex == 'Female'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
                                     id="avatar" alt="Avatar" />
-                                <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid"
+                                <img v-if="user.Sex == 'Male'" src="../assets/boy.jpg" class="rounded-circle img-fluid"
                                     id="avatar" alt="Avatar" />
                                 <img v-if="user.Sex == 'N/A'" src="../assets/User.jpg" class="rounded-circle img-fluid"
                                     id="avatar" alt="Avatar" />
