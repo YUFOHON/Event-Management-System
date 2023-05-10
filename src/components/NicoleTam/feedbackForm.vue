@@ -268,6 +268,7 @@ export default {
      gap: 50px;
      background-color: rgb(255, 255, 255);
      border-radius: 10px;
+     padding: 20px;
  }
 
  /* * {

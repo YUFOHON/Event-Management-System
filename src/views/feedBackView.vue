@@ -48,4 +48,8 @@ export default {
     /* justify-content: center; */
     align-items: center;
 }
+
+.feedbackForm{
+    margin: 30px auto 30px
+}
 </style>
