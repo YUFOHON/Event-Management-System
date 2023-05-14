@@ -223,7 +223,7 @@ export default {
             currentPageNum.value = page;
             // alert(searchValue.value)
 
-            var response = await fetch("/api/2users/search?perPage=" + perPage.value + "&page=" + page + "&search=" + searchValue.value, {
+            var response = await fetch("/api/2users/search?search=" + searchValue.value, {
                 method: 'GET',
                 headers: {
 
@@ -232,8 +232,10 @@ export default {
             if (response.ok) {
                 var data = await response.json();
                 users.value = data.users;
-                lastPage.value = data.pages;
+                // lastPage.value = data.pages;
                 // alert(users.value);
+                var count = data.users.length;
+                alert(count + "個搜尋結果 " + searchValue.value, "success", 2000);
             } else {
                 alert("response.statusText", "danger");
             }
