@@ -64,7 +64,7 @@
                     <!-- <starRating /> -->
                 </div>
                 <div class="form-check mb-2" v-if="q.type == 'custom'">
-                    <label for="ice-cream-choice">Choose:</label>
+                    <label for="ice-cream-choice"> 選擇:</label>
                     <input :list="`datalist${index}`" v-model="temp[index]" required="required">
                     <datalist :id="`datalist${index}`">
                         <option v-for="c in q.choose" :key='c' :value="c.option"></option>
@@ -75,8 +75,7 @@
                 </div>
 
             </div>
-            <button type="submit" class="btn btn-primary mt-4">Submit</button>
-
+            <button type="submit" class="btn btn-primary mt-4">提交</button>
         </form>
 
     </div>
@@ -269,6 +268,7 @@ export default {
      gap: 50px;
      background-color: rgb(255, 255, 255);
      border-radius: 10px;
+     padding: 20px;
  }
 
  /* * {

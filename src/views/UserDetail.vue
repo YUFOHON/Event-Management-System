@@ -17,9 +17,9 @@
                     <div class="col-md-3">
 
                         <div class="form-group" style="margin: auto;">
-                            <img v-if="user.Sex == 'F'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
+                            <img v-if="user.Sex == 'Female'" src="../assets/girl.jpg" class="rounded-circle img-fluid"
                                 id="avatar" alt="Avatar" />
-                            <img v-if="user.Sex == 'M'" src="../assets/boy.jpg" class="rounded-circle img-fluid" id="avatar"
+                            <img v-if="user.Sex == 'Male'" src="../assets/boy.jpg" class="rounded-circle img-fluid" id="avatar"
                                 alt="Avatar" />
 
                         </div>
@@ -55,8 +55,8 @@
                                 <label for="inputState">性別</label>
                                 <select v-model="user.Sex" class="form-control">
                                     <option selected>Choose...</option>
-                                    <option>M</option>
-                                    <option>F</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
                                 </select>
                             </div>
                         </div>

@@ -8,8 +8,8 @@
       <div class="center-split">
 
         <span class="gradient">
-          <img v-if="users.Sex == 'F'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
-          <img v-if="users.Sex == 'M'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex == 'Female'" src="../assets/girl.jpg" class="card-img-top" id="avatar" alt="Avatar" />
+          <img v-if="users.Sex == 'Male'" src="../assets/boy.jpg" class="card-img-top" id="avatar" alt="Avatar" />
         </span>
 
         <span>
@@ -32,8 +32,8 @@
                   <div class="col-md-6"><label class="labels">性別</label>
                     <!-- <input type="text" class="form-control" placeholder="" v-model="users.Sex"> -->
                     <select id="gender" v-model="users.Sex" class="form-control">
-                      <option value="M">M</option>
-                      <option value="F">F</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                   </div>
                 </div>

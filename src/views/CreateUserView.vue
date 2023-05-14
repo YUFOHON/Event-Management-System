@@ -56,8 +56,8 @@
                         <label for="inputState">性別</label>
                         <select v-model="user.Sex" class="form-control">
                             <option selected>Choose...</option>
-                            <option>M</option>
-                            <option>F</option>
+                            <option>Male</option>
+                            <option>Female</option>
                             <option>N/A</option>
                         </select>
                     </div>
