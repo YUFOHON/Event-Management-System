@@ -118,7 +118,6 @@ watch(() => input.value, (newVal) => {
     // console.log(oldVal)
     arr.value = arrServerData.value
   } else {
-    console.log('search')
     search()
   }
 })

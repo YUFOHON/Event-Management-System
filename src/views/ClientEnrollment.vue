@@ -55,7 +55,8 @@
                                 <RouterLink v-if="!a.isSubmitted" :to="{ name: 'feedbackView', params: { id: a.eventID } }">
                                     <button class="btn btn-danger" type="button">評價活動</button>
                                 </RouterLink>
-                                <RouterLink v-if="a.isSubmitted" :to="{ name: 'RecordView', params: { eid: a.eventID, uid: userID } }">
+                                <RouterLink v-if="a.isSubmitted"
+                                    :to="{ name: 'RecordView', params: { eid: a.eventID, uid: userID } }">
                                     <button class="btn btn-danger" type="button">查看</button>
                                 </RouterLink>
                             </td>
@@ -105,6 +106,7 @@ const getEnrollment = async () => {
 }
 
 const checkFeedbackRecord = async () => {
+
     const response = await fetch('/api/feedback/' + userID.value, {
         method: 'GET',
         headers: {
@@ -113,12 +115,13 @@ const checkFeedbackRecord = async () => {
 
     })
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
 
     feedbackRecord.value = data.results
-    
+
+    console.log(arr.value.length)
     for (let i = 0; i < arr.value.length; i++) {
-        for (let j = 0; j < feedbackRecord.value.length; j++){
+        for (let j = 0; j < feedbackRecord.value.length; j++) {
             if (arr.value[i].eventID == feedbackRecord.value[j].eventId) {
                 arr.value[i].isSubmitted = true
                 break;
@@ -127,7 +130,9 @@ const checkFeedbackRecord = async () => {
             }
         }
     }
-    console.log(arr)
+
+
+    // console.log(arr)
 }
 
 const search = () => {
@@ -144,6 +149,20 @@ const search = () => {
     // console.log(input.value)
 
 }
+
+async function fetchData() {
+    await getEnrollment()
+    checkFeedbackRecord()
+}
+
+onMounted(() => {
+    //get the user id from token
+    userID.value = localStorage.getItem('userId')
+    fetchData()
+    // getEnrollment()
+    // checkFeedbackRecord()
+})
+
 watch(() => input.value, (newVal) => {
     // console.log(newVal.length)
     if (newVal.length <= 0) {
@@ -155,13 +174,5 @@ watch(() => input.value, (newVal) => {
         search()
     }
 })
-onMounted(() => {
-    //get the user id from token
-    userID.value = localStorage.getItem('userId')
-    getEnrollment()
-    checkFeedbackRecord()
-
-})
-
 </script>
   
