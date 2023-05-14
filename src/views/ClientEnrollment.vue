@@ -53,10 +53,13 @@
                             <td>
                                 eventID: {{ a.eventID }}
                                 <RouterLink v-if="!a.isSubmitted" :to="{ name: 'feedbackView', params: { id: a.eventID } }">
-                                    <button class="btn btn-danger" style="float: right; min-width: 22%;" type="button">評價活動</button>
+                                    <button class="btn btn-danger" style="float: right; min-width: 22%;"
+                                        type="button">評價活動</button>
                                 </RouterLink>
-                                <RouterLink v-if="a.isSubmitted" :to="{ name: 'RecordView', params: { eid: a.eventID, uid: userID } }">
-                                    <button class="btn btn-danger" style="float: right; min-width: 22%;" type="button">查看</button>
+                                <RouterLink v-if="a.isSubmitted"
+                                    :to="{ name: 'RecordView', params: { eid: a.eventID, uid: userID } }">
+                                    <button class="btn btn-danger" style="float: right; min-width: 22%;"
+                                        type="button">查看</button>
                                 </RouterLink>
                             </td>
                         </tr>
@@ -131,18 +134,11 @@ const checkFeedbackRecord = async () => {
     }
 
 
-   
+
 }
 
-const fetchData = async ()=>{
-    await getEnrollment()
-    checkFeedbackRecord()
-}
 
-const fetchData = async ()=>{
-    await getEnrollment()
-    checkFeedbackRecord()
-}
+
 
 const search = () => {
     if (arr.value.length <= 0)

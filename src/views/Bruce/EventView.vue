@@ -1,4 +1,4 @@
-<template>
+<template >
     <!-- <QrCode data="test" />
     <QrCodeScanner :qrbox="250" :fps="10" style="width: 500px;" @result="onScan" /> -->
 
@@ -8,7 +8,9 @@
 
 
 
-    <div :class="bg">
+    <div :class="bg" ref="background">
+        <!-- <img  src="@/assets/CCF.jpg" alt="" class="" :style="imgStyle"> -->
+
         <div class="row py-4" id="navSecondBar">
             <navSecondBar @changeEventNumber="handleChangeEventNumber" :arr="[
                 {
@@ -20,9 +22,9 @@
                     name: '活動',
                     URL: '/events'
                 }
-            ]" :exportButton="true" :importButton="true" :sortButton="true" :eventHistoryButton="true" :addButton="true" @addFile="addFile"
-                :searchButton="true" :isSearchEvents="isSearchEvents" @sorting="fetchEvent" @searchEvent="fetchSearchEvent"
-                ref="navSecondBar" />
+            ]" :exportButton="true" :importButton="true" :sortButton="true" :eventHistoryButton="true"
+                :addButton="true" @addFile="addFile" :searchButton="true" :isSearchEvents="isSearchEvents"
+                @sorting="fetchEvent" @searchEvent="fetchSearchEvent" ref="navSecondBar" />
 
         </div>
         <BufferFileInput ref="BufferFileInput" @change="importExcel" style="visibility: hidden;" accept=" .xlsx" />
@@ -47,6 +49,7 @@
             @click="uploadTable">上傳</button>
 
 
+
         <div class="row" id="cards">
 
             <!-- <div class="col col-1 py-4 px-4" id="sideBarContainer">
@@ -54,8 +57,6 @@
         </div> -->
 
             <div class="col " style="margin-left: 140px;">
-
-
                 <div class="row d-flex">
                     <div v-for="a in arr" :key="a" class="col" id="cards">
                         <!-- {{ a._id }} -->
@@ -89,6 +90,7 @@ import BufferFileInput from '@/components/Bruce/BufferFileInput.vue';
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils, read } from 'xlsx';
+import { useParallax } from '@vueuse/core'
 
 // import QrCode from '@/components/Bruce/QrCode.vue'
 // import QrCodeScanner from '@/components/Bruce/QrCodeScanner.vue';
@@ -118,6 +120,20 @@ export default {
         const route = useRoute()
         const excelData = ref([]);
         const BufferFileInput = ref(null)
+        const background = ref(null)
+        const { tilt, roll } = useParallax(background)
+
+
+        const imgStyle = computed(() => {
+            return {
+                transform: `perspective(500px) rotateX(${tilt.value * 20}deg) rotateY(${roll.value * 20}deg)`,
+                zIndex: -9999999999999, // set a higher z-index value
+                transition: '.3s ease-out all',
+                position: 'absolute',
+                top: '40%',
+                left: '45%',
+            };
+        });
         // const onScan = (decodedText, decodedResult) => {
         //     alert(decodedText);
         //     console.log(decodedText, decodedResult)
@@ -139,11 +155,11 @@ export default {
                 //get the current date value's next day
                 // endDate= new Date().toDateString()
 
-                let currentDate = new Date();
-                let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
-                let nextDayISO = nextDay.toISOString().slice(0, 10);
-                endDate = nextDayISO
-               
+                // let currentDate = new Date();
+                // let nextDay = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000));
+                // let nextDayISO = nextDay.toISOString().slice(0, 10);
+                endDate = '9999-12-31'
+
             }
             return [page, sort, category, startDate, endDate]
         }
@@ -161,7 +177,7 @@ export default {
             }
         }
         const uploadTable = async () => {
-           
+
             let response = await fetch('/api/importEvent', {
                 method: 'post',
                 headers: {
@@ -172,7 +188,7 @@ export default {
 
             if (response.ok) {
                 excelData.value = []
-                alert('成功添加活動', 'success',999999)
+                alert('成功添加活動', 'success', 999999)
             }
         }
         const deleteRow = (rowIndex) => {
@@ -298,15 +314,14 @@ export default {
 
         onMounted(() => {
             //if the route doesn't have input, then use fetchEvent, else use fetchSearchEvent
-            alert("歡迎回來", "success")
             fetchEvent(
                 route.query.page, route.query.sort, route.query.input, route.query.category
                 , route.query.startDate, route.query.endDate
             )
         })
         return {
-            bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
-            importExcel, excelData, deleteRow, uploadTable, perPage, handleChangeEventNumber, BufferFileInput, addFile
+            background, bg, arr, card, fontSize, cardWidth, curPage, lastPage, setFontSize, fetchEvent, isSearchEvents, sortDefault, fetchSearchEvent, navSecondBar, pagination,
+            importExcel, excelData, deleteRow, uploadTable, perPage, handleChangeEventNumber, BufferFileInput, addFile, imgStyle
             //  QrCode, onScan
 
         }
@@ -320,7 +335,7 @@ export default {
     flex-direction: column;
     /* background-image: url("@/assets/city.jpg"); */
     /* background-image: v-bind(url('bg')); */
-    background-color: rgb(250, 250, 250);
+    /* background-color: rgb(250, 250, 250); */
 
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -423,5 +438,6 @@ export default {
     border: 1px solid #CCC;
     border-radius: 1em;
     margin-left: 10%;
+    background-image: url("@/assets/city.jpg");
 }
 </style>

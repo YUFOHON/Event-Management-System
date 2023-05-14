@@ -1,13 +1,12 @@
 <template>
-    <div class="card" @mouseover="textColor = '#000000'" @mouseout="textColor = defaultColor">
+    <div ref="cardContainer" class="card" @mouseover="textColor = '#000000'" @mouseout="textColor = defaultColor">
 
 
         <div class=" card-body py-4" style="margin-top: -5%;">
             <!-- <img :src=props.image   class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
 
             <img v-if="url != 'default'" :src="url" class="mb-3" alt="上傳圖片" style="width: 20rem; height: 10rem;">
-            <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片"
-                style="width: 20rem; height: 10rem;">
+            <img v-if="url == 'default'" src="@/assets/BG2.jpg" class="mb-3" alt="上傳圖片" :style=imStyle>
             <!-- <img :src="url" class="mb-3" alt="..." style="width: 20rem; height: 10rem;"> -->
 
             <ul class="list-group list-group-flush">
@@ -63,7 +62,7 @@
 
 <script>
 import { ref } from 'vue'
-
+import { useParallax } from '@vueuse/core'
 import { onMounted } from 'vue';
 // import { watch } from 'vue';
 import { computed } from 'vue';
@@ -82,6 +81,39 @@ export default {
     },
     setup(props) {
         const root = ref(null)
+        const cardContainer = ref(null)
+        const { tilt, roll, source } = useParallax(cardContainer)
+
+        //compute the style base on the tilt and roll
+        const imStyle = computed(() => {
+            return {
+                // transform: `perspective(500px) rotateX(${tilt.value * 20}deg) rotateY(${roll.value * 20}deg)`,
+                // transformOrigin: source.value,
+                width: '20rem', // add quotes around value
+                height: '10rem', // add quotes around value
+                scale: 1.1,
+                // transition: '.3s ease-out all',
+            };
+        });
+
+        const cardStyle = computed(() => {
+            return {
+                transform: `perspective(500px) rotateX(${tilt.value * 20}deg) rotateY(${roll.value * 20}deg)`,
+                transformOrigin: source.value,
+                width: '355px',
+                height: '334px',
+                margin: '1rem',
+                borderRadius: '1rem',
+                boxShadow: '0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06)',
+                transition: '.3s ease-out all',
+                overflow: 'hidden',
+            };
+        });
+
+
+
+
+
         // const cardWidth = ref(22)
         // const fontSize = ref(1)
         // watch(fontSize, (currentValue, oldValue) => {
@@ -152,7 +184,7 @@ export default {
 
         })
         return {
-            props, root, shadow, btnColor, url, textColor, defaultColor
+            props, imStyle, cardStyle, root, shadow, btnColor, url, textColor, defaultColor, cardContainer, tilt, roll, source
         }
     }
 }
@@ -259,15 +291,12 @@ animation:rainbow-animation 200ms linear infinite;
      border-radius: 1rem;
  } */
 
- img:hover[data-v-6608a9fc] {
+ /* img:hover[data-v-6608a9fc] {
      transform: scale(1.12);
      border-radius: 1rem;
- }
+ } */
 
- img[data-v-6608a9fc] {
-     border-radius: 10rem;
 
- }
 
  img {
      /* opacity: 0.7; */
