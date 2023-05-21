@@ -197,7 +197,6 @@ input {
     width: 100%;
     margin-bottom: 10%;
     height:30px;
-    border: none;
     outline: none;
     
 }
